@@ -16,22 +16,22 @@ namespace Explorer.Stakeholders.Core.Domain
         public string Biography { get; private set; }
         public string Motto { get; private set; }
 
-        public UserProfile(string name, string lastName, string profilePic, string biography, string motto)
+        public UserProfile(string name, string lastName, Uri profilePic, string biography, string motto)
         {
-            Validate(profilePic);
-
             Name = name;
             LastName = lastName;
-            ProfilePic = new Uri(profilePic, UriKind.Absolute);
+            ProfilePic = profilePic;
             Biography = biography;
             Motto = motto;
+
+            Validate();
         }
 
-        private void Validate(string profilePic)
+        private void Validate()
         {
             if(string.IsNullOrEmpty(Name)) throw new ArgumentNullException("Name");
             if (string.IsNullOrEmpty(LastName)) throw new ArgumentNullException("Invalid last name");
-            if (Uri.IsWellFormedUriString(profilePic, UriKind.Absolute)) throw new ArgumentNullException("Invalid uri for profile picture");
+            if (Uri.IsWellFormedUriString(ProfilePic.ToString(), UriKind.Absolute)) throw new ArgumentNullException("Invalid uri for profile picture");
             if (string.IsNullOrEmpty(Biography)) throw new ArgumentNullException("Invalid biography");
             if (string.IsNullOrEmpty(Motto)) throw new ArgumentNullException("Invalid motto");
         }
