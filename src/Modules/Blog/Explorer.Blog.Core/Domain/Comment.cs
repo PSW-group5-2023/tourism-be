@@ -1,22 +1,16 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Blog.Core.Domain
 {
     public class Comment : Entity
     {
-        public string Username { get; private set; }
-        public DateTime CreationDate { get; private set; }
-        public string Description { get; private set; }
-        public DateTime? LastEditDate { get; private set; }
-        public long BlogId { get; private set; }
+        public string Username { get; init; }
+        public DateTime CreationDate { get; init; }
+        public string Description { get; init; }
+        public DateTime LastEditDate { get; init; }
+        public long BlogId { get; init; }
 
-        public Comment(string username, DateTime creationDate, string description, DateTime? lastEditDate, long blogId)
+        public Comment(string username, DateTime creationDate, string description, DateTime lastEditDate, long blogId)
         {
             Username = username;
             CreationDate = creationDate;
@@ -29,7 +23,7 @@ namespace Explorer.Blog.Core.Domain
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
-            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Name");
+            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
         }
     }
 }
