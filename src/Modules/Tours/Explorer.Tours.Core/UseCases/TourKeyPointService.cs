@@ -13,8 +13,6 @@ namespace Explorer.Tours.Core.UseCases
 {
     public class TourKeyPointService : CrudService<TourKeyPointDto, TourKeyPoint>, ITourKeyPointService
     {
-        public TourKeyPointService(ICrudRepository<TourKeyPoint> repository, IMapper mapper) : base(repository, mapper)
-        {
-        }
+        public TourKeyPointService(ICrudRepository<TourKeyPoint> repository, IMapper mapper) : base(repository, mapper) { }
     }
 }

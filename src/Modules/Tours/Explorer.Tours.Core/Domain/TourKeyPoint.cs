@@ -17,11 +17,11 @@ namespace Explorer.Tours.Core.Domain
         public double Latitude { get; init; }
         public double Longitude { get; init; }
 
-        public TourKeyPoint(string name, string description, string image, double latitude, double longitude)
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude)
         {
             Name = name;
             Description = description;
-            Image = new Uri(image, UriKind.Absolute);
+            Image = image;
             Latitude = latitude;
             Longitude = longitude;
             Validate();
