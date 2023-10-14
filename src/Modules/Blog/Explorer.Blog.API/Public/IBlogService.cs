@@ -12,9 +12,9 @@ namespace Explorer.Blog.API.Public
 {
     public interface IBlogService
     {
-        Result<PagedResult<BlogDTO>> GetPaged(int page, int pageSize);
-        Result<BlogDTO> Create(BlogDTO blog);
-        Result<BlogDTO> Update(BlogDTO blog);
+        Result<PagedResult<BlogDto>> GetPaged(int page, int pageSize);
+        Result<BlogDto> Create(BlogDto blog);
+        Result<BlogDto> Update(BlogDto blog);
         Result Delete(int id);
     }
 }

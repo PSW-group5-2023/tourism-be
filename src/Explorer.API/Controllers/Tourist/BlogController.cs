@@ -22,7 +22,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpPost]
-        public ActionResult<BlogDTO> Create([FromBody] BlogDTO blog)
+        public ActionResult<BlogDto> Create([FromBody] BlogDto blog)
         {
             var result = _blogService.Create(blog);
 
