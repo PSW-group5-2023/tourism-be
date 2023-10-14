@@ -1,4 +1,7 @@
-﻿using Explorer.Blog.API.Public;
+﻿using Explorer.Blog.API.Dtos;
+using Explorer.Blog.API.Public;
+using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Tours.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +18,25 @@ namespace Explorer.API.Controllers.Tourist
             _commentService = commentService;
         }
 
-        [HttpPost]
-        public ActionResult Something()
+        [HttpGet]
+        public ActionResult<PagedResult<CommentDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
-            return Ok();
+            var result = _commentService.GetPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpPost]
+        public ActionResult<CommentDto> Create([FromBody] CommentDto commentDto)
+        {
+            var result = _commentService.Create(commentDto);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<CommentDto> Update([FromBody] CommentDto commentDto)
+        {
+            var result = _commentService.Update(commentDto);
+            return CreateResponse(result);
         }
     }
 }
