@@ -5,6 +5,7 @@ using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Explorer.API.Controllers.Author
 {
@@ -19,6 +20,19 @@ namespace Explorer.API.Controllers.Author
             _tourKeyPointService = tourKeyPointService;
         }
 
+        [HttpGet]
+        public ActionResult<PagedResult<TourKeyPointDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourKeyPointService.GetPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<TourKeyPointDto> Get(int id)
+        {
+            var result = _tourKeyPointService.Get(id);
+            return CreateResponse(result);
+        }
 
         [HttpPost]
         public ActionResult<TourKeyPointDto> Create([FromBody] TourKeyPointDto tourKeyPoint)
