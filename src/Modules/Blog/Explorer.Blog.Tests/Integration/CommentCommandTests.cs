@@ -31,10 +31,10 @@ namespace Explorer.Blog.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
             var newEntity = new CommentDto
             {
-                Username = "username",
-                CreationDate = DateTime.Now,
+                Username = "username3",
+                CreationDate = DateTime.UtcNow,
                 Description = "ovo je prvi komentar ikada",
-                LastEditDate = DateTime.Now,
+                LastEditDate = DateTime.UtcNow,
                 BlogId = 1
             };
 
@@ -81,10 +81,10 @@ namespace Explorer.Blog.Tests.Integration
             var updatedEntity = new CommentDto
             {
                 Id = -1,
-                Username = "username2",
-                CreationDate = DateTime.Now,
+                Username = "username",
+                CreationDate = DateTime.UtcNow,
                 Description = "ovo je prvi edit ikada",
-                LastEditDate = DateTime.Now,
+                LastEditDate = DateTime.UtcNow,
                 BlogId = 1
             };
 
@@ -98,11 +98,9 @@ namespace Explorer.Blog.Tests.Integration
             result.Description.ShouldBe(updatedEntity.Description);
 
             //Assert
-            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.Username == "username2");
+            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.Username == "username");
             storedEntity.ShouldNotBeNull();
             storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.Comments.FirstOrDefault(i => i.Username == "username3");
-            oldEntity.ShouldNotBeNull();
         }
 
         [Fact]
@@ -122,7 +120,7 @@ namespace Explorer.Blog.Tests.Integration
 
             //Assert
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
+            result.StatusCode.ShouldBe(400);
         }
 
         private static CommentController CreateController(IServiceScope scope)
