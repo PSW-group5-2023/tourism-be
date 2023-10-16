@@ -8,17 +8,12 @@ namespace Explorer.Stakeholders.API.Dtos
 {
     public class JoinRequestDto
     {
+        public long Id { get; set; }
         public long ClubId { get; set; }
         public long UserId { get; set; }
-        public Status RequestStatus { get; set; }
-        public bool RequestDirection { get; set; }   // 0 is for guest -> owner direction
+        public string RequestStatus { get; set; }
+        public bool RequestDirection { get; set; }   
 
     }
 }
 
-public enum Status
-{
-    Pending,
-    Accepted,
-    Declined
-}

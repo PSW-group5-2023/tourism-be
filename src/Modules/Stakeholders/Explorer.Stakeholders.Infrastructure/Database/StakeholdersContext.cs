@@ -28,6 +28,11 @@ public class StakeholdersContext : DbContext
             .WithOne()
             .HasForeignKey<Person>(s => s.UserId);
 
+        modelBuilder.Entity<Club>()
+            .HasOne<User>()
+            .WithOne()
+            .HasForeignKey<Club>(s => s.TouristId);
+
         modelBuilder.Entity<JoinRequest>()
         .HasOne<User>()
         .WithMany()

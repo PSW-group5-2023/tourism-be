@@ -10,13 +10,14 @@ using System.Xml.Linq;
 namespace Explorer.Stakeholders.Core.Domain;
 
 
-public class Request : Entity
+public class JoinRequest : Entity
 {
     public long ClubId { get; private set; }
     public long UserId { get; private set; }
-    public Status RequestStatus { get; private set; }
+    public string RequestStatus { get; private set; }
+    public bool RequestDirection { get; private set; }  
 
-    public Request(long clubId, long userId, Status status)
+    public JoinRequest(long clubId, long userId, string status, bool requestDirection)
     {
         if (clubId == 0) throw new ArgumentException("Invalid UserId");
         if (userId == 0) throw new ArgumentException("Invalid UserId");
@@ -24,7 +25,7 @@ public class Request : Entity
         ClubId = clubId;
         UserId = userId;
         RequestStatus = status;
-
+        RequestDirection = requestDirection;    
     }
 
 }
