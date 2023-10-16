@@ -3,6 +3,7 @@ using Explorer.Blog.Core.Domain;
 using Explorer.Blog.Core.Mappers;
 using Explorer.Blog.Core.UseCases;
 using Explorer.Blog.Infrastructure.Database;
+using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -23,12 +24,15 @@ public static class BlogStartup
     
     private static void SetupCore(IServiceCollection services)
     {
+        services.AddScoped<IBlogService, BlogService>();
         services.AddScoped<ICommentService, CommentService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
     {
         services.AddScoped(typeof(ICrudRepository<Comment>), typeof(CrudDatabaseRepository<Comment, BlogContext>));
+        services.AddScoped(typeof(ICrudRepository<BlogPage>), typeof(CrudDatabaseRepository<BlogPage, BlogContext>));
+
 
         services.AddDbContext<BlogContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("blog"),

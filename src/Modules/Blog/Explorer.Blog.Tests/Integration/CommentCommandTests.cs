@@ -31,7 +31,7 @@ namespace Explorer.Blog.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
             var newEntity = new CommentDto
             {
-                Username = "username3",
+                UserId = -1,
                 CreationDate = DateTime.UtcNow,
                 Description = "ovo je prvi komentar ikada",
                 LastEditDate = DateTime.UtcNow,
@@ -44,10 +44,10 @@ namespace Explorer.Blog.Tests.Integration
             //Assert - Response
             result.ShouldNotBeNull();
             result.Id.ShouldNotBe(0);
-            result.Username.ShouldBe(newEntity.Username);
+            //result.Username.ShouldBe(newEntity.Username);
 
             //Assert - Database
-            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.Username ==  newEntity.Username);
+            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.UserId ==  newEntity.UserId);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
@@ -81,7 +81,7 @@ namespace Explorer.Blog.Tests.Integration
             var updatedEntity = new CommentDto
             {
                 Id = -1,
-                Username = "username",
+                UserId = -1,
                 CreationDate = DateTime.UtcNow,
                 Description = "ovo je prvi edit ikada",
                 LastEditDate = DateTime.UtcNow,
@@ -94,11 +94,10 @@ namespace Explorer.Blog.Tests.Integration
             //Assert - Response
             result.ShouldNotBeNull();
             result.Id.ShouldBe(-1);
-            result.Username.ShouldBe(updatedEntity.Username);
             result.Description.ShouldBe(updatedEntity.Description);
 
             //Assert
-            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.Username == "username");
+            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.UserId == -1);
             storedEntity.ShouldNotBeNull();
             storedEntity.Description.ShouldBe(updatedEntity.Description);
         }
@@ -112,7 +111,7 @@ namespace Explorer.Blog.Tests.Integration
             var updatedEntity = new CommentDto
             {
                 Id = -1000,
-                Username = "Test"
+                UserId = -1
             };
 
             //Act

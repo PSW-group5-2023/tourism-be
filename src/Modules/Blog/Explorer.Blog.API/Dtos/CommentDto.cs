@@ -9,7 +9,7 @@ namespace Explorer.Blog.API.Dtos
     public class CommentDto
     {
         public long Id { get; set; }
-        public string Username { get; set; }
+        public long UserId { get; set; }
         public DateTime CreationDate { get; set; }
         public string Description { get; set; }
         public DateTime LastEditDate { get; set; }
