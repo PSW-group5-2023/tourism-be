@@ -15,5 +15,6 @@ namespace Explorer.Stakeholders.API.Public
         Result<ApplicationRatingDto> Create(ApplicationRatingDto applicationRating);
         Result<ApplicationRatingDto> Update(ApplicationRatingDto applicationRating);
         Result Delete(int id);
+        Result<ApplicationRatingDto> Get(int id);
     }
 }
