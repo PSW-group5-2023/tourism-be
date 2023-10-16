@@ -1,17 +1,10 @@
-﻿using AutoMapper;
-using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
-using FluentResults;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
 
 namespace Explorer.API.Controllers.Tourist
 {

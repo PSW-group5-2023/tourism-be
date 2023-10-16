@@ -12,14 +12,20 @@ namespace Explorer.Stakeholders.Core
     {
         public long UserId { get; init; }
         public int DifficultyLevel { get; init; }
-        public Dictionary<TransportationType, int> TransportationRate { get; init; }
+        public int WalkingRate { get; init; }
+        public int BicycleRate { get; init; }
+        public int CarRate { get; init; }
+        public int BoatRate { get; init; }
         public List<string> Tags { get; init; }
 
-        public TourPreferences(long userId, int difficultyLevel, Dictionary<TransportationType, int> transportationRate, List<string> tags)
+        public TourPreferences(long userId, int difficultyLevel, int walkingRate, int bicycleRate, int carRate, int boatRate, List<string> tags)
         {
             UserId = userId;
             DifficultyLevel = difficultyLevel;
-            TransportationRate = transportationRate;
+            WalkingRate = walkingRate;
+            BicycleRate = bicycleRate;
+            CarRate = carRate;
+            BoatRate = boatRate;
             Tags = tags;
             Validate();
         }
@@ -28,18 +34,7 @@ namespace Explorer.Stakeholders.Core
         {
             if (UserId == 0) throw new ArgumentException("Invalid UserId");
             if (DifficultyLevel < 1 || DifficultyLevel > 5) throw new ArgumentException("Invalid difficulty level");
-            foreach(int rate in TransportationRate.Values)
-            {
-                if (rate < 0 || rate > 3) throw new ArgumentException("Invalid transportation rate");
-            }
         }
     }
 }
 
-public enum TransportationType
-{
-    Walking,
-    Bicycle,
-    Car,
-    Boat
-}

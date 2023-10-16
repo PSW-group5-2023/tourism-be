@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 namespace Explorer.Stakeholders.API.Dtos
 {
     public class TourPreferencesDto
-    { 
+    {
+        public int Id { get; set; }
         public long UserId { get; set; }
         public int DifficultyLevel { get; set; }
-        public Dictionary<TransportationType, int> TransportationRate { get; set; }
+        public int WalkingRate { get; set; }
+        public int BicycleRate { get; set; }
+        public int CarRate { get; set; }
+        public int BoatRate { get; set; }
         public List<string> Tags { get; set; }
     }
-}
-public enum TransportationType
-{
-    Walking,
-    Bicycle,
-    Car,
-    Boat
 }
