@@ -12,5 +12,7 @@ public class BlogContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("blog");
+
+        modelBuilder.Entity<BlogPage>().HasIndex(u => u.Title).IsUnique();
     }
 }
