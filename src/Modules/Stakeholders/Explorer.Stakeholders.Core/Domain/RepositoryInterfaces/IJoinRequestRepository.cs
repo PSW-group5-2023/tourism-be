@@ -10,6 +10,6 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 {
     public interface IJoinRequestRepository
     {
-        List<Result<JoinRequest>> FindRequests(string username);
+        List<JoinRequest> FindRequests(long ownerId);
     }
 }

@@ -17,21 +17,15 @@ public class JoinRequest : Entity
     public string RequestStatus { get; private set; }
     public bool RequestDirection { get; private set; }  
 
-    public JoinRequest(long clubId, long userId, string status, bool requestDirection)
+    public JoinRequest(long clubId, long userId, string requestStatus, bool requestDirection)
     {
         if (clubId == 0) throw new ArgumentException("Invalid UserId");
         if (userId == 0) throw new ArgumentException("Invalid UserId");
 
         ClubId = clubId;
         UserId = userId;
-        RequestStatus = status;
+        RequestStatus = requestStatus;
         RequestDirection = requestDirection;    
     }
 
-}
-public enum Status
-{
-    Pending,
-    Accepted,
-    Declined
 }

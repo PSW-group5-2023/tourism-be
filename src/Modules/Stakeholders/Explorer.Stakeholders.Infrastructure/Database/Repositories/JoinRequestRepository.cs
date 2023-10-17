@@ -20,9 +20,14 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         }
 
 
-        public List<Result<JoinRequest>> FindRequests(string username)
+        public List<JoinRequest> FindRequests(long ownerId)
         {
-            throw new NotImplementedException();
+
+            List<Club> clubs = _dbContext.Clubs.Where(c => c.TouristId == ownerId).ToList();
+
+            List<JoinRequest> requests = _dbContext.JoinRequests.ToList();
+
+            return requests;
         }
 
     }

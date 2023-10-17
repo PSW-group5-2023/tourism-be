@@ -17,6 +17,13 @@ namespace Explorer.API.Controllers.Tourist
             _requestService = clubService;
         }
 
+        [HttpGet("{id:long}")]
+        public ActionResult<ClubDto> GetAllRequests(long id)
+        {
+            var result = _requestService.FindRequests(id);
+            return CreateResponse(result);
+        }
+
 
         [HttpPost]
         public ActionResult<ClubDto> Create([FromBody] JoinRequestDto requestDto)

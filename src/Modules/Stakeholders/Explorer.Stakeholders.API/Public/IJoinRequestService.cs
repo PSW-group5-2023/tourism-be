@@ -12,7 +12,7 @@ namespace Explorer.Stakeholders.API.Public
     {
         Result<JoinRequestDto> Create(JoinRequestDto club);
         Result<JoinRequestDto> Update(JoinRequestDto club);
-        List<Result<JoinRequestDto>> FindRequests(string username); // its going to be one of those 2 parameters probably?
+        Result<List<JoinRequestDto>> FindRequests(long ownerId); // its going to be one of those 2 parameters probably?
         Result Delete(int id);
 
 

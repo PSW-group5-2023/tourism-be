@@ -3,6 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,33 @@ namespace Explorer.Stakeholders.Core.UseCases
 {
     public class JoinRequestService : CrudService<JoinRequestDto, JoinRequest>, IJoinRequestService
     {
+        private readonly IJoinRequestRepository _requestRepository;
 
-        public JoinRequestService(ICrudRepository<JoinRequest> repository, IMapper mapper) : base(repository, mapper) { }
+        public JoinRequestService(ICrudRepository<JoinRequest> repository, IMapper mapper, IJoinRequestRepository requestrepository) : base(repository, mapper) {
 
-        public List<Result<JoinRequestDto>> FindRequests(string username)
+            _requestRepository = requestrepository;
+        }
+
+        public Result<List<JoinRequestDto>> FindRequests(long ownerId)
         {
-            throw new NotImplementedException();
+            List<JoinRequest> requests = _requestRepository.FindRequests(ownerId);
+
+            List<JoinRequestDto> dtoList = new List<JoinRequestDto>();
+
+            foreach (JoinRequest request in requests)
+            {
+                JoinRequestDto dto = new JoinRequestDto
+                {
+                    Id = request.Id,
+                    ClubId = request.ClubId,
+                    UserId = request.UserId,
+                    RequestStatus = request.RequestStatus,
+                    RequestDirection = request.RequestDirection
+                };
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
         }
     }
 }
