@@ -3,10 +3,10 @@ using Explorer.Stakeholders.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Tourist
+namespace Explorer.API.Controllers.Author
 {
-    [Authorize(Policy = "touristPolicy")]
-    [Route("api/tourist/userProfile")]
+    [Authorize(Policy = "authorPolicy")]
+    [Route("api/author/userProfile")]
     public class UserProfileController : BaseApiController
     {
         private readonly IUserProfileService _userProfileService;

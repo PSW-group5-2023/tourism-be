@@ -15,6 +15,8 @@ public class StakeholdersContext : DbContext
     {
         modelBuilder.HasDefaultSchema("stakeholders");
 
+        modelBuilder.Entity<Person>().UseTpcMappingStrategy();
+
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
         ConfigureStakeholder(modelBuilder); 

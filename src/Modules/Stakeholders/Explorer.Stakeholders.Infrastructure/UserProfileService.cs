@@ -16,7 +16,7 @@ namespace Explorer.Stakeholders.Core.UseCases
     public class UserProfileService : BaseService<UserProfileDto, UserProfile>, IUserProfileService
     {
         private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileService(IUserProfileRepository userProfileRepository, IUserRepository userRepository, IMapper mapper) : base(mapper) 
+        public UserProfileService(IUserProfileRepository userProfileRepository, IMapper mapper) : base(mapper) 
         {
             _userProfileRepository = userProfileRepository;
         }
@@ -28,7 +28,8 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<UserProfileDto> Update(UserProfileDto userProfile, int id)
         {
-            return MapToDto(_userProfileRepository.Update(MapToDomain(userProfile), id));
+            UserProfileDto updated = MapToDto(_userProfileRepository.Update(MapToDomain(userProfile), id));
+            return updated;
         }
     }
 }

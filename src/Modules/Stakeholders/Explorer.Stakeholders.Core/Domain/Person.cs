@@ -10,6 +10,7 @@ public class Person : Entity
     public string Surname { get; init; }
     public string Email { get; init; }
 
+    public Person() { }
     public Person(long userId, string name, string surname, string email)
     {
         UserId = userId;

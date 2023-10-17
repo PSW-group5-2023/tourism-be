@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.Domain
 {
-    public class UserProfile : Entity
+    public class UserProfile : Person
     {
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
         public Uri ProfilePic { get; private set; }
         public string Biography { get; private set; }
         public string Motto { get; private set; }
 
-        public UserProfile(string name, string lastName, Uri profilePic, string biography, string motto)
+        public UserProfile() : base() { }
+
+        public UserProfile(long userId, string name, string surname, string email, Uri profilePic, string biography, string motto) : base(userId, name, surname, email)
         {
-            Name = name;
-            LastName = lastName;
             ProfilePic = profilePic;
             Biography = biography;
             Motto = motto;
@@ -29,9 +27,9 @@ namespace Explorer.Stakeholders.Core.Domain
 
         private void Validate()
         {
-            if(string.IsNullOrEmpty(Name)) throw new ArgumentNullException("Name");
-            if (string.IsNullOrEmpty(LastName)) throw new ArgumentNullException("Invalid last name");
-            if (Uri.IsWellFormedUriString(ProfilePic.ToString(), UriKind.Absolute)) throw new ArgumentNullException("Invalid uri for profile picture");
+            if(string.IsNullOrEmpty(Name)) throw new ArgumentNullException("Invalid name");
+            if (string.IsNullOrEmpty(Surname)) throw new ArgumentNullException("Invalid surname");
+            if(!Uri.TryCreate(ProfilePic.AbsoluteUri, UriKind.Absolute, out Uri result)) throw new ArgumentNullException("Invalid uri");
             if (string.IsNullOrEmpty(Biography)) throw new ArgumentNullException("Invalid biography");
             if (string.IsNullOrEmpty(Motto)) throw new ArgumentNullException("Invalid motto");
         }

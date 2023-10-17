@@ -8,6 +8,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 {
     public interface IUserProfileRepository
     {
-
+        public UserProfile GetById(int id);
+        public UserProfile Update(UserProfile userProfile, int id);
     }
 }
