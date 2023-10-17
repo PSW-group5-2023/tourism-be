@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Tours.API.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Explorer.Tours.Core.Domain
         public string Tags { get; init; }
         public TourStatus Status { get; init; }
         public double Price { get; init; }
-
+        public List<int> Equipment { get; init; }
         public Tour(string name, string description, TourDifficulty difficulty, string tags, TourStatus status, double price)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Invalid Name.");
@@ -47,6 +48,7 @@ namespace Explorer.Tours.Core.Domain
             Tags = tags;
             Status = status;
             Price = price;
+            this.Equipment = new List<int>();
         }
     }
 }
