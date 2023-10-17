@@ -20,14 +20,29 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         }
 
 
-        public List<JoinRequest> FindRequests(long ownerId)
+        public List<JoinRequest> FindRequestsForOwner(long ownerId)
         {
 
             List<Club> clubs = _dbContext.Clubs.Where(c => c.TouristId == ownerId).ToList();
+            
+            
 
-            List<JoinRequest> requests = _dbContext.JoinRequests.ToList();
+            List<JoinRequest> requests = _dbContext.JoinRequests.ToList().Where(jr => clubs.Any(c => c.Id == jr.ClubId)).ToList().
+                Where(jr => jr.RequestStatus == "pending" && jr.RequestDirection).ToList();   //RequestDirection is true if tourist sent request to the owner
 
             return requests;
+        }
+
+        public string CheckStatusOfRequest(long touristId, long clubId)
+        {
+            foreach (JoinRequest request in _dbContext.JoinRequests)
+            {
+                if (request.UserId == touristId && request.ClubId == clubId)
+                {
+                    return request.RequestStatus;
+                }
+            }
+            return string.Empty;
         }
 
     }

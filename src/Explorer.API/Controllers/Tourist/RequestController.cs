@@ -24,6 +24,13 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("{id:long}/{id2:long}")]
+        public ActionResult<ClubDto> CheckStatus(long id, long id2)
+        {
+            var result = _requestService.CheckStatusOfRequest(id,id2);
+            return CreateResponse(result);
+        }
+
 
         [HttpPost]
         public ActionResult<ClubDto> Create([FromBody] JoinRequestDto requestDto)

@@ -22,9 +22,14 @@ namespace Explorer.Stakeholders.Core.UseCases
             _requestRepository = requestrepository;
         }
 
+        public Result<string> CheckStatusOfRequest(long touristId, long clubId)
+        {
+            return _requestRepository.CheckStatusOfRequest(touristId, clubId);
+        }
+
         public Result<List<JoinRequestDto>> FindRequests(long ownerId)
         {
-            List<JoinRequest> requests = _requestRepository.FindRequests(ownerId);
+            List<JoinRequest> requests = _requestRepository.FindRequestsForOwner(ownerId);
 
             List<JoinRequestDto> dtoList = new List<JoinRequestDto>();
 

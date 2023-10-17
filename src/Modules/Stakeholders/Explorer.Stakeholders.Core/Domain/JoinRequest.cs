@@ -14,7 +14,8 @@ public class JoinRequest : Entity
 {
     public long ClubId { get; private set; }
     public long UserId { get; private set; }
-    public string RequestStatus { get; private set; }
+    public string RequestStatus { get; private set; }   //had problems when I tried to set enum for this field, the opcional values will be
+                                                        // pending, accepted, declined, canceled
     public bool RequestDirection { get; private set; }  
 
     public JoinRequest(long clubId, long userId, string requestStatus, bool requestDirection)

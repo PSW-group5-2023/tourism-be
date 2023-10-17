@@ -11,7 +11,7 @@ namespace Explorer.Stakeholders.API.Dtos
         public long Id { get; set; }
         public long ClubId { get; set; }
         public long UserId { get; set; }
-        public string RequestStatus { get; set; }
+        public string RequestStatus { get; set; }    
         public bool RequestDirection { get; set; }   
 
     }
