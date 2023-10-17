@@ -9,6 +9,7 @@ namespace Explorer.Stakeholders.API.Dtos
 {
     public class ApplicationRatingDto
     {
+        public int Id { get; set; }
         public int Grade { get; set; }
         public string? Comment { get; set; }
         public DateTime IssueDate { get; set; }
