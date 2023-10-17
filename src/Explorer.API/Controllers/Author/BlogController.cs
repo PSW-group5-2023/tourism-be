@@ -24,7 +24,16 @@ namespace Explorer.API.Controllers.Author
                 return CreateResponse(result);
 
             }
+
+        [HttpGet]
+        public ActionResult<BlogDto> GetAll()
+        {
+            var result = _blogService.GetPaged(0, 0);
+
+            return CreateResponse(result);
+
         }
+    }
     
 
 
