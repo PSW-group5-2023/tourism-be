@@ -19,12 +19,19 @@ namespace Explorer.API.Controllers.Tourist
             _ratingService = ratingService;
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public ActionResult<PagedResult<TourRatingDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _ratingService.GetPaged(page, pageSize);
             return CreateResponse(result);
-        }*/
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<TourRatingDto> Get(int id)
+        {
+            var result = _ratingService.Get(id);
+            return CreateResponse(result);
+        }
 
         [HttpPost]
         public ActionResult<TourRatingDto> Create([FromBody] TourRatingDto rating)

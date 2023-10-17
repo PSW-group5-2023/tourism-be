@@ -12,17 +12,17 @@ namespace Explorer.Tours.Core.Domain
 {
     public class TourRating : Entity
     {
-        public long UserId { get; init; }
-        public  long TourId { get; init; }
+        public long PersonId { get; init; }
+        public long TourId { get; init; }
         public int Mark { get; private set; }
         public string Comment { get; private set; }
         public DateTime  DateOfVisit { get; private set; }
         public DateTime DateOfCommenting { get; private set; }
         public List<Uri> Images { get; private set; }
 
-        public TourRating(long userId, long tourId, int mark, string comment, DateTime dateOfVisit, DateTime dateOfCommenting, List<Uri> images)
+        public TourRating(long personId, long tourId, int mark, string comment, DateTime dateOfVisit, DateTime dateOfCommenting, List<Uri> images)
         {
-            UserId = userId;
+            PersonId = personId;
             TourId = tourId;
             Mark = mark;
             Comment = comment;
@@ -39,6 +39,7 @@ namespace Explorer.Tours.Core.Domain
             if (string.IsNullOrWhiteSpace(DateOfVisit.ToString())) throw new ArgumentException("Invalid DateOfVisit");
             if (string.IsNullOrWhiteSpace(DateOfCommenting.ToString())) throw new ArgumentException("Invalid DateOfCommenting");
             //if (Images.Count == 0) throw new ArgumentException("Invalid Images");
+            if (PersonId == 0) throw new ArgumentException("Invalid PersonId");
         }
     }
 }

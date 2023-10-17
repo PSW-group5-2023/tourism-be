@@ -27,10 +27,13 @@ namespace Explorer.Tours.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourRatingDto
             {
-                UserId = 1,
+                PersonId = 1,
+                TourId = 2,
                 Mark = 4,
-                Comment = "Bilo je veoma dobro",
-                DateOfVisit = DateTime.Now
+                Comment = "Bilo je odlicno",
+                DateOfVisit = DateTime.UtcNow,
+                DateOfCommenting = DateTime.UtcNow,
+                Images = new List<Uri>()         
             };
 
             // Act
@@ -38,12 +41,30 @@ namespace Explorer.Tours.Tests.Integration
 
             // Assert - Response
             result.ShouldNotBeNull();
-            result.UserId.ShouldNotBe(0);
+            result.PersonId.ShouldNotBe(0);
             result.Comment.ShouldBe(newEntity.Comment);
 
             // Assert - Database
             var storedEntity = dbContext.TourRatings.FirstOrDefault(i => i.Comment == newEntity.Comment);
             storedEntity.ShouldNotBeNull();
+        }
+        [Fact]
+        public void CreateFailsInvalidData()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var newEntity = new TourRatingDto()
+            {
+                Comment = "Test"
+            };
+
+            // Act
+            var result = (ObjectResult)controller.Create(newEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(400);
         }
 
         private static TourRatingController CreateController(IServiceScope scope)

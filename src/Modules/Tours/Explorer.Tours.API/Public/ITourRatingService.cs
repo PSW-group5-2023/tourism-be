@@ -11,7 +11,8 @@ namespace Explorer.Tours.API.Public
 {
     public interface ITourRatingService
     {
-        //Result<PagedResult<TourRatingDto>> GetPaged(int page, int pageSize);
+        Result<PagedResult<TourRatingDto>> GetPaged(int page, int pageSize);
+        Result<TourRatingDto> Get(int id);
         Result<TourRatingDto> Create(TourRatingDto rating);
     }
 }

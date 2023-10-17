@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.UseCases
 {
-    public class TourRatingService : /*CrudService<TourRatingDto, TourRating>,*/ ITourRatingService
+    public class TourRatingService : CrudService<TourRatingDto, TourRating>, ITourRatingService
     {
-        //public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper) : base(repository, mapper) { }
+        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper) : base(repository, mapper) { }
 
-        private readonly ICrudRepository<TourRating> _tourRatingRepository;
+        /*private readonly ICrudRepository<TourRating> _tourRatingRepository;
 
         public TourRatingService(ICrudRepository<TourRating> tourRatingRepository)
         {
@@ -28,7 +28,7 @@ namespace Explorer.Tours.Core.UseCases
         {
             try
             {
-                var tourRating = _tourRatingRepository.Create(new TourRating(rating.UserId, rating.TourId, rating.Mark, rating.Comment, rating.DateOfVisit, rating.DateOfCommenting, rating.Images));
+                var tourRating = _tourRatingRepository.Create(new TourRating(rating.PersonId, rating.TourId, rating.Mark, rating.Comment, rating.DateOfVisit, rating.DateOfCommenting, rating.Images));
 
                 return rating;
             }
@@ -37,6 +37,6 @@ namespace Explorer.Tours.Core.UseCases
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
                 // There is a subtle issue here. Can you find it?
             }
-        }
+        }*/
     }
 }
