@@ -15,20 +15,6 @@ public class BlogContext : DbContext
     {
         modelBuilder.HasDefaultSchema("blog");
 
-        ConfigureBlog(modelBuilder);
-    }
-
-    private static void ConfigureBlog(ModelBuilder modelBuilder)
-    {
-        /*modelBuilder.Entity<Comment>()
-            .HasOne<BlogPage>()
-            .WithOne()
-            .HasForeignKey<Comment>(s => s.BlogId);*/
-
-
-        /*modelBuilder.Entity<Comment>()
-            .HasOne<User>()
-            .WithOne()
-            .HasForeignKey<Comment>(s => s.UserId);*/
+        modelBuilder.Entity<BlogPage>().HasIndex(u => u.Title).IsUnique();
     }
 }

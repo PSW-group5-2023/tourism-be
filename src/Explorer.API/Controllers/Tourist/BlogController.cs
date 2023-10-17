@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    //[Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/blog")]
     public class BlogController : BaseApiController
     {
@@ -29,5 +29,16 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
             
         }
+
+        [HttpGet]
+        public ActionResult<BlogDto> GetAll()
+        {
+            var result = _blogService.GetPaged(0,0);
+
+            return CreateResponse(result);
+
+        }
+
+
     }
 }

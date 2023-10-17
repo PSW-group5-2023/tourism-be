@@ -19,13 +19,15 @@ namespace Explorer.Blog.Core.Domain
 
         public BlogPage(string title, string? description, DateTime? creationDate, BlogState? status)
         {
-            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid title.");
+            if (string.IsNullOrWhiteSpace(Title)) throw new ArgumentException("Invalid title.");
             Title = title;
             Description = description;
-            CreationDate = creationDate;
+            CreationDate = DateTime.UtcNow;
             Status = status;
         }
-        public BlogPage() { }
+        public BlogPage() {
+            CreationDate = DateTime.UtcNow;
+        }
 
     }
 }
