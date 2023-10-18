@@ -11,6 +11,7 @@ namespace Explorer.Stakeholders.API.Public
 {
     public interface IPersonService
     {
+        Result<PagedResult<PersonDto>> GetPaged(int page, int pageSize);
         Result<PersonDto> Get(int id);
         Result<PersonDto> Update(PersonDto person);
     }
