@@ -36,8 +36,6 @@ namespace Explorer.Stakeholders.Tests.Integration
             result.TotalCount.ShouldBe(3);
         }
 
-        [Fact]
-
         private static ApplicationRatingController CreateController(IServiceScope scope)
         {
             return new ApplicationRatingController(scope.ServiceProvider.GetRequiredService<IApplicationRatingService>())
