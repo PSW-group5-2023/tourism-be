@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,13 +28,13 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("{id:long}/{id2:long}")]
         public ActionResult<ClubDto> CheckStatus(long id, long id2)
         {
-            var result = _requestService.CheckStatusOfRequest(id,id2);
+            var result = _requestService.CheckStatusOfRequest(id, id2);
             return CreateResponse(result);
         }
 
 
         [HttpPost]
-        public ActionResult<ClubDto> Create([FromBody] JoinRequestDto requestDto)
+        public ActionResult<JoinRequestDto> Create([FromBody] JoinRequestDto requestDto)
         {
             var result = _requestService.Create(requestDto);
             return CreateResponse(result);
@@ -51,6 +52,24 @@ namespace Explorer.API.Controllers.Tourist
         {
             var result = _requestService.Delete(id);
             return CreateResponse(result);
+        }
+
+        [HttpGet("members")]
+        public ActionResult<List<ClubMemberDto>> GetMembers(long clubId, int pageIndex, int pageSize)
+        {
+            return CreateResponse(_requestService.GetClubMembers(clubId, pageIndex, pageSize));
+        }
+
+        [HttpGet("invitableUsers")]
+        public ActionResult<PagedResult<ClubMemberDto>> GetInvitableUsers(long clubId, int pageIndex, int pageSize)
+        {
+            return CreateResponse(_requestService.GetInvitableUsers(clubId, pageIndex, pageSize));
+        }
+
+        [HttpPut("kick")]
+        public ActionResult<long> KickMember(long clubId, long userId)
+        {
+            return CreateResponse(_requestService.KickMember(clubId, userId));
         }
     }
 }

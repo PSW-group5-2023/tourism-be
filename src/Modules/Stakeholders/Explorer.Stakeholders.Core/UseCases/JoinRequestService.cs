@@ -48,5 +48,21 @@ namespace Explorer.Stakeholders.Core.UseCases
 
             return dtoList;
         }
+
+        public Result<PagedResult<ClubMemberDto>> GetClubMembers(long clubId,int pageIndex,int pageSize)
+        {
+            return _requestRepository.GetClubMembers(clubId,pageIndex,pageSize);
+        }
+
+        public Result<PagedResult<ClubMemberDto>> GetInvitableUsers(long clubId,int pageIndex,int pageSize)
+        {
+            return _requestRepository.GetInvitableUsers(clubId,pageIndex,pageSize);
+        }
+
+        public Result<long> KickMember(long clubId, long userId)
+        {
+            return _requestRepository.KickMember(clubId, userId);
+        }
+
     }
 }
