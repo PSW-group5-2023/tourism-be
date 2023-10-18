@@ -14,16 +14,30 @@ namespace Explorer.API.Controllers.Administrator.Administration
     public class UserInformationController:BaseApiController
     {
         private readonly IUserInformationService _userInformationService;
+        private readonly IPersonInformationService _personInformationService;
+        private readonly IUserActivityService _userActivityService;
 
-        public UserInformationController(IUserInformationService userInformationService)
+        public UserInformationController(IUserInformationService userInformationService, IPersonInformationService personInformationService, IUserActivityService userActivityService)
         {
             _userInformationService = userInformationService;
+            _personInformationService = personInformationService;
+            _userActivityService = userActivityService;
         }
 
         [HttpGet]
-        public ActionResult<PagedResult<UserInformationDto>> GetPaged()
+        public ActionResult<PagedResult<UserInformationDto>> GetPaged([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _userInformationService.GetPaged();
+            var userResult = _userInformationService.GetPaged(page, pageSize);
+            var personResult = _personInformationService.GetPaged(page, pageSize);
+            for(int i=0; i<userResult.Value.TotalCount;i++)
+                userResult.Value.Results[i].Email = personResult.Value.Results[i].Email;
+            return CreateResponse(userResult.Value.Results.FindAll(u=>!u.Role.Equals("Administrator")).ToResult());
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<UserDto> Update([FromBody] UserDto user)
+        {
+            var result = _userActivityService.Update(user);
             return CreateResponse(result);
         }
     }

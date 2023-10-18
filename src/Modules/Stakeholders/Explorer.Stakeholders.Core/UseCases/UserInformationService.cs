@@ -12,14 +12,10 @@ using FluentResults;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    internal class UserInformationService : CrudService<UserInformationDto, User>, IUserInformationService
+    public class UserInformationService : CrudService<UserInformationDto, User>, IUserInformationService
     {
-        public UserInformationService(ICrudRepository<User> userRepository, IMapper mapper) : base(userRepository, mapper) { }
-
-        public Result<UserInformationDto> GetPaged()
-        {
-            return new UserInformationDto();
-        }
+        public UserInformationService(ICrudRepository<User> userRepository, IMapper mapper) : base(userRepository, mapper)
+        { }
 
     }
 }

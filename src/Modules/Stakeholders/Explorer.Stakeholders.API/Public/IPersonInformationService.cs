@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.API.Public
 {
-    public interface IUserInformationService
+    public interface IPersonInformationService
     {
         Result<PagedResult<UserInformationDto>> GetPaged(int page, int pageSize);
-       
+
     }
 }
