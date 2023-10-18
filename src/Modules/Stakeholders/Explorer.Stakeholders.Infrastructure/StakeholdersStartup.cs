@@ -17,6 +17,8 @@ public static class StakeholdersStartup
 {
     public static IServiceCollection ConfigureStakeholdersModule(this IServiceCollection services)
     {
+        // AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         services.AddAutoMapper(typeof(StakeholderProfile).Assembly);
         SetupCore(services);
         SetupInfrastructure(services);
