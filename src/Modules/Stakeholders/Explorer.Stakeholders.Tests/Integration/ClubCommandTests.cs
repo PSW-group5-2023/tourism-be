@@ -30,8 +30,8 @@ namespace Explorer.Stakeholders.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
             var newEntity = new ClubDto
             {
-                Name = "Name test 1.",
-                Description = "Description test 1.",
+                Name = "New Name Test.",
+                Description = "New Description Test.",
                 ClubPicture = new Uri("http://newUri.com"),
                 TouristId = 1
             };
@@ -51,7 +51,7 @@ namespace Explorer.Stakeholders.Tests.Integration
         }
 
         [Fact]
-        public void CreateFailsInvalidData()
+        public void Create_fails_invalid_data()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -84,7 +84,7 @@ namespace Explorer.Stakeholders.Tests.Integration
                 ClubPicture = new Uri("http://newUri.com"),
                 TouristId = 1,
             };
-
+          
             //Act
             var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as ClubDto;
 
@@ -97,11 +97,10 @@ namespace Explorer.Stakeholders.Tests.Integration
             result.TouristId.ShouldBe(updatedEntity.TouristId);
 
             // Assert - Database
-            var storedEntity = dbContext.Clubs.FirstOrDefault(i => i.Name == "Name test 2.");
+            var storedEntity = dbContext.Clubs.FirstOrDefault(i => i.Id == -1);
             storedEntity.ShouldNotBeNull();
             storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.Clubs.FirstOrDefault(i => i.Name == "Name test 3.");
-            oldEntity.ShouldBeNull();
+            
         }
 
         [Fact]

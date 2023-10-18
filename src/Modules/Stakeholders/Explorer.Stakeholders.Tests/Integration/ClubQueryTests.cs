@@ -21,7 +21,7 @@ namespace Explorer.Stakeholders.Tests.Integration
         }
 
         [Fact]
-        public void RetrievesAll()
+        public void Retrieves_all()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
