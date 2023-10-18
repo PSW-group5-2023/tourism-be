@@ -15,9 +15,11 @@ namespace Explorer.Stakeholders.Core.UseCases
     internal class UserInformationService : CrudService<UserInformationDto, User>, IUserInformationService
     {
         public UserInformationService(ICrudRepository<User> userRepository, IMapper mapper) : base(userRepository, mapper) { }
-        public Result<UserInformationDto> GetUserInformation()
+
+        public Result<UserInformationDto> GetPaged()
         {
-            throw new NotImplementedException();
+            return new UserInformationDto();
         }
+
     }
 }
