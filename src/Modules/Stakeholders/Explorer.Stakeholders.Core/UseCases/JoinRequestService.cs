@@ -16,6 +16,7 @@ namespace Explorer.Stakeholders.Core.UseCases
     public class JoinRequestService : CrudService<JoinRequestDto, JoinRequest>, IJoinRequestService
     {
         private readonly IJoinRequestRepository _requestRepository;
+        
 
         public JoinRequestService(ICrudRepository<JoinRequest> repository, IMapper mapper, IJoinRequestRepository requestrepository) : base(repository, mapper) {
 
@@ -47,6 +48,29 @@ namespace Explorer.Stakeholders.Core.UseCases
             }
 
             return dtoList;
+        }
+
+        public Result<List<ClubDto>> getClubsToJoin(long userId)
+        {
+            List<ClubDto> dtoList = new List<ClubDto>();
+            List<Club> clubs = _requestRepository.getClubsToJoin(userId);
+
+            foreach (Club club in clubs)
+            {
+                ClubDto dto = new ClubDto
+                {
+                    Id = club.Id,
+                    Name = club.Name,
+                    Description= club.Description,
+                    ClubPicture= club.ClubPicture,
+                    TouristId = club.TouristId  
+                    
+                };
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
+
         }
     }
 }

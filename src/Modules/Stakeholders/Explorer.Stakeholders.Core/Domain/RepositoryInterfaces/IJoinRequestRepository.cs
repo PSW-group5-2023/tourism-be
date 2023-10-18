@@ -13,5 +13,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         List<JoinRequest> FindRequestsForOwner(long ownerId);
 
         public string CheckStatusOfRequest(long touristId, long clubId); // used to see if user has already sent a request or no
+
+        List<Club> getClubsToJoin(long userId);
     }
 }
