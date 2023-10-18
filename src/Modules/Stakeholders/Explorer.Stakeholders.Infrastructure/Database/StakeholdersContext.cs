@@ -7,15 +7,11 @@ public class StakeholdersContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Person> People { get; set; }
-    public DbSet<UserProfile> UserProfiles { get; set; }
-
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("stakeholders");
-
-        modelBuilder.Entity<Person>().UseTpcMappingStrategy();
 
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
