@@ -3,6 +3,7 @@ using Explorer.API.Controllers.Tourist;
 using Explorer.Blog.API.Dtos;
 using Explorer.Blog.API.Public;
 using Explorer.Blog.Infrastructure.Database;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Infrastructure.Database;
@@ -53,6 +54,42 @@ namespace Explorer.Blog.Tests.Integration
             storedEntity.Title.ShouldBe(result.Title);
             storedEntity.Description.ShouldBe(result.Description);
             storedEntity.Status.ShouldBe(result.Status);
+        }
+
+
+        [Fact]
+        public void Create_fails_invalid_data()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var updatedEntity = new BlogDto
+            {
+                Description = "Test"
+            };
+
+            // Act
+            var result = (ObjectResult)controller.Create(updatedEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(400);
+        }
+
+        [Fact]
+        public void Retrieves_all()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAll().Result)?.Value as PagedResult<BlogDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(5);
+            result.TotalCount.ShouldBe(5);
         }
 
 

@@ -17,17 +17,15 @@ namespace Explorer.Blog.Core.Domain
         public DateTime? CreationDate { get; init; }
         public BlogState? Status { get; init; }
 
-        public BlogPage(string title, string? description, DateTime? creationDate, BlogState? status)
+        public BlogPage(string title, string? description, BlogState? status)
         {
-            if (string.IsNullOrWhiteSpace(Title)) throw new ArgumentException("Invalid title.");
+            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Invalid title.");
             Title = title;
             Description = description;
             CreationDate = DateTime.UtcNow;
             Status = status;
         }
-        public BlogPage() {
-            CreationDate = DateTime.UtcNow;
-        }
+        
 
     }
 }
