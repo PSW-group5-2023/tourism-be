@@ -12,11 +12,21 @@ namespace Explorer.Tours.API.Dtos
         MEDIUM,
         HIGH
     }
+    public enum TourProblemCategory
+    {
+        BOOKING,
+        ITINERARY,
+        PAYMENT,
+        TRANSPORTATION,
+        GUIDE_SERVICES,
+        OTHER
+    }
     public class TourProblemDto
     {
         public int Id { get; set; }
+        public long TouristId { get; set; }
         public long TourId { get; set; }
-        public string Category { get; set; }
+        public TourProblemCategory Category { get; set; }
         public TourProblemPriority Priority { get; set; }
         public string Description { get; set; }
         public DateTime Time { get; set; }
