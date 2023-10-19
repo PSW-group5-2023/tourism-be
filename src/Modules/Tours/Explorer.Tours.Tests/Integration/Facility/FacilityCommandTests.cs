@@ -1,4 +1,4 @@
-﻿using Explorer.API.Controllers.Administrator.Administration;
+﻿using Explorer.API.Controllers.Tourist;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Infrastructure.Database;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 
-namespace Explorer.Tours.Tests.Integration.Administration
+namespace Explorer.Tours.Tests.Integration.Facility
 {
     public class FacilityCommandTests : BaseToursIntegrationTest
     {
@@ -49,7 +49,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
             storedEntity.Name.ShouldBe(result.Name);
             storedEntity.Description.ShouldBe(result.Description);
             storedEntity.Image.ShouldBe(result.Image);
-            ((int) storedEntity.Category).ShouldBe(result.Category);
+            ((int)storedEntity.Category).ShouldBe(result.Category);
             storedEntity.Latitude.ShouldBe(result.Latitude);
             storedEntity.Longitude.ShouldBe(result.Longitude);
         }
