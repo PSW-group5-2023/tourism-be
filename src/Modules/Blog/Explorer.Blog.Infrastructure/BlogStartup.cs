@@ -25,10 +25,12 @@ public static class BlogStartup
     private static void SetupCore(IServiceCollection services)
     {
         services.AddScoped<IBlogService, BlogService>();
+        services.AddScoped<ICommentService, CommentService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
     {
+        services.AddScoped(typeof(ICrudRepository<Comment>), typeof(CrudDatabaseRepository<Comment, BlogContext>));
         services.AddScoped(typeof(ICrudRepository<BlogPage>), typeof(CrudDatabaseRepository<BlogPage, BlogContext>));
 
 

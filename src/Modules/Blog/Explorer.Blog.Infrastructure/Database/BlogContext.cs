@@ -1,11 +1,13 @@
 ﻿using Explorer.Blog.Core.Domain;
-using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Stakeholders.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Blog.Infrastructure.Database;
 
 public class BlogContext : DbContext
 {
+    public DbSet<Comment> Comments { get; set; }
+    
     public DbSet<BlogPage> Blogs { get; set; }
     public BlogContext(DbContextOptions<BlogContext> options) : base(options) {}
 
