@@ -35,9 +35,8 @@ namespace Explorer.Tours.Core.Domain
         public string Status { get; init; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
-
-        public List<int> Equipment { get; init; }
-        public Tour(string name, string description, string difficulty, string tags, string status, double price, int authorId)
+        public int[] Equipment { get; init; }
+        public Tour(string name, string description, string difficulty, string tags, string status, double price, int authorId, int[] equipment)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Invalid Name.");
             if (string.IsNullOrWhiteSpace(description)) throw new ArgumentException("Invalid Description.");
@@ -53,7 +52,8 @@ namespace Explorer.Tours.Core.Domain
             Tags = tags;
             Status = status;
             Price = price;
-            this.Equipment = new List<int>();
+            AuthorId = authorId;
+            Equipment = equipment;
         }
     }
 }

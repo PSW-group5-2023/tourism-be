@@ -31,10 +31,7 @@ namespace Explorer.Tours.API.Dtos
         public string Tags { get; set; }
         public string Status { get; set; }
         public double Price { get; set; }
-        public List<int> Equipment { get; set; }
-        public TourDto()
-        {
-            this.Equipment = new List<int>();
-        }
+        public int AuthorId { get; set; }
+        public int[] Equipment { get; set; }
     }
 }
