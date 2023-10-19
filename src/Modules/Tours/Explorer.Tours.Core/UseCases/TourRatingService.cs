@@ -17,26 +17,5 @@ namespace Explorer.Tours.Core.UseCases
     public class TourRatingService : CrudService<TourRatingDto, TourRating>, ITourRatingService
     {
         public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper) : base(repository, mapper) { }
-
-        /*private readonly ICrudRepository<TourRating> _tourRatingRepository;
-
-        public TourRatingService(ICrudRepository<TourRating> tourRatingRepository)
-        {
-            _tourRatingRepository = tourRatingRepository;
-        }
-        public Result<TourRatingDto> Create(TourRatingDto rating)
-        {
-            try
-            {
-                var tourRating = _tourRatingRepository.Create(new TourRating(rating.PersonId, rating.TourId, rating.Mark, rating.Comment, rating.DateOfVisit, rating.DateOfCommenting, rating.Images));
-
-                return rating;
-            }
-            catch (ArgumentException e)
-            {
-                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
-                // There is a subtle issue here. Can you find it?
-            }
-        }*/
     }
 }
