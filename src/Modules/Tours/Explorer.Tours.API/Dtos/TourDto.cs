@@ -27,9 +27,10 @@ namespace Explorer.Tours.API.Dtos
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public TourDifficulty Difficulty { get; set; }
+        public string Difficulty { get; set; }
         public string Tags { get; set; }
-        public TourStatus Status { get; set; }
+        public string Status { get; set; }
         public double Price { get; set; }
+        public int AuthorId { get; set; }
     }
 }
