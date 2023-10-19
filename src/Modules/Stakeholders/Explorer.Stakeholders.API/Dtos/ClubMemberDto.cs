@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.API.Dtos
 {
-    public class ClubDto
+    public class ClubMemberDto
     {
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Uri ClubPicture { get; set; }
-        public long TouristId { get; set; }
+        public string Username { get; set; }
     }
 }

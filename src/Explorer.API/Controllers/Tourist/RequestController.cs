@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("{id:long}/{id2:long}")]
         public ActionResult<JoinRequestDto> CheckStatus(long id, long id2)
         {
-            var result = _requestService.CheckStatusOfRequest(id,id2);
+            var result = _requestService.CheckStatusOfRequest(id, id2);
             return CreateResponse(result);
         }
 
@@ -63,6 +64,24 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("members")]
+        public ActionResult<List<ClubMemberDto>> GetMembers(long clubId, int pageIndex, int pageSize)
+        {
+            return CreateResponse(_requestService.GetClubMembers(clubId, pageIndex, pageSize));
+        }
+
+        [HttpGet("invitableUsers")]
+        public ActionResult<PagedResult<ClubMemberDto>> GetInvitableUsers(long clubId, int pageIndex, int pageSize)
+        {
+            return CreateResponse(_requestService.GetInvitableUsers(clubId, pageIndex, pageSize));
+        }
+
+        [HttpPut("kick")]
+        public ActionResult<long> KickMember(long clubId, long userId)
+        {
+            return CreateResponse(_requestService.KickMember(clubId, userId));
+        }
+        
         [HttpGet("joinClub/{id:long}")]
         public ActionResult<ClubDto> ClubsTOJoin(long id)
         {
