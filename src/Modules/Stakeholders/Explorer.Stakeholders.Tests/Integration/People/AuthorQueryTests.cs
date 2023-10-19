@@ -1,6 +1,8 @@
 ﻿using Explorer.API.Controllers.Author;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
+using Explorer.Tours.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -16,6 +18,20 @@ namespace Explorer.Stakeholders.Tests.Integration.People
     public class AuthorQueryTests : BaseStakeholdersIntegrationTest
     {
         public AuthorQueryTests(StakeholdersTestFactory factory) : base(factory) { }
+
+        [Fact]
+        public void Get_authors_and_tourists()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAuthorsAndTourists().Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(6);
+        }
 
         [Fact]
         public void Get_by_id()

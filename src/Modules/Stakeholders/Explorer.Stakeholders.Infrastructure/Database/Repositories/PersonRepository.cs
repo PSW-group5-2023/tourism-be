@@ -45,9 +45,8 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         {
             try
             {
-                var result = _dbContext.People.Update(person).Entity;
+                _dbContext.Update(person);
                 _dbContext.SaveChanges();
-                return result;
             }
             catch (DbUpdateException e)
             {

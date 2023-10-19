@@ -22,6 +22,20 @@ namespace Explorer.Stakeholders.Tests.Integration.People
         public TouristQueryTests(StakeholdersTestFactory factory) : base(factory) { }
 
         [Fact]
+        public void Get_authors_and_tourists()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAuthorsAndTourists().Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(6);
+        }
+
+        [Fact]
         public void Get_by_id()
         {
             // Arrange
