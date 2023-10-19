@@ -1,11 +1,12 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.Blog.API.Public;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Author
 {
-    //[Authorize(Policy = "authorPolicy")]
+    [Authorize(Policy = "authorPolicy")]
     [Route("api/author/comment")]
     public class CommentController : BaseApiController
     {
