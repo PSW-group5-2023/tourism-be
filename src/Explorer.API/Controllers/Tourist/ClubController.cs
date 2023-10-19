@@ -12,7 +12,7 @@ namespace Explorer.API.Controllers.Tourist
     {
         private readonly IClubService _clubService;
 
-        public ClubController(IClubService clubService) 
+        public ClubController(IClubService clubService)
         {
             _clubService = clubService;
         }
