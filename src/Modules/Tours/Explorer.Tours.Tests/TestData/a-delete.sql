@@ -1,6 +1,5 @@
 ﻿DELETE FROM tours."Equipment";
-<<<<<<< HEAD
-DELETE FROM tours."TourRatings";
-=======
+DELETE FROM tours."TourKeyPoints";
 DELETE FROM tours."Facilities";
->>>>>>> development
+DELETE FROM tours."TourRatings";
+DELETE FROM tours."Facilities";
