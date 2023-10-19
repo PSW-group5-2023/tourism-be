@@ -24,14 +24,18 @@ namespace Explorer.API.Controllers.Administrator.Administration
             _userActivityService = userActivityService;
         }
 
+
         [HttpGet]
         public ActionResult<PagedResult<UserInformationDto>> GetPaged([FromQuery] int page, [FromQuery] int pageSize)
         {
             var userResult = _userInformationService.GetPaged(page, pageSize);
             var personResult = _personInformationService.GetPaged(page, pageSize);
-            for(int i=0; i<userResult.Value.TotalCount;i++)
+            userResult.Value.Results.RemoveAll(u=>u.Role=="Administrator");
+            for (int i = 0; i < userResult.Value.Results.Count; i++)
+            {
                 userResult.Value.Results[i].Email = personResult.Value.Results[i].Email;
-            return CreateResponse(userResult.Value.Results.FindAll(u=>!u.Role.Equals("Administrator")).ToResult());
+            }
+            return CreateResponse(userResult);
         }
 
         [HttpPut("{id:int}")]
