@@ -20,5 +20,6 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         PagedResult<ClubMemberDto> GetInvitableUsers(long clubId,int pageIndex, int pageSize);
         
         long KickMember(long clubId, long userId);
+        List<Club> getClubsToJoin(long userId);
     }
 }

@@ -12,7 +12,7 @@ namespace Explorer.API.Controllers.Tourist
     {
         private readonly IClubService _clubService;
 
-        public ClubController(IClubService clubService) 
+        public ClubController(IClubService clubService)
         {
             _clubService = clubService;
         }
@@ -32,9 +32,9 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<ClubDto> Update([FromBody] ClubDto commentDto)
+        public ActionResult<ClubDto> Update([FromBody] ClubDto clubDto)
         {
-            var result = _clubService.Update(commentDto);
+            var result = _clubService.Update(clubDto);
             return CreateResponse(result);
         }
 
