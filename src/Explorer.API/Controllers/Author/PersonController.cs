@@ -17,9 +17,9 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpGet]
-        public ActionResult<PersonDto> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<List<PersonDto>> GetAuthorsAndTourists()
         {
-            var result = _personService.GetPaged(page, pageSize);
+            var result = _personService.GetAuthorsAndTourists();
             return CreateResponse(result);
         }
 

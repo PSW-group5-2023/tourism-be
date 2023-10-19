@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.API.Public
+namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 {
-    public interface IPersonService
+    public interface IPersonRepository
     {
-        Result<List<PersonDto>> GetAuthorsAndTourists();
-        Result<PersonDto> Get(int id);
-        Result<PersonDto> Update(PersonDto person);
+        List<Person> GetAuthorsAndTourists();
+        Person? Get(int id);
+        Person Update(Person person);
     }
 }
