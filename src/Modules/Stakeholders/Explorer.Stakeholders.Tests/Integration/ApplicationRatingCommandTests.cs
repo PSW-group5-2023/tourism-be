@@ -36,7 +36,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
             Grade = 2,
             Comment = "Dodati comment",
             IssueDate = DateTime.UtcNow,
-            PersonId = 1
+            UserId = 1
         };
 
         // Act
@@ -47,7 +47,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
         result.Id.ShouldNotBe(0);
         result.Grade.ShouldBe(newEntity.Grade);
         result.Comment.ShouldBe(newEntity.Comment);
-        result.PersonId.ShouldBe(newEntity.PersonId);
+        result.UserId.ShouldBe(newEntity.UserId);
 
         // Assert - Database
         var storedEntity = dbContext.ApplicationRatings.FirstOrDefault(i => i.Id == result.Id);
@@ -88,7 +88,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
             Id = -1,
             Comment = "neki novi com",
             Grade = 5,
-            PersonId = 1,
+            UserId = 1,
             IssueDate = DateTime.UtcNow
         };
 
@@ -100,7 +100,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
         result.Id.ShouldBe(-1);
         result.IssueDate.ShouldBe(updatedEntity.IssueDate);
         result.Grade.ShouldBe(updatedEntity.Grade);
-        result.PersonId.ShouldBe(updatedEntity.PersonId);
+        result.UserId.ShouldBe(updatedEntity.UserId);
         result.Comment.ShouldBe(updatedEntity.Comment);
 
         // Assert - Database
@@ -123,7 +123,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
             Id = -1000,
             Comment = "neki novi com",
             Grade = 5,
-            PersonId = 1,
+            UserId = 1,
             IssueDate = DateTime.UtcNow
         };
 

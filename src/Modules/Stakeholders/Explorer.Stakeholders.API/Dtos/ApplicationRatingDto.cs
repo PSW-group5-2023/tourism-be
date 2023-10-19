@@ -13,7 +13,7 @@ namespace Explorer.Stakeholders.API.Dtos
         public int Grade { get; set; }
         public string? Comment { get; set; }
         public DateTime IssueDate { get; set; }
-        public long PersonId { get; set; }  
+        public long UserId { get; set; }  
 
     }
 }

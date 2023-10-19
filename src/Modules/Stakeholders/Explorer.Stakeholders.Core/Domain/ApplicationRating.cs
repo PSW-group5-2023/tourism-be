@@ -14,19 +14,19 @@ namespace Explorer.Stakeholders.Core.Domain
         public int Grade { get; init; }
         public string? Comment { get; init; }
         public DateTime IssueDate { get; init; }
-        public long PersonId { get; init; }
+        public long UserId { get; init; }
 
-        public ApplicationRating(int grade, string? comment, DateTime issueDate, long personId)
+        public ApplicationRating(int grade, string? comment, DateTime issueDate, long userId)
         {
             Grade = grade;
             Comment = comment;
             IssueDate = issueDate;
-            PersonId = personId;
+            UserId = userId;
             Validate();
         }
         private void Validate()
         {
-            if (PersonId == 0) throw new ArgumentException("Invalid PersonId");
+            if (UserId == 0) throw new ArgumentException("Invalid PersonId");
             if (Grade > 5 || Grade < 1) throw new ArgumentException("Invalid Grade");
             if (IssueDate > DateTime.Now) throw new ArgumentException("Invalid IssueDate");
         }
