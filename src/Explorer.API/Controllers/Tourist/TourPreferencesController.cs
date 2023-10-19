@@ -17,7 +17,14 @@ namespace Explorer.API.Controllers.Tourist
         {
             _preferencesService = preferencesService;
         }
-
+/*
+        [HttpGet("{id:int}")]
+        public ActionResult<TourPreferencesDto> GetByUserId(string userId)
+        {
+            var result = _preferencesService.GetByUserId(userId);
+            return CreateResponse(result);
+        }
+*/
         [HttpPost]
         public ActionResult<TourPreferencesDto> Create([FromBody] TourPreferencesDto preferencesDto) 
         {
