@@ -56,7 +56,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
             var controller = CreateController(scope);
 
             // Act
-            var result = (ObjectResult)controller.Get(-100000000).Result;
+            var result = (ObjectResult)controller.Get(-100).Result;
 
             // Assert
             result.ShouldNotBeNull();

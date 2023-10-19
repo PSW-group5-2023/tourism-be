@@ -23,7 +23,15 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<PersonDto> Get(int id)
         {
-            return MapToDto(_personRepository.Get(id));
+            try
+            {
+                var result = _personRepository.Get(id);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
         }
 
         public Result<List<PersonDto>> GetAuthorsAndTourists()
@@ -33,7 +41,19 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<PersonDto> Update(PersonDto person)
         {
-            return MapToDto(_personRepository.Update(MapToDomain(person)));
+            try
+            {
+                var result = _personRepository.Update(MapToDomain(person));
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
         }
     }
 }

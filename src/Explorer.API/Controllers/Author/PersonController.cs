@@ -30,7 +30,7 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
             var result = _personService.Update(person);

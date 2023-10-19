@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
@@ -26,9 +27,12 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             var query = from person in _dbContext.People
                         join user in _dbContext.Users on person.UserId equals user.Id
                         where user.Role != UserRole.Administrator
-                        select person;
+            select person;
 
-            return query.FirstOrDefault(p => p.Id == id);
+            var entity = query.FirstOrDefault(p => p.Id == id);
+
+            if (entity == null) throw new KeyNotFoundException("Not found: " + id);
+            return entity;
         }
 
         public List<Person> GetAuthorsAndTourists()
