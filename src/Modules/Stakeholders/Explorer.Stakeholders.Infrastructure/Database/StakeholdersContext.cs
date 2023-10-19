@@ -19,7 +19,7 @@ public class StakeholdersContext : DbContext
 
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
-        ConfigureStakeholder(modelBuilder);
+        ConfigureStakeholder(modelBuilder); 
     }
 
     private static void ConfigureStakeholder(ModelBuilder modelBuilder)
