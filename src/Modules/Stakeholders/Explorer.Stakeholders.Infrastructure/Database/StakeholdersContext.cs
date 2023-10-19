@@ -7,6 +7,8 @@ public class StakeholdersContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Person> People { get; set; }
+    public DbSet<Club> Clubs { get; set; }
+    public DbSet<JoinRequest> JoinRequests { get; set; }
 
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
@@ -25,5 +27,20 @@ public class StakeholdersContext : DbContext
             .HasOne<User>()
             .WithOne()
             .HasForeignKey<Person>(s => s.UserId);
+
+        modelBuilder.Entity<Club>()
+            .HasOne<User>()
+            .WithOne()
+            .HasForeignKey<Club>(s => s.TouristId);
+
+        modelBuilder.Entity<JoinRequest>()
+        .HasOne<User>()
+        .WithMany()
+        .HasForeignKey(jr => jr.UserId);
+
+        modelBuilder.Entity<JoinRequest>()
+            .HasOne<Club>()
+            .WithMany()
+            .HasForeignKey(jr => jr.ClubId);
     }
 }
