@@ -4,10 +4,10 @@ using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Administrator.Administration
+namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "administratorPolicy")]
-    [Route("api/administration/facilities")]
+    [Authorize(Policy = "touristPolicy")]
+    [Route("api/tourist/facilities")]
     public class FacilityController : BaseApiController
     {
         private readonly IFacilityService _facilityService;
