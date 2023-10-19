@@ -28,6 +28,8 @@ public static class StakeholdersStartup
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
         services.AddScoped<IPersonService, PersonService>();
+        services.AddScoped<IClubService, ClubService>();
+        services.AddScoped<IJoinRequestService, JoinRequestService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -36,6 +38,10 @@ public static class StakeholdersStartup
 
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
         services.AddScoped<IPersonRepository, PersonRepository>();
+
+        services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
+        services.AddScoped(typeof(ICrudRepository<Club>), typeof(CrudDatabaseRepository<Club, StakeholdersContext>));
+        services.AddScoped(typeof(ICrudRepository<JoinRequest>), typeof(CrudDatabaseRepository<JoinRequest, StakeholdersContext>));
 
         services.AddDbContext<StakeholdersContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("stakeholders"),
