@@ -32,5 +32,6 @@ namespace Explorer.Tours.API.Dtos
         public string Status { get; set; }
         public double Price { get; set; }
         public int AuthorId { get; set; }
+        public int[] Equipment { get; set; }
     }
 }
