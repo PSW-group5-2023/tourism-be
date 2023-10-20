@@ -155,14 +155,14 @@ namespace Explorer.Stakeholders.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
 
             // Act
-            var result = (OkResult)controller.Delete(-3);
+            var result = (ObjectResult)controller.Delete(-1);
 
             // Assert - Response
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            var storedCourse = dbContext.Clubs.FirstOrDefault(i => i.Id == -3);
+            var storedCourse = dbContext.Clubs.FirstOrDefault(i => i.Id == -1);
             storedCourse.ShouldBeNull();
         }
 

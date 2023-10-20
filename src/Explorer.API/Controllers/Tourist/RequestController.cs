@@ -13,13 +13,11 @@ namespace Explorer.API.Controllers.Tourist
     public class RequestController : BaseApiController
     {
         private readonly IJoinRequestService _requestService;
-        private readonly IAuthenticationService _usersService;
      
 
-        public RequestController(IJoinRequestService clubService, IAuthenticationService usersService)
+        public RequestController(IJoinRequestService clubService)
         {
             _requestService = clubService;
-            _usersService = usersService;   
         }
 
         [HttpGet("{id:long}")]
@@ -33,13 +31,6 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<JoinRequestDto> CheckStatus(long id, long id2)
         {
             var result = _requestService.CheckStatusOfRequest(id, id2);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("/username/{id:long}")]
-        public ActionResult<string> getUserName(long id)
-        {
-            var result = _usersService.GetUsername(id);
             return CreateResponse(result);
         }
 
