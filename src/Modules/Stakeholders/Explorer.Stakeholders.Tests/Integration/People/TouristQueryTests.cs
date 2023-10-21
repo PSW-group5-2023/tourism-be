@@ -32,7 +32,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
 
             // Assert
             result.ShouldNotBeNull();
-            result.Count.ShouldBe(6);
+            result.Count.ShouldBe(7);
         }
 
         [Fact]
