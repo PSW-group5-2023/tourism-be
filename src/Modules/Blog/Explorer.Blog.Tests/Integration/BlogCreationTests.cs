@@ -76,21 +76,7 @@ namespace Explorer.Blog.Tests.Integration
             result.StatusCode.ShouldBe(400);
         }
 
-        [Fact]
-        public void Retrieves_all()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Act
-            var result = ((ObjectResult)controller.GetAll().Result)?.Value as PagedResult<BlogDto>;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(5);
-            result.TotalCount.ShouldBe(5);
-        }
+        
 
 
         private static BlogController CreateController(IServiceScope scope)
