@@ -9,7 +9,7 @@ namespace Explorer.Stakeholders.API.Dtos
     public class TourPreferencesDto
     {
         public int Id { get; set; }
-        public long UserId { get; set; }
+        public int UserId { get; set; }
         public int DifficultyLevel { get; set; }
         public int WalkingRate { get; set; }
         public int BicycleRate { get; set; }

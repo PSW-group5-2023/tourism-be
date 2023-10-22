@@ -1,8 +1,10 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
+using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,18 +19,27 @@ namespace Explorer.API.Controllers.Tourist
         {
             _preferencesService = preferencesService;
         }
-/*
-        [HttpGet("{id:int}")]
-        public ActionResult<TourPreferencesDto> GetByUserId(string userId)
+
+        [HttpGet]
+        public ActionResult<TourPreferencesDto> GetByUserId()
         {
+            var userId = User.PersonId();
             var result = _preferencesService.GetByUserId(userId);
             return CreateResponse(result);
         }
-*/
+
         [HttpPost]
         public ActionResult<TourPreferencesDto> Create([FromBody] TourPreferencesDto preferencesDto) 
         {
+            preferencesDto.UserId = User.PersonId();
             var result = _preferencesService.Create(preferencesDto);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var result = _preferencesService.Delete(id);
             return CreateResponse(result);
         }
     }

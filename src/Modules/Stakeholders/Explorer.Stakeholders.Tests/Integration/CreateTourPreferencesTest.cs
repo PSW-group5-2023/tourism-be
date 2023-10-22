@@ -1,17 +1,10 @@
-﻿using Explorer.API.Controllers;
-using Explorer.API.Controllers.Tourist;
+﻿using Explorer.API.Controllers.Tourist;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Infrastructure.Database;
-using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Tests.Integration
 {
@@ -45,7 +38,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             //Assert - Response
             response.ShouldNotBeNull();
             response.Id.ShouldBe(3);
-            
+
 
             //Assert - Database
             dbContext.ChangeTracker.Clear();

@@ -34,6 +34,10 @@ namespace Explorer.Stakeholders.Core
         {
             if (UserId == 0) throw new ArgumentException("Invalid UserId");
             if (DifficultyLevel < 1 || DifficultyLevel > 5) throw new ArgumentException("Invalid difficulty level");
+            if (WalkingRate < 0 || WalkingRate > 3) throw new ArgumentException("Invalid walking rate");
+            if (BicycleRate < 0 || BicycleRate > 3) throw new ArgumentException("Invalid bicycle rate");
+            if (CarRate < 0 || CarRate > 3) throw new ArgumentException("Invalid car rate");
+            if (BoatRate < 0 || BoatRate > 3) throw new ArgumentException("Invalid boat rate");
         }
     }
 }

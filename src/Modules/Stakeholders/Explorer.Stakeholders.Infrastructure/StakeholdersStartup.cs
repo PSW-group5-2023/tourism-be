@@ -36,6 +36,7 @@ public static class StakeholdersStartup
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<TourPreferences>), typeof(CrudDatabaseRepository<TourPreferences, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
+        services.AddScoped<ITourPreferencesRepository, TourPreferencesDatabaseRepository>();
 
         services.AddDbContext<StakeholdersContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("stakeholders"),
