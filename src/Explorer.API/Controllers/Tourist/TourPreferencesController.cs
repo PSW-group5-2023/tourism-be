@@ -31,7 +31,11 @@ namespace Explorer.API.Controllers.Tourist
         [HttpPost]
         public ActionResult<TourPreferencesDto> Create([FromBody] TourPreferencesDto preferencesDto) 
         {
-            preferencesDto.UserId = User.PersonId();
+            if(User != null)
+            {
+                preferencesDto.UserId = User.PersonId();
+            }
+            
             var result = _preferencesService.Create(preferencesDto);
             return CreateResponse(result);
         }

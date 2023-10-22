@@ -4,6 +4,7 @@ using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Explorer.Stakeholders.Core.Domain;
 using Shouldly;
 
 namespace Explorer.Stakeholders.Tests.Integration
