@@ -119,7 +119,7 @@ public class EquipmentCommandTests : BaseToursIntegrationTest
         var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
         // Act
-        var result = (OkResult)controller.Delete(-3);
+        var result = (ObjectResult)controller.Delete(-3);
 
         // Assert - Response
         result.ShouldNotBeNull();

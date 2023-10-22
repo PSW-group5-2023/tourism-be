@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <Folder Include="Controllers\Tourist\" />
+>>>>>>> 32474c3d497dec7f91959a66a3d4081337ad8c96
     <Folder Include="Controllers\Author\" />
   </ItemGroup>
 
