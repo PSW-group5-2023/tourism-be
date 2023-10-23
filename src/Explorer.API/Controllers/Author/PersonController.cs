@@ -16,15 +16,22 @@ namespace Explorer.API.Controllers.Author
             _personService = personService;
         }
 
+        [HttpGet]
+        public ActionResult<List<PersonDto>> GetAuthorsAndTourists()
+        {
+            var result = _personService.GetAuthorsAndTourists();
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
-        public ActionResult Get(int id)
+        public ActionResult<PersonDto> Get(int id)
         {
             var result = _personService.Get(id);
             return CreateResponse(result);
         }
 
-        [HttpPut]
-        public ActionResult Update([FromBody] PersonDto person)
+        [HttpPut("{id:int}")]
+        public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
             var result = _personService.Update(person);
             return CreateResponse(result);
