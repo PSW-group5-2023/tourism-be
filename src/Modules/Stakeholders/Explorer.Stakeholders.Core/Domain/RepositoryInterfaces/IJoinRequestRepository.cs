@@ -15,10 +15,10 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 
         public string CheckStatusOfRequest(long touristId, long clubId); // used to see if user has already sent a request or no
 
-        PagedResult<ClubMemberDto> GetClubMembers(long clubId, int pageIndex, int pageSize);
+        List<JoinRequest> GetClubMembersIds(long clubId);
 
-        PagedResult<ClubMemberDto> GetInvitableUsers(long clubId,int pageIndex, int pageSize);
-        
+        List<JoinRequest> GetInvitedAndMemberIds(long clubId); 
+
         long KickMember(long clubId, long userId);
         List<Club> getClubsToJoin(long userId);
     }

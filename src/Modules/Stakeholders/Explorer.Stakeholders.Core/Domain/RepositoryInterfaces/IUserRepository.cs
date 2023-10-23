@@ -8,4 +8,5 @@ public interface IUserRepository
     long GetPersonId(long userId);
 
     string GetUsername(long userId);
+    List<User> GetAll();
 }
