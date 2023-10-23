@@ -17,6 +17,8 @@ public static class StakeholdersStartup
 {
     public static IServiceCollection ConfigureStakeholdersModule(this IServiceCollection services)
     {
+        // AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         services.AddAutoMapper(typeof(StakeholderProfile).Assembly);
         SetupCore(services);
         SetupInfrastructure(services);
@@ -27,14 +29,13 @@ public static class StakeholdersStartup
     {
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
+        services.AddScoped<IApplicationRatingService, ApplicationRatingService>();
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IClubService, ClubService>();
         services.AddScoped<IJoinRequestService, JoinRequestService>();
-
         services.AddScoped<IUserInformationService, UserInformationService>();
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
-
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -42,16 +43,13 @@ public static class StakeholdersStartup
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
 
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
+        services.AddScoped(typeof(ICrudRepository<ApplicationRating>), typeof(CrudDatabaseRepository<ApplicationRating, StakeholdersContext>));
         services.AddScoped<IPersonRepository, PersonRepository>();
-
         services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
         services.AddScoped(typeof(ICrudRepository<Club>), typeof(CrudDatabaseRepository<Club, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<JoinRequest>), typeof(CrudDatabaseRepository<JoinRequest, StakeholdersContext>));
-
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
-
-
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
 
