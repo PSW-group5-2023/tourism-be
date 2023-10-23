@@ -16,14 +16,16 @@ namespace Explorer.Tours.Core.Domain
         public Uri Image { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
+        public int TourId { get; init; }
 
-        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude)
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, int tourId)
         {
             Name = name;
             Description = description;
             Image = image;
             Latitude = latitude;
             Longitude = longitude;
+            TourId = tourId;
             Validate();
         }
 
