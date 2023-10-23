@@ -32,8 +32,8 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
 
             // Assert
             result.Results.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(6);
-            result.TotalCount.ShouldBe(8);
+            result.Results.Count.ShouldBe(7);
+            result.TotalCount.ShouldBe(9);
         }
         private static UserInformationController CreateController(IServiceScope scope)
         {
