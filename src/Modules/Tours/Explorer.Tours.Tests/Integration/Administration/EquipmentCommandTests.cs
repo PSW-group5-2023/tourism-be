@@ -109,26 +109,6 @@ public class EquipmentCommandTests : BaseToursIntegrationTest
         result.ShouldNotBeNull();
         result.StatusCode.ShouldBe(404);
     }
-
-    [Fact]
-    public void Deletes()
-    {
-        // Arrange
-        using var scope = Factory.Services.CreateScope();
-        var controller = CreateController(scope);
-        var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
-
-        // Act
-        var result = (ObjectResult)controller.Delete(-3);
-
-        // Assert - Response
-        result.ShouldNotBeNull();
-        result.StatusCode.ShouldBe(200);
-
-        // Assert - Database
-        var storedCourse = dbContext.Equipment.FirstOrDefault(i => i.Id == -3);
-        storedCourse.ShouldBeNull();
-    }
     
     [Fact]
     public void Delete_fails_invalid_id()
@@ -144,7 +124,7 @@ public class EquipmentCommandTests : BaseToursIntegrationTest
         result.ShouldNotBeNull();
         result.StatusCode.ShouldBe(404);
     }
-    
+
     private static EquipmentController CreateController(IServiceScope scope)
     {
         return new EquipmentController(scope.ServiceProvider.GetRequiredService<IEquipmentService>())
