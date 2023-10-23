@@ -30,18 +30,15 @@ namespace Explorer.API.Controllers.Administrator.Administration
         {
             var userResult = _userInformationService.GetPaged(page, pageSize);
             var personResult = _personInformationService.GetPaged(page, pageSize);
-            userResult.Value.Results.RemoveAll(u=>u.Role=="Administrator");
-            for (int i = 0; i < userResult.Value.Results.Count; i++)
-            {
-                userResult.Value.Results[i].Email = personResult.Value.Results[i].Email;
-            }
+            _userInformationService.Join(userResult, personResult);
+
             return CreateResponse(userResult);
         }
 
-        [HttpPut("{id:int}")]
-        public ActionResult<UserDto> Update([FromBody] UserDto user)
+        [HttpPut]
+        public ActionResult<UserDto> Update(UserDto user)
         {
-            var result = _userActivityService.Update(user);
+            var result = _userActivityService.Update(_userActivityService.Block(user).Value);
             return CreateResponse(result);
         }
     }

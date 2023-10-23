@@ -11,5 +11,7 @@ namespace Explorer.Stakeholders.API.Public
     public interface IUserActivityService
     {
         Result<UserDto> Update(UserDto user);
+        Result<UserDto> Block(UserDto user);
+        Result<UserDto> Get(int id);
     }
 }

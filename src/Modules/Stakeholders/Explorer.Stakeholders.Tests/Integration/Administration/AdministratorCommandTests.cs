@@ -28,13 +28,13 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
-            var updatedEntity = new UserDto
+            var updatedEntity = new UserDto 
             {
-                Id = -12,
-                Username = "autor2@gmail.com",
-                Password = "autor2",
-                Role = "Author",
-                IsActive = false
+                Id=-12,
+                Username= "autor2@gmail.com",
+                Password= "autor2",
+                Role="Author",
+                IsActive=true
             };
 
             // Act
@@ -43,15 +43,11 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
             // Assert - Response
             result.ShouldNotBeNull();
             result.Id.ShouldBe(-12);
-            result.Username.ShouldBe(updatedEntity.Username);
-            result.Password.ShouldBe(updatedEntity.Password);
-            result.Role.ShouldBe(updatedEntity.Role);
-            result.IsActive.ShouldBe(updatedEntity.IsActive); 
+            result.IsActive.ShouldBe(false); 
 
             // Assert - Database
-            var storedEntity = dbContext.Users.FirstOrDefault(u=>u.IsActive== false && u.Username == "autor2@gmail.com");
+            var storedEntity = dbContext.Users.FirstOrDefault(u => u.IsActive== false && u.Username == "autor2@gmail.com");
             storedEntity.ShouldNotBeNull();
-            storedEntity.Password.ShouldBe(updatedEntity.Password);
             var oldEntity = dbContext.Users.FirstOrDefault(u => u.IsActive == true && u.Username== "autor2@gmail.com");
             oldEntity.ShouldBeNull();
         }

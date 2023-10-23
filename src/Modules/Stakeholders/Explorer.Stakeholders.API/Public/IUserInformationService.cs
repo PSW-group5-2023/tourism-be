@@ -12,6 +12,7 @@ namespace Explorer.Stakeholders.API.Public
     public interface IUserInformationService
     {
         Result<PagedResult<UserInformationDto>> GetPaged(int page, int pageSize);
+        Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons);
        
     }
 }
