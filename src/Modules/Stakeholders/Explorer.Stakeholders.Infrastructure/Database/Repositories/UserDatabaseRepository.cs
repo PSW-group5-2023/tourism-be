@@ -43,5 +43,10 @@ public class UserDatabaseRepository : IUserRepository
         return user.Username;
     }
 
+    public List<User> GetAll()
+    {
+        return _dbContext.Users.ToList();
+    }
+
 
 }
