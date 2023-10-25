@@ -8,6 +8,7 @@ using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,11 +17,13 @@ namespace Explorer.Stakeholders.Core.UseCases
     public class JoinRequestService : CrudService<JoinRequestDto, JoinRequest>, IJoinRequestService
     {
         private readonly IJoinRequestRepository _requestRepository;
+        private readonly IUserRepository _userRepository;
         
 
-        public JoinRequestService(ICrudRepository<JoinRequest> repository, IMapper mapper, IJoinRequestRepository requestrepository) : base(repository, mapper) {
+        public JoinRequestService(ICrudRepository<JoinRequest> repository, IMapper mapper, IJoinRequestRepository requestrepository, IUserRepository userRepository) : base(repository, mapper) {
 
             _requestRepository = requestrepository;
+            _userRepository = userRepository;
         }
 
         public Result<string> CheckStatusOfRequest(long touristId, long clubId)
@@ -28,17 +31,18 @@ namespace Explorer.Stakeholders.Core.UseCases
             return _requestRepository.CheckStatusOfRequest(touristId, clubId);
         }
 
-        public Result<List<JoinRequestDto>> FindRequests(long ownerId)
+        public Result<List<RequestDto>> FindRequests(long ownerId)
         {
             List<JoinRequest> requests = _requestRepository.FindRequestsForOwner(ownerId);
 
-            List<JoinRequestDto> dtoList = new List<JoinRequestDto>();
+            List<RequestDto> dtoList = new List<RequestDto>();
 
             foreach (JoinRequest request in requests)
             {
-                JoinRequestDto dto = new JoinRequestDto
+                RequestDto dto = new RequestDto
                 {
                     Id = request.Id,
+                    Username = _userRepository.GetUsername(request.UserId),
                     ClubId = request.ClubId,
                     UserId = request.UserId,
                     RequestStatus = request.RequestStatus,
@@ -52,12 +56,23 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<PagedResult<ClubMemberDto>> GetClubMembers(long clubId,int pageIndex,int pageSize)
         {
-            return _requestRepository.GetClubMembers(clubId,pageIndex,pageSize);
+            var clubMemberIds = _requestRepository.GetClubMembersIds(clubId).Select(x => x.UserId).ToList();
+            var users = _userRepository.GetAll();
+
+            var page = (pageIndex / pageSize) + 1;
+
+            var members = users.Where(x => clubMemberIds.Contains(x.Id)).Select(x => new ClubMemberDto { Id = x.Id, Username = x.Username });
+            return new PagedResult<ClubMemberDto>(members.Skip((page - 1) * pageSize).Take(pageSize).ToList(), members.Count());
         }
 
         public Result<PagedResult<ClubMemberDto>> GetInvitableUsers(long clubId,int pageIndex,int pageSize)
         {
-            return _requestRepository.GetInvitableUsers(clubId,pageIndex,pageSize);
+            var invitedAndMembers = _requestRepository.GetInvitedAndMemberIds(clubId).Select(x => x.UserId).ToList();
+            var users = _userRepository.GetAll();
+
+            var page = (pageIndex / pageSize) + 1;
+            var invitableUsers = users.Where(x => !invitedAndMembers.Contains(x.Id)).Select(x => new ClubMemberDto { Id = x.Id, Username = x.Username });
+            return new PagedResult<ClubMemberDto>(invitableUsers.Skip((page - 1) * pageSize).Take(pageSize).ToList(), invitableUsers.Count());
         }
 
         public Result<long> KickMember(long clubId, long userId)

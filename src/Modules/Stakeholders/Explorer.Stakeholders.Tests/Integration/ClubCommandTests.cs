@@ -33,7 +33,7 @@ namespace Explorer.Stakeholders.Tests.Integration
                 Name = "New Name Test.",
                 Description = "New Description Test.",
                 ClubPicture = new Uri("http://newUri.com"),
-                TouristId = 1
+                TouristId = -24
             };
 
             //Act
@@ -82,7 +82,7 @@ namespace Explorer.Stakeholders.Tests.Integration
                 Name = "Prvi test za Name - Update metoda.",
                 Description = "Prvi test za Description - Update metoda.",
                 ClubPicture = new Uri("http://newUri.com"),
-                TouristId = 1,
+                TouristId = -21,
             };
           
             //Act
@@ -155,7 +155,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
 
             // Act
-            var result = (ObjectResult)controller.Delete(-1);
+            var result = (OkResult)controller.Delete(-1);
 
             // Assert - Response
             result.ShouldNotBeNull();
