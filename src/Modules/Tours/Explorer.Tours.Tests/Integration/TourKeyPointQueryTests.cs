@@ -82,7 +82,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Updated Description",
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
-                Latitude = 7
+                Latitude = 7,
+                TourId = 17
             };
 
             // Act
@@ -107,7 +108,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Updated Description",
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
-                Latitude = 7
+                Latitude = 7,
+                TourId = 17
             };
 
             // Act
@@ -131,7 +133,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Updated Description",
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
-                Latitude = 7
+                Latitude = 7,
+                TourId = 17
             };
 
             // Act

@@ -27,6 +27,13 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpGet("tour/{tourId:int}")]
+        public ActionResult<PagedResult<TourKeyPointDto>> GetByTourId(int tourId)
+        {
+            var result = _tourKeyPointService.GetByTourId(tourId);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<TourKeyPointDto> Get(int id)
         {

@@ -31,7 +31,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Newest key point.",
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
-                Latitude = -32.6
+                Latitude = -32.6,
+                TourId = 17
             };
 
             // Act
@@ -81,7 +82,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Updated value",
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
-                Latitude = -24.22
+                Latitude = -24.22,
+                TourId = 17
 
             };
 
@@ -138,7 +140,8 @@ namespace Explorer.Tours.Tests.Integration
                 Description = "Updated value",
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
-                Latitude = -24.22
+                Latitude = -24.22,
+                TourId = 17
             };
 
             // Act

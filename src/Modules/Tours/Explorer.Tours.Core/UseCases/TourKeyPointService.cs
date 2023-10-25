@@ -8,11 +8,40 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using FluentResults;
 
 namespace Explorer.Tours.Core.UseCases
 {
     public class TourKeyPointService : CrudService<TourKeyPointDto, TourKeyPoint>, ITourKeyPointService
     {
-        public TourKeyPointService(ICrudRepository<TourKeyPoint> repository, IMapper mapper) : base(repository, mapper) { }
+        private readonly ITourKeyPointsRepository _tourKeyPointsRepository;
+
+        public TourKeyPointService(ICrudRepository<TourKeyPoint> repository, IMapper mapper, ITourKeyPointsRepository tourKeyPointsRepository) : base(repository, mapper)
+        {
+            _tourKeyPointsRepository = tourKeyPointsRepository;
+        }
+        public Result<List<TourKeyPointDto>> GetByTourId(int tourId)
+        {
+            List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
+           var tourKeyPoints = _tourKeyPointsRepository.GetByTourId(tourId);
+           foreach (var tourKeyPoint in tourKeyPoints)
+           {
+               TourKeyPointDto tourKeyPointDto = new TourKeyPointDto
+               {
+                   Id = (int)tourKeyPoint.Id,
+                   Name = tourKeyPoint.Name,
+                   Description = tourKeyPoint.Description,
+                   Image = tourKeyPoint.Image,
+                   Latitude = tourKeyPoint.Latitude,
+                   Longitude = tourKeyPoint.Longitude,
+                   TourId = tourKeyPoint.TourId
+               };
+                tourKeyPointDtos.Add(tourKeyPointDto);
+           }
+
+           return tourKeyPointDtos;
+        }
+
     }
 }

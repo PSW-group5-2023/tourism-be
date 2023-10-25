@@ -16,14 +16,16 @@ namespace Explorer.Tours.Core.Domain
         public Uri Image { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
+        public int TourId { get; init; }
 
-        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude)
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, int tourId)
         {
             Name = name;
             Description = description;
             Image = image;
             Latitude = latitude;
             Longitude = longitude;
+            TourId = tourId;
             Validate();
         }
 
@@ -33,6 +35,7 @@ namespace Explorer.Tours.Core.Domain
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid description");
             if (Latitude is > 90 or < -90) throw new ArgumentException("Invalid latitude");
             if (Longitude is > 180 or < -180) throw new ArgumentException("Invalid longitude");
+            if (TourId > 0) throw new ArgumentException("Invalid tour id");
         }
 
     }
