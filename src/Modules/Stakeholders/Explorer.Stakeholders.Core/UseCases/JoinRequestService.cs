@@ -31,17 +31,18 @@ namespace Explorer.Stakeholders.Core.UseCases
             return _requestRepository.CheckStatusOfRequest(touristId, clubId);
         }
 
-        public Result<List<JoinRequestDto>> FindRequests(long ownerId)
+        public Result<List<RequestDto>> FindRequests(long ownerId)
         {
             List<JoinRequest> requests = _requestRepository.FindRequestsForOwner(ownerId);
 
-            List<JoinRequestDto> dtoList = new List<JoinRequestDto>();
+            List<RequestDto> dtoList = new List<RequestDto>();
 
             foreach (JoinRequest request in requests)
             {
-                JoinRequestDto dto = new JoinRequestDto
+                RequestDto dto = new RequestDto
                 {
                     Id = request.Id,
+                    Username = _userRepository.GetUsername(request.UserId),
                     ClubId = request.ClubId,
                     UserId = request.UserId,
                     RequestStatus = request.RequestStatus,
