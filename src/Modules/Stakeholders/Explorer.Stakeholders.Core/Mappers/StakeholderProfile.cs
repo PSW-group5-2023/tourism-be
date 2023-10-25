@@ -9,6 +9,7 @@ public class StakeholderProfile : Profile
 {
     public StakeholderProfile()
     {
+        CreateMap<TourPreferencesDto, TourPreferences>().ReverseMap();
         CreateMap<ApplicationRatingDto, ApplicationRating>().ReverseMap();
         CreateMap<UserInformationDto, User>().ReverseMap().ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString())).ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id));
         CreateMap<UserInformationDto, Person>().ReverseMap();
