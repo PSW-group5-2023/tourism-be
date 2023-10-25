@@ -1,2 +1,6 @@
 ﻿DELETE FROM stakeholders."People";
 DELETE FROM stakeholders."Users";
+DELETE FROM stakeholders."TourPreferences";
+DELETE FROM stakeholders."ApplicationRatings";
+DELETE FROM stakeholders."Clubs";
+DELETE FROM stakeholders."JoinRequests";

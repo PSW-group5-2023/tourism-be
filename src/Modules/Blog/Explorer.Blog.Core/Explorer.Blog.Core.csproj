@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Stakeholders\Explorer.Stakeholders.Core\Explorer.Stakeholders.Core.csproj" />
     <ProjectReference Include="..\Explorer.Blog.API\Explorer.Blog.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Domain\RepositoryInterfaces\" />
-    <Folder Include="UseCases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.12" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302" />
   </ItemGroup>
 
 </Project>
