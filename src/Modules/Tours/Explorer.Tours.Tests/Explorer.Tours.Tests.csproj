@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
   </PropertyGroup>
@@ -16,11 +16,12 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.12" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
-    <PackageReference Include="xunit" Version="2.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -30,10 +31,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Core\Explorer.BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Infrastructure\Explorer.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Tests\Explorer.BuildingBlocks.Tests.csproj" />
     <ProjectReference Include="..\..\..\Explorer.API\Explorer.API.csproj" />
+    <ProjectReference Include="..\..\..\Explorer.Architecture.Tests\Explorer.Architecture.Tests.csproj" />
+    <ProjectReference Include="..\Explorer.Tours.API\Explorer.Tours.API.csproj" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Explorer.Tours.Core\Explorer.Tours.Core.csproj" />
+    <ProjectReference Include="..\Explorer.Tours.Infrastructure\Explorer.Tours.Infrastructure.csproj" />
+  </ItemGroup>
   <ItemGroup Condition="$(VisualStudioVersion) == '17.0'">
     <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>

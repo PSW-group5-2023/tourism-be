@@ -28,7 +28,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetMembers(-1,0,0).Result)?.Value as PagedResult<ClubMemberDto>;
+            var result = ((ObjectResult)controller.GetMembers(-1,1,5).Result)?.Value as PagedResult<ClubMemberDto>;
 
             //Assert
             result.ShouldNotBe(null);
@@ -42,7 +42,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetInvitableUsers(-1,0,0).Result)?.Value as PagedResult<ClubMemberDto>;
+            var result = ((ObjectResult)controller.GetInvitableUsers(-1,1,5).Result)?.Value as PagedResult<ClubMemberDto>;
 
             //Assert
             result.ShouldNotBe(null);

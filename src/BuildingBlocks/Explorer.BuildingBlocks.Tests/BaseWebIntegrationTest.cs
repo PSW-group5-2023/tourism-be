@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Security.Claims;
-using Explorer.API;
 using Xunit;
-
+using Explorer.API;
 namespace Explorer.BuildingBlocks.Tests;
 
 public class BaseWebIntegrationTest<TTestFactory> : IClassFixture<TTestFactory> where TTestFactory : WebApplicationFactory<Program>
