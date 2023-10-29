@@ -7,6 +7,5 @@ namespace Explorer.Tours.API.Public;
 public interface IEquipmentTrackingService
 {
     Result<EquipmentTrackingDto> Update(EquipmentTrackingDto equipment);
-    Result<PagedResult<EquipmentTrackingDto>> GetPaged(int page, int pageSize);
-
+    Result<EquipmentTrackingDto> GetByTouristId(long touristId);
 }

@@ -6,13 +6,9 @@ namespace Explorer.Tours.Core.Domain
     {
         public long TouristId { get; init; }
         public List<long> NeededEquipment { get; init; }
-        public EquipmentTracking(List<long> neededEquipment) 
+        public EquipmentTracking() 
         {
-            foreach (var item in neededEquipment)
-            {
-                if (string.IsNullOrWhiteSpace(item.ToString())) throw new ArgumentException("Invalid NeededEquipment.");
-            }
-            NeededEquipment = neededEquipment;
+            NeededEquipment = new List<long>();
         }
     }
 }
