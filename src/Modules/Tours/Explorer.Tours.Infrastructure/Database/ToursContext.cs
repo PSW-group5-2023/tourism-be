@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,17 @@ public class ToursContext : DbContext
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<TourRating> TourRatings { get; set; }
     public DbSet<TourProblem> TourProblems { get; set; }
+    public DbSet<Preferences> Preferences { get; set; }
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("tours");
+
+        //modelBuilder.Entity<Preferences>()
+        //    .HasOne<User>()
+        //    .WithOne()
+        //    .HasForeignKey<Preferences>(s => s.UserId);
     }
 }

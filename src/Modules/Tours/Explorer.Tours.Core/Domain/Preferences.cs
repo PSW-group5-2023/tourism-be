@@ -1,9 +1,9 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 
-namespace Explorer.Stakeholders.Core.Domain
+namespace Explorer.Tours.Core.Domain
 
 {
-    public class TourPreferences : Entity
+    public class Preferences : Entity
     {
         public long UserId { get; init; }
         public int DifficultyLevel { get; init; }
@@ -13,7 +13,7 @@ namespace Explorer.Stakeholders.Core.Domain
         public int BoatRate { get; init; }
         public List<string> Tags { get; init; }
 
-        public TourPreferences(long userId, int difficultyLevel, int walkingRate, int bicycleRate, int carRate, int boatRate, List<string> tags)
+        public Preferences(long userId, int difficultyLevel, int walkingRate, int bicycleRate, int carRate, int boatRate, List<string> tags)
         {
             UserId = userId;
             DifficultyLevel = difficultyLevel;

@@ -13,6 +13,7 @@ using Explorer.Tours.Infrastructure.Database;
 using Explorer.Tours.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Explorer.Stakeholders.Core.UseCases;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -35,6 +36,7 @@ public static class ToursStartup
         services.AddScoped<IFacilityService, FacilityService>();
         services.AddScoped<ITourRatingService, TourRatingService>();
         services.AddScoped<ITourProblemService, TourProblemService>();
+        services.AddScoped<IPreferencesService, PreferencesService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -46,6 +48,8 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<Facility>), typeof(CrudDatabaseRepository<Facility, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourRating>), typeof(CrudDatabaseRepository<TourRating, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourProblem>), typeof(CrudDatabaseRepository<TourProblem, ToursContext>));
+        services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
+        services.AddScoped<IPreferencesRepository, PreferencesRepository>();
         services.AddDbContext<ToursContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("tours"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "tours")));

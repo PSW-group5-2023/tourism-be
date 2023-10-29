@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.API.Dtos
+namespace Explorer.Tours.API.Dtos
 {
-    public class TourPreferencesDto
+    public class PreferencesDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }

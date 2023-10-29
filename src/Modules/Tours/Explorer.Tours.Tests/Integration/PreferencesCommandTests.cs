@@ -1,29 +1,27 @@
 ﻿using Explorer.API.Controllers.Tourist;
-using Explorer.Stakeholders.API.Dtos;
-using Explorer.Stakeholders.API.Public;
-using Explorer.Stakeholders.Infrastructure.Database;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public;
+using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Explorer.Stakeholders.Core.Domain;
 using Shouldly;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.Infrastructure.Database;
 
-namespace Explorer.Stakeholders.Tests.Integration
+namespace Explorer.Tours.Tests.Integration
 {
     [Collection("Sequential")]
-    public class TourPreferencesCommandTests : BaseStakeholdersIntegrationTest
+    public class PreferencesCommandTests : BaseToursIntegrationTest
     {
-        public TourPreferencesCommandTests(StakeholdersTestFactory factory) : base(factory) { }
+        public PreferencesCommandTests(ToursTestFactory factory) : base(factory) { }
 
         [Fact]
         public void Creates()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var controller = CreateController(scope);
-            var preferences = new TourPreferencesDto
+            var preferences = new PreferencesDto
             {
                 Id = 3,
                 UserId = -22,
@@ -36,7 +34,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             };
 
             //Act
-            var response = ((ObjectResult)controller.Create(preferences).Result)?.Value as TourPreferencesDto;
+            var response = ((ObjectResult)controller.Create(preferences).Result)?.Value as PreferencesDto;
 
             //Assert - Response
             response.ShouldNotBeNull();
@@ -45,7 +43,7 @@ namespace Explorer.Stakeholders.Tests.Integration
 
             //Assert - Database
             dbContext.ChangeTracker.Clear();
-            var storedPreferences = dbContext.TourPreferences.FirstOrDefault(p => p.Id == preferences.Id);
+            var storedPreferences = dbContext.Preferences.FirstOrDefault(p => p.Id == preferences.Id);
             storedPreferences.ShouldNotBeNull();
             storedPreferences.UserId.ShouldBe(-22);
             storedPreferences.DifficultyLevel.ShouldBe(1);
@@ -62,7 +60,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var entity = new TourPreferencesDto
+            var entity = new PreferencesDto
             {
                 Id = 4,
                 UserId = -22,
@@ -88,7 +86,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             // Act
             var result = (OkResult)controller.Delete(-1);
@@ -98,7 +96,7 @@ namespace Explorer.Stakeholders.Tests.Integration
             result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            var stored = dbContext.TourPreferences.FirstOrDefault(i => i.Id == -1);
+            var stored = dbContext.Preferences.FirstOrDefault(i => i.Id == -1);
             stored.ShouldBeNull();
         }
 
@@ -117,9 +115,9 @@ namespace Explorer.Stakeholders.Tests.Integration
             result.StatusCode.ShouldBe(404);
         }
 
-        private static TourPreferencesController CreateController(IServiceScope scope)
+        private static PreferencesController CreateController(IServiceScope scope)
         {
-            return new TourPreferencesController(scope.ServiceProvider.GetRequiredService<ITourPreferencesService>());
+            return new PreferencesController(scope.ServiceProvider.GetRequiredService<IPreferencesService>());
         }
     }
 }
