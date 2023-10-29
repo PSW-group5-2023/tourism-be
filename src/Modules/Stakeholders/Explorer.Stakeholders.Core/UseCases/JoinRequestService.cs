@@ -59,10 +59,9 @@ namespace Explorer.Stakeholders.Core.UseCases
             var clubMemberIds = _requestRepository.GetClubMembersIds(clubId).Select(x => x.UserId).ToList();
             var users = _userRepository.GetAll();
 
-            var page = (pageIndex / pageSize) + 1;
 
             var members = users.Where(x => clubMemberIds.Contains(x.Id)).Select(x => new ClubMemberDto { Id = x.Id, Username = x.Username });
-            return new PagedResult<ClubMemberDto>(members.Skip((page - 1) * pageSize).Take(pageSize).ToList(), members.Count());
+            return new PagedResult<ClubMemberDto>(members.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList(), members.Count());
         }
 
         public Result<PagedResult<ClubMemberDto>> GetInvitableUsers(long clubId,int pageIndex,int pageSize)
@@ -70,9 +69,8 @@ namespace Explorer.Stakeholders.Core.UseCases
             var invitedAndMembers = _requestRepository.GetInvitedAndMemberIds(clubId).Select(x => x.UserId).ToList();
             var users = _userRepository.GetAll();
 
-            var page = (pageIndex / pageSize) + 1;
-            var invitableUsers = users.Where(x => !invitedAndMembers.Contains(x.Id)).Select(x => new ClubMemberDto { Id = x.Id, Username = x.Username });
-            return new PagedResult<ClubMemberDto>(invitableUsers.Skip((page - 1) * pageSize).Take(pageSize).ToList(), invitableUsers.Count());
+            var invitableUsers = users.Where(x => !invitedAndMembers.Contains(x.Id) && x.Role == UserRole.Tourist).Select(x => new ClubMemberDto { Id = x.Id, Username = x.Username });
+            return new PagedResult<ClubMemberDto>(invitableUsers.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList(), invitableUsers.Count());
         }
 
         public Result<long> KickMember(long clubId, long userId)
