@@ -8,8 +8,9 @@ namespace Explorer.Tours.API.Dtos
 {
     public class PositionSimulatorDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public long TouristId { get; set; }
     }
 }

@@ -13,10 +13,12 @@ namespace Explorer.Tours.Core.Domain
     {
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public PositionSimulator(double latitude, double longitude) 
+        public long TouristId { get; init; }   
+        public PositionSimulator(double latitude, double longitude, long touristId) 
         {
             Latitude = latitude; 
             Longitude = longitude;
+            TouristId = touristId;
             Validate();
         }
 
