@@ -9,42 +9,19 @@ using System.Threading.Tasks;
 namespace Explorer.Tours.Core.Domain
 {
 
-    public enum TourStatus
-    {
-        DRAFT = 1,
-        NOT_STARTED,
-        ACTIVE,
-        FINISHED,
-        CANCELED
-    }
-
-    public enum TourDifficulty
-    {
-        BEGINNER = 1,
-        INTERMEDIATE,
-        ADVANCED,
-        PRO
-    }
-
     public class Tour : Entity
     {
         public string Name { get; init; }
         public string Description { get; init; }
         public string Difficulty { get; init; }
         public string Tags { get; init; }
-        public string Status { get; init; }
+        public TourStatus Status { get; init; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
-        public Tour(string name, string description, string difficulty, string tags, string status, double price, int authorId, int[] equipment)
+        public Tour(string name, string description, string difficulty, string tags, TourStatus status, double price, int authorId, int[] equipment)
         {
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Invalid Name.");
-            if (string.IsNullOrWhiteSpace(description)) throw new ArgumentException("Invalid Description.");
-            if (string.IsNullOrWhiteSpace(tags)) throw new ArgumentException("Invalid Tags.");
-            if (string.IsNullOrWhiteSpace(price.ToString())) throw new ArgumentException("Invalid Price.");
-            if (string.IsNullOrWhiteSpace(status)) throw new ArgumentException("Invalid Status.");
-            if (string.IsNullOrWhiteSpace(price.ToString())) throw new ArgumentException("Invalid Price.");
-            if (string.IsNullOrWhiteSpace(authorId.ToString())) throw new ArgumentException("Invalid AuthorId.");
+            Validate();
 
             Name = name;
             Description = description;
@@ -54,6 +31,29 @@ namespace Explorer.Tours.Core.Domain
             Price = price;
             AuthorId = authorId;
             Equipment = equipment;
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name.");
+            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description.");
+            if (string.IsNullOrWhiteSpace(Tags)) throw new ArgumentException("Invalid Tags.");
+        }
+
+        public enum TourStatus
+        {
+            Draft,
+            Published,
+            Archived
+        }
+
+        public enum TourDifficulty
+        {
+            // Still unknown
+            /*BEGINNER = 1,
+            INTERMEDIATE,
+            ADVANCED,
+            PRO*/
         }
     }
 }
