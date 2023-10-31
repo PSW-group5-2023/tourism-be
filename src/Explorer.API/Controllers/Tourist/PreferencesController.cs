@@ -1,8 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Stakeholders.API.Dtos;
-using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
@@ -12,16 +11,16 @@ namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/tourPreferences")]
-    public class TourPreferencesController : BaseApiController
+    public class PreferencesController : BaseApiController
     {
-        private readonly ITourPreferencesService _preferencesService;
-        public TourPreferencesController(ITourPreferencesService preferencesService)
+        private readonly IPreferencesService _preferencesService;
+        public PreferencesController(IPreferencesService preferencesService)
         {
             _preferencesService = preferencesService;
         }
 
         [HttpGet]
-        public ActionResult<TourPreferencesDto> GetByUserId()
+        public ActionResult<PreferencesDto> GetByUserId()
         {
             var userId = User.PersonId();
             var result = _preferencesService.GetByUserId(userId);
@@ -29,7 +28,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpPost]
-        public ActionResult<TourPreferencesDto> Create([FromBody] TourPreferencesDto preferencesDto) 
+        public ActionResult<PreferencesDto> Create([FromBody] PreferencesDto preferencesDto) 
         {
             if(User != null)
             {

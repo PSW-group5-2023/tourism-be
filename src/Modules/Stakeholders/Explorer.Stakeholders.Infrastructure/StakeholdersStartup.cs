@@ -30,7 +30,6 @@ public static class StakeholdersStartup
     {
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
-        services.AddScoped<ITourPreferencesService, TourPreferencesService>();
         services.AddScoped<IApplicationRatingService, ApplicationRatingService>();
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IClubService, ClubService>();
@@ -43,9 +42,7 @@ public static class StakeholdersStartup
     private static void SetupInfrastructure(IServiceCollection services)
     {
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
-        services.AddScoped(typeof(ICrudRepository<TourPreferences>), typeof(CrudDatabaseRepository<TourPreferences, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
-        services.AddScoped<ITourPreferencesRepository, TourPreferencesDatabaseRepository>();
         services.AddScoped(typeof(ICrudRepository<ApplicationRating>), typeof(CrudDatabaseRepository<ApplicationRating, StakeholdersContext>));
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
