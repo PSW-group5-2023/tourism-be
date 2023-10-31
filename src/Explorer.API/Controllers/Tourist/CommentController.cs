@@ -45,5 +45,12 @@ namespace Explorer.API.Controllers.Tourist
             var result = _commentService.Update(commentDto);
             return CreateResponse(result);
         }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var result = _commentService.Delete(id);
+            return CreateResponse(result);
+        }
     }
 }
