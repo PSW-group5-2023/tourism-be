@@ -25,6 +25,19 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             var keyPoints = _dbContext.TourKeyPoints.Where(x => x.TourId == tourId).ToList();
             return keyPoints;
         }
+        public TourKeyPoint GetById(int id)
+        {
+            var keyPoint = _dbContext.TourKeyPoints.FirstOrDefault(x => x.Id == id);
+            return keyPoint;
+        }
+
+        public TourKeyPoint Update(TourKeyPoint tourKeyPoint)
+        {
+            var keyPoint = _dbContext.TourKeyPoints.FirstOrDefault(x => x.Id == tourKeyPoint.Id);
+            keyPoint = tourKeyPoint;
+            _dbContext.SaveChanges();
+            return keyPoint;
+        }
 
     }
 }
