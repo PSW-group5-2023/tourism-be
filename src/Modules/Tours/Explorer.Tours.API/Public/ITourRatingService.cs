@@ -15,5 +15,6 @@ namespace Explorer.Tours.API.Public
         Result<TourRatingDto> Get(int id);
         Result<TourRatingDto> Create(TourRatingDto rating);
         Result<List<TourRatingDto>> GetByTourId(int tourId);
+        Result<TourRatingDto> Update(TourRatingDto rating);
     }
 }

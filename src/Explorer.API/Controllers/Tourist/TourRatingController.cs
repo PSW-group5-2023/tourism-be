@@ -47,5 +47,12 @@ namespace Explorer.API.Controllers.Tourist
             var result = _ratingService.GetByTourId(tourId);
             return CreateResponse(result);
         }
+
+        [HttpPut]
+        public ActionResult<TourRatingDto> Update([FromBody] TourRatingDto rating)
+        {
+            var result = _ratingService.Update(rating);
+            return CreateResponse(result);
+        }
     }
 }
