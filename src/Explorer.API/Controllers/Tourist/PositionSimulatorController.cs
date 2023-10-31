@@ -1,4 +1,5 @@
-﻿using Explorer.Stakeholders.API.Dtos;
+﻿using Explorer.Blog.API.Dtos;
+using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.UseCases;
 using Explorer.Tours.API.Dtos;
@@ -31,6 +32,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PositionSimulatorDto> Update([FromBody] PositionSimulatorDto positionSimulatorDto)
         {
             var result = _positionSimulatorService.Update(positionSimulatorDto);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<PositionSimulatorDto> Get(int id)
+        {
+            var result = _positionSimulatorService.Get(id);
             return CreateResponse(result);
         }
     }

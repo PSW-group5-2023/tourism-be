@@ -13,7 +13,6 @@ namespace Explorer.Tours.API.Public
     {
         Result<PositionSimulatorDto> Create(PositionSimulatorDto positionSimulatorDto);
         Result<PositionSimulatorDto> Update(PositionSimulatorDto positionSimulatorDto);
-        Result<PagedResult<PositionSimulatorDto>> GetPaged(int page, int pagedSize);
         Result<PositionSimulatorDto> Get(int id);
 
     }
