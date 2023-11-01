@@ -1,10 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
-using Explorer.Tours.API.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Tours.Core.Domain
 {
@@ -13,13 +8,13 @@ namespace Explorer.Tours.Core.Domain
     {
         public string Name { get; init; }
         public string Description { get; init; }
-        public string Difficulty { get; init; }
-        public string Tags { get; init; }
+        public TourDifficulty Difficulty { get; init; }
+        public List<string> Tags { get; init; }
         public TourStatus Status { get; init; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
-        public Tour(string name, string description, string difficulty, string tags, TourStatus status, double price, int authorId, int[] equipment)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment)
         {
             Validate();
 
@@ -35,9 +30,10 @@ namespace Explorer.Tours.Core.Domain
 
         private void Validate()
         {
-            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name.");
-            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description.");
-            if (string.IsNullOrWhiteSpace(Tags)) throw new ArgumentException("Invalid Tags.");
+            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
+            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
+            if (Price < 0) throw new ArgumentException("Invalid price");
+            if (Tags.IsNullOrEmpty()) throw new ArgumentException("Invalid Tags");
         }
 
         public enum TourStatus
