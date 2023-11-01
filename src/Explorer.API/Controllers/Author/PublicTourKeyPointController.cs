@@ -41,5 +41,12 @@ namespace Explorer.API.Controllers.Author
             var result = _publicTourKeyPointService.ChangeStatus(tourId, status);
             return CreateResponse(result);
         }
+
+        [HttpGet("{status}")]
+        public ActionResult<PagedResult<PublicTourKeyPointDto>> GetByStatus(String status)
+        {
+            var result = _publicTourKeyPointService.GetByStatus(status);
+            return CreateResponse(result);
+        }
     }
 }

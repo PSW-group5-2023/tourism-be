@@ -34,18 +34,36 @@ namespace Explorer.Tours.Core.UseCases
                     break;
            }
            _tourKeyPointsRepository.Update(keyPoint);
-            return new PublicTourKeyPointDto()
-           {
-               Name = keyPoint.Name,
-               Description = keyPoint.Description,
-               Image = keyPoint.Image,
-               Latitude = keyPoint.Latitude,
-               Longitude = keyPoint.Longitude,
-               CreatorId = keyPoint.CreatorId,
-               Status = keyPoint.Status.ToString(),
-           };
 
-           
+
+           return CreateDto(keyPoint);
+        }
+
+        private PublicTourKeyPointDto CreateDto(PublicTourKeyPoints keyPoint)
+        {
+            return new PublicTourKeyPointDto
+            {
+                Id = (int)keyPoint.Id,
+                Name = keyPoint.Name,
+                Description = keyPoint.Description,
+                Image = keyPoint.Image,
+                Latitude = keyPoint.Latitude,
+                Longitude = keyPoint.Longitude,
+                CreatorId = keyPoint.CreatorId,
+                Status = keyPoint.Status.ToString(),
+            };
+        }
+        public Result<List<PublicTourKeyPointDto>> GetByStatus(String status)
+        {
+            List<PublicTourKeyPointDto> tourKeyPointDtos = new List<PublicTourKeyPointDto>();
+            Enum.TryParse(status, out PublicTourKeyPoints.PublicTourKeyPointStatus parsedStatus);
+            var tourKeyPoints = _tourKeyPointsRepository.GetByStatus(parsedStatus);
+            foreach (var tourKeyPoint in tourKeyPoints)
+            {
+                tourKeyPointDtos.Add(CreateDto(tourKeyPoint));
+            }
+
+            return tourKeyPointDtos;
         }
 
     }

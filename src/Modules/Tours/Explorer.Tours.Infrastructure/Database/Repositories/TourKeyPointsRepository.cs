@@ -39,5 +39,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return keyPoint;
         }
 
+        public List<PublicTourKeyPoints> GetByStatus(PublicTourKeyPoints.PublicTourKeyPointStatus status)
+        {
+            var keyPoints = _dbContext.PublicTourKeyPoints.Where(x => x.Status == status).ToList();
+            return keyPoints;
+        }
+
     }
 }
