@@ -30,5 +30,6 @@ namespace Explorer.Tours.API.Dtos
         public TourProblemPriority Priority { get; set; }
         public string Description { get; set; }
         public DateTime Time { get; set; }
+        public Boolean IsSolved { get; set; }
     }
 }

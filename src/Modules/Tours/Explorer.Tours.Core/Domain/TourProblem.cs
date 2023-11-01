@@ -32,8 +32,10 @@ namespace Explorer.Tours.Core.Domain
         public TourProblemPriority Priority { get; init; }
         public string Description { get; init; }
         public DateTime Time { get; init; }
+        public Boolean IsSolved { get; init; }
 
-        public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time)
+
+        public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved)
         {
             TouristId = touristId;
             TourId = tourId;
@@ -42,6 +44,7 @@ namespace Explorer.Tours.Core.Domain
             Description = description;
             Time = time;
             Validate();
+            IsSolved = isSolved;
         }
         public void Validate()
         {

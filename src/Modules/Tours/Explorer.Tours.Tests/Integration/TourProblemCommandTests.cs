@@ -34,7 +34,8 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             Category = TourProblemCategory.GUIDE_SERVICES,
             Priority = TourProblemPriority.MEDIUM,
             Description = "Vodic je zakasnio",
-            Time = DateTime.Now.ToUniversalTime()
+            Time = DateTime.Now.ToUniversalTime(),
+            IsSolved = false
     };
 
         // Act
@@ -49,6 +50,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
         result.Priority.ShouldBe(newEntity.Priority);
         result.Description.ShouldBe(newEntity.Description);
         result.Time.ShouldBe(newEntity.Time);
+        result.IsSolved.ShouldBe(newEntity.IsSolved);
 
         // Assert - Database
         var storedEntity = dbContext.TourProblems.FirstOrDefault(i => i.Description == newEntity.Description);
