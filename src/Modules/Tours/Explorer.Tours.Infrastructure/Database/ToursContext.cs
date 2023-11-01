@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Tours.Infrastructure.Database;
@@ -15,6 +16,7 @@ public class ToursContext : DbContext
     public DbSet<TourProblem> TourProblems { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
+    public DbSet<Session> Sessions { get; set; }
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}
 
@@ -22,9 +24,21 @@ public class ToursContext : DbContext
     {
         modelBuilder.HasDefaultSchema("tours");
 
+        modelBuilder.Entity<Session>().Property(item => item.Location).HasColumnType("jsonb");
+
+        ConfigureTour(modelBuilder);
+    }
+
+    private static void ConfigureTour(ModelBuilder modelBuilder)
+    {
         //modelBuilder.Entity<Preferences>()
         //    .HasOne<User>()
         //    .WithOne()
         //    .HasForeignKey<Preferences>(s => s.UserId);
+
+        modelBuilder.Entity<Session>()
+            .HasOne<Tour>()
+            .WithOne()
+            .HasForeignKey<Session>(s => s.TourId);
     }
 }

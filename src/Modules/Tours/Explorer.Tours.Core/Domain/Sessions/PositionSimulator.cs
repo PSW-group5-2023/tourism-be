@@ -4,19 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Tours.Core.Domain.Sessions
 {
-    public class PositionSimulator : Entity
+    public class PositionSimulator : ValueObject
     {
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public long TouristId { get; init; }   
-        public PositionSimulator(double latitude, double longitude, long touristId) 
+        public long TouristId { get; init; }
+
+        [JsonConstructor]
+        public PositionSimulator(double latitude, double longitude, long touristId)
         {
-            Latitude = latitude; 
+            Latitude = latitude;
             Longitude = longitude;
             TouristId = touristId;
             Validate();
@@ -26,6 +29,13 @@ namespace Explorer.Tours.Core.Domain
         {
             if (Latitude is > 90 or < -90) throw new ArgumentException("Invalid latitude");
             if (Longitude is > 180 or < -180) throw new ArgumentException("Invalid longitude");
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Latitude;
+            yield return Longitude;
+            yield return TouristId;
         }
     }
 }

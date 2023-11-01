@@ -14,6 +14,7 @@ using Explorer.Tours.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Explorer.Stakeholders.Core.UseCases;
+using Explorer.Tours.Core.Domain.Sessions;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -49,7 +50,8 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<Facility>), typeof(CrudDatabaseRepository<Facility, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourRating>), typeof(CrudDatabaseRepository<TourRating, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourProblem>), typeof(CrudDatabaseRepository<TourProblem, ToursContext>));
-        services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
+        //services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
+        services.AddScoped<ISessionRepository, SessionRepository>();
 
         services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
         services.AddScoped<IPreferencesRepository, PreferencesRepository>();
