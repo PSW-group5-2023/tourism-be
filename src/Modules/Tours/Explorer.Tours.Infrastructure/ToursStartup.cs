@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Explorer.Stakeholders.Core.UseCases;
 using Explorer.Tours.Core.Domain.Sessions;
+using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.Core.UseCases.Execution;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -37,8 +39,9 @@ public static class ToursStartup
         services.AddScoped<IFacilityService, FacilityService>();
         services.AddScoped<ITourRatingService, TourRatingService>();
         services.AddScoped<ITourProblemService, TourProblemService>();
-        services.AddScoped<IPositionSimulatorService, PositionSimulatorService>();
+        //services.AddScoped<IPositionSimulatorService, PositionSimulatorService>();
         services.AddScoped<IPreferencesService, PreferencesService>();
+        services.AddScoped<ISessionService, SessionService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Explorer.Tours.API.Dtos;
+using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace Explorer.Tours.API.Public.Execution
 {
     public interface ISessionService
     {
+        Result<SessionDto> Create(SessionDto session);
     }
 }

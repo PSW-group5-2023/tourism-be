@@ -8,5 +8,6 @@ namespace Explorer.Tours.Core.Domain.Sessions
 {
     public interface ISessionRepository
     {
+        Session Create(Session session);
     }
 }

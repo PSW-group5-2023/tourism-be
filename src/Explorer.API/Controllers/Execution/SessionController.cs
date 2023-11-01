@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.API.Public.Execution;
+﻿using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public.Execution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,13 @@ namespace Explorer.API.Controllers.Execution
         public SessionController(ISessionService sessionService)
         {
             _sessionService = sessionService;
+        }
+
+        [HttpPost]
+        public ActionResult<SessionDto> Create([FromBody] SessionDto session)
+        {
+            var result = _sessionService.Create(session);
+            return CreateResponse(result);
         }
     }
 }

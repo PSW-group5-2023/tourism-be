@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.UseCases
 {
-    public class PositionSimulatorService : CrudService<PositionSimulatorDto, PositionSimulator>, IPositionSimulatorService 
+    public class PositionSimulatorService /*: CrudService<PositionSimulatorDto, PositionSimulator>, IPositionSimulatorService 
     {
-        public PositionSimulatorService(ICrudRepository<PositionSimulator> repository, IMapper mapper) : base(repository, mapper) { }
+        public PositionSimulatorService(ICrudRepository<PositionSimulator> repository, IMapper mapper) : base(repository, mapper) { }*/
+    {
     }
 
 }

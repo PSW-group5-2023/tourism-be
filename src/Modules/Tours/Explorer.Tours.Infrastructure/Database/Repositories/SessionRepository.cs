@@ -16,6 +16,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _context = context;
         }
 
-
+        public Session Create(Session session)
+        {
+            _context.Add(session);
+            _context.SaveChanges();
+            return session;
+        }
     }
 }
