@@ -1,4 +1,5 @@
 ﻿using Explorer.Tours.Core.Domain.Sessions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,21 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             _context.Add(session);
             _context.SaveChanges();
+            return session;
+        }
+
+        public Session Update(Session session)
+        {
+            try
+            {
+                _context.Update(session);
+                _context.SaveChanges();
+            }
+            catch(DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+
             return session;
         }
     }

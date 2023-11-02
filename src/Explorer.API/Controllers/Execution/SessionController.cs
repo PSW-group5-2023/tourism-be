@@ -22,5 +22,12 @@ namespace Explorer.API.Controllers.Execution
             var result = _sessionService.Create(session);
             return CreateResponse(result);
         }
+
+        [HttpPut]
+        public ActionResult<SessionDto> Update([FromBody] SessionDto session)
+        {
+            var result = _sessionService.Update(session);
+            return CreateResponse(result);
+        }
     }
 }

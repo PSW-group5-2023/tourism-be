@@ -11,5 +11,6 @@ namespace Explorer.Tours.API.Public.Execution
     public interface ISessionService
     {
         Result<SessionDto> Create(SessionDto session);
+        Result<SessionDto> Update(SessionDto session);
     }
 }
