@@ -22,6 +22,7 @@ namespace Explorer.API.Controllers.Administrator
         public ActionResult<PagedResult<TourProblemDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _problemService.GetPaged(page, pageSize);
+            _problemService.FindNames(result.Value.Results);
             return CreateResponse(result);
         }
     }

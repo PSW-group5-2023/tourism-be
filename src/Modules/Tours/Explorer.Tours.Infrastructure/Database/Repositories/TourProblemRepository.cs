@@ -31,6 +31,5 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             var tourProblems = _dbContext.TourProblems.Where(x => x.TourId == tourId).ToList();
             return tourProblems;
         }
-
     }
 }

@@ -16,5 +16,6 @@ namespace Explorer.Tours.API.Public
         Result<TourProblemDto> Update(TourProblemDto tourProblem);
         Result<List<TourProblemDto>> GetByTouristId(long touristId);
         Result<List<TourProblemDto>> GetByTourId(long tourId);
+        public void FindNames(List<TourProblemDto> result);
     }
 }

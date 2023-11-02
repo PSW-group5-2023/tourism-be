@@ -10,6 +10,7 @@ using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
+using Explorer.Stakeholders.API.Internal;
 
 
 namespace Explorer.Tours.Core.UseCases
@@ -17,16 +18,22 @@ namespace Explorer.Tours.Core.UseCases
     public class TourProblemService : CrudService<TourProblemDto, TourProblem>, ITourProblemService
     {
         private readonly ITourProblemRepository _tourProblemRepository;
+        private readonly IUserNames _userNamesService;
+        private readonly ITourService _tourService;
 
-        public TourProblemService(ICrudRepository<TourProblem> repository, IMapper mapper, ITourProblemRepository tourProblemRepository) : base(repository, mapper)
+        public TourProblemService(ICrudRepository<TourProblem> repository, IMapper mapper, ITourProblemRepository tourProblemRepository, IUserNames userNamesService, ITourService tourService) : base(repository, mapper)
         {
             _tourProblemRepository = tourProblemRepository;
+            _userNamesService = userNamesService;
+            _tourService = tourService;
         }
         public Result<List<TourProblemDto>> GetByTouristId(long touristId)
         {
             List<TourProblemDto> result = new List<TourProblemDto>();
             List<TourProblem> tourProblems = _tourProblemRepository.GetByTouristId(touristId);
+            
             tourProblems.ForEach(t => result.Add(MapToDto(t)));
+           
             return result;
         }
         public Result<List<TourProblemDto>> GetByTourId(long tourId)
@@ -35,6 +42,17 @@ namespace Explorer.Tours.Core.UseCases
             List<TourProblem> tourProblems = _tourProblemRepository.GetByTourId(tourId);
             tourProblems.ForEach(t => result.Add(MapToDto(t)));
             return result;
+        }
+        public void FindNames(List<TourProblemDto> result)
+        {
+            var tours = _tourService.GetPaged(0, 0).Value.Results;
+            
+            foreach (var r in result)
+            {
+                long authorId = tours.Find(t => t.Id == r.TourId).AuthorId;
+                r.AuthorUsername = _userNamesService.GetName(authorId).Username;
+                r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
+            }
         }
     }
 }

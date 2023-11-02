@@ -1,5 +1,6 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core;
 using Explorer.Stakeholders.Core.Domain;
@@ -37,6 +38,7 @@ public static class StakeholdersStartup
         services.AddScoped<IUserInformationService, UserInformationService>();
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
+        services.AddScoped<IUserNames,UserNamesService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -52,6 +54,7 @@ public static class StakeholdersStartup
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
+        
 
 
 
