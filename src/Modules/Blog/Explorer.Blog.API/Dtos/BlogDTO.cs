@@ -6,7 +6,9 @@ namespace Explorer.Blog.API.Dtos
         {
             Draft,
             Published,
-            Closed
+            Closed,
+            Famous,
+            Active
         }
     public class BlogDto
     {
