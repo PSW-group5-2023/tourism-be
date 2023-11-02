@@ -10,6 +10,6 @@ namespace Explorer.Stakeholders.API.Internal
 {
     public interface IInternalBlogService
     {
-        UserDto Get(int id);
+        UserDto GetByUserId(int id);
     }
 }

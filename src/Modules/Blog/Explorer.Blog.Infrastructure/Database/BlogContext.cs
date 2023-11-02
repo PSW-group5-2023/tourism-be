@@ -16,5 +16,7 @@ public class BlogContext : DbContext
         modelBuilder.HasDefaultSchema("blog");
 
         modelBuilder.Entity<BlogPage>().HasIndex(u => u.Title).IsUnique();
+
+        modelBuilder.Entity<BlogPage>().Property(item => item.Ratings).HasColumnType("jsonb");
     }
 }

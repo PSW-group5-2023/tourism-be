@@ -16,5 +16,7 @@ namespace Explorer.Blog.API.Public
         Result<BlogDto> Create(BlogDto blog);
         Result<BlogDto> Update(BlogDto blog);
         Result Delete(int id);
+
+        Result<BlogDto> Get(int id);
     }
 }
