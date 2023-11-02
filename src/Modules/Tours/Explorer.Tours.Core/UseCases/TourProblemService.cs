@@ -29,5 +29,12 @@ namespace Explorer.Tours.Core.UseCases
             tourProblems.ForEach(t => result.Add(MapToDto(t)));
             return result;
         }
+        public Result<List<TourProblemDto>> GetByTourId(long tourId)
+        {
+            List<TourProblemDto> result = new List<TourProblemDto>();
+            List<TourProblem> tourProblems = _tourProblemRepository.GetByTourId(tourId);
+            tourProblems.ForEach(t => result.Add(MapToDto(t)));
+            return result;
+        }
     }
 }

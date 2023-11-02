@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.Domain;
+﻿using Explorer.Blog.Core.Domain;
+using Explorer.BuildingBlocks.Core.Domain;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace Explorer.Tours.Core.Domain
         public TourProblemPriority Priority { get; init; }
         public string Description { get; init; }
         public DateTime Time { get; init; }
-        public Boolean IsSolved { get; init; }
+        public Boolean IsSolved { get; init; }      
+        //public List<TourProblemMessage> Messages { get; init; }
 
 
         public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved)
@@ -45,6 +47,7 @@ namespace Explorer.Tours.Core.Domain
             Time = time;
             Validate();
             IsSolved = isSolved;
+           // Messages = new List<TourProblemMessage>();
         }
         public void Validate()
         {

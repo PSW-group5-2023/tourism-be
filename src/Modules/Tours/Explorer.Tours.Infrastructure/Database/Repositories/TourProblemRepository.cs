@@ -26,5 +26,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return tourProblems;
         }
 
+        public List<TourProblem> GetByTourId(long tourId)
+        {
+            var tourProblems = _dbContext.TourProblems.Where(x => x.TourId == tourId).ToList();
+            return tourProblems;
+        }
+
     }
 }

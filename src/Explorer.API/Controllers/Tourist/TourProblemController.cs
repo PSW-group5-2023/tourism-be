@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
@@ -23,6 +24,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<TourProblemDto> Create([FromBody] TourProblemDto tourProblem)
         {
             var result = _problemService.Create(tourProblem);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<TourProblemDto> Update([FromBody] TourProblemDto tourProblem)
+        {
+            var result = _problemService.Update(tourProblem);
             return CreateResponse(result);
         }
 
