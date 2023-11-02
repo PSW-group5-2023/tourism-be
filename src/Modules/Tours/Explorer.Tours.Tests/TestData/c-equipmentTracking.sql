@@ -1,3 +1,3 @@
 ﻿INSERT INTO tours."EquipmentTrackings"(
     "Id", "TouristId", "NeededEquipment")
-VALUES (1, 1, '{{ 1 }}');
+VALUES (-1, -21, '{{-1}}');

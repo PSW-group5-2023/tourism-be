@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.12" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
-    <PackageReference Include="xunit" Version="2.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -25,12 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Core\Explorer.BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Infrastructure\Explorer.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Tests\Explorer.BuildingBlocks.Tests.csproj" />
     <ProjectReference Include="..\..\..\Explorer.API\Explorer.API.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Integration\" />
+    <ProjectReference Include="..\..\..\Explorer.Architecture.Tests\Explorer.Architecture.Tests.csproj" />
+    <ProjectReference Include="..\Explorer.Blog.API\Explorer.Blog.API.csproj" />
+    <ProjectReference Include="..\Explorer.Blog.Core\Explorer.Blog.Core.csproj" />
+    <ProjectReference Include="..\Explorer.Blog.Infrastructure\Explorer.Blog.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

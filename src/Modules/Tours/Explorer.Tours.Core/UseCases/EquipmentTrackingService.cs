@@ -40,4 +40,16 @@ public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, Equipm
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
         }
     }
+    public virtual Result<EquipmentTrackingDto> Create(EquipmentTrackingDto entity)
+    {
+        try
+        {
+            var result = _equipmentTrackingRepository.Create(MapToDomain(entity));
+            return MapToDto(result);
+        }
+        catch (ArgumentException e)
+        {
+            return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        }
+    }
 }

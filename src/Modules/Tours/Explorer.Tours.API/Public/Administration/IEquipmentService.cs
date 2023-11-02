@@ -8,6 +8,7 @@ public interface IEquipmentService
 {
     Result<PagedResult<EquipmentDto>> GetPaged(int page, int pageSize);
     Result<EquipmentDto> Create(EquipmentDto equipment);
-    Result<EquipmentDto> Update(EquipmentDto equipment);
+    Result<EquipmentDto> Update(EquipmentDto equipment); 
     Result Delete(int id);
+    Result<EquipmentDto> Get(int id);
 }

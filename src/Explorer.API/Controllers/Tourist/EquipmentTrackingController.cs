@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.Blog.API.Dtos;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
@@ -30,15 +31,23 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("myEquipment")]
         public ActionResult<EquipmentTrackingDto> GetByTouristId()
         {
-            long touristId = User.PersonId();;
+            long touristId = User.PersonId();
             var result = _equipmentTrackingService.GetByTouristId(touristId);
             return CreateResponse(result);
         }
 
         [HttpPut]
-        public ActionResult<EquipmentTrackingDto> Update(EquipmentTrackingDto equipment)
+        public ActionResult<EquipmentTrackingDto> Update(EquipmentTrackingDto dto)
         {
-            var result = _equipmentTrackingService.Update(equipment);
+            var result = _equipmentTrackingService.Update(dto);
+            return CreateResponse(result);
+        }
+
+        [HttpPost]
+        public ActionResult<EquipmentTrackingDto> Create([FromBody] EquipmentTrackingDto dto)
+        {
+            dto.TouristId = User.PersonId();
+            var result = _equipmentTrackingService.Create(dto);
             return CreateResponse(result);
         }
     } 

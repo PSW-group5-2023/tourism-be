@@ -14,5 +14,6 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         EquipmentTracking GetByTouristId(long id);
         EquipmentTracking Update(EquipmentTracking entity);
+        EquipmentTracking Create(EquipmentTracking entity);
     }
 }

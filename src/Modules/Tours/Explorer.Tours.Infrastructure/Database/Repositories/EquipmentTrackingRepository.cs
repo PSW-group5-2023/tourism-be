@@ -18,6 +18,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         private readonly DbSet<EquipmentTracking> _dbSet;
         public EquipmentTrackingRepository(ToursContext dbContext) {
             _dbContext = dbContext;
+            _dbSet = _dbContext.Set<EquipmentTracking>();
         }
         public EquipmentTracking GetByTouristId(long id)
         {
@@ -35,6 +36,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
+            return entity;
+        }
+        public EquipmentTracking Create(EquipmentTracking entity)
+        {
+            _dbSet.Add(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
     }
