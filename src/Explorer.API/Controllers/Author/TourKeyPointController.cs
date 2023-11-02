@@ -76,7 +76,7 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpPost("public")]
-        public ActionResult<PublicTourKeyPointDto> Create([FromBody] PublicTourKeyPointDto tourKeyPoint)
+        public ActionResult<PublicTourKeyPointDto> CreatePublic([FromBody] PublicTourKeyPointDto tourKeyPoint)
         {
             var result = _publicTourKeyPointService.Create(tourKeyPoint);
             return CreateResponse(result);

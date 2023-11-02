@@ -3,6 +3,7 @@ using Explorer.API.Controllers.Author;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,38 @@ namespace Explorer.Tours.Tests.Integration
         }
 
         [Fact]
+        public void CreatesPublic()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+            var newEntity = new PublicTourKeyPointDto
+            {
+                Name = "New public key point",
+                Description = "Newest key point.",
+                Image = new Uri("http://keypoint.com/"),
+                Longitude = 51.33,
+                Latitude = -32.6,
+                Status = "Pending",
+                CreatorId = 112
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.CreatePublic(newEntity).Result)?.Value as PublicTourKeyPointDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldNotBe(0);
+            result.Name.ShouldBe(newEntity.Name);
+
+            // Assert - Database
+            var storedEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == newEntity.Name);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(result.Id);
+        }
+
+        [Fact]
         public void CreateFailsInvalidData()
         {
             //Arrange
@@ -62,6 +95,24 @@ namespace Explorer.Tours.Tests.Integration
 
             // Act
             var result = (ObjectResult)controller.Create(newEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(400);
+        }
+        [Fact]
+        public void CreatePublicFailsInvalidData()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var newEntity = new PublicTourKeyPointDto()
+            {
+                Name = "Test"
+            };
+
+            // Act
+            var result = (ObjectResult)controller.CreatePublic(newEntity).Result;
 
             // Assert
             result.ShouldNotBeNull();
@@ -106,6 +157,29 @@ namespace Explorer.Tours.Tests.Integration
             var oldEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == "Tacka 1");
             oldEntity.ShouldBeNull();
         }
+
+        [Fact]
+        public void UpdatePublicStatus()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            //Act
+            var result = ((ObjectResult)controller.ChangeStatus(-4, "Approved").Result)?.Value as PublicTourKeyPointDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-4);
+            result.Status.ShouldBe("Approved");
+
+            // Assert - Database
+            var storedEntity = (PublicTourKeyPoints)dbContext.TourKeyPoints.FirstOrDefault(i => i.Id == -4);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Status.ShouldBe(PublicTourKeyPoints.PublicTourKeyPointStatus.Approved);
+        }
+
 
         [Fact]
         public void UpdateFailsInvalidValue()
@@ -186,10 +260,12 @@ namespace Explorer.Tours.Tests.Integration
 
         private static TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>())
+            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
         }
+
+
     }
 }

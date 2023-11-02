@@ -32,7 +32,10 @@ namespace Explorer.Tours.Core.UseCases
                 case "Denied":
                     keyPoint.ChangeStatus(PublicTourKeyPoints.PublicTourKeyPointStatus.Denied);
                     break;
-           }
+                default:
+                    throw new ArgumentException("Invalid status", nameof(status));
+                
+            }
            _tourKeyPointsRepository.Update(keyPoint);
 
 

@@ -35,8 +35,24 @@ namespace Explorer.Tours.Tests.Integration
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(3);
-            result.TotalCount.ShouldBe(3);
+            result.Results.Count.ShouldBe(5);
+            result.TotalCount.ShouldBe(5);
+        }
+
+        [Fact]
+        public void RetrievesAllPublic()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            //Act
+            var result = ((ObjectResult)controller.GetAllPublic(0, 0).Result)?.Value as PagedResult<PublicTourKeyPointDto>;
+
+            //Assert
+            result.ShouldNotBe(null);
+            result.Results.Count.ShouldBe(2);
+            result.TotalCount.ShouldBe(2);
         }
 
         [Fact]
@@ -48,6 +64,21 @@ namespace Explorer.Tours.Tests.Integration
 
             //Act
             var result = ((ObjectResult)controller.Get(-1).Result);
+
+            //Assert
+            result.ShouldNotBe(null);
+            result.StatusCode.ShouldBe(200);
+        }
+
+        [Fact]
+        public void RetrievesByStatus()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            //Act
+            var result = ((ObjectResult)controller.GetByStatus("Pending").Result);
 
             //Assert
             result.ShouldNotBe(null);
@@ -88,6 +119,20 @@ namespace Explorer.Tours.Tests.Integration
 
             // Act
             var result = ((ObjectResult)controller.Update(updatedData).Result);
+
+            // Assert
+            result.ShouldNotBe(null);
+            result.StatusCode.ShouldBe(200);
+        }
+        [Fact]
+        public void ChangeStatus()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.ChangeStatus(-5, "Approved").Result);
 
             // Assert
             result.ShouldNotBe(null);
@@ -145,7 +190,7 @@ namespace Explorer.Tours.Tests.Integration
         }
         private static TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>())
+            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
