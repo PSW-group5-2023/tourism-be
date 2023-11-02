@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Explorer.Tours.API.Dtos;
+using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
     {
         Session Create(Session session);
         Session Update(Session session);
+        Session Get(long id);
+
     }
 }

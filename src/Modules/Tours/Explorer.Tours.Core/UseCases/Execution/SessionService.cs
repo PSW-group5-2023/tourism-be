@@ -25,6 +25,19 @@ namespace Explorer.Tours.Core.UseCases.Execution
             return MapToDto(_sessionRepository.Create(MapToDomain(session)));
         }
 
+        public Result<SessionDto> Get(long id)
+        {
+            try
+            {
+                var result = _sessionRepository.Get(id);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
         public Result<SessionDto> Update(SessionDto session)
         {
             try

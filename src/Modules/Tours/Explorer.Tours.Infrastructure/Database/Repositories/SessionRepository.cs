@@ -24,6 +24,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return session;
         }
 
+        public Session Get(long id)
+        {
+            return _context.Sessions.SingleOrDefault(s => s.Id == id);
+        }
+
         public Session Update(Session session)
         {
             try

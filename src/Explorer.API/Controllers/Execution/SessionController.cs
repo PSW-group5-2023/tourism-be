@@ -16,6 +16,13 @@ namespace Explorer.API.Controllers.Execution
             _sessionService = sessionService;
         }
 
+        [HttpGet("{id:long}")]
+        public ActionResult<SessionDto> Get(int id)
+        {
+            var result = _sessionService.Get(id);
+            return CreateResponse(result);
+        }
+
         [HttpPost]
         public ActionResult<SessionDto> Create([FromBody] SessionDto session)
         {

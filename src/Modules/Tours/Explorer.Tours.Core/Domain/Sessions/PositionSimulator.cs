@@ -14,14 +14,12 @@ namespace Explorer.Tours.Core.Domain.Sessions
     {
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public long TouristId { get; init; }
 
         [JsonConstructor]
-        public PositionSimulator(double latitude, double longitude, long touristId)
+        public PositionSimulator(double latitude, double longitude)
         {
             Latitude = latitude;
             Longitude = longitude;
-            TouristId = touristId;
             Validate();
         }
 
@@ -35,7 +33,6 @@ namespace Explorer.Tours.Core.Domain.Sessions
         {
             yield return Latitude;
             yield return Longitude;
-            yield return TouristId;
         }
     }
 }

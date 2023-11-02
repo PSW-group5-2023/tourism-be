@@ -39,7 +39,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
 
         private void Validate()
         {
-            if (DistanceCrossed <= 0) throw new ArgumentException("Invalid length");
+           // if (DistanceCrossed <= 0) throw new ArgumentException("Invalid length");
             if (!DateTime.TryParse(LastActivity.ToString(), out _)) throw new ArgumentException("Invalid date and time");
         }
     }
