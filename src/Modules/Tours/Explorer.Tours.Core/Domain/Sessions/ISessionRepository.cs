@@ -13,6 +13,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
         Session Create(Session session);
         Session Update(Session session);
         Session Get(long id);
+        Session? GetByTouristId(long id);
 
     }
 }

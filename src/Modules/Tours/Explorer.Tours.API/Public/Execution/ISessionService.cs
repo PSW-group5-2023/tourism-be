@@ -13,5 +13,6 @@ namespace Explorer.Tours.API.Public.Execution
         Result<SessionDto> Create(SessionDto session);
         Result<SessionDto> Update(SessionDto session);
         Result<SessionDto> Get(long id);
+        Result<SessionDto> GetByTouristId(long id);
     }
 }

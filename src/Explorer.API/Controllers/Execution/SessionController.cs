@@ -23,6 +23,13 @@ namespace Explorer.API.Controllers.Execution
             return CreateResponse(result);
         }
 
+        [HttpGet("getByTouristId/{id:long}")]
+        public ActionResult<SessionDto> GetByTouristId(long id)
+        {
+            var result = _sessionService.GetByTouristId(id);
+            return CreateResponse(result);
+        }
+
         [HttpPost]
         public ActionResult<SessionDto> Create([FromBody] SessionDto session)
         {

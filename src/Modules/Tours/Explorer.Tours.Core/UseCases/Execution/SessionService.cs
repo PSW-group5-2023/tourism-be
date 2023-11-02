@@ -38,6 +38,12 @@ namespace Explorer.Tours.Core.UseCases.Execution
             }
         }
 
+        public Result<SessionDto> GetByTouristId(long id)
+        {
+            var result = _sessionRepository.GetByTouristId(id);
+            return MapToDto(result);
+        }
+
         public Result<SessionDto> Update(SessionDto session)
         {
             try
