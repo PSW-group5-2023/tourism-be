@@ -11,6 +11,7 @@ using Explorer.Tours.Core.UseCases;
 
 namespace Explorer.API.Controllers.Author
 {
+    [Authorize(Policy = "authorPolicy")]
     [Route("api/publicTourKeyPoint")]
     public class PublicTourKeyPointController : BaseApiController
     {
