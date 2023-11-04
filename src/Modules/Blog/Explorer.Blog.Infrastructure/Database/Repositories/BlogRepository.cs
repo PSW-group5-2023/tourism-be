@@ -25,12 +25,5 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == id);
             return blog;
         }
-
-        public List<Comment> GetCommentsByBlogId(int blogId)
-        {
-            var query = _dbContext.Comments.Where(comment => comment.BlogId == blogId);
-
-            return query.ToList();
-        }
     }
 }

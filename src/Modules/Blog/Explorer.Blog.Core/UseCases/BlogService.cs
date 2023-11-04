@@ -31,7 +31,6 @@ namespace Explorer.Blog.Core.UseCases
         {
             try
             {
-                
                 var blog = _blogRepository.Get(id);
                 var user = _internalBlogRepository.GetByUserId(blog.UserId);
                 var result= MapToDto(blog);
@@ -71,6 +70,12 @@ namespace Explorer.Blog.Core.UseCases
         public Result<PagedResult<CommentDto>> GetPagedComments(int page, int pageSize)
         {
             var result = _commentService.GetPaged(page, pageSize);
+            return result;
+        }
+
+        public Result<List<CommentDto>> GetCommentsByBlogId(int blogId)
+        {
+            var result = _commentService.GetCommentsByBlogId(blogId);
             return result;
         }
     }

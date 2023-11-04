@@ -22,5 +22,6 @@ namespace Explorer.Blog.API.Public
         Result DeleteComment(int id);
         Result<CommentDto> GetComment(int id);
         Result<PagedResult<CommentDto>> GetPagedComments(int page, int pageSize);
+        Result<List<CommentDto>> GetCommentsByBlogId(int blogId);
     }
 }

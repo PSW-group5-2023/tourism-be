@@ -16,10 +16,12 @@ namespace Explorer.API.Controllers.Tourist
     public class BlogController : BaseApiController
     {
         private readonly IBlogService _blogService;
+        //private readonly ICommentService _commentService;
 
         public BlogController(IBlogService blogService)
         {
             _blogService = blogService;
+            //_commentService = commentService;
         }
 
         [HttpPost]
@@ -75,6 +77,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PagedResult<CommentDto>> GetAllComments([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _blogService.GetPagedComments(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("blogComments/{blogId:int}")]
+        public ActionResult<List<CommentDto>> GetCommentsByBlogId(int blogId)
+        {
+            var result = _blogService.GetCommentsByBlogId(blogId);
             return CreateResponse(result);
         }
     }
