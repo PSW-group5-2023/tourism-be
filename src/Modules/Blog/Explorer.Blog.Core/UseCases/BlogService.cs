@@ -16,13 +16,15 @@ using System.Threading.Tasks;
 
 namespace Explorer.Blog.Core.UseCases
 {
-    public class BlogService:CrudService<BlogDto, BlogPage>,IBlogService
+    public class BlogService:CrudService<BlogDto, BlogPage>, IBlogService
     {
         public IInternalBlogRepository _internalBlogRepository;
         public IBlogRepository _blogRepository;
-        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper,IInternalBlogRepository internalBlogRepository,IBlogRepository blogRepository):base(repository,mapper) {
+        public ICommentService _commentService;
+        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper,IInternalBlogRepository internalBlogRepository,IBlogRepository blogRepository, ICommentService commentService):base(repository,mapper) {
             _internalBlogRepository = internalBlogRepository;
             _blogRepository = blogRepository;
+            _commentService = commentService;
         }
 
         public Result<BlogDto> Get(int id)
@@ -40,9 +42,36 @@ namespace Explorer.Blog.Core.UseCases
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
+        }
 
-            
+        public Result<CommentDto> CreateComment(CommentDto comment)
+        {
+            var result = _commentService.Create(comment);
+            return result;
+        }
 
+        public Result<CommentDto> UpdateComment(CommentDto comment)
+        {
+            var result = _commentService.Update(comment);
+            return result;
+        }
+
+        public Result DeleteComment(int id)
+        {
+            var result = _commentService.Delete(id);
+            return result;
+        }
+
+        public Result<CommentDto> GetComment(int id)
+        {
+            var result = _commentService.Get(id);
+            return result;
+        }
+
+        public Result<PagedResult<CommentDto>> GetPagedComments(int page, int pageSize)
+        {
+            var result = _commentService.GetPaged(page, pageSize);
+            return result;
         }
     }
 }

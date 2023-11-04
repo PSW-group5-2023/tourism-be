@@ -21,6 +21,5 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         {
             return _dbContext.Users.FirstOrDefault(user => user.Id==userId);
         }
-
     }
 }

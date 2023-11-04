@@ -22,7 +22,7 @@ namespace Explorer.Blog.Core.Domain
         public List<Rating> Ratings { get; init; }
         //public List<Comment> Comments { get; init; }
 
-        public BlogPage(string title, string? description, BlogState? status,long userId)
+        public BlogPage(string title, string? description, BlogState? status, long userId, List<Rating> ratings)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Invalid title.");
             Title = title;
@@ -30,7 +30,10 @@ namespace Explorer.Blog.Core.Domain
             CreationDate = DateTime.UtcNow;
             Status = status;
             UserId = userId;
+            Ratings = ratings;
         }
+
+        public BlogPage() { }
         
         public void AddRating()
         {

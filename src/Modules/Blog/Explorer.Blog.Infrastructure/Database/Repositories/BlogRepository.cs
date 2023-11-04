@@ -1,6 +1,8 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.Blog.Core.Domain;
 using Explorer.Blog.Core.Domain.RepositoryInterfaces;
+using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.BuildingBlocks.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +20,17 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             _dbContext = dbContext;
         }
 
-
         public BlogPage? Get(int id)
         {
             var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == id);
             return blog;
+        }
+
+        public List<Comment> GetCommentsByBlogId(int blogId)
+        {
+            var query = _dbContext.Comments.Where(comment => comment.BlogId == blogId);
+
+            return query.ToList();
         }
     }
 }

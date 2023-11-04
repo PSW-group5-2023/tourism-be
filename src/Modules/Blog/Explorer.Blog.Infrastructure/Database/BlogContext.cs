@@ -7,7 +7,6 @@ namespace Explorer.Blog.Infrastructure.Database;
 public class BlogContext : DbContext
 {
     public DbSet<Comment> Comments { get; set; }
-    
     public DbSet<BlogPage> Blogs { get; set; }
     public BlogContext(DbContextOptions<BlogContext> options) : base(options) {}
 
