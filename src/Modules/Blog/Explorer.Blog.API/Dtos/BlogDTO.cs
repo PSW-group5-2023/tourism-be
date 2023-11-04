@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text.Json.Serialization;
+
 namespace Explorer.Blog.API.Dtos
 {
     public enum BlogState
@@ -18,6 +20,7 @@ namespace Explorer.Blog.API.Dtos
         public string? Description { get; set; }
         public BlogState? Status { get; set; }
         public string Username { get; set; }
+        public List<RatingDto> Ratings { get; set; }
         
 
 

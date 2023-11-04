@@ -2,6 +2,7 @@
 using Explorer.Blog.API.Dtos;
 using Explorer.Blog.API.Public;
 using Explorer.Blog.Core.Domain;
+using Explorer.Blog.Core.Domain.RepositoryInterfaces;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
@@ -18,27 +19,30 @@ namespace Explorer.Blog.Core.UseCases
     public class BlogService:CrudService<BlogDto, BlogPage>,IBlogService
     {
         public IInternalBlogRepository _internalBlogRepository;
-        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper,IInternalBlogRepository internalBlogRepository):base(repository,mapper) {
+        public IBlogRepository _blogRepository;
+        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper,IInternalBlogRepository internalBlogRepository,IBlogRepository blogRepository):base(repository,mapper) {
             _internalBlogRepository = internalBlogRepository;
+            _blogRepository = blogRepository;
         }
 
         public Result<BlogDto> Get(int id)
         {
-
-            var result = CrudRepository.Get(id);
-            var user=_internalBlogRepository.GetByUserId(result.UserId);
-            BlogDto blog = new BlogDto
+            try
             {
-                Id = result.Id,
-                Title = result.Title,
-                Description = result.Description,
-                Status = result.Status,
-                Username = user.Username
-            };
+                
+                var blog = _blogRepository.Get(id);
+                var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                var result= MapToDto(blog);
+                result.Username = user.Username;
+                return result;
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
 
-
-            return blog;
             
+
         }
     }
 }

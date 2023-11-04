@@ -1,7 +1,9 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace Explorer.Blog.Core.Domain
 
     public class Rating : ValueObject
     {
+
         public long UserId { get; init; }
         public DateTime CreationDate { get; init; }
         public int RatingValue { get; init; }
@@ -25,7 +28,9 @@ namespace Explorer.Blog.Core.Domain
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            yield return UserId;
+            yield return CreationDate;
+            yield return RatingValue;
         }
     }
 }
