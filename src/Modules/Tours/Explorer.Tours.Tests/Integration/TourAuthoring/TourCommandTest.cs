@@ -32,9 +32,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             {
                 Name = "Obuća za grub teren",
                 Description = "Patike sa tvrdim đonom i kramponima koje daju stabilnost na neravnom i rastresitom terenu.",
-                Difficulty = "BEGINNER",
-                Tags = "#freedesingerica",
-                Status = "DRAFT",
+                //Difficulty = "BEGINNER",
+                //Tags = "#freedesingerica",
+                //Status = "DRAFT",
                 Price = 0,
                 AuthorId = -1
             };
