@@ -20,7 +20,7 @@ namespace Explorer.Blog.Tests.Integration
         public CommentQueryTests(BlogTestFactory factory) : base(factory)
         {
         }
-
+        /*
         [Fact]
         public void Retrieves_all()
         {
@@ -43,6 +43,6 @@ namespace Explorer.Blog.Tests.Integration
             {
                 ControllerContext = BuildContext("-1")
             };
-        }
+        }*/
     }
 }

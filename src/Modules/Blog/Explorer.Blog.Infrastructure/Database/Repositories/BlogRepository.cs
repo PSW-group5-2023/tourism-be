@@ -33,7 +33,11 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             try
             {
                 var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
+                
+                var rating=blog.Ratings.FirstOrDefault(b => b.UserId == userId);
+                
                 blog.RemoveRating(userId);
+                blog.CalculateSum();
                 _dbContext.Blogs.Update(blog);
 
                 _dbContext.SaveChanges();
@@ -52,6 +56,7 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
                 var blog = _dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
                 blog.RemoveRating(userId);
                 var rating=blog.AddRating(userId,value);
+                blog.CalculateSum();
                 _dbContext.Blogs.Update(blog);
 
                 _dbContext.SaveChanges();

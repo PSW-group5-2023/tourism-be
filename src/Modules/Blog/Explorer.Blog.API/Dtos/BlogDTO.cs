@@ -21,6 +21,7 @@ namespace Explorer.Blog.API.Dtos
         public BlogState? Status { get; set; }
         public long UserId {  get; set; }
         public string Username { get; set; }
+        public int RatingSum { get; set; }
         public List<RatingDto> Ratings { get; set; }
         
 

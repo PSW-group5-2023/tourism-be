@@ -1,5 +1,6 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Stakeholders.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,10 @@ namespace Explorer.Blog.Core.Domain
         public DateTime? CreationDate { get; init; }
         public BlogState? Status { get; init; }
         public long UserId {  get; init; }
+
+        public int RatingSum { get; set; }
         public List<Rating> Ratings { get; init; }
-        
-
-
-        public BlogPage(string title, string? description, BlogState? status, long userId, List<Rating> ratings)
+        public BlogPage(string title, string? description, BlogState? status, long userId,int ratingSum, List<Rating> ratings)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Invalid title.");
             Title = title;
@@ -29,8 +29,17 @@ namespace Explorer.Blog.Core.Domain
             CreationDate = DateTime.UtcNow;
             Status = status;
             UserId = userId;
+            RatingSum = ratingSum;
             Ratings = ratings;
+            
         }
+
+        public void CalculateSum()
+        {
+            
+            RatingSum= Ratings.Sum(d => d.RatingValue);
+        }
+
         public Rating AddRating(int userId,int value)
         {
             var rating = new Rating(userId, DateTime.UtcNow, value);
