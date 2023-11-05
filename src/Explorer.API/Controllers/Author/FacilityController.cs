@@ -71,7 +71,7 @@ namespace Explorer.API.Controllers.Author
             var result = _publicFacilityService.Create(facility);
             return CreateResponse(result);
         }
-        [HttpPut("public/{tourId}/{status}")]
+        [HttpPut("public/{facilityId}/{status}")]
         public ActionResult<PublicFacilityDto> ChangeStatus(int facilityId, String status)
         {
             var result = _publicFacilityService.ChangeStatus(facilityId, status);
