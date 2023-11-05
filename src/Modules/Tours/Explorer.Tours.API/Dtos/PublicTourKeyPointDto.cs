@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos
 {
-    public class TourKeyPointDto
+    public class PublicTourKeyPointDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,8 @@ namespace Explorer.Tours.API.Dtos
         public Uri Image { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public int? TourId { get; set; }
+        public String Status { get; set; }
+        public int CreatorId { get; set; }
+
     }
 }
