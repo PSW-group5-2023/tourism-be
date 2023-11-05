@@ -7,6 +7,7 @@ using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using FluentResults;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +78,18 @@ namespace Explorer.Blog.Core.UseCases
         {
             var result = _commentService.GetCommentsByBlogId(blogId);
             return result;
+        }
+
+        public Result DeleteRating(int blogId,int userId)
+        {
+            var result=_blogRepository.DeleteRating(userId, blogId);
+            return result;
+        }
+
+        public Result<BlogDto> UpdateRating(int blogId,int userId,int value)
+        {
+            var result = _blogRepository.UpdateRating(blogId,userId,value);
+            return MapToDto(result);
         }
     }
 }

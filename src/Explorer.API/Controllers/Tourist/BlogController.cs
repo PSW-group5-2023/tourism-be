@@ -86,5 +86,20 @@ namespace Explorer.API.Controllers.Tourist
             var result = _blogService.GetCommentsByBlogId(blogId);
             return CreateResponse(result);
         }
+        
+        [HttpDelete("rating/{userId:int}/{blogId:int}")]
+        public ActionResult DeleteRating(int blogId,int userId)
+        {
+            var result=_blogService.DeleteRating(blogId, userId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("rating/{userId:int}/{blogId:int}/{value:int}")]
+        public ActionResult<BlogDto> UpdateRating(int blogId, int userId,int value)
+        {
+            var result = _blogService.UpdateRating(blogId, userId,value);
+            return CreateResponse(result);
+        }
+
     }
 }

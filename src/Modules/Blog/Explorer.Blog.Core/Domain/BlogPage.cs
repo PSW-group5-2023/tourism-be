@@ -31,9 +31,18 @@ namespace Explorer.Blog.Core.Domain
             UserId = userId;
             Ratings = ratings;
         }
-        public void AddRating()
+        public Rating AddRating(int userId,int value)
         {
-            //uraditi posle 
+            var rating = new Rating(userId, DateTime.UtcNow, value);
+            var ratingCheck= Ratings.FirstOrDefault(rating => rating.UserId == userId);
+
+            if (ratingCheck == null) Ratings.Add(rating);
+            return rating;
+        }
+
+        public void RemoveRating(int userId) {
+            var ratingToRemove = Ratings.FirstOrDefault(rating => rating.UserId == userId);
+            if(ratingToRemove!=null)Ratings.Remove(ratingToRemove);
         }
 
     }

@@ -77,5 +77,12 @@ namespace Explorer.API.Controllers.Author
             var result = _blogService.GetCommentsByBlogId(blogId);
             return CreateResponse(result);
         }
+
+        [HttpDelete("rating/{userId:int}/{blogId:int}")]
+        public ActionResult DeleteRating(int blogId, int userId)
+        {
+            var result = _blogService.DeleteRating(blogId, userId);
+            return CreateResponse(result);
+        }
     }
 }
