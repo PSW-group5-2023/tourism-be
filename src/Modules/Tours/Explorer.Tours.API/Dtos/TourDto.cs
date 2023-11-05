@@ -11,5 +11,6 @@
         public double Price { get; set; }
         public int AuthorId { get; set; }
         public int[] Equipment { get; set; }
+        public double DistanceInKm { get; set; }
     }
 }

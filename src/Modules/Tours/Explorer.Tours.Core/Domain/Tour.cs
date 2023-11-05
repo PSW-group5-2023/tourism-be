@@ -14,10 +14,9 @@ namespace Explorer.Tours.Core.Domain
         public double Price { get; init; }
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment)
+        public double DistanceInKm { get; init; }
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm)
         {
-            Validate();
-
             Name = name;
             Description = description;
             Difficulty = difficulty;
@@ -26,6 +25,9 @@ namespace Explorer.Tours.Core.Domain
             Price = price;
             AuthorId = authorId;
             Equipment = equipment;
+            DistanceInKm = distanceInKm;
+
+            Validate();
         }
 
         private void Validate()
