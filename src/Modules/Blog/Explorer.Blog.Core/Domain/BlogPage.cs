@@ -17,10 +17,9 @@ namespace Explorer.Blog.Core.Domain
         public DateTime? CreationDate { get; init; }
         public BlogState? Status { get; init; }
         public long UserId {  get; init; }
-
-        
         public List<Rating> Ratings { get; init; }
-        //public List<Comment> Comments { get; init; }
+        
+
 
         public BlogPage(string title, string? description, BlogState? status, long userId, List<Rating> ratings)
         {
@@ -32,9 +31,6 @@ namespace Explorer.Blog.Core.Domain
             UserId = userId;
             Ratings = ratings;
         }
-
-        public BlogPage() { }
-        
         public void AddRating()
         {
             //uraditi posle 
