@@ -20,14 +20,5 @@ namespace Explorer.Tours.Core.UseCases
         {
             
         }
-
-        /*public Result<TourDto> Archive(int id)
-        {
-            var tourDTO = Get(id);
-            var tour = MapToDomain(tourDTO.Value);
-            tour.Archive();
-            var result = Update(MapToDto(tour));
-            return result;
-        }*/
     }
 }

@@ -38,13 +38,6 @@ namespace Explorer.Tours.Core.Domain
             Equipment = equipment;
             ArchivedDate = archivedDate;
         }
-
-        /*public Tour Archive()
-        {
-            this.Status = TourStatus.Archived;
-            this.ArchivedDate = DateTime.Now;
-            return this;
-        }*/
     }
 
     public enum TourStatus
