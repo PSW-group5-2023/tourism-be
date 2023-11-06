@@ -45,12 +45,5 @@ namespace Explorer.API.Controllers.Author
             var result = _tourService.Delete(id);
             return CreateResponse(result);
         }
-
-        /*[HttpPut("archive/{id:int}")] //uradi preko id-a
-        public ActionResult<TourDto> Archive(int id)
-        {
-            var result = _tourService.Archive(id);
-            return CreateResponse(result);
-        }*/
     }
 }
