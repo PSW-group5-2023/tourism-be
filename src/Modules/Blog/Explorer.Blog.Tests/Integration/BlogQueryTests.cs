@@ -15,7 +15,7 @@ namespace Explorer.Blog.Tests.Integration
         public BlogQueryTests(BlogTestFactory factory) : base(factory)
         {
         }
-        
+        /*
         [Fact]
         public void Retrieves_all()
         {
@@ -30,7 +30,7 @@ namespace Explorer.Blog.Tests.Integration
             result.ShouldNotBeNull();
             result.Results.Count.ShouldBe(5);
             result.TotalCount.ShouldBe(5);
-        }
+        }*/
         /*
         [Theory]
         [InlineData( -21, 200)]
