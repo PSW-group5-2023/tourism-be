@@ -34,6 +34,7 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             var query = _dbContext.Blogs;
             return query.ToList();
         }
+
         public Result DeleteRating(int userId,int blogId)
         {
             try

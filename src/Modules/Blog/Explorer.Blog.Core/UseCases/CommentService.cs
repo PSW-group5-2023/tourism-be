@@ -16,6 +16,7 @@ namespace Explorer.Blog.Core.UseCases
     public class CommentService : CrudService<CommentDto, Comment>, ICommentService
     {
         public ICommentRepository _commentRepository;
+
         public CommentService(ICrudRepository<Comment> repository, IMapper mapper, ICommentRepository commentRepository) : base(repository, mapper)
         {
             _commentRepository = commentRepository;

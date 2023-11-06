@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,6 +86,8 @@ namespace Explorer.Blog.Core.UseCases
         public Result<CommentDto> GetComment(int id)
         {
             var result = _commentService.Get(id);
+            var user = _internalBlogRepository.GetByUserId(result.Value.UserId);
+            result.Value.Username = user.Username;
             return result;
         }
 
@@ -97,6 +100,13 @@ namespace Explorer.Blog.Core.UseCases
         public Result<List<CommentDto>> GetCommentsByBlogId(int blogId)
         {
             var result = _commentService.GetCommentsByBlogId(blogId);
+
+            foreach (var comment in result.Value)
+            {
+                var user = _internalBlogRepository.GetByUserId(comment.UserId);
+                comment.Username = user.Username;
+            }
+
             return result;
         }
 
