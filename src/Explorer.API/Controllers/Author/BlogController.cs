@@ -42,13 +42,6 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult<BlogDto> Get(int id)
-        {
-            var result = _blogService.Get(id);
-            return CreateResponse(result);
-        }
-
         [HttpPost("createComment")]
         public ActionResult<CommentDto> Create([FromBody] CommentDto commentDto)
         {

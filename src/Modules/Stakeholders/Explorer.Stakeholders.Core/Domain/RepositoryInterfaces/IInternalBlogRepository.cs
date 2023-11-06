@@ -9,6 +9,5 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
     public interface IInternalBlogRepository
     {
         User GetByUserId(long userId);
-
     }
 }
