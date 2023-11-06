@@ -3,6 +3,9 @@ using Explorer.Blog.Core.Domain;
 using Explorer.Blog.Core.Domain.RepositoryInterfaces;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Stakeholders.Core.Domain;
+using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +34,46 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             var query = _dbContext.Blogs;
             return query.ToList();
         }
+        public Result DeleteRating(int userId,int blogId)
+        {
+            try
+            {
+                var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
+                
+                var rating=blog.Ratings.FirstOrDefault(b => b.UserId == userId);
+                
+                blog.RemoveRating(userId);
+                blog.CalculateSum();
+                _dbContext.Blogs.Update(blog);
+
+                _dbContext.SaveChanges();
+                return Result.Ok();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+
+        }
+
+        public BlogPage UpdateRating(int blogId,int userId,int value) { 
+            try
+            {
+                var blog = _dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
+                blog.RemoveRating(userId);
+                var rating=blog.AddRating(userId,value);
+                blog.CalculateSum();
+                _dbContext.Blogs.Update(blog);
+
+                _dbContext.SaveChanges();
+                return blog;
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+
+        }
+
     }
 }

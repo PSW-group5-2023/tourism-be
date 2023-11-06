@@ -24,5 +24,8 @@ namespace Explorer.Blog.API.Public
         Result<PagedResult<CommentDto>> GetPagedComments(int page, int pageSize);
         Result<List<CommentDto>> GetCommentsByBlogId(int blogId);
         Result<List<BlogDto>> GetAll();
+        Result DeleteRating(int blogId, int userId);
+        Result<BlogDto> UpdateRating(int blogId, int userId,int value);
+
     }
 }
