@@ -35,6 +35,12 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
 
         }
+        [HttpGet("{id:int}")]
+        public ActionResult<BlogDto> Get(int id)
+        {
+            var result = _blogService.Get(id);
+            return CreateResponse(result);
+        }
 
         [HttpPost("createComment")]
         public ActionResult<CommentDto> Create([FromBody] CommentDto commentDto)
@@ -82,6 +88,12 @@ namespace Explorer.API.Controllers.Author
         public ActionResult DeleteRating(int blogId, int userId)
         {
             var result = _blogService.DeleteRating(blogId, userId);
+            return CreateResponse(result);
+        }
+        [HttpPut("rating/{userId:int}/{blogId:int}/{value:int}")]
+        public ActionResult<BlogDto> UpdateRating(int blogId, int userId, int value)
+        {
+            var result = _blogService.UpdateRating(blogId, userId, value);
             return CreateResponse(result);
         }
     }
