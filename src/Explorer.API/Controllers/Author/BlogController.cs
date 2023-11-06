@@ -28,12 +28,19 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpGet]
-        public ActionResult<BlogDto> GetAll()
+        public ActionResult<List<BlogDto>> GetAll()
         {
-            var result = _blogService.GetPaged(0, 0);
+            var result = _blogService.GetAll();
 
             return CreateResponse(result);
 
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<BlogDto> Get(int id)
+        {
+            var result = _blogService.Get(id);
+            return CreateResponse(result);
         }
 
         [HttpPost("createComment")]

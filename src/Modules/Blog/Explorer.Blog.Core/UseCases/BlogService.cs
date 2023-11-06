@@ -43,6 +43,26 @@ namespace Explorer.Blog.Core.UseCases
             }
         }
 
+        public Result<List<BlogDto>> GetAll()
+        {
+            try
+            {
+                var blogs = MapToDto(_blogRepository.GetAll());
+
+                foreach (var blog in blogs.Value)
+                {
+                    var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                    blog.Username = user.Username;
+                }
+
+                return blogs;
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
         public Result<CommentDto> CreateComment(CommentDto comment)
         {
             var result = _commentService.Create(comment);

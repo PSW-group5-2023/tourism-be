@@ -25,5 +25,11 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == id);
             return blog;
         }
+
+        public List<BlogPage> GetAll()
+        {
+            var query = _dbContext.Blogs;
+            return query.ToList();
+        }
     }
 }

@@ -32,9 +32,9 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet]
-        public ActionResult<BlogDto> GetAll()
+        public ActionResult<List<BlogDto>> GetAll()
         {
-            var result = _blogService.GetPaged(0,0);
+            var result = _blogService.GetAll();
             return CreateResponse(result);
         }
 

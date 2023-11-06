@@ -11,5 +11,6 @@ namespace Explorer.Blog.Core.Domain.RepositoryInterfaces
     public interface IBlogRepository
     {
         BlogPage Get(int id);
+        List<BlogPage> GetAll();
     }
 }
