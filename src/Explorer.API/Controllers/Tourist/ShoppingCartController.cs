@@ -33,5 +33,11 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(shoppingCartService.Create(items));
         }
 
+        [HttpDelete("deleteCartItem")]
+        public ActionResult DeleteCartItem(long tourId, long userId)
+        {
+            return CreateResponse(shoppingCartService.DeleteItem(tourId, userId));
+        }
+
     }
 }

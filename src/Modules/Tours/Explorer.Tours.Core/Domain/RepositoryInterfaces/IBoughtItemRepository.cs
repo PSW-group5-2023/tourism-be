@@ -10,5 +10,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         List<Tour> GetItemsByUserId(long userId);
         BoughtItem AddToCart(BoughtItem item);
+
+        void DeleteItem(long tourId, long userId);
     }
 }

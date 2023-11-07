@@ -49,5 +49,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
+        public void DeleteItem(long tourId, long userId)
+        {
+            var item = _dbContext.BoughtItems.Where(item => item.TourId == tourId && item.UserId == userId).FirstOrDefault();
+            _dbContext.BoughtItems.Remove(item);
+            _dbContext.SaveChanges();
+        }
+
     }
 }

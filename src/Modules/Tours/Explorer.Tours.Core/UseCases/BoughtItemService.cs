@@ -60,5 +60,19 @@ namespace Explorer.Tours.Core.UseCases
             }
         }
 
+        public Result DeleteItem(long tourId, long userId)
+        {
+            try
+            {
+                shoppingCartRepository.DeleteItem(tourId, userId);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+
+            return Result.Ok();
+        }
+
     }
 }
