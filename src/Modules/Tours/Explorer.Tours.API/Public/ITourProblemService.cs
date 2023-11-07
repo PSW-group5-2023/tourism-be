@@ -15,7 +15,7 @@ namespace Explorer.Tours.API.Public
         Result<TourProblemDto> Create(TourProblemDto tourProblem);
         Result<TourProblemDto> Update(TourProblemDto tourProblem);
         Result<List<TourProblemDto>> GetByTouristId(long touristId);
-        Result<List<TourProblemDto>> GetByTourId(long tourId);
+        Result<List<TourProblemDto>> GetByAuthorId(long authorId);
         public void FindNames(List<TourProblemDto> result);
     }
 }

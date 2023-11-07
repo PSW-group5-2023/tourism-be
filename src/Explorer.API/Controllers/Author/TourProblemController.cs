@@ -18,10 +18,18 @@ namespace Explorer.API.Controllers.Author
             _problemService = problemService;
         }
 
-        [HttpGet("{tourId:long}")]
-        public ActionResult<PagedResult<TourProblemDto>> GetByTourId(long tourId)
+        [HttpGet("{authorId:long}")]
+        public ActionResult<PagedResult<TourProblemDto>> GetByAuthorId(long authorId)
         {
-            var result = _problemService.GetByTourId(tourId);
+            var result = _problemService.GetByAuthorId(authorId);
+            _problemService.FindNames(result.Value);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<TourProblemDto> Update([FromBody] TourProblemDto tourProblem)
+        {
+            var result = _problemService.Update(tourProblem);
             return CreateResponse(result);
         }
     }

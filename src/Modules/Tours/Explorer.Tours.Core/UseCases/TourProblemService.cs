@@ -36,10 +36,18 @@ namespace Explorer.Tours.Core.UseCases
            
             return result;
         }
-        public Result<List<TourProblemDto>> GetByTourId(long tourId)
+        public Result<List<TourProblemDto>> GetByAuthorId(long authorId)
         {
+            var tours = _tourService.GetPaged(0, 0).Value.Results;
             List<TourProblemDto> result = new List<TourProblemDto>();
-            List<TourProblem> tourProblems = _tourProblemRepository.GetByTourId(tourId);
+            List<TourProblem> tourProblems = new List<TourProblem>();
+            foreach (var t in tours)
+            {
+                if(authorId == t.AuthorId)
+                {
+                    tourProblems.AddRange(_tourProblemRepository.GetByTourId(t.Id));
+                }
+            }
             tourProblems.ForEach(t => result.Add(MapToDto(t)));
             return result;
         }
