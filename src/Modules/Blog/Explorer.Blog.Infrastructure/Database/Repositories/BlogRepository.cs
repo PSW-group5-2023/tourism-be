@@ -45,6 +45,7 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
                 
                 blog.RemoveRating(userId);
                 blog.CalculateSum();
+
                 _dbContext.Blogs.Update(blog);
 
                 _dbContext.SaveChanges();

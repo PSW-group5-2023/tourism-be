@@ -33,8 +33,25 @@ namespace Explorer.API.Controllers.Author
             var result = _blogService.GetAll();
 
             return CreateResponse(result);
-
         }
+
+        [HttpPut]
+        public ActionResult<List<BlogDto>> UpdateBlog([FromBody]  BlogDto blog)
+        {
+            var result = _blogService.Update(blog);
+            var returnresult = _blogService.GetAll();
+
+            return CreateResponse(returnresult);
+        }
+
+        [HttpPut("oneBlogUpdated")]
+        public ActionResult<BlogDto> UpdateOneBlog([FromBody] BlogDto blog)
+        {
+            var result = _blogService.Update(blog);
+
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<BlogDto> Get(int id)
         {
@@ -90,10 +107,18 @@ namespace Explorer.API.Controllers.Author
             var result = _blogService.DeleteRating(blogId, userId);
             return CreateResponse(result);
         }
+
         [HttpPut("rating/{userId:int}/{blogId:int}/{value:int}")]
         public ActionResult<BlogDto> UpdateRating(int blogId, int userId, int value)
         {
             var result = _blogService.UpdateRating(blogId, userId, value);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("getByStatus/{state:int}")]
+        public ActionResult<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        {
+            var result = _blogService.GetBlogsByStatus(state);
             return CreateResponse(result);
         }
     }

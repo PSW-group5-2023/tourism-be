@@ -113,12 +113,14 @@ namespace Explorer.Blog.Core.UseCases
         public Result DeleteRating(int blogId,int userId)
         {
             var result=_blogRepository.DeleteRating(userId, blogId);
+
             return result;
         }
 
         public Result<BlogDto> UpdateRating(int blogId,int userId,int value)
         {
             var result = _blogRepository.UpdateRating(blogId,userId,value);
+
             return MapToDto(result);
         }
 

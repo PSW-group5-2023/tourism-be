@@ -45,6 +45,23 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpPut]
+        public ActionResult<List<BlogDto>> UpdateBlog([FromBody] BlogDto blog)
+        {
+            var result = _blogService.Update(blog);
+            var returnresult = _blogService.GetAll();
+
+            return CreateResponse(returnresult);
+        }
+
+        [HttpPut("oneBlogUpdated")]
+        public ActionResult<BlogDto> UpdateOneBlog([FromBody] BlogDto blog)
+        {
+            var result = _blogService.Update(blog);
+
+            return CreateResponse(result);
+        }
+
         [HttpPost("createComment")]
         public ActionResult<CommentDto> Create([FromBody] CommentDto commentDto)
         {
