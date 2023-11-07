@@ -15,7 +15,7 @@ public class ToursContext : DbContext
     public DbSet<TourProblem> TourProblems { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
-    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<BoughtItem> BoughtItems { get; set; }
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}
@@ -24,10 +24,10 @@ public class ToursContext : DbContext
     {
         modelBuilder.HasDefaultSchema("tours");
 
-        modelBuilder.Entity<ShoppingCartItem>()
+  /*      modelBuilder.Entity<BoughtItem>()
             .HasOne(item => item.Tour)
             .WithMany()
-            .HasForeignKey(item => item.TourId);
+            .HasForeignKey(item => item.TourId); */
 
 
 

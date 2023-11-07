@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Infrastructure.Database.Repositories
 {
-    public class ShoppingCartRepository : IShoppingCartRepository
+    public class ShoppingCartRepository : IBoughtItemRepository
     {
         private readonly ToursContext _dbContext;
 
@@ -18,58 +18,30 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _dbContext = dbContext;
         }
 
-        public ShoppingCart AddToCart(long userId, long tourId)
+        public BoughtItem AddToCart(BoughtItem item)
         {
-            var cart = _dbContext.ShoppingCarts.Include(x => x.ShoppingCartItems).Where(cart => cart.UserId == userId).FirstOrDefault();
-
-            if (cart == null) cart = CreateNewCart(userId);
-            if (cart.ShoppingCartItems.Select(item => item.TourId).Contains(tourId)) throw new Exception("Cannot add same tour twice!");
-
-            var cartItem = new ShoppingCartItem(cart.Id,tourId);
-
-            cart.ShoppingCartItems.Add(cartItem);
+            _dbContext.BoughtItems.Add(item);
             _dbContext.SaveChanges();
 
-            return cart;
+            return item;
 
         }
-
-        public void ClearCart(long userId)
+        public List<BoughtItem> GetItemsByUserId(long userId)
         {
-            var cart = _dbContext.ShoppingCarts.Include(x => x.ShoppingCartItems).Where(cart => cart.UserId == userId).FirstOrDefault();
+            List<BoughtItem> boughtItems = new List<BoughtItem>();
 
-            if (cart == null) throw new KeyNotFoundException("Cart not found!");
+            foreach(BoughtItem item in _dbContext.BoughtItems)
+            {
+                if (item.UserId == userId) boughtItems.Add(item);
+            }
 
-            cart.ShoppingCartItems.Clear();
-            _dbContext.SaveChanges();
-
+            return boughtItems;
         }
 
-        public void DeleteCartItem(long userId, long itemId)
+        public void UpdateItem(long userId, long itemId)
         {
-            var cart = _dbContext.ShoppingCarts.Include(x => x.ShoppingCartItems).Where(cart => cart.UserId == userId).FirstOrDefault();
-            if (cart == null) throw new KeyNotFoundException("Cart not found!");
-
-            var item = cart.ShoppingCartItems.Where(item => item.Id == itemId).FirstOrDefault();
-            if (item == null) throw new KeyNotFoundException("Cart item not found!");
-
-            cart.ShoppingCartItems.Remove(item);
-            _dbContext.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public ShoppingCart GetByUserId(long userId)
-        {
-            var cart = _dbContext.ShoppingCarts.Include(x => x.ShoppingCartItems).ThenInclude(item => item.Tour).Where(cart => cart.UserId == userId).FirstOrDefault();
-            if (cart == null) cart = CreateNewCart(userId);
-            return cart;
-        }
-
-        private ShoppingCart CreateNewCart(long userId)
-        {
-            var cart = new ShoppingCart(userId);
-            _dbContext.ShoppingCarts.Add(cart);
-            _dbContext.SaveChanges();
-            return cart;
-        }
     }
 }

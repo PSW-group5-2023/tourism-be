@@ -7,20 +7,18 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.Domain
 {
-    public class ShoppingCart : Entity
+    public class BoughtItem : Entity
     {
 
         public long UserId { get; init; }
-        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public long TourId { get; init; }        
+        public DateTime? DateOfBuying { get; init; }
 
-        public ShoppingCart()
-        {
-            
-        }
-
-        public ShoppingCart(long userId)
+        public BoughtItem(long userId, long tourId)
         {
             UserId = userId;
+            TourId = tourId;
+            DateOfBuying = DateTime.UtcNow;
         }
     }
 }

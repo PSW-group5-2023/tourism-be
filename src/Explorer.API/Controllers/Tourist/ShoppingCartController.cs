@@ -14,35 +14,23 @@ namespace Explorer.API.Controllers.Tourist
     public class ShoppingCartController : BaseApiController
     {
 
-        private IShoppingCartService shoppingCartService;
+        private IBoughtItemService shoppingCartService;
 
-        public ShoppingCartController(IShoppingCartService shoppingCartService)
+        public ShoppingCartController(IBoughtItemService shoppingCartService)
         {
             this.shoppingCartService = shoppingCartService;
         }
 
         [HttpGet]
-        public ActionResult<ShoppingCartDto> GetByUserId(long userId)
+        public ActionResult<BoughtItemDto> GetItems(long userId)
         {
-            return CreateResponse(shoppingCartService.GetByUserId(userId));
+            return CreateResponse(shoppingCartService.GetItemsByUserId(userId));
         }
 
         [HttpPut("addToCart")]
-        public ActionResult<ShoppingCartDto> AddToCart(long userId,long tourId)
+        public ActionResult<BoughtItemDto> AddToCart(List<BoughtItemDto> items)
         {
-            return CreateResponse(shoppingCartService.AddToCart(userId, tourId));
-        }
-
-        [HttpDelete("clearCart")]
-        public ActionResult ClearCart(long userId)
-        {
-            return CreateResponse(shoppingCartService.ClearCart(userId));
-        }
-
-        [HttpDelete("deleteCartItem")]
-        public ActionResult DeleteCartItem(long userId,long itemId)
-        {
-            return CreateResponse(shoppingCartService.DeleteCartItem(userId, itemId));
+            return CreateResponse(shoppingCartService.Create(items));
         }
 
     }

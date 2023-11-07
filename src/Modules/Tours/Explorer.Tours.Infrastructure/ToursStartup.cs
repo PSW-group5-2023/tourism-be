@@ -38,7 +38,7 @@ public static class ToursStartup
         services.AddScoped<ITourProblemService, TourProblemService>();
         services.AddScoped<IPositionSimulatorService, PositionSimulatorService>();
         services.AddScoped<IPreferencesService, PreferencesService>();
-        services.AddScoped<IShoppingCartService, ShoppingCartService>();
+        services.AddScoped<IBoughtItemService, ShoppingCartService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -51,7 +51,7 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<TourRating>), typeof(CrudDatabaseRepository<TourRating, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourProblem>), typeof(CrudDatabaseRepository<TourProblem, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
-        services.AddScoped(typeof(IShoppingCartRepository), typeof(ShoppingCartRepository));
+        services.AddScoped(typeof(IBoughtItemRepository), typeof(ShoppingCartRepository));
 
         services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
         services.AddScoped<IPreferencesRepository, PreferencesRepository>();

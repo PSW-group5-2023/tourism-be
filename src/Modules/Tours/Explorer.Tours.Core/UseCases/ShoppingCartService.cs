@@ -13,51 +13,37 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.UseCases
 {
-    public class ShoppingCartService : BaseService<ShoppingCartDto,ShoppingCart>, IShoppingCartService
+    public class ShoppingCartService : BaseService<BoughtItemDto,BoughtItem>, IBoughtItemService
     {
-        private IShoppingCartRepository shoppingCartRepository;
+        private IBoughtItemRepository shoppingCartRepository;
 
-        public ShoppingCartService(IMapper mapper,IShoppingCartRepository shoppingCartRepository) : base(mapper)
+        public ShoppingCartService(IMapper mapper,IBoughtItemRepository shoppingCartRepository) : base(mapper)
         {
             this.shoppingCartRepository = shoppingCartRepository;
         }
 
-        public Result<ShoppingCartDto> AddToCart(long cartId, long tourId)
+
+        public Result<List<BoughtItemDto>> GetItemsByUserId(long userId)
         {
-            return base.MapToDto(shoppingCartRepository.AddToCart(cartId, tourId));
+            return base.MapToDto(shoppingCartRepository.GetItemsByUserId(userId));
         }
 
-        public Result ClearCart(long userId)
+        public Result Create(List<BoughtItemDto> items)
         {
-            try
             {
-                shoppingCartRepository.ClearCart(userId);
-            }
-            catch(KeyNotFoundException e)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
-            }
+                try
+                {
+                    foreach(var item in items) 
+                    shoppingCartRepository.AddToCart(MapToDomain(item));
+                }
+                catch (Exception e)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+                }
 
-            return Result.Ok();
+                return Result.Ok();
+            }
         }
 
-        public Result<ShoppingCartDto> GetByUserId(long userId)
-        { 
-            return base.MapToDto(shoppingCartRepository.GetByUserId(userId));
-        }
-
-        public Result DeleteCartItem(long userId,long cartId)
-        {
-            try
-            {
-                shoppingCartRepository.DeleteCartItem(userId, cartId);
-            }
-            catch (KeyNotFoundException e) 
-            {
-                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
-            }
-
-            return Result.Ok();
-        }
     }
 }
