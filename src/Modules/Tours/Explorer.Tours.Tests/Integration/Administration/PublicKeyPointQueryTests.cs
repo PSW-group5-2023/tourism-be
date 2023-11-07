@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 
-namespace Explorer.Tours.Tests.Integration
+namespace Explorer.Tours.Tests.Integration.Administration
 {
     [Collection("Sequential")]
     public class TourKeyPointQueryTests : BaseToursIntegrationTest
@@ -98,32 +98,6 @@ namespace Explorer.Tours.Tests.Integration
         }
 
         [Fact]
-        public void Update()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
-            {
-                Id = -3,
-                Name = "Updated Name",
-                Description = "Updated Description",
-                Image = new Uri("http://newUri.com"),
-                Longitude = 22.5,
-                Latitude = 7,
-                TourId = 17
-            };
-
-            // Act
-            var result = ((ObjectResult)controller.Update(updatedData).Result);
-
-            // Assert
-            result.ShouldNotBe(null);
-            result.StatusCode.ShouldBe(200);
-        }
-        [Fact]
         public void ChangeStatus()
         {
             // Arrange
@@ -137,62 +111,14 @@ namespace Explorer.Tours.Tests.Integration
             result.ShouldNotBe(null);
             result.StatusCode.ShouldBe(200);
         }
-        [Fact]
-        public void UpdateFailInvalidId()
+
+        private static Explorer.API.Controllers.Administrator.Administration.TourKeyPointController CreateController(IServiceScope scope)
         {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
-            {
-                Id = -3000,
-                Name = "Updated Name",
-                Description = "Updated Description",
-                Image = new Uri("http://newUri.com"),
-                Longitude = 22.5,
-                Latitude = 7,
-                TourId = 17
-            };
-
-            // Act
-            var result = ((ObjectResult)controller.Update(updatedData).Result);
-
-            // Assert
-            result.StatusCode.ShouldBe(404);
-        }
-        [Fact]
-        public void UpdateFailIvalidData()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
-            {
-                Id = -3,
-                Name = "",
-                Description = "Updated Description",
-                Image = new Uri("http://newUri.com"),
-                Longitude = 22.5,
-                Latitude = 7,
-                TourId = 17
-            };
-
-            // Act
-            var result = ((ObjectResult)controller.Update(updatedData).Result);
-
-            // Assert
-            result.StatusCode.ShouldBe(400);
-        }
-        private static Explorer.API.Controllers.Author.TourKeyPointController CreateController(IServiceScope scope)
-        {
-            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
         }
     }
 }
+

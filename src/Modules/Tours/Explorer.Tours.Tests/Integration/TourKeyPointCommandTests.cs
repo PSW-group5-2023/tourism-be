@@ -258,9 +258,9 @@ namespace Explorer.Tours.Tests.Integration
             result.StatusCode.ShouldBe(404);
         }
 
-        private static TourKeyPointController CreateController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
