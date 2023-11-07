@@ -15,7 +15,9 @@ namespace Explorer.Tours.Core.Domain
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
         public double DistanceInKm { get; init; }
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm)
+        public DateTime? ArchivedDate { get; set; }
+
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate)
         {
             Name = name;
             Description = description;
@@ -26,6 +28,7 @@ namespace Explorer.Tours.Core.Domain
             AuthorId = authorId;
             Equipment = equipment;
             DistanceInKm = distanceInKm;
+            ArchivedDate = archivedDate;
 
             Validate();
         }
@@ -37,21 +40,20 @@ namespace Explorer.Tours.Core.Domain
             if (Price < 0) throw new ArgumentException("Invalid price");
             if (Tags.IsNullOrEmpty()) throw new ArgumentException("Invalid Tags");
         }
+    }
 
-        public enum TourStatus
-        {
-            Draft,
-            Published,
-            Archived
-        }
+    public enum TourStatus
+    {
+        Draft,
+        Published,
+        Archived
+    }
 
-        public enum TourDifficulty
-        {
-            // Still unknown
-            /*BEGINNER = 1,
-            INTERMEDIATE,
-            ADVANCED,
-            PRO*/
-        }
+    public enum TourDifficulty
+    {
+        Beginner,
+        Intermediate,
+        Advanced,
+        Pro
     }
 }

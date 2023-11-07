@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Explorer.API.Controllers.Author
+namespace Explorer.API.Controllers.Administrator.Administration
 {
-    [Authorize(Policy = "authorPolicy")]
-    [Route("api/tourKeyPoint")]
+    [Authorize(Policy = "administratorPolicy")]
+    [Route("api/administration/tourKeyPoint")]
     public class TourKeyPointController : BaseApiController
     {
         private readonly ITourKeyPointService _tourKeyPointService;
@@ -44,29 +44,12 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPost]
-        public ActionResult<TourKeyPointDto> Create([FromBody] TourKeyPointDto tourKeyPoint)
-        {
-            var result = _tourKeyPointService.Create(tourKeyPoint);
-            return CreateResponse(result);
-        }
-
         [HttpPut("{id:int}")]
         public ActionResult<TourKeyPointDto> Update([FromBody] TourKeyPointDto tourKeyPoint)
         {
             var result = _tourKeyPointService.Update(tourKeyPoint);
             return CreateResponse(result);
         }
-
-        [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            var result = _tourKeyPointService.Delete(id);
-            return CreateResponse(result);
-
-        }
-
-
 
         [HttpGet("public")]
         public ActionResult<PagedResult<PublicTourKeyPointDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
@@ -75,22 +58,15 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPost("public")]
-        public ActionResult<PublicTourKeyPointDto> CreatePublic([FromBody] PublicTourKeyPointDto tourKeyPoint)
-        {
-            var result = _publicTourKeyPointService.Create(tourKeyPoint);
-            return CreateResponse(result);
-        }
-
         [HttpPut("public/{tourId}/{status}")]
-        public ActionResult<PublicTourKeyPointDto> ChangeStatus(int tourId, String status)
+        public ActionResult<PublicTourKeyPointDto> ChangeStatus(int tourId, string status)
         {
             var result = _publicTourKeyPointService.ChangeStatus(tourId, status);
             return CreateResponse(result);
         }
 
         [HttpGet("public/{status}")]
-        public ActionResult<PagedResult<PublicTourKeyPointDto>> GetByStatus(String status)
+        public ActionResult<List<PublicTourKeyPointDto>> GetByStatus(string status)
         {
             var result = _publicTourKeyPointService.GetByStatus(status);
             return CreateResponse(result);

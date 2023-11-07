@@ -5,11 +5,11 @@ using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Author
+namespace Explorer.API.Controllers.Administrator.Administration
 {
-    
-    [Authorize(Policy = "authorPolicy")]
-    [Route("api/author/facilities")]
+
+    [Authorize(Policy = "administratorPolicy")]
+    [Route("api/administration/facilities")]
     public class FacilityController : BaseApiController
     {
         private readonly IFacilityService _facilityService;
@@ -35,29 +35,6 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPost]
-        public ActionResult<FacilityDto> Create([FromBody] FacilityDto facility)
-        {
-            var result = _facilityService.Create(facility);
-            return CreateResponse(result);
-        }
-
-        [HttpPut("{id:int}")]
-        public ActionResult<FacilityDto> Update([FromBody] FacilityDto facility)
-        {
-            var result = _facilityService.Update(facility);
-            return CreateResponse(result);
-        }
-
-        [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            var result = _facilityService.Delete(id);
-            return CreateResponse(result);
-        }
-
-
-
         [HttpGet("public")]
         public ActionResult<PagedResult<PublicFacilityDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
         {
@@ -65,21 +42,15 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPost("public")]
-        public ActionResult<PublicFacilityDto> Create([FromBody] PublicFacilityDto facility)
-        {
-            var result = _publicFacilityService.Create(facility);
-            return CreateResponse(result);
-        }
         [HttpPut("public/{facilityId}/{status}")]
-        public ActionResult<PublicFacilityDto> ChangeStatus(int facilityId, String status)
+        public ActionResult<PublicFacilityDto> ChangeStatus(int facilityId, string status)
         {
             var result = _publicFacilityService.ChangeStatus(facilityId, status);
             return CreateResponse(result);
         }
 
         [HttpGet("public/{status}")]
-        public ActionResult<PagedResult<PublicFacilityDto>> GetByStatus(String status)
+        public ActionResult<PagedResult<PublicFacilityDto>> GetByStatus(string status)
         {
             var result = _publicFacilityService.GetByStatus(status);
             return CreateResponse(result);
