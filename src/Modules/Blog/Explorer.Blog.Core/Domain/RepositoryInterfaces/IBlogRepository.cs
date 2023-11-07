@@ -15,5 +15,7 @@ namespace Explorer.Blog.Core.Domain.RepositoryInterfaces
         BlogPage Get(int id);
         List<BlogPage> GetAll();
         BlogPage UpdateRating(int blogId, int userId,int value);
+
+        List<BlogPage> GetBlogsByStatus(BlogState state);
     }
 }

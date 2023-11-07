@@ -121,5 +121,11 @@ namespace Explorer.Blog.Core.UseCases
             var result = _blogRepository.UpdateRating(blogId,userId,value);
             return MapToDto(result);
         }
+
+        public Result<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        {
+            var result = _blogRepository.GetBlogsByStatus(state);
+            return MapToDto(result);
+        }
     }
 }

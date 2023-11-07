@@ -101,5 +101,12 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("getByStatus/{state:int}")]
+        public ActionResult<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        {
+            var result = _blogService.GetBlogsByStatus(state);
+            return CreateResponse(result);
+        }
+
     }
 }
