@@ -13,19 +13,34 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.UseCases
 {
-    public class ShoppingCartService : BaseService<BoughtItemDto,BoughtItem>, IBoughtItemService
+    public class BoughtItemService : BaseService<BoughtItemDto,BoughtItem>, IBoughtItemService
     {
         private IBoughtItemRepository shoppingCartRepository;
 
-        public ShoppingCartService(IMapper mapper,IBoughtItemRepository shoppingCartRepository) : base(mapper)
+        public BoughtItemService(IMapper mapper,IBoughtItemRepository shoppingCartRepository) : base(mapper)
         {
             this.shoppingCartRepository = shoppingCartRepository;
         }
 
 
-        public Result<List<BoughtItemDto>> GetItemsByUserId(long userId)
+        public Result<List<TourDto>> GetItemsByUserId(long userId)
         {
-            return base.MapToDto(shoppingCartRepository.GetItemsByUserId(userId));
+            List<Tour> items = new List<Tour>();
+            List<TourDto> itemsDto = new List<TourDto>();
+            items = shoppingCartRepository.GetItemsByUserId(userId);
+            foreach (Tour tour in items)
+            {
+                TourDto dto = new TourDto
+                {
+                   Id = (int)tour.Id, Name = tour.Name, AuthorId= tour.AuthorId, Description= tour.Description,
+                    Difficulty= tour.Difficulty, Equipment= tour.Equipment, Price= tour.Price, Status= tour.Status, Tags = tour.Tags 
+                };
+                itemsDto.Add(dto);
+            }
+
+            return itemsDto;
+
+
         }
 
         public Result Create(List<BoughtItemDto> items)

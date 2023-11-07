@@ -10,7 +10,7 @@ namespace Explorer.Tours.API.Public
 {
     public interface IBoughtItemService
     {
-        Result<List<BoughtItemDto>> GetItemsByUserId(long userId);
+        Result<List<TourDto>> GetItemsByUserId(long userId);
         Result Create(List<BoughtItemDto> items);
     }
 }

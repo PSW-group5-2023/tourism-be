@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Infrastructure.Database.Repositories
 {
-    public class ShoppingCartRepository : IBoughtItemRepository
+    public class BoughtItemRepository : IBoughtItemRepository
     {
         private readonly ToursContext _dbContext;
 
-        public ShoppingCartRepository(ToursContext dbContext)
+        public BoughtItemRepository(ToursContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -26,16 +26,22 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return item;
 
         }
-        public List<BoughtItem> GetItemsByUserId(long userId)
+        public List<Tour> GetItemsByUserId(long userId)
         {
             List<BoughtItem> boughtItems = new List<BoughtItem>();
+            List<Tour> tours = new List<Tour>();
 
             foreach(BoughtItem item in _dbContext.BoughtItems)
             {
                 if (item.UserId == userId) boughtItems.Add(item);
             }
 
-            return boughtItems;
+            foreach(var item in boughtItems) 
+            {
+                tours.Add(_dbContext.Tour.Find(item.TourId));
+            }
+
+            return tours;
         }
 
         public void UpdateItem(long userId, long itemId)
