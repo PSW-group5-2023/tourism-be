@@ -33,7 +33,7 @@ namespace Explorer.Tours.Core.UseCases
                 TourDto dto = new TourDto
                 {
                    Id = (int)tour.Id, Name = tour.Name, AuthorId= tour.AuthorId, Description= tour.Description,
-                    Difficulty= tour.Difficulty, Equipment= tour.Equipment, Price= tour.Price, Status= tour.Status, Tags = tour.Tags 
+                    Difficulty= (int)tour.Difficulty, Equipment= tour.Equipment, Price= tour.Price, Status= (int)tour.Status, Tags = tour.Tags 
                 };
                 itemsDto.Add(dto);
             }
