@@ -17,6 +17,8 @@ public class ToursProfile : Profile
         CreateMap<TourProblemDto, TourProblem>().ReverseMap();
         CreateMap<PositionSimulatorDto, PositionSimulator>().ReverseMap();
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
+        CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<BoughtItemDto,BoughtItem>().ReverseMap();
         CreateMap<BoughtItemDto, BoughtItem>().ReverseMap();
     }
