@@ -6,22 +6,6 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos
 {
-    public enum TourStatus
-    {
-        DRAFT = 1,
-        NOT_STARTED,
-        ACTIVE,
-        FINISHED,
-        CANCELED
-    }
-
-    public enum TourDifficulty
-    {
-        BEGINNER = 1,
-        INTERMEDIATE,
-        ADVANCED,
-        PRO
-    }
     public class TourDto
     {
         public int Id { get; set; }
@@ -29,9 +13,10 @@ namespace Explorer.Tours.API.Dtos
         public string Description { get; set; }
         public string Difficulty { get; set; }
         public string Tags { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
         public double Price { get; set; }
         public int AuthorId { get; set; }
         public int[] Equipment { get; set; }
+        public DateTime? ArchivedDate { get; set; }
     }
 }
