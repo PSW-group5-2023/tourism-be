@@ -22,7 +22,7 @@ public class ToursContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("tours");
-        //modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
+        modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
 
         //modelBuilder.Entity<Preferences>()
         //    .HasOne<User>()

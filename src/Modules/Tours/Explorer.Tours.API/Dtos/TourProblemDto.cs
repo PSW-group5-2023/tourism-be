@@ -33,5 +33,6 @@ namespace Explorer.Tours.API.Dtos
         public string TouristUsername { get; set; }
         public string AuthorUsername { get; set; }
         public Boolean IsSolved { get; set; }
+        public List<TourProblemMessageDto> Messages { get; set; }
     }
 }

@@ -34,10 +34,10 @@ namespace Explorer.Tours.Core.Domain
         public string Description { get; init; }
         public DateTime Time { get; init; }
         public Boolean IsSolved { get; init; }      
-        //public List<TourProblemMessage> Messages { get; init; }
+        public List<TourProblemMessage> Messages { get; init; }
 
 
-        public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved)
+        public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved, List<TourProblemMessage> messages)
         {
             TouristId = touristId;
             TourId = tourId;
@@ -47,7 +47,13 @@ namespace Explorer.Tours.Core.Domain
             Time = time;
             Validate();
             IsSolved = isSolved;
-           // Messages = new List<TourProblemMessage>();
+            Messages = messages;
+        }
+        public TourProblemMessage CreateMessage(long userId, DateTime time, string description)
+        {
+            TourProblemMessage message = new TourProblemMessage(userId, time, description);
+            Messages.Add(message);
+            return message;
         }
         public void Validate()
         {

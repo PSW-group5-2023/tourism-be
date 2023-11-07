@@ -11,21 +11,21 @@ namespace Explorer.Blog.Core.Domain
     public class TourProblemMessage : ValueObject
     {
         public long UserId { get; init; }
-        public DateTime CreationDate { get; init; }
+        public DateTime CreationTime { get; init; }
         public string Description { get; init; }
 
         [JsonConstructor]
-        public TourProblemMessage(long userId, DateTime creationDate, string description)
+        public TourProblemMessage(long userId, DateTime creationTime, string description)
         {
             UserId = userId;
-            CreationDate = creationDate;
+            CreationTime = creationTime;
             Description = description;
         }
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return UserId;
+            yield return CreationTime;
             yield return Description;
-            yield return CreationDate;
         }
 
     }
