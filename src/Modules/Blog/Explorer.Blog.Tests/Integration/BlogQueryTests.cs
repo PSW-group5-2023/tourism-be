@@ -31,7 +31,7 @@ namespace Explorer.Blog.Tests.Integration
             result.Results.Count.ShouldBe(5);
             result.TotalCount.ShouldBe(5);
         }*/
-        /*
+        
         [Theory]
         [InlineData( -21, 200)]
         //[InlineData( -1000, 404)]
@@ -48,7 +48,7 @@ namespace Explorer.Blog.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectedResponseCode);
 
-        }*/
+        }
 
 
         private static BlogController CreateController(IServiceScope scope)
