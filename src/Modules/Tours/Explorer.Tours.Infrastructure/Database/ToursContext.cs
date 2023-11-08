@@ -15,6 +15,9 @@ public class ToursContext : DbContext
     public DbSet<TourProblem> TourProblems { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
+
+    public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
+
     public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
     public DbSet<BoughtItem> BoughtItems { get; set; }
