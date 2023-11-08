@@ -5,6 +5,7 @@ using Explorer.Blog.Core.Domain;
 using Explorer.Blog.Core.Domain.RepositoryInterfaces;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -20,11 +21,13 @@ namespace Explorer.Blog.Core.UseCases
 {
     public class BlogService:CrudService<BlogDto, BlogPage>, IBlogService
     {
-        public IInternalBlogRepository _internalBlogRepository;
+        public IInternalBlogService _internalBlogService;
+        public IInternalCommentService _internalCommentService;
         public IBlogRepository _blogRepository;
         public ICommentService _commentService;
-        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper,IInternalBlogRepository internalBlogRepository,IBlogRepository blogRepository, ICommentService commentService):base(repository,mapper) {
-            _internalBlogRepository = internalBlogRepository;
+        public BlogService(ICrudRepository<BlogPage> repository , IMapper mapper, IInternalBlogService internalBlogService, IBlogRepository blogRepository, IInternalCommentService internalCommentService, ICommentService commentService):base(repository,mapper) {
+            _internalBlogService = internalBlogService;
+            _internalCommentService = internalCommentService;
             _blogRepository = blogRepository;
             _commentService = commentService;
         }
@@ -36,7 +39,7 @@ namespace Explorer.Blog.Core.UseCases
                 var blog = _blogRepository.Get(id);
                 if (blog == null)return Result.Fail(FailureCode.NotFound).WithError("Blog not found.");
                 
-                var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                var user = _internalBlogService.GetByUserId(blog.UserId);
                 if (user == null)return Result.Fail(FailureCode.NotFound).WithError("User not found.");
                 
                 var result= MapToDto(blog);
@@ -57,7 +60,7 @@ namespace Explorer.Blog.Core.UseCases
 
                 foreach (var blog in blogs.Value)
                 {
-                    var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                    var user = _internalBlogService.GetByUserId(blog.UserId);
                     blog.Username = user.Username;
                 }
 
@@ -92,8 +95,10 @@ namespace Explorer.Blog.Core.UseCases
             var result = _commentService.Get(id);
             if (result.IsSuccess == true)
             {
-                var user = _internalBlogRepository.GetByUserId(result.Value.UserId);
+                var user = _internalBlogService.GetByUserId(result.Value.UserId);
                 result.Value.Username = user.Username;
+                var person = _internalCommentService.GetByUserId(user.Id);
+                result.Value.ProfilePic = person.ProfilePic;
             }
             return result;
         }
@@ -110,8 +115,10 @@ namespace Explorer.Blog.Core.UseCases
 
             foreach (var comment in result.Value)
             {
-                var user = _internalBlogRepository.GetByUserId(comment.UserId);
+                var user = _internalBlogService.GetByUserId(comment.UserId);
                 comment.Username = user.Username;
+                var person = _internalCommentService.GetByUserId(user.Id);
+                comment.ProfilePic = person.ProfilePic;
             }
 
             return result;
@@ -140,7 +147,7 @@ namespace Explorer.Blog.Core.UseCases
 
             foreach (var blog in result.Value)
             {
-                var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                var user = _internalBlogService.GetByUserId(blog.UserId);
                 if (user == null) return Result.Fail(FailureCode.NotFound).WithError("User not found.");
                 blog.Username = user.Username;
             }

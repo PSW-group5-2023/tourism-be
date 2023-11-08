@@ -4,7 +4,6 @@ using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
-using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    public class InternalBlogService : BaseService<UserDto, User>, IInternalBlogService
+    public class InternalCommentService : BaseService<PersonDto, Person>, IInternalCommentService
     {
-        public IInternalBlogRepository _internalBlogRepository;
 
+        public IInternalCommentRepository _internalCommentRepository;
 
-        public InternalBlogService(IInternalBlogRepository internalBlogRepository, IMapper mapper) : base(mapper)
+        public InternalCommentService(IInternalCommentRepository internalCommetnRepository, IMapper mapper) : base(mapper)
         {
-            _internalBlogRepository = internalBlogRepository;
+            _internalCommentRepository = internalCommetnRepository;
         }
 
-        public UserDto GetByUserId(long id)
+        public PersonDto GetByUserId(int id)
         {
-            var result=_internalBlogRepository.GetByUserId(id);
+            var result = _internalCommentRepository.GetPersonByUserId(id);
             return MapToDto(result);
         }
     }

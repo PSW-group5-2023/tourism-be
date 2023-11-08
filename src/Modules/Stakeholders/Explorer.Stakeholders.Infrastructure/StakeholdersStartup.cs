@@ -39,6 +39,7 @@ public static class StakeholdersStartup
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
         services.AddScoped<IInternalBlogService, InternalBlogService>();
+        services.AddScoped<IInternalCommentService, InternalCommentService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -55,6 +56,7 @@ public static class StakeholdersStartup
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped<IInternalBlogRepository, InternalBlogRepository>();
+        services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>
