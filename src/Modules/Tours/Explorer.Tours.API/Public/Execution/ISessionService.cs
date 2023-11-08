@@ -14,5 +14,6 @@ namespace Explorer.Tours.API.Public.Execution
         Result<SessionDto> Update(SessionDto session);
         Result<SessionDto> Get(long id);
         Result<SessionDto> GetByTouristId(long id);
+        Result<bool> ValidForTouristComment(long id);
     }
 }

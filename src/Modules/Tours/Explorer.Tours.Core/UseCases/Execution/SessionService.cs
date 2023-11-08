@@ -60,5 +60,11 @@ namespace Explorer.Tours.Core.UseCases.Execution
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
+
+        public Result<bool> ValidForTouristComment(long id)
+        {
+            var result = _sessionRepository.Get(id);
+            return result.ValidForTouristComment();
+        }
     }
 }

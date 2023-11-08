@@ -43,5 +43,12 @@ namespace Explorer.API.Controllers.Execution
             var result = _sessionService.Update(session);
             return CreateResponse(result);
         }
+
+        [HttpGet("check/{id:long}")]
+        public ActionResult<bool> Check(int id)
+        {
+            var result = _sessionService.ValidForTouristComment(id);
+            return CreateResponse(result);
+        }
     }
 }

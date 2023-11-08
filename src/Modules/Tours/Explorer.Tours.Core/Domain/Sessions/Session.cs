@@ -21,16 +21,16 @@ namespace Explorer.Tours.Core.Domain.Sessions
         public long TouristId { get; private set; }
         public PositionSimulator Location { get; private set; }
         public SessionStatus SessionStatus { get; private set; }
-        public int DistanceCrossed { get; private set; }
+        public int DistanceCrossedPercent { get; private set; }
         public DateTime LastActivity { get; private set; }
 
-        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossed, DateTime lastActivity)
+        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity)
         {
             TourId = tourId;
             TouristId = touristId;
             Location = location;
             SessionStatus = sessionStatus;
-            DistanceCrossed = distanceCrossed;
+            DistanceCrossedPercent = distanceCrossedPercent;
             LastActivity = lastActivity;
 
             Validate();
@@ -41,6 +41,15 @@ namespace Explorer.Tours.Core.Domain.Sessions
         {
            // if (DistanceCrossed <= 0) throw new ArgumentException("Invalid length");
             if (!DateTime.TryParse(LastActivity.ToString(), out _)) throw new ArgumentException("Invalid date and time");
+        }
+
+        public bool ValidForTouristComment()
+        {
+            DateTime sevenDaysAgo = DateTime.Now.AddDays(-7);
+            if (LastActivity >= sevenDaysAgo && DistanceCrossedPercent > 35)
+                return true;
+
+            return false;
         }
     }
 }
