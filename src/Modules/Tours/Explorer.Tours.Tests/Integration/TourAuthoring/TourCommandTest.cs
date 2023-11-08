@@ -33,12 +33,13 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             {
                 Name = "Tura 5",
                 Description = "Jako lepa tura idemo.",
-                Difficulty = "BEGINNER",
-                Tags = "#freedesingerica",
+                Difficulty = 0,
+                Tags = new List<string>() { "tag1", "tag2" },
                 Status = 1,
                 Price = 0,
                 AuthorId = -1,
-                //Equipment = [],
+                Equipment = new int[] { -1, -3 },
+                DistanceInKm = 2.5,
                 ArchivedDate = null
             };
 
@@ -55,7 +56,8 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.Status.ShouldBe(newEntity.Status);
             result.Price.ShouldBe(newEntity.Price);
             result.AuthorId.ShouldBe(newEntity.AuthorId);
-            //result.Equipment.ShouldBe(newEntity.Equipment);
+            result.Equipment.ShouldBe(newEntity.Equipment);
+            result.DistanceInKm.ShouldBe(newEntity.DistanceInKm);
             result.ArchivedDate.ShouldBe(newEntity.ArchivedDate);
 
 
@@ -65,12 +67,13 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             storedEntity.Id.ShouldBe(result.Id);
             storedEntity.Name.ShouldBe(result.Name);
             storedEntity.Description.ShouldBe(result.Description);
-            storedEntity.Difficulty.ShouldBe(result.Difficulty);
+            ((int)storedEntity.Difficulty).ShouldBe(result.Difficulty);
             storedEntity.Tags.ShouldBe(result.Tags);
             ((int)storedEntity.Status).ShouldBe(result.Status);
             storedEntity.Price.ShouldBe(result.Price);
             storedEntity.AuthorId.ShouldBe(result.AuthorId);
-            //storedEntity.Equipment.ShouldBe(result.Equipment);
+            storedEntity.Equipment.ShouldBe(result.Equipment);
+            storedEntity.DistanceInKm.ShouldBe(result.DistanceInKm);
             storedEntity.ArchivedDate.ShouldBe(result.ArchivedDate);
         }
 
@@ -86,12 +89,13 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 Id = -1,
                 Name = "Tura 1",
                 Description = "Ova tura je lepa",
-                Difficulty = "BEGINNER",
-                Tags = "#tag1",
+                Difficulty = 0,
+                Tags = new List<string>() { "tag2", "tag3" },
                 Status = 2,
                 Price = 0,
                 AuthorId = -1,
-                //Equipment = [],
+                Equipment = new int[] { -1, -2 },
+                DistanceInKm = 2.5,
                 ArchivedDate = null
             };
 
@@ -108,7 +112,8 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.Status.ShouldBe(updatedEntity.Status);
             result.Price.ShouldBe(updatedEntity.Price);
             result.AuthorId.ShouldBe(updatedEntity.AuthorId);
-            //result.Equipment.ShouldBe(updatedEntity.Equipment);
+            result.Equipment.ShouldBe(updatedEntity.Equipment);
+            result.DistanceInKm.ShouldBe(updatedEntity.DistanceInKm);
             result.ArchivedDate.ShouldBe(updatedEntity.ArchivedDate);
 
             // Assert - Database

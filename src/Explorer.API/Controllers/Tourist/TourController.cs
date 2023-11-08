@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
-    [Route("api/tourist/tours")]
+    [Route("api/tourist/tour")]
     public class TourController : BaseApiController
     {
         private readonly ITourService _tourService;
@@ -22,6 +22,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PagedResult<TourDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _tourService.GetPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<TourDto> Get(int id)
+        {
+            var result = _tourService.Get(id);
             return CreateResponse(result);
         }
 

@@ -38,8 +38,13 @@ public static class ToursStartup
         services.AddScoped<ITourProblemService, TourProblemService>();
         services.AddScoped<IPositionSimulatorService, PositionSimulatorService>();
         services.AddScoped<IPreferencesService, PreferencesService>();
+
+        services.AddScoped<IEquipmentTrackingService, EquipmentTrackingService>();
+
         services.AddScoped<IPublicTourKeyPointService, PublicTourKeyPointService>();
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
+        services.AddScoped<IBoughtItemService, BoughtItemService>();
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -55,9 +60,16 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<PublicTourKeyPoints>), typeof(CrudDatabaseRepository<PublicTourKeyPoints, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<PublicFacility>), typeof(CrudDatabaseRepository<PublicFacility, ToursContext>));
+        services.AddScoped(typeof(IBoughtItemRepository), typeof(BoughtItemRepository));
 
         services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
         services.AddScoped<IPreferencesRepository, PreferencesRepository>();
+
+        services.AddScoped(typeof(ICrudRepository<EquipmentTracking>), typeof(CrudDatabaseRepository<EquipmentTracking, ToursContext>));
+        services.AddScoped<IEquipmentTrackingRepository, EquipmentTrackingRepository>();
+
+        services.AddScoped<ITourRatingRepository, TourRatingRepository>();
+
         services.AddDbContext<ToursContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("tours"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "tours")));
