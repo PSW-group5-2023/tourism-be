@@ -2,10 +2,13 @@
 using Explorer.Blog.API.Dtos;
 using Explorer.Blog.API.Public;
 using Explorer.Blog.Infrastructure.Database;
+using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Infrastructure.Database;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -20,6 +23,136 @@ namespace Explorer.Blog.Tests.Integration
     {
         public CommentCommandTests(BlogTestFactory factory) : base(factory)
         {
+        }
+
+        [Theory]
+        [MemberData(nameof(CommentDtos))]
+        public void Creation(CommentDto commentDto, int expectedResponseCode)
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.Create(commentDto).Result;
+
+            //Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            if (result.StatusCode != 400)
+            {
+                var storedEntity = dbContext.Comments.FirstOrDefault(t => t.Id == commentDto.Id);
+                storedEntity.ShouldNotBeNull();
+            }
+        }
+
+        public static IEnumerable<object[]> CommentDtos()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new CommentDto
+                    {
+                        Id = -4,
+                        CreationDate = DateTime.UtcNow,
+                        UserId = -11,
+                        ProfilePic = new Uri("https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"),
+                        Description = "opis -4 hihihiha",
+                        LastEditDate = DateTime.UtcNow,
+                        BlogId = -21
+                    },
+                    200
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> CommentDtos2()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new CommentDto
+                    {
+                        Id = -3,
+                        CreationDate = DateTime.UtcNow,
+                        UserId = -11,
+                        ProfilePic = new Uri("https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"),
+                        Description = "opis -4 hihihiha",
+                        LastEditDate = DateTime.UtcNow,
+                        BlogId = -21
+                    },
+                    200
+                }
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(CommentDtos2))]
+        public void UpdateComment(CommentDto commentDto, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.UpdateComment(commentDto).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Comments.FirstOrDefault(t => t.Id == commentDto.Id);
+            storedEntity.ShouldNotBeNull();
+        }
+
+        [Theory]
+        [InlineData(-3, 200)]
+        [InlineData(-5, 404)]
+        public void DeleteComment(int commentId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (OkResult)controller.DeleteComment(commentId);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            var storedEntity = dbContext.Comments.FirstOrDefault(t => t.Id == commentId);
+            storedEntity.ShouldBeNull();
+        }
+
+        /*[Theory]
+        [InlineData(-21, 200)]
+        public void GetCommentsByBlogId(int blogId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.GetCommentsByBlogId(blogId).Result;
+
+            // Assert - Database
+            var storedEntity = dbContext.Comments.FirstOrDefault(c => c.BlogId == blogId);
+            storedEntity.ShouldNotBeNull();
+        }*/
+
+        private static BlogController CreateController(IServiceScope scope)
+        {
+            return new BlogController(scope.ServiceProvider.GetRequiredService<IBlogService>())
+            {
+                ControllerContext = BuildContext("-1")
+            };
         }
         /*
         [Fact]
