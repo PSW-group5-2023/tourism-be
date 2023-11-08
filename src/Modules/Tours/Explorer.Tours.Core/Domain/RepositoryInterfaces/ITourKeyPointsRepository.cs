@@ -11,5 +11,9 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     public interface ITourKeyPointsRepository
     {
         List<TourKeyPoint> GetByTourId(int tourId);
+        TourKeyPoint GetById(int id);
+        TourKeyPoint Update(TourKeyPoint keyPoint);
+
+        List<PublicTourKeyPoints> GetByStatus(PublicTourKeyPoints.PublicTourKeyPointStatus status);
     }
 }
