@@ -34,7 +34,11 @@ namespace Explorer.Blog.Core.UseCases
             try
             {
                 var blog = _blogRepository.Get(id);
+                if (blog == null)return Result.Fail(FailureCode.NotFound).WithError("Blog not found.");
+                
                 var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                if (user == null)return Result.Fail(FailureCode.NotFound).WithError("User not found.");
+                
                 var result= MapToDto(blog);
                 result.Username = user.Username;
                 return result;
@@ -129,8 +133,19 @@ namespace Explorer.Blog.Core.UseCases
 
         public Result<List<BlogDto>> GetBlogsByStatus(BlogState state)
         {
-            var result = _blogRepository.GetBlogsByStatus(state);
-            return MapToDto(result);
+            var blogs = _blogRepository.GetBlogsByStatus(state);
+            if(blogs==null)return Result.Fail(FailureCode.NotFound).WithError("Blog not found.");  
+
+            var result= MapToDto(blogs);
+
+            foreach (var blog in result.Value)
+            {
+                var user = _internalBlogRepository.GetByUserId(blog.UserId);
+                if (user == null) return Result.Fail(FailureCode.NotFound).WithError("User not found.");
+                blog.Username = user.Username;
+            }
+
+            return result;
         }
     }
 }
