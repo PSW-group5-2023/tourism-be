@@ -86,8 +86,11 @@ namespace Explorer.Blog.Core.UseCases
         public Result<CommentDto> GetComment(int id)
         {
             var result = _commentService.Get(id);
-            var user = _internalBlogRepository.GetByUserId(result.Value.UserId);
-            result.Value.Username = user.Username;
+            if (result.IsSuccess == true)
+            {
+                var user = _internalBlogRepository.GetByUserId(result.Value.UserId);
+                result.Value.Username = user.Username;
+            }
             return result;
         }
 

@@ -77,7 +77,7 @@ namespace Explorer.Blog.Tests.Integration
                 {
                     new CommentDto
                     {
-                        Id = -3,
+                        Id = -2,
                         CreationDate = DateTime.UtcNow,
                         UserId = -11,
                         ProfilePic = new Uri("https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"),
@@ -92,7 +92,7 @@ namespace Explorer.Blog.Tests.Integration
 
         [Theory]
         [MemberData(nameof(CommentDtos2))]
-        public void UpdateComment(CommentDto commentDto, int expectedResponseCode)
+        public void Update_comment(CommentDto commentDto, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -112,8 +112,7 @@ namespace Explorer.Blog.Tests.Integration
 
         [Theory]
         [InlineData(-3, 200)]
-        [InlineData(-5, 404)]
-        public void DeleteComment(int commentId, int expectedResponseCode)
+        public void Delete_comment(int commentId, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -131,21 +130,56 @@ namespace Explorer.Blog.Tests.Integration
             storedEntity.ShouldBeNull();
         }
 
-        /*[Theory]
-        [InlineData(-21, 200)]
-        public void GetCommentsByBlogId(int blogId, int expectedResponseCode)
+        [Theory]
+        [InlineData(-5, 404)]
+        public void Delete_comment_fail(int commentId, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
 
-            var result = (ObjectResult)controller.GetCommentsByBlogId(blogId).Result;
+            var result = (ObjectResult)controller.DeleteComment(commentId);
 
-            // Assert - Database
-            var storedEntity = dbContext.Comments.FirstOrDefault(c => c.BlogId == blogId);
-            storedEntity.ShouldNotBeNull();
-        }*/
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            var storedEntity = dbContext.Comments.FirstOrDefault(t => t.Id == commentId);
+            storedEntity.ShouldBeNull();
+        }
+
+        [Theory]
+        [InlineData(-2, 200)]
+        public void Get_comment(int id, int expectedResponseCode)
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.GetComment(id).Result;
+
+            //Assert-Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+        }
+
+        [Theory]
+        [InlineData(-1000, 404)]
+        public void Get_comment_failed(int id, int expectedResponseCode)
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.GetComment(id).Result;
+
+            //Assert-Response
+            result.StatusCode.ShouldBe(expectedResponseCode);
+        }
 
         private static BlogController CreateController(IServiceScope scope)
         {
@@ -154,143 +188,5 @@ namespace Explorer.Blog.Tests.Integration
                 ControllerContext = BuildContext("-1")
             };
         }
-        /*
-        [Fact]
-        public void Creates()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
-            var newEntity = new CommentDto
-            {
-                UserId = -11,
-                CreationDate = DateTime.UtcNow,
-                Description = "ovo je prvi komentar ikada",
-                LastEditDate = DateTime.UtcNow,
-                BlogId = -21
-            };
-
-            //Act
-            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as CommentDto;
-
-            //Assert - Response
-            result.ShouldNotBeNull();
-            result.Id.ShouldNotBe(0);
-            result.Description.ShouldBe(newEntity.Description);
-
-            //Assert - Database
-            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.Id == result.Id);
-            storedEntity.ShouldNotBeNull();
-        }
-
-        [Fact]
-        public void Create_fails_invalid_data()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var updatedEntity = new CommentDto
-            {
-            };
-
-            //Act
-            var result = (ObjectResult)controller.Create(updatedEntity).Result;
-
-            //Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
-
-        [Fact]
-        public void Updates()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
-            var updatedEntity = new CommentDto
-            {
-                Id = -1,
-                UserId = -1,
-                CreationDate = DateTime.UtcNow,
-                Description = "ovo je prvi edit ikada",
-                LastEditDate = DateTime.UtcNow,
-                BlogId = 1
-            };
-
-            //Act
-            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as CommentDto;
-
-            //Assert - Response
-            result.ShouldNotBeNull();
-            result.Id.ShouldBe(-1);
-            result.Description.ShouldBe(updatedEntity.Description);
-
-            //Assert
-            var storedEntity = dbContext.Comments.FirstOrDefault(i => i.UserId == -1);
-            storedEntity.ShouldNotBeNull();
-            storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.Comments.FirstOrDefault(i => i.Description == "ovo je prvi komentar ikad");
-            oldEntity.ShouldBeNull();
-        }
-
-        [Fact]
-        public void Update_fails_invalid_id()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var updatedEntity = new CommentDto
-            {
-                Id = -1000,
-                UserId = -1
-            };
-
-            //Act
-            var result = (ObjectResult)controller.Update(updatedEntity).Result;
-
-            //Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
-
-        [Fact]
-        public void Get()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            //Act
-            var result = ((ObjectResult)controller.Get(-2).Result)?.Value as CommentDto;
-
-            //Assert
-            result.ShouldNotBeNull();
-            result.Id.ShouldBe(-2);
-        }
-
-        [Fact]
-        public void Get_by_id_fails_invalid_id()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            //Act
-            var result = (ObjectResult)controller.Get(-100).Result;
-
-            //Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
-        }
-
-        private static CommentController CreateController(IServiceScope scope)
-        {
-            return new CommentController(scope.ServiceProvider.GetRequiredService<ICommentService>())
-            {
-                ControllerContext = BuildContext("-1")
-            };
-        }*/
     }
 }
