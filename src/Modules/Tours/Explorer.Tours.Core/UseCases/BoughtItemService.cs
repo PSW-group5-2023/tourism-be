@@ -76,5 +76,18 @@ namespace Explorer.Tours.Core.UseCases
             return Result.Ok();
         }
 
+        public Result UpdateItem(long userId, long tourId)
+        {
+            try
+            {
+                shoppingCartRepository.GetItemToUpdate(userId, tourId);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+
+            return Result.Ok();
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace Explorer.Tours.API.Public
         Result Create(List<BoughtItemDto> items);
 
         Result DeleteItem(long tourId, long userId);
+
+        public Result UpdateItem(long userId, long tourId);
     }
 }
