@@ -10,11 +10,10 @@ namespace Explorer.Tours.API.Public
 {
     public interface IBoughtItemService
     {
-        Result<List<TourDto>> GetItemsByUserId(long userId);
+        Result<List<TourDto>> GetUnusedTours(long userId);
+        Result<List<TourDto>> GetUsedTours(long userId);
         Result Create(List<BoughtItemDto> items);
-
         Result DeleteItem(long tourId, long userId);
-
         public Result UpdateItem(long userId, long tourId);
     }
 }

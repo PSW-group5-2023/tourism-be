@@ -27,14 +27,14 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return item;
 
         }
-        public List<Tour> GetItemsByUserId(long userId)
+        public List<Tour> GetUnusedTours(long userId)
         {
             List<BoughtItem> boughtItems = new List<BoughtItem>();
             List<Tour> tours = new List<Tour>();
 
             foreach(BoughtItem item in _dbContext.BoughtItems)
             {
-                if (item.UserId == userId) boughtItems.Add(item);
+                if (item.UserId == userId && !item.IsUsed) boughtItems.Add(item);
             }
 
             foreach(var item in boughtItems) 
@@ -76,6 +76,24 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
+        }
+
+        public List<Tour> GetUsedTours(long userId)
+        {
+            List<BoughtItem> boughtItems = new List<BoughtItem>();
+            List<Tour> tours = new List<Tour>();
+
+            foreach (BoughtItem item in _dbContext.BoughtItems)
+            {
+                if (item.UserId == userId && item.IsUsed) boughtItems.Add(item);
+            }
+
+            foreach (var item in boughtItems)
+            {
+                tours.Add(_dbContext.Tour.Find(item.TourId));
+            }
+
+            return tours;
         }
 
 

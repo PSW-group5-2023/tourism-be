@@ -22,9 +22,15 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet]
-        public ActionResult<BoughtItemDto> GetItems(long userId)
+        public ActionResult<BoughtItemDto> GetUnusedItems(long userId)
         {
-            return CreateResponse(shoppingCartService.GetItemsByUserId(userId));
+            return CreateResponse(shoppingCartService.GetUnusedTours(userId));
+        }
+
+        [HttpGet("{userId:long}")]
+        public ActionResult<BoughtItemDto> GetUsedItems(long userId)
+        {
+            return CreateResponse(shoppingCartService.GetUsedTours(userId));
         }
 
         [HttpPost("addToCart")]

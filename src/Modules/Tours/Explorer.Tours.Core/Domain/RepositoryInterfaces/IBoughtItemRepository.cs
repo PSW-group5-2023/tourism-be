@@ -8,7 +8,9 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {
     public interface IBoughtItemRepository
     {
-        List<Tour> GetItemsByUserId(long userId);
+        List<Tour> GetUnusedTours(long userId);
+
+        List<Tour> GetUsedTours(long userId);
         BoughtItem AddToCart(BoughtItem item);
 
         void DeleteItem(long tourId, long userId);

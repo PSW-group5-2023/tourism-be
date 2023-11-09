@@ -23,11 +23,11 @@ namespace Explorer.Tours.Core.UseCases
         }
 
 
-        public Result<List<TourDto>> GetItemsByUserId(long userId)
+        public Result<List<TourDto>> GetUnusedTours(long userId)
         {
             List<Tour> items = new List<Tour>();
             List<TourDto> itemsDto = new List<TourDto>();
-            items = shoppingCartRepository.GetItemsByUserId(userId);
+            items = shoppingCartRepository.GetUnusedTours(userId);
             foreach (Tour tour in items)
             {
                 TourDto dto = new TourDto
@@ -41,8 +41,35 @@ namespace Explorer.Tours.Core.UseCases
             }
 
             return itemsDto;
+        }
+
+        public Result<List<TourDto>> GetUsedTours(long userId)
+        {
+            List<Tour> items = new List<Tour>();
+            List<TourDto> itemsDto = new List<TourDto>();
+            items = shoppingCartRepository.GetUsedTours(userId);
+            foreach (Tour tour in items)
+            {
+                TourDto dto = new TourDto
+                {
+                    Id = (int)tour.Id,
+                    Name = tour.Name,
+                    AuthorId = tour.AuthorId,
+                    Description = tour.Description,
+                    Difficulty = (int)tour.Difficulty,
+                    Equipment = tour.Equipment,
+                    Price = tour.Price,
+                    Status = (int)tour.Status,
+                    Tags = tour.Tags,
+                    ArchivedDate = tour.ArchivedDate,
+                    DistanceInKm = tour.DistanceInKm
 
 
+                };
+                itemsDto.Add(dto);
+            }
+
+            return itemsDto;
         }
 
         public Result Create(List<BoughtItemDto> items)
