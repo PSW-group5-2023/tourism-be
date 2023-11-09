@@ -12,6 +12,7 @@ public class StakeholdersContext : DbContext
     public DbSet<ApplicationRating> ApplicationRatings { get; set; }
     public DbSet<Club> Clubs { get; set; }
     public DbSet<JoinRequest> JoinRequests { get; set; }
+    public DbSet<Follower> Followers { get; set; }
 
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
@@ -45,5 +46,15 @@ public class StakeholdersContext : DbContext
             .HasOne<Club>()
             .WithMany()
             .HasForeignKey(jr => jr.ClubId);
+
+        modelBuilder.Entity<Follower>()
+            .HasOne<Person>()
+            .WithMany()
+            .HasForeignKey(f => f.FollowerId);
+
+        modelBuilder.Entity<Follower>()
+            .HasOne<Person>()
+            .WithMany()
+            .HasForeignKey(f => f.FollowingId);  
     }
 }
