@@ -11,7 +11,7 @@ namespace Explorer.Stakeholders.API.Public.Identity
     public interface IFollowerService
     {
         public Result<FollowerDto> Get(int id);
-        public Result<FollowerDto> Create(FollowerDto dto);
-        public Result Delete(int id);
+        public Result<FollowerDto> Create(FollowerDto follower);
+        public Result Delete(int followerId, int followedId);
     }
 }

@@ -30,10 +30,10 @@ namespace Explorer.API.Controllers.Tourist.Identity
             return CreateResponse(result);
         }
 
-        [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{followerId:int}/{followedId:int}")]
+        public ActionResult Delete(int followerId, int followedId)
         {
-            var result = _followerService.Delete(id);
+            var result = _followerService.Delete(followerId, followedId);
             return CreateResponse(result);
         }
     }

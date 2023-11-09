@@ -55,8 +55,7 @@ public static class StakeholdersStartup
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
-        services.AddScoped(typeof(ICrudRepository<Follower>), typeof(CrudDatabaseRepository<Follower, StakeholdersContext>));
-
+        services.AddScoped<IFollowerRepository, FollowerRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

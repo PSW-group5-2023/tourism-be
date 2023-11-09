@@ -10,18 +10,20 @@ namespace Explorer.Stakeholders.Core.Domain
     public class Follower : Entity
     {
         public long FollowerId { get; init; }
-        public long FollowingId { get; init; }
+        public long FollowedId { get; init; }
 
-        public Follower(long followerId, long followingId)
+        public Follower(long followerId, long followedId)
         {
             FollowerId = followerId;
-            FollowingId = followingId;
+            FollowedId = followedId;
+
+            Validate();
         }
 
         private void Validate()
         {
             if (FollowerId == 0) throw new ArgumentException("Invalid FollowerId");
-            if (FollowingId == 0) throw new ArgumentException("Invalid FollowingId");
+            if (FollowedId == 0) throw new ArgumentException("Invalid FollowingId");
         }
     }
 }
