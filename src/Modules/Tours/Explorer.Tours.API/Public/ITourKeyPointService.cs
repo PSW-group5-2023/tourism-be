@@ -17,5 +17,6 @@ namespace Explorer.Tours.API.Public
         Result<TourKeyPointDto> Create(TourKeyPointDto tourKeyPoint);
         Result<TourKeyPointDto> Update(TourKeyPointDto tourKeyPoint);
         Result Delete(int id);
+        Result<TourKeyPointSecretDto> GetSecret(int keyPointId);
     }
 }
