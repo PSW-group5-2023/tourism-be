@@ -21,9 +21,14 @@ public class ToursProfile : Profile
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
         CreateMap<SessionDto, Session>().IncludeAllDerived()
             .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new PositionSimulator(src.Location.Latitude, src.Location.Longitude)));
-        // mapiranje DTO na Entity, da li je potrebno? U primeru na github-u nema tog dela
-        //.ConstructUsing(src => new Session(src.TourId, src.TouristId, null, src.SessionStatus, src.DistanceCrossed, src.LastActivity)); 
         CreateMap<Session, SessionDto>().IncludeAllDerived()
         .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location));
+
+        CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
+
+        CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        CreateMap<BoughtItemDto,BoughtItem>().ReverseMap();
+
     }
 }

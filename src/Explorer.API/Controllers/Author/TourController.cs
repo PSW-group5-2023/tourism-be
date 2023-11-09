@@ -45,6 +45,5 @@ namespace Explorer.API.Controllers.Author
             var result = _tourService.Delete(id);
             return CreateResponse(result);
         }
-
     }
 }
