@@ -31,7 +31,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public Session? GetByTouristId(long id)
         {
-            return _context.Sessions.FirstOrDefault(s => s.TouristId == id);
+            return _context.Sessions.FirstOrDefault(s => s.TouristId == id && s.SessionStatus == SessionStatus.ACTIVE);
         }
 
         public Session Update(Session session)
