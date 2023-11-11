@@ -16,9 +16,9 @@ namespace Explorer.Tours.Core.Domain
         public Uri Image { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public int? TourId { get; init; }
+        public long? TourId { get; init; }
 
-        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, int? tourId=0)
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, long? tourId=0)
         {
             Name = name;
             Description = description;

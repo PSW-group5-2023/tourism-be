@@ -1,7 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Tours.Core.Domain.Tours
 {
 
     public class Tour : Entity
@@ -16,8 +16,11 @@ namespace Explorer.Tours.Core.Domain
         public int[] Equipment { get; init; }
         public double DistanceInKm { get; init; }
         public DateTime? ArchivedDate { get; set; }
+        public DateTime? PublishedDate { get; private set; }
+        public List<TourDuration> Durations { get; init; }
+        public List<TourKeyPoint> KeyPoints { get; init; }
 
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations)
         {
             Name = name;
             Description = description;
@@ -29,6 +32,9 @@ namespace Explorer.Tours.Core.Domain
             Equipment = equipment;
             DistanceInKm = distanceInKm;
             ArchivedDate = archivedDate;
+            PublishedDate = publishedDate;
+            Durations = durations;
+            KeyPoints = new List<TourKeyPoint>();
 
             Validate();
         }

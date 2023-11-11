@@ -20,7 +20,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             _dbContext = dbContext;
         }
-        public List<TourKeyPoint> GetByTourId(int tourId)
+        public List<TourKeyPoint> GetByTourId(long tourId)
         {
             var keyPoints = _dbContext.TourKeyPoints.Where(x => x.TourId == tourId).ToList();
             return keyPoints;

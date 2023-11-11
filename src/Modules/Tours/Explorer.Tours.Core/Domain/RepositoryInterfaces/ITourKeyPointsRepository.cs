@@ -10,7 +10,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {
     public interface ITourKeyPointsRepository
     {
-        List<TourKeyPoint> GetByTourId(int tourId);
+        List<TourKeyPoint> GetByTourId(long tourId);
         TourKeyPoint GetById(int id);
         TourKeyPoint Update(TourKeyPoint keyPoint);
 

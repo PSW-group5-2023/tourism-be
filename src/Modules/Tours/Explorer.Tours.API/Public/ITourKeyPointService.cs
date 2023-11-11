@@ -12,7 +12,7 @@ namespace Explorer.Tours.API.Public
     public interface ITourKeyPointService
     {
         Result<PagedResult<TourKeyPointDto>> GetPaged(int page, int pageSize);
-        Result<List<TourKeyPointDto>> GetByTourId(int tourId);
+        Result<List<TourKeyPointDto>> GetByTourId(long tourId);
         Result<TourKeyPointDto> Get(int id);
         Result<TourKeyPointDto> Create(TourKeyPointDto tourKeyPoint);
         Result<TourKeyPointDto> Update(TourKeyPointDto tourKeyPoint);

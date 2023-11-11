@@ -2,6 +2,7 @@
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Core.Mappers;
 
@@ -11,6 +12,7 @@ public class ToursProfile : Profile
     {
         CreateMap<EquipmentDto, Equipment>().ReverseMap();
         CreateMap<TourDto, Tour>().ReverseMap();
+        CreateMap<TourDurationDto, TourDuration>().ReverseMap();
         CreateMap<TourKeyPointDto, TourKeyPoint>().ReverseMap();
         CreateMap<TourRatingDto, TourRating>().ReverseMap();
         CreateMap<FacilityDto, Facility>().ReverseMap();

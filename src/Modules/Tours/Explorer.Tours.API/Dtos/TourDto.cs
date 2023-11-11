@@ -13,5 +13,8 @@
         public int[] Equipment { get; set; }
         public double DistanceInKm { get; set; }
         public DateTime? ArchivedDate { get; set; }
+        public DateTime? PublishedDate { get; set; }
+        public List<TourDurationDto> Durations { get; set; }
+        public List<TourKeyPointDto> KeyPoints { get; set; }
     }
 }

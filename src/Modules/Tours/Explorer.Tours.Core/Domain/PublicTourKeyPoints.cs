@@ -10,7 +10,7 @@ namespace Explorer.Tours.Core.Domain
     {
         public PublicTourKeyPointStatus Status { get; private set; }
         public int CreatorId { get; private set; } 
-        public PublicTourKeyPoints(string name, string description, Uri image, double latitude, double longitude, PublicTourKeyPointStatus status, int creatorId, int? tourId = null) : base(name, description, image, latitude, longitude, tourId)
+        public PublicTourKeyPoints(string name, string description, Uri image, double latitude, double longitude, PublicTourKeyPointStatus status, int creatorId, long? tourId = null) : base(name, description, image, latitude, longitude, tourId)
         {
             Status = status;
             CreatorId = creatorId;

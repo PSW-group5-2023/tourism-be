@@ -21,7 +21,7 @@ namespace Explorer.Tours.Core.UseCases
         {
             _tourKeyPointsRepository = tourKeyPointsRepository;
         }
-        public Result<List<TourKeyPointDto>> GetByTourId(int tourId)
+        public Result<List<TourKeyPointDto>> GetByTourId(long tourId)
         {
             List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
            var tourKeyPoints = _tourKeyPointsRepository.GetByTourId(tourId);

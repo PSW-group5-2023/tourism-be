@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Tours;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Tours.Infrastructure.Database;
@@ -29,10 +30,19 @@ public class ToursContext : DbContext
     {
         modelBuilder.HasDefaultSchema("tours");
 
-  /*      modelBuilder.Entity<BoughtItem>()
-            .HasOne(item => item.Tour)
-            .WithMany()
-            .HasForeignKey(item => item.TourId); */
+        modelBuilder.Entity<Tour>()
+            .Property(t => t.Durations)
+            .HasColumnType("jsonb");
+
+        modelBuilder.Entity<Tour>()
+            .HasMany(t => t.KeyPoints)
+            .WithOne()
+            .HasForeignKey(kp => kp.TourId);
+
+        /*      modelBuilder.Entity<BoughtItem>()
+                  .HasOne(item => item.Tour)
+                  .WithMany()
+                  .HasForeignKey(item => item.TourId); */
 
 
 
