@@ -13,11 +13,11 @@ namespace Explorer.Stakeholders.Core.Domain
 
         public async Task SendPublicKeyPointNotification(PublicTourKeyPointDto publicKeyPoint, string status)
         {
-            await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint);
+            await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint, status);
         }     
         public async Task SendPublicFacilityNotification(PublicFacilityDto publicFacility, string status)
         {
-            await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility);
+            await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status);
         }
     }
 }
