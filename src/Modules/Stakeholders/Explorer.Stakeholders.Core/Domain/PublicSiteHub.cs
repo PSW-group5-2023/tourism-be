@@ -4,18 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Explorer.Tours.API.Dtos;
 
 namespace Explorer.Stakeholders.Core.Domain
 {
     public class PublicSiteHub : Hub
     {
 
-        public async Task SendPublicKeyPointNotification(PublicTourKeyPointDto publicKeyPoint, string status)
+        public async Task SendPublicKeyPointNotification(string publicKeyPoint, string status)
         {
             await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint, status);
         }     
-        public async Task SendPublicFacilityNotification(PublicFacilityDto publicFacility, string status)
+        public async Task SendPublicFacilityNotification(string publicFacility, string status)
         {
             await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status);
         }
