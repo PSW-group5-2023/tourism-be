@@ -50,5 +50,12 @@ namespace Explorer.API.Controllers.Execution
             var result = _sessionService.ValidForTouristComment(id);
             return CreateResponse(result);
         }
+
+        [HttpPut("completeKeyPoint/{sessionId:int}/{keyPointId:int}")]
+        public ActionResult<SessionDto> CompleteKeyPoint(int sessionId, int keyPointId)
+        {
+            var result = _sessionService.AddCompletedKeyPoint(sessionId, keyPointId);
+            return CreateResponse(result);
+        }
     }
 }

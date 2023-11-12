@@ -16,5 +16,6 @@ namespace Explorer.Tours.API.Dtos
         public int SessionStatus { get; set; }
         public int DistanceCrossedPercent { get; set; }
         public DateTime LastActivity { get; set; }
+        public List<CompletedKeyPointDto> CompletedKeyPoints { get; set; }
     }
 }

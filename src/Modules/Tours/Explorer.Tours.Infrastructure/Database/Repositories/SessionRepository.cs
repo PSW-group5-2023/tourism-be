@@ -48,5 +48,22 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
             return session;
         }
+
+        public Session AddCompletedKeyPoint(int sessionId, int keyPointId)
+        {
+            try
+            {
+                var session = _context.Sessions.FirstOrDefault(s => s.Id == sessionId);
+                var completedKeyPoint = session.AddCompletedKeyPoint(keyPointId);
+                _context.Sessions.Update(session);
+
+                _context.SaveChanges();
+                return session;
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+        }
     }
 }

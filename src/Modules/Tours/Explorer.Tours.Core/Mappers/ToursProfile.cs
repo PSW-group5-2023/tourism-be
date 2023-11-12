@@ -19,13 +19,14 @@ public class ToursProfile : Profile
         CreateMap<TourProblemDto, TourProblem>().ReverseMap();
         CreateMap<PositionSimulatorDto, PositionSimulator>().ReverseMap();
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
+        CreateMap<CompletedKeyPointDto, CompletedKeyPoint>().ReverseMap();
         CreateMap<SessionDto, Session>().IncludeAllDerived()
-            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new PositionSimulator(src.Location.Latitude, src.Location.Longitude)));
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new PositionSimulator(src.Location.Latitude, src.Location.Longitude)))
+            .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
         CreateMap<Session, SessionDto>().IncludeAllDerived()
-        .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location));
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location));
 
         CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
-
         CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<BoughtItemDto,BoughtItem>().ReverseMap();
