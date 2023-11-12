@@ -56,7 +56,11 @@ namespace Explorer.Tours.Core.Domain.Sessions
         public CompletedKeyPoint AddCompletedKeyPoint(int keyPointId)
         {
             var completedKeyPoint = new CompletedKeyPoint(keyPointId, DateTime.UtcNow);
-            CompletedKeyPoints.Add(completedKeyPoint);
+            var completeKeyPointCheck = CompletedKeyPoints.FirstOrDefault(ckp => ckp.KeyPointId == keyPointId);
+            if (completeKeyPointCheck == null)
+            {
+                CompletedKeyPoints.Add(completedKeyPoint);
+            }
 
             return completedKeyPoint;
         }
