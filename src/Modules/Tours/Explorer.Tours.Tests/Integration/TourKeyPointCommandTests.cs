@@ -33,7 +33,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
                 Latitude = -32.6,
-                TourId = 17
+                TourId = -2
             };
 
             // Act
@@ -65,7 +65,8 @@ namespace Explorer.Tours.Tests.Integration
                 Longitude = 51.33,
                 Latitude = -32.6,
                 Status = "Pending",
-                CreatorId = 112
+                CreatorId = 112,
+                TourId = -2
             };
 
             // Act
@@ -134,7 +135,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
                 Latitude = -24.22,
-                TourId = 17
+                TourId = -2
 
             };
 
@@ -215,7 +216,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
                 Latitude = -24.22,
-                TourId = 17
+                TourId = -2
             };
 
             // Act

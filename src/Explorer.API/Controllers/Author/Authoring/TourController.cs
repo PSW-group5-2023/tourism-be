@@ -4,7 +4,7 @@ using Explorer.Tours.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Author
+namespace Explorer.API.Controllers.Author.Authoring
 {
     [Authorize(Policy = "authorPolicy")]
     [Route("api/tourManagement/tour")]
@@ -26,10 +26,10 @@ namespace Explorer.API.Controllers.Author
 
 
         [HttpPost]
-        public ActionResult<TourDto> Create([FromBody] TourDto tour) 
+        public ActionResult<TourDto> Create([FromBody] TourDto tour)
         {
-            var result = _tourService.Create(tour); 
-            return CreateResponse(result);   
+            var result = _tourService.Create(tour);
+            return CreateResponse(result);
         }
 
         [HttpPut("{id:int}")]
@@ -43,6 +43,20 @@ namespace Explorer.API.Controllers.Author
         public ActionResult Delete(int id)
         {
             var result = _tourService.Delete(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<TourDto> GetWithKeyPoints(int id)
+        {
+            var result = _tourService.GetWithKeyPoints(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("publish/{id:int}")]
+        public ActionResult<TourDto> Publish(int id)
+        {
+            var result = _tourService.Publish(id);
             return CreateResponse(result);
         }
     }

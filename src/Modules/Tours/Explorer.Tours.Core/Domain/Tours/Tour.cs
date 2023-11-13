@@ -10,12 +10,12 @@ namespace Explorer.Tours.Core.Domain.Tours
         public string Description { get; init; }
         public TourDifficulty Difficulty { get; init; }
         public List<string> Tags { get; init; }
-        public TourStatus Status { get; init; }
+        public TourStatus Status { get; private set; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
         public double DistanceInKm { get; init; }
-        public DateTime? ArchivedDate { get; set; }
+        public DateTime? ArchivedDate { get; init; }
         public DateTime? PublishedDate { get; private set; }
         public List<TourDuration> Durations { get; init; }
         public List<TourKeyPoint> KeyPoints { get; init; }
@@ -35,16 +35,24 @@ namespace Explorer.Tours.Core.Domain.Tours
             PublishedDate = publishedDate;
             Durations = durations;
             KeyPoints = new List<TourKeyPoint>();
-
-            Validate();
         }
 
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
-            if (Price < 0) throw new ArgumentException("Invalid price");
-            if (Tags.IsNullOrEmpty()) throw new ArgumentException("Invalid Tags");
+            if (Price < 0) throw new ArgumentException("Invalid Price");
+            if (Tags.IsNullOrEmpty()) throw new ArgumentException("Not enough Tags");
+            if (KeyPoints.Count < 2) throw new ArgumentException("Not enough Key Points");
+            if (Durations.IsNullOrEmpty()) throw new ArgumentException("Not enough Durations");
+        }
+
+        public void Publish()
+        {
+            Validate();
+
+            PublishedDate = DateTime.UtcNow;
+            Status = TourStatus.Published;
         }
     }
 
