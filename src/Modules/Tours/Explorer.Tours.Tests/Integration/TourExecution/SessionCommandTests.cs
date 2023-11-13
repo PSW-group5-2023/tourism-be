@@ -81,11 +81,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         SessionStatus = 1,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.Now,
-                        CompletedKeyPoints =
-                        {
-                            "KeyPointId": 2,
-                            "CompletionTime": "2023-11-12T19:30:14.005607Z"
-                        }
+                        CompletedKeyPoints = new List<CompletedKeyPointDto>()
                     },
                     200
                 }
@@ -110,17 +106,33 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         SessionStatus = 1,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.Now,
-                        CompletedKeyPoints =
-                        {
-                            "KeyPointId": 2,
-                            "CompletionTime": "2023-11-12T19:30:14.005607Z"
-                        }
+                        CompletedKeyPoints = new List<CompletedKeyPointDto>()
                     },
                     201
                 }
             };
         }
 
+        [Theory]
+        [InlineData(-1, -21, 200)]
+        public void AddCompletedKeyPoint(int sessionId, int keyPointId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.CompleteKeyPoint(sessionId, keyPointId).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == sessionId);
+            var rating = storedEntity.CompletedKeyPoints.FirstOrDefault(t => t.KeyPointId == keyPointId);
+            rating.ShouldNotBeNull();
+        }
 
         private static SessionController CreateController(IServiceScope scope)
         {
