@@ -5,7 +5,7 @@ VALUES (
     -1,
     -21,
     '{{"Latitude": 45.24593380541839, "Longitude": 19.850169235266268}}',
-    1,
+    0,
     1,
     CURRENT_TIMESTAMP,
     '[]'
