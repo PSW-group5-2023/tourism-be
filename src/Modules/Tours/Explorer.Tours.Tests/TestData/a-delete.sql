@@ -7,3 +7,4 @@ DELETE FROM tours."TourProblems";
 DELETE FROM tours."Preferences";
 DELETE FROM tours."EquipmentTrackings";
 DELETE FROM tours."PositionSimulators";
+DELETE FROM tours."Sessions";
