@@ -105,6 +105,26 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
             };
         }
 
+        [Theory]
+        [InlineData(-1, -21, 200)]
+        public void AddCompletedKeyPoint(int sessionId, int keyPointId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.CompleteKeyPoint(sessionId, keyPointId).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == sessionId);
+            var rating = storedEntity.CompletedKeyPoints.FirstOrDefault(t => t.KeyPointId == keyPointId);
+            rating.ShouldNotBeNull();
+        }
 
         private static SessionController CreateController(IServiceScope scope)
         {
