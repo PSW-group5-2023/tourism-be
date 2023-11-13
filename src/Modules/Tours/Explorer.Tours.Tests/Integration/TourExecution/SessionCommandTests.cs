@@ -56,11 +56,11 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
 
             var result = (ObjectResult)controller.Create(session).Result;
 
-            if (result.StatusCode != 400)
-            {
-                var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
-                storedEntity.ShouldNotBeNull();
-            }
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            storedEntity.ShouldNotBeNull();
         }
         public static IEnumerable<object[]> SessionDto()
         {
@@ -116,7 +116,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                             "CompletionTime": "2023-11-12T19:30:14.005607Z"
                         }
                     },
-                    200
+                    201
                 }
             };
         }
@@ -129,4 +129,5 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                 ControllerContext = BuildContext("-1")
             };
         }
+    }
 }
