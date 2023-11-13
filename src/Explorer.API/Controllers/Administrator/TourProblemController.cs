@@ -25,5 +25,11 @@ namespace Explorer.API.Controllers.Administrator
             _problemService.FindNames(result.Value.Results);
             return CreateResponse(result);
         }
+        [HttpPut]
+        public ActionResult<TourProblemDto> GiveDeadline([FromBody] TourProblemDto tp)
+        {
+            var result = _problemService.GiveDeadline(tp.Deadline, tp.Id);
+            return CreateResponse(result);
+        }
     }
 }

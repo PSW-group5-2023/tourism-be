@@ -35,6 +35,7 @@ namespace Explorer.Tours.Core.Domain
         public DateTime Time { get; init; }
         public Boolean IsSolved { get; init; }      
         public List<TourProblemMessage> Messages { get; init; }
+        public DateTime? Deadline { get; private set; }
 
 
         public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved, List<TourProblemMessage> messages)
@@ -61,6 +62,13 @@ namespace Explorer.Tours.Core.Domain
             if (string.IsNullOrWhiteSpace(Priority.ToString())) throw new ArgumentException("Invalid Priority.");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description.");
             if (string.IsNullOrWhiteSpace(Time.ToString())) throw new ArgumentException("Invalid Time.");
+        }
+        public void GiveDeadline(DateTime deadline)
+        {
+            if (deadline > DateTime.Now)
+                this.Deadline = deadline;
+            else
+                throw new ArgumentException("Invalid date!");
         }
     }
 }

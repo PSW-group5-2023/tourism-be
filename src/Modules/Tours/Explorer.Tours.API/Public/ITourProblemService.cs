@@ -17,5 +17,6 @@ namespace Explorer.Tours.API.Public
         Result<List<TourProblemDto>> GetByTouristId(long touristId);
         Result<List<TourProblemDto>> GetByAuthorId(long authorId);
         public void FindNames(List<TourProblemDto> result);
+        public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId);
     }
 }

@@ -62,5 +62,11 @@ namespace Explorer.Tours.Core.UseCases
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
             }
         }
+
+        public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId)
+        {
+            var tourProblem=_tourProblemRepository.GiveDeadline(deadline, tourProblemId);
+            return new Result<TourProblemDto>();
+        }
     }
 }
