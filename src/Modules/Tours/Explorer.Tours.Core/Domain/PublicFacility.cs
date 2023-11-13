@@ -13,10 +13,10 @@ namespace Explorer.Tours.Core.Domain
         public int CreatorId { get; init; }
 
 
-        public PublicFacility(string name, string description, Uri image, FacilityCategory category, double latitude, double longitude, PublicFacilityStatus status, int CreatorId) : base(name, description, image, category, latitude, longitude)
+        public PublicFacility(string name, string description, Uri image, FacilityCategory category, double latitude, double longitude, PublicFacilityStatus status, int creatorId) : base(name, description, image, category, latitude, longitude)
         {
             Status = status;
-            CreatorId = CreatorId;
+            CreatorId = creatorId;
 
         }
 

@@ -10,13 +10,13 @@ namespace Explorer.Stakeholders.Core.Domain
     public class PublicSiteHub : Hub
     {
 
-        public async Task SendPublicKeyPointNotification(string publicKeyPoint, string status)
+        public async Task SendPublicKeyPointNotification(string publicKeyPoint, string status, int creatorId)
         {
-            await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint, status);
+            await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint, status, creatorId);
         }     
-        public async Task SendPublicFacilityNotification(string publicFacility, string status)
+        public async Task SendPublicFacilityNotification(string publicFacility, string status,int creatorId)
         {
-            await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status);
+            await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status, creatorId);
         }
     }
 }
