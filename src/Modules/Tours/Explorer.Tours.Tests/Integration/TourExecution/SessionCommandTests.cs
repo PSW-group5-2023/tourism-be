@@ -1,4 +1,17 @@
-﻿using System;
+﻿using Explorer.API.Controllers.Execution;
+using Explorer.Blog.API.Dtos;
+using Explorer.Blog.API.Public;
+using Explorer.Blog.Infrastructure.Database;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Sessions;
+using Explorer.Tours.Infrastructure.Database;
+using JetBrains.Annotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Shouldly;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +19,115 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Tests.Integration.TourExecution
 {
-    public class SessionCommandTests 
+    [Collection("Sequential")]
+    public class SessionCommandTests : BaseToursIntegrationTest
     {
-        
-        public void Updates()
+        public SessionCommandTests(ToursTestFactory factory) : base(factory)
         {
+        }
 
+        [Theory]
+        [MemberData(nameof(SessionDto))]
+        public void Update_session(SessionDto session, int expectedResponseCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.Update(session).Result;
+
+            result.ShouldNotBeNull();
+
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            storedEntity.ShouldNotBeNull();
+        }
+
+        [Theory]
+        [MemberData(nameof(SessionDto1))]
+        public void Create_session(SessionDto session, int expectedResponseCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.Create(session).Result;
+
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            storedEntity.ShouldNotBeNull();
+        }
+        public static IEnumerable<object[]> SessionDto()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new SessionDto
+                    {
+                        Id = -1,
+                        TourId = -1,
+                        TouristId = -21,
+                        Location =
+                        {
+                            Latitude = 45.24593380541839,
+                            Longitude = 19.850169235266268
+                        },
+                        SessionStatus = 1,
+                        DistanceCrossedPercent = 10,
+                        LastActivity = DateTime.Now,
+                        CompletedKeyPoints =
+                        {
+                            "KeyPointId": 2,
+                            "CompletionTime": "2023-11-12T19:30:14.005607Z"
+                        }
+                    },
+                    200
+                }
+            };
+        }
+        public static IEnumerable<object[]> SessionDto1()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new SessionDto
+                    {
+                        Id = -11,
+                        TourId = -1,
+                        TouristId = -22,
+                        Location =
+                        {
+                            Latitude = 45.24593380541839,
+                            Longitude = 19.850169235266268
+                        },
+                        SessionStatus = 1,
+                        DistanceCrossedPercent = 10,
+                        LastActivity = DateTime.Now,
+                        CompletedKeyPoints =
+                        {
+                            "KeyPointId": 2,
+                            "CompletionTime": "2023-11-12T19:30:14.005607Z"
+                        }
+                    },
+                    201
+                }
+            };
+        }
+
+
+        private static SessionController CreateController(IServiceScope scope)
+        {
+            return new SessionController(scope.ServiceProvider.GetRequiredService<ISessionService>())
+            {
+                ControllerContext = BuildContext("-1")
+            };
         }
     }
 }

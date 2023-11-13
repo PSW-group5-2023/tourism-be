@@ -14,6 +14,6 @@ namespace Explorer.Tours.Core.Domain.Sessions
         Session Update(Session session);
         Session Get(long id);
         Session? GetByTouristId(long id);
-
+        Session AddCompletedKeyPoint(int sessionId, int keyPointId);
     }
 }

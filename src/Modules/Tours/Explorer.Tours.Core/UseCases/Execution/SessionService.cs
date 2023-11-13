@@ -66,5 +66,12 @@ namespace Explorer.Tours.Core.UseCases.Execution
             var result = _sessionRepository.Get(id);
             return result.ValidForTouristComment();
         }
+
+        public Result<SessionDto> AddCompletedKeyPoint(int sessionId, int keyPointId)
+        {
+            var result = _sessionRepository.AddCompletedKeyPoint(sessionId, keyPointId);
+
+            return MapToDto(result);
+        }
     }
 }

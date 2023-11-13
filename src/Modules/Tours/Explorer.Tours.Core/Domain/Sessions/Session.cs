@@ -23,8 +23,9 @@ namespace Explorer.Tours.Core.Domain.Sessions
         public SessionStatus SessionStatus { get; private set; }
         public int DistanceCrossedPercent { get; private set; }
         public DateTime LastActivity { get; private set; }
+        public List<CompletedKeyPoint> CompletedKeyPoints { get; private set; }
 
-        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity)
+        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
         {
             TourId = tourId;
             TouristId = touristId;
@@ -32,9 +33,9 @@ namespace Explorer.Tours.Core.Domain.Sessions
             SessionStatus = sessionStatus;
             DistanceCrossedPercent = distanceCrossedPercent;
             LastActivity = lastActivity;
+            CompletedKeyPoints = completedKeyPoints;
 
             Validate();
-
         }
 
         private void Validate()
@@ -50,6 +51,18 @@ namespace Explorer.Tours.Core.Domain.Sessions
                 return true;
 
             return false;
+        }
+
+        public CompletedKeyPoint AddCompletedKeyPoint(int keyPointId)
+        {
+            var completedKeyPoint = new CompletedKeyPoint(keyPointId, DateTime.UtcNow);
+            var completeKeyPointCheck = CompletedKeyPoints.FirstOrDefault(ckp => ckp.KeyPointId == keyPointId);
+            if (completeKeyPointCheck == null)
+            {
+                CompletedKeyPoints.Add(completedKeyPoint);
+            }
+
+            return completedKeyPoint;
         }
     }
 }

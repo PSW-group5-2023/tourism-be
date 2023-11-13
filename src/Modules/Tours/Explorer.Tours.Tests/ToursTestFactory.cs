@@ -13,6 +13,10 @@ public class ToursTestFactory : BaseTestFactory<ToursContext>
         services.Remove(descriptor!);
         services.AddDbContext<ToursContext>(SetupTestContext());
 
+        descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ToursContext>));
+        services.Remove(descriptor!);
+        services.AddDbContext<ToursContext>(SetupTestContext());
+
         return services;
     }
 }
