@@ -26,7 +26,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
         {
         }
 
-        /*[Theory]
+        [Theory]
         [MemberData(nameof(SessionDto))]
         public void Update_session(SessionDto session, int expectedResponseCode)
         {
@@ -73,14 +73,10 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         Id = -1,
                         TourId = -1,
                         TouristId = -21,
-                        Location =
-                        {
-                            Latitude = 45.24593380541839,
-                            Longitude = 19.850169235266268
-                        },
+                        Location = new PositionSimulatorDto(),
                         SessionStatus = 1,
                         DistanceCrossedPercent = 10,
-                        LastActivity = DateTime.Now,
+                        LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
                     },
                     200
@@ -96,19 +92,15 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                     new SessionDto
                     {
                         Id = -11,
-                        TourId = -1,
+                        TourId = -2,
                         TouristId = -22,
-                        Location =
-                        {
-                            Latitude = 45.24593380541839,
-                            Longitude = 19.850169235266268
-                        },
+                        Location = new PositionSimulatorDto(),
                         SessionStatus = 1,
                         DistanceCrossedPercent = 10,
-                        LastActivity = DateTime.Now,
+                        LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
                     },
-                    201
+                    200
                 }
             };
         }
@@ -120,6 +112,6 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
             {
                 ControllerContext = BuildContext("-1")
             };
-        }*/
+        }
     }
 }
