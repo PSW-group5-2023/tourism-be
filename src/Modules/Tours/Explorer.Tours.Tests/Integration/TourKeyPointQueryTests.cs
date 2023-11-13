@@ -9,7 +9,6 @@ using Explorer.API.Controllers.Author;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -188,9 +187,9 @@ namespace Explorer.Tours.Tests.Integration
             // Assert
             result.StatusCode.ShouldBe(400);
         }
-        private static TourKeyPointController CreateController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

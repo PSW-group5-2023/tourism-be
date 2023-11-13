@@ -1,5 +1,4 @@
-﻿
-INSERT INTO blog."Comments"(
+﻿INSERT INTO blog."Comments"(
     "Id", "UserId", "CreationDate", "Description", "LastEditDate", "BlogId")
 VALUES (-1, -11, CURRENT_TIMESTAMP, 'ovo je prvi komentar ikad', CURRENT_TIMESTAMP, -21);
 INSERT INTO blog."Comments"(

@@ -1,11 +1,14 @@
 using Explorer.Blog.API.Public;
 using Explorer.Blog.Core.Domain;
+using Explorer.Blog.Core.Domain.RepositoryInterfaces;
 using Explorer.Blog.Core.Mappers;
 using Explorer.Blog.Core.UseCases;
 using Explorer.Blog.Infrastructure.Database;
+using Explorer.Blog.Infrastructure.Database.Repositories;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,7 +35,8 @@ public static class BlogStartup
     {
         services.AddScoped(typeof(ICrudRepository<Comment>), typeof(CrudDatabaseRepository<Comment, BlogContext>));
         services.AddScoped(typeof(ICrudRepository<BlogPage>), typeof(CrudDatabaseRepository<BlogPage, BlogContext>));
-
+        services.AddScoped<IBlogRepository, BlogRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
 
         services.AddDbContext<BlogContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("blog"),
