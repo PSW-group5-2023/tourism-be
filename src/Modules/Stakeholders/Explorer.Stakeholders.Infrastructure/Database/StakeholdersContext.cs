@@ -12,6 +12,7 @@ public class StakeholdersContext : DbContext
     public DbSet<ApplicationRating> ApplicationRatings { get; set; }
     public DbSet<Club> Clubs { get; set; }
     public DbSet<JoinRequest> JoinRequests { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 

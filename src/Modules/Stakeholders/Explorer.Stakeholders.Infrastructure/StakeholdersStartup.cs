@@ -6,6 +6,7 @@ using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Stakeholders.Core.Mappers;
 using Explorer.Stakeholders.Core.UseCases;
+using Explorer.Stakeholders.Core.UseCases.Identity;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Stakeholders.Infrastructure.Database;
 using Explorer.Stakeholders.Infrastructure.Database.Repositories;
@@ -37,6 +38,7 @@ public static class StakeholdersStartup
         services.AddScoped<IUserInformationService, UserInformationService>();
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
+        services.AddScoped<IMessageService, MessageService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -52,7 +54,7 @@ public static class StakeholdersStartup
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
-
+        services.AddScoped<IMessageRepository, MessageRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>
