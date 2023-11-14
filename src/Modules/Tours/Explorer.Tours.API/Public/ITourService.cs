@@ -13,5 +13,6 @@ namespace Explorer.Tours.API.Public
         Result<TourDto> Get(int id);
         Result<TourDto> Publish(int id, int userId);
         Result<TourDto> Archive(int id, int userId);
+        Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize);
     }
 }

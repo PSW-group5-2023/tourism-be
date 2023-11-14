@@ -54,5 +54,11 @@ namespace Explorer.Tours.Core.UseCases
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
+
+        public Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize)
+        {
+            var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
+            return MapToDto(result);
+        }
     }
 }

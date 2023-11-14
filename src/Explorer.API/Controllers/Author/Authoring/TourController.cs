@@ -54,16 +54,23 @@ namespace Explorer.API.Controllers.Author.Authoring
         }
 
         [HttpPut("publish/{id:int}")]
-        public ActionResult<TourDto> Publish(int id, [FromBody] int userId)
+        public ActionResult<TourDto> Publish(int id, [FromBody] int authorId)
         {
-            var result = _tourService.Publish(id, userId);
+            var result = _tourService.Publish(id, authorId);
             return CreateResponse(result);
         }
 
         [HttpPut("archive/{id:int}")]
-        public ActionResult<TourDto> Archive(int id, [FromBody] int userId)
+        public ActionResult<TourDto> Archive(int id, [FromBody] int authorId)
         {
-            var result = _tourService.Archive(id, userId);
+            var result = _tourService.Archive(id, authorId);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("author")]
+        public ActionResult<PagedResult<TourDto>> GetAllByAuthorId([FromQuery] int authorId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedByAuthorId(authorId, page, pageSize);
             return CreateResponse(result);
         }
     }
