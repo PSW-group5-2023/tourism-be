@@ -13,10 +13,15 @@ namespace Explorer.Stakeholders.Core.Domain
         public async Task SendPublicKeyPointNotification(string publicKeyPoint, string status, int creatorId)
         {
             await Clients.All.SendAsync("ReceivePublicKeyPointNotification", publicKeyPoint, status, creatorId);
-        }
-        public async Task SendPublicFacilityNotification(string publicFacility, string status, int creatorId)
+
+        } 
+        public async Task SendPublicFacilityNotification(string publicFacility, string status,int creatorId)
         {
             await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status, creatorId);
+        }
+        public async Task SendProblemMessageNotification(string problemMessage, int recipientId, string senderUsername)
+        {
+            await Clients.All.SendAsync("ReceiveProblemMessageNotification", problemMessage, recipientId, senderUsername);
         }
     }
 }
