@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Explorer.Stakeholders.API.Dtos;
 using Shouldly;
 using Explorer.Stakeholders.Infrastructure.Database;
+using Explorer.Blog.Infrastructure.Database;
 
 namespace Explorer.Stakeholders.Tests.Integration.Identity
 {
@@ -41,6 +42,46 @@ namespace Explorer.Stakeholders.Tests.Integration.Identity
             var storedEntity = dbContext.Followers.FirstOrDefault(t => t.Id == follower.Id);
             storedEntity.ShouldNotBeNull();
         }
+
+        [Theory]
+        [InlineData(-22, -12, 200)]
+        public void Delete_session(int followerId, int followedId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+
+            var result = (OkResult)controller.Delete(followerId, followedId);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            var storedEntity = dbContext.Followers.FirstOrDefault(f => f.FollowerId == followerId && f.FollowedId == followedId);
+            storedEntity.ShouldBeNull();
+        }
+
+        [Theory]
+        [InlineData(-25, -12, 404)]
+        public void Delete_session_fail(int followerId, int followedId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+
+            var result = (ObjectResult)controller.Delete(followerId, followedId);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            var storedEntity = dbContext.Followers.FirstOrDefault(f => f.FollowerId == followerId && f.FollowedId == followedId);
+            storedEntity.ShouldBeNull();
+        }
         public static IEnumerable<object[]> FollowerDto()
         {
             return new List<object[]>
@@ -49,8 +90,10 @@ namespace Explorer.Stakeholders.Tests.Integration.Identity
                 {
                     new FollowerDto
                     {
-                        Id = -1,
-                        
+                        Id = -11,
+                        FollowerId = -11,
+                        FollowedId = -21,
+                        Notification = new FollowerNotificationDto()
                     },
                     200
                 }

@@ -1,4 +1,5 @@
-﻿using Explorer.Stakeholders.Core.Domain.Followers;
+﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.Followers;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,8 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
         public void Delete(int followerId, int followedId)
         {
-            var follower = _context.Followers.First(f => f.FollowerId == followerId && f.FollowedId == followedId);
+            var follower = _context.Followers.FirstOrDefault(f => f.FollowerId == followerId && f.FollowedId == followedId);
+            if (follower == null) throw new KeyNotFoundException("Not found: " + followerId + " " + followedId);
             _context.Followers.Remove(follower);
             _context.SaveChanges();
         }        
