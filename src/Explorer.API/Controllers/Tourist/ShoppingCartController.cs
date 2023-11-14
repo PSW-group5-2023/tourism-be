@@ -22,12 +22,18 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet]
-        public ActionResult<BoughtItemDto> GetItems(long userId)
+        public ActionResult<BoughtItemDto> GetUnusedItems(long userId)
         {
-            return CreateResponse(shoppingCartService.GetItemsByUserId(userId));
+            return CreateResponse(shoppingCartService.GetUnusedTours(userId));
         }
 
-        [HttpPut("addToCart")]
+        [HttpGet("{userId:long}")]
+        public ActionResult<BoughtItemDto> GetUsedItems(long userId)
+        {
+            return CreateResponse(shoppingCartService.GetUsedTours(userId));
+        }
+
+        [HttpPost("addToCart")]
         public ActionResult<BoughtItemDto> AddToCart(List<BoughtItemDto> items)
         {
             return CreateResponse(shoppingCartService.Create(items));
@@ -38,6 +44,14 @@ namespace Explorer.API.Controllers.Tourist
         {
             return CreateResponse(shoppingCartService.DeleteItem(tourId, userId));
         }
+
+        [HttpPut("{userId:long}/{tourId:long}")]
+        public ActionResult<JoinRequestDto> CheckStatus(long userId, long tourId)
+        {
+            var result = shoppingCartService.UpdateItem(userId, tourId);
+            return CreateResponse(result);
+        }
+
 
     }
 }

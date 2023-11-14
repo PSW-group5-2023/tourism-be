@@ -16,6 +16,13 @@ namespace Explorer.API.Controllers.Tourist
             _personService = personService;
         }
 
+        [HttpGet("{id:int}")]
+        public ActionResult<PersonDto> Get(int id)
+        {
+            var result = _personService.Get(id);
+            return CreateResponse(result);
+        }
+
         [HttpGet]
         public ActionResult<PersonDto> GetAuthorsAndTourists()
         {
@@ -23,10 +30,17 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult<PersonDto> Get(int id)
+        [HttpGet("followers/{id:int}")]
+        public ActionResult<List<PersonDto>> GetAllFollowers(int id) 
         {
-            var result = _personService.Get(id);
+            var result = _personService.GetAllFollowers(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("followings/{id:int}")]
+        public ActionResult<List<PersonDto>> GetAllFollowings(int id)
+        {
+            var result = _personService.GetAllFollowings(id);
             return CreateResponse(result);
         }
 

@@ -11,5 +11,6 @@ namespace Explorer.Tours.API.Dtos
         public long Id { get; set; }
         public long UserId { get; set; }
         public long TourId { get; set; }
+        public bool IsUsed { get; set; }
     }
 }
