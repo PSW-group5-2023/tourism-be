@@ -62,15 +62,24 @@ namespace Explorer.Tours.Core.UseCases.Execution
         }
 
         public Result<bool> ValidForTouristComment(long id)
-        {
+        {           
             var result = _sessionRepository.Get(id);
-            return result.ValidForTouristComment();
+            if(result != null)
+            {
+                return result.ValidForTouristComment();
+            }
+            return Result.Fail(FailureCode.NotFound);          
         }
 
         public Result<SessionDto> AddCompletedKeyPoint(int sessionId, int keyPointId)
         {
             var result = _sessionRepository.AddCompletedKeyPoint(sessionId, keyPointId);
 
+            return MapToDto(result);
+        }
+        public Result<SessionDto> GetByTourAndTouristId(long tourId, long touristId)
+        {
+            var result = _sessionRepository.GetByTourAndTouristId(tourId,touristId);
             return MapToDto(result);
         }
     }
