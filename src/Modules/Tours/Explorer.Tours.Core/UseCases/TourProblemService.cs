@@ -60,6 +60,9 @@ namespace Explorer.Tours.Core.UseCases
                 long authorId = tours.Find(t => t.Id == r.TourId).AuthorId;
                 r.AuthorUsername = _userNamesService.GetName(authorId).Username;
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
+                foreach(var m in r.Messages){
+                    m.UserName = _userNamesService.GetName(m.UserId).Username;
+                }
             }
         }
     }

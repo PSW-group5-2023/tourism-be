@@ -11,5 +11,6 @@ namespace Explorer.Tours.API.Dtos
         public long UserId { get; set; }
         public DateTime CreationTime { get; set; }
         public string Description { get; set; }
+        public string UserName { get; set; }
     }
 }

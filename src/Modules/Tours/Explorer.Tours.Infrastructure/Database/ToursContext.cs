@@ -17,12 +17,26 @@ public class ToursContext : DbContext
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
 
+    public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
+
+    public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
+    public DbSet<PublicFacility> PublicFacility { get; set; }
+    public DbSet<BoughtItem> BoughtItems { get; set; }
+
+
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("tours");
         modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
+
+  /*      modelBuilder.Entity<BoughtItem>()
+            .HasOne(item => item.Tour)
+            .WithMany()
+            .HasForeignKey(item => item.TourId); */
+
+
 
         //modelBuilder.Entity<Preferences>()
         //    .HasOne<User>()
