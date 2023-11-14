@@ -17,25 +17,42 @@ namespace Explorer.Tours.Core.UseCases
             _tourRepository = repository;
         }
 
-        public Result<TourDto> GetWithKeyPoints(int id)
+        public Result<TourDto> Archive(int id, int userId)
         {
             try
             {
-                var result = _tourRepository.GetWithKeyPoints(id);
-                return MapToDto(result);
+                var tour = _tourRepository.Get(id);
+                tour.Archive(userId);
+                _tourRepository.SaveChanges();
+                return MapToDto(tour);
             }
-            catch (KeyNotFoundException e)
+            catch (ArgumentException e)
             {
-                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
 
-        public Result<TourDto> Publish(int id)
+        public Result<TourDto> Publish(int id, int userId)
         {
-            var tour = _tourRepository.GetWithKeyPoints(id);
-            tour.Publish();
-            _tourRepository.SaveChanges();
-            return MapToDto(tour);
+            try
+            {
+                var tour = _tourRepository.Get(id);
+                tour.Publish(userId);
+                _tourRepository.SaveChanges();
+                return MapToDto(tour);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
         }
     }
 }

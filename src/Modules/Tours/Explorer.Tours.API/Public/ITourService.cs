@@ -11,7 +11,7 @@ namespace Explorer.Tours.API.Public
         Result<TourDto> Update(TourDto tour);
         Result Delete(int id);
         Result<TourDto> Get(int id);
-        Result<TourDto> GetWithKeyPoints(int id);
-        Result<TourDto> Publish(int id);
+        Result<TourDto> Publish(int id, int userId);
+        Result<TourDto> Archive(int id, int userId);
     }
 }

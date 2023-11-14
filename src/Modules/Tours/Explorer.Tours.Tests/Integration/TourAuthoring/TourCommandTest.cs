@@ -31,7 +31,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourDto
             {
-                Name = "Tura 5",
+                Name = "Tura 55",
                 Description = "Jako lepa tura idemo.",
                 Difficulty = 0,
                 Tags = new List<string>() { "tag1", "tag2" },

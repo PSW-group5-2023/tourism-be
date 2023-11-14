@@ -15,7 +15,7 @@ namespace Explorer.Tours.Core.Domain.Tours
         public int AuthorId { get; init; }
         public int[] Equipment { get; init; }
         public double DistanceInKm { get; init; }
-        public DateTime? ArchivedDate { get; init; }
+        public DateTime? ArchivedDate { get; private set; }
         public DateTime? PublishedDate { get; private set; }
         public List<TourDuration> Durations { get; init; }
         public List<TourKeyPoint> KeyPoints { get; init; }
@@ -45,14 +45,30 @@ namespace Explorer.Tours.Core.Domain.Tours
             if (Tags.IsNullOrEmpty()) throw new ArgumentException("Not enough Tags");
             if (KeyPoints.Count < 2) throw new ArgumentException("Not enough Key Points");
             if (Durations.IsNullOrEmpty()) throw new ArgumentException("Not enough Durations");
+            if (Status == TourStatus.Published) throw new ArgumentException("Tour is already published");
         }
 
-        public void Publish()
+        public void Publish(int userId)
         {
             Validate();
+            IsAuthor(userId);
 
             PublishedDate = DateTime.UtcNow;
             Status = TourStatus.Published;
+        }
+
+        public void Archive(int userId)
+        {
+            if (Status != TourStatus.Published) throw new ArgumentException("Tour must be published in order to be archived");
+            IsAuthor(userId);
+
+            ArchivedDate = DateTime.UtcNow;
+            Status = TourStatus.Archived;
+        }
+
+        private void IsAuthor(int userId)
+        {
+            if (AuthorId != userId) throw new UnauthorizedAccessException("User is not the author of the tour");
         }
     }
 
