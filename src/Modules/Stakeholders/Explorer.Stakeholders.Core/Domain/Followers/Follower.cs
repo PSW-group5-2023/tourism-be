@@ -5,17 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.Core.Domain
+namespace Explorer.Stakeholders.Core.Domain.Followers
 {
     public class Follower : Entity
     {
         public long FollowerId { get; init; }
         public long FollowedId { get; init; }
+        public FollowerNotification Notification { get; init; }
 
-        public Follower(long followerId, long followedId)
+        public Follower(long followerId, long followedId, FollowerNotification notification)
         {
             FollowerId = followerId;
             FollowedId = followedId;
+            Notification = notification;
 
             Validate();
         }

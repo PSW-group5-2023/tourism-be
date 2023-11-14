@@ -17,9 +17,9 @@ namespace Explorer.API.Controllers.Tourist.Identity
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<FollowerDto> Get(int id)
+        public ActionResult<List<FollowerDto>> GetFollowersNotifications(int id)
         {
-            var result = _followerService.Get(id);
+            var result = _followerService.GetFollowersNotifications(id);
             return CreateResponse(result);
         }
 
