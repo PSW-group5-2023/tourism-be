@@ -60,7 +60,15 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         public void GetItemToUpdate(long userId, long tourId)
         {
             var itemToUpdate = _dbContext.BoughtItems.Where(item => item.UserId == userId && item.TourId == tourId && !item.IsUsed).FirstOrDefault();
-            typeof(BoughtItem).GetProperty("IsUsed").SetValue(itemToUpdate, true);
+            if (itemToUpdate == null)
+            {
+                return;
+            }
+
+            if (!itemToUpdate.IsUsed)
+            {
+                typeof(BoughtItem).GetProperty("IsUsed").SetValue(itemToUpdate, true);
+            }
 
 
             try
