@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos
 {
-    public class PositionSimulatorDto
+    public class CompletedKeyPointDto
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public int KeyPointId { get; set; }
+        public DateTime CompletionTime { get; set; }
     }
 }

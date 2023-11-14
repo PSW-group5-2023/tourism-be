@@ -14,11 +14,14 @@ namespace Explorer.Tours.Core.Domain
         public long TourId { get; init; }        
         public DateTime? DateOfBuying { get; init; }
 
+        public bool IsUsed { get; init; }
+
         public BoughtItem(long userId, long tourId)
         {
             UserId = userId;
             TourId = tourId;
             DateOfBuying = DateTime.UtcNow;
+            IsUsed = false;
         }
     }
 }
