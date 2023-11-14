@@ -9,6 +9,7 @@ using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Infrastructure.Database.Repositories
 {

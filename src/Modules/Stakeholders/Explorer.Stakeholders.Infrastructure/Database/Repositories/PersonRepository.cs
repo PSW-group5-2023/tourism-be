@@ -59,5 +59,25 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
             return person;
         }
+
+        public List<Person> GetAllFollowers(int id)
+        {
+            var query = from person in _dbContext.People
+                        join follower in _dbContext.Followers on person.Id equals follower.FollowerId
+                        where follower.FollowedId == id
+                        select person;
+
+            return query.ToList();
+        }
+
+        public List<Person> GetAllFollowings(int id)
+        {
+            var query = from person in _dbContext.People
+                        join follower in _dbContext.Followers on person.Id equals follower.FollowedId
+                        where follower.FollowerId == id
+                        select person;
+
+            return query.ToList();
+        }
     }
 }

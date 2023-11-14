@@ -2,7 +2,7 @@
 using Explorer.Tours.API.Dtos;
 using FluentResults;
 
-namespace Explorer.Tours.API.Public
+namespace Explorer.Tours.API.Public.Authoring
 {
     public interface ITourService
     {

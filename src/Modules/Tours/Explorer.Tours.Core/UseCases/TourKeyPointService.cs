@@ -7,8 +7,8 @@ using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 
 namespace Explorer.Tours.Core.UseCases
@@ -41,6 +41,14 @@ namespace Explorer.Tours.Core.UseCases
            }
 
            return tourKeyPointDtos;
+        }
+
+        public Result<TourKeyPointSecretDto> GetSecret(int keyPointId)
+        {
+            var tourKeyPoint = _tourKeyPointsRepository.GetById(keyPointId);
+            TourKeyPointSecretDto tourKeyPointSecretDto = new TourKeyPointSecretDto();
+            tourKeyPointSecretDto.secret = tourKeyPoint.Secret;
+            return tourKeyPointSecretDto;
         }
 
     }

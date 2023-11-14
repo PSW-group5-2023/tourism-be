@@ -14,5 +14,7 @@ namespace Explorer.Stakeholders.API.Public
         Result<List<PersonDto>> GetAuthorsAndTourists();
         Result<PersonDto> Get(int id);
         Result<PersonDto> Update(PersonDto person);
+        Result<List<PersonDto>> GetAllFollowers(int id);
+        Result<List<PersonDto>> GetAllFollowings(int id);
     }
 }

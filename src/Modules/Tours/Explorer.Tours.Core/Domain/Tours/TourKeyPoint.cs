@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using Explorer.BuildingBlocks.Core.Domain;
 using Microsoft.Extensions.Options;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Tours.Core.Domain.Tours
 {
     public class TourKeyPoint : Entity
     {
@@ -17,8 +17,9 @@ namespace Explorer.Tours.Core.Domain
         public double Latitude { get; init; }
         public double Longitude { get; init; }
         public long? TourId { get; init; }
+        public string? Secret { get; init; }
 
-        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, long? tourId=0)
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, long? tourId = 0, string secret = "")
         {
             Name = name;
             Description = description;
@@ -26,6 +27,7 @@ namespace Explorer.Tours.Core.Domain
             Latitude = latitude;
             Longitude = longitude;
             TourId = tourId;
+            Secret = secret;
             Validate();
         }
 
