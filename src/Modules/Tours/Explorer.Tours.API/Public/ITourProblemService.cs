@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace Explorer.Tours.API.Public
         Result<List<TourProblemDto>> GetByTouristId(long touristId);
         Result<List<TourProblemDto>> GetByAuthorId(long authorId);
         public void FindNames(List<TourProblemDto> result);
+        Result<List<TourProblemMessageDto>> GetUnreadMessages(long id);
     }
 }

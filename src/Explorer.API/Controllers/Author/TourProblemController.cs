@@ -32,5 +32,12 @@ namespace Explorer.API.Controllers.Author
             var result = _problemService.Update(tourProblem);
             return CreateResponse(result);
         }
+
+        [HttpGet("messages/{userId:long}")]
+        public ActionResult<PagedResult<TourProblemMessageDto>> GetUnreadMessages(long userId)
+        {
+            var result = _problemService.GetUnreadMessages(userId);
+            return CreateResponse(result);
+        }
     }
 }

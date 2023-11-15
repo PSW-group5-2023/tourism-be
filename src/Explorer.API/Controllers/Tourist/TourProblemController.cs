@@ -42,5 +42,12 @@ namespace Explorer.API.Controllers.Tourist
             _problemService.FindNames(result.Value);
             return CreateResponse(result);
         }
+
+        [HttpGet("messages/{userId:long}")]
+        public ActionResult<PagedResult<TourProblemMessageDto>> GetUnreadMessages(long userId)
+        {
+            var result = _problemService.GetUnreadMessages(userId);
+            return CreateResponse(result);
+        }
     }
 }

@@ -19,9 +19,5 @@ namespace Explorer.Stakeholders.Core.Domain
         {
             await Clients.All.SendAsync("ReceivePublicFacilityNotification", publicFacility, status, creatorId);
         }
-        public async Task SendProblemMessageNotification(string problemMessage, int recipientId, string senderUsername)
-        {
-            await Clients.All.SendAsync("ReceiveProblemMessageNotification", problemMessage, recipientId, senderUsername);
-        }
     }
 }

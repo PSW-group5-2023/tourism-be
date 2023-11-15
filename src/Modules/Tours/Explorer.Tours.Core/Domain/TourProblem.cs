@@ -49,9 +49,9 @@ namespace Explorer.Tours.Core.Domain
             IsSolved = isSolved;
             Messages = messages;
         }
-        public TourProblemMessage CreateMessage(long userId, DateTime time, string description)
+        public TourProblemMessage CreateMessage(long senderId,long recipientId, DateTime time, string description,bool isRead)
         {
-            TourProblemMessage message = new TourProblemMessage(userId, time, description);
+            TourProblemMessage message = new TourProblemMessage(senderId, recipientId, time, description, isRead);
             Messages.Add(message);
             return message;
         }

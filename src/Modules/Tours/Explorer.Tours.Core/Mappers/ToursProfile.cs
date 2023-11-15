@@ -21,10 +21,10 @@ public class ToursProfile : Profile
         CreateMap<TourProblemMessageDto, TourProblemMessage>().ReverseMap();
         CreateMap<TourProblemDto, TourProblem>()
             .IncludeAllDerived()
-            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((dto) => new TourProblemMessage(dto.UserId, dto.CreationTime, dto.Description))));
+            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((dto) => new TourProblemMessage(dto.SenderId,dto.RecipientId, dto.CreationTime, dto.Description,dto.IsRead))));
         CreateMap<TourProblem, TourProblemDto>()
             .IncludeAllDerived()
-            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((message) => new TourProblemMessageDto { UserId = message.UserId, CreationTime = message.CreationTime, Description = message.Description })));
+            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((message) => new TourProblemMessageDto { SenderId = message.SenderId, RecipientId = message.RecipientId, CreationTime = message.CreationTime, Description = message.Description,IsRead = message.IsRead })));
 
 
 

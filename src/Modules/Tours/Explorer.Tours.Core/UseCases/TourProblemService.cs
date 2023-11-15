@@ -61,9 +61,27 @@ namespace Explorer.Tours.Core.UseCases
                 r.AuthorUsername = _userNamesService.GetName(authorId).Username;
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
                 foreach(var m in r.Messages){
-                    m.UserName = _userNamesService.GetName(m.UserId).Username;
+                    m.SenderName = _userNamesService.GetName(m.SenderId).Username;
                 }
             }
+        }
+
+        public Result<List<TourProblemMessageDto>> GetUnreadMessages(long id)
+        {
+            var tourProblems = GetPaged(0, 0).Value.Results;
+            List<TourProblemMessageDto> unreadMessages = new List<TourProblemMessageDto>();
+
+            foreach (var t in tourProblems)
+            {
+                foreach(var m in t.Messages)
+                {
+                    if(m.RecipientId == id && !m.IsRead)
+                    {
+                        unreadMessages.Add(m);
+                    }
+                }
+            }
+            return unreadMessages;
         }
     }
 }
