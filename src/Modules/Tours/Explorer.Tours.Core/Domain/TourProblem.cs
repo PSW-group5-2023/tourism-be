@@ -12,13 +12,13 @@ namespace Explorer.Tours.Core.Domain
 { 
     public enum TourProblemPriority
     {
-        LOW,
+        LOW = 0,
         MEDIUM,
         HIGH
     }
     public enum TourProblemCategory
     {
-        BOOKING,
+        BOOKING =0,
         ITINERARY,
         PAYMENT,
         TRANSPORTATION,

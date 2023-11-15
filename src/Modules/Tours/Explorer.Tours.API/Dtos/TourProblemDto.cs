@@ -8,13 +8,13 @@ namespace Explorer.Tours.API.Dtos
 {
     public enum TourProblemPriority
     {
-        LOW,
+        LOW = 0,
         MEDIUM,
         HIGH
     }
     public enum TourProblemCategory
     {
-        BOOKING,
+        BOOKING = 0,
         ITINERARY,
         PAYMENT,
         TRANSPORTATION,
