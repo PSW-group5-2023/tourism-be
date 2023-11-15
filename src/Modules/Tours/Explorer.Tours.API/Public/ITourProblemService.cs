@@ -19,5 +19,6 @@ namespace Explorer.Tours.API.Public
         Result<List<TourProblemDto>> GetByAuthorId(long authorId);
         public void FindNames(List<TourProblemDto> result);
         Result<List<TourProblemMessageDto>> GetUnreadMessages(long id);
+        public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId);
     }
 }

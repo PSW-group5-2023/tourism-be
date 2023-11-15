@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Explorer.Tours.API.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         List<TourProblem> GetByTouristId(long touristId);
         List<TourProblem> GetByTourId(long tourId);
+        TourProblem GiveDeadline(DateTime deadline, long tourProblemId);
 
     }
 }

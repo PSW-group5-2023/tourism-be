@@ -31,9 +31,9 @@ namespace Explorer.Tours.Core.UseCases
         {
             List<TourProblemDto> result = new List<TourProblemDto>();
             List<TourProblem> tourProblems = _tourProblemRepository.GetByTouristId(touristId);
-            
+
             tourProblems.ForEach(t => result.Add(MapToDto(t)));
-           
+
             return result;
         }
         public Result<List<TourProblemDto>> GetByAuthorId(long authorId)
@@ -43,7 +43,7 @@ namespace Explorer.Tours.Core.UseCases
             List<TourProblem> tourProblems = new List<TourProblem>();
             foreach (var t in tours)
             {
-                if(authorId == t.AuthorId)
+                if (authorId == t.AuthorId)
                 {
                     tourProblems.AddRange(_tourProblemRepository.GetByTourId(t.Id));
                 }
@@ -54,13 +54,14 @@ namespace Explorer.Tours.Core.UseCases
         public void FindNames(List<TourProblemDto> result)
         {
             var tours = _tourService.GetPaged(0, 0).Value.Results;
-            
+
             foreach (var r in result)
             {
                 long authorId = tours.Find(t => t.Id == r.TourId).AuthorId;
                 r.AuthorUsername = _userNamesService.GetName(authorId).Username;
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
-                foreach(var m in r.Messages){
+                foreach (var m in r.Messages)
+                {
                     m.SenderName = _userNamesService.GetName(m.SenderId).Username;
                 }
             }
@@ -74,15 +75,20 @@ namespace Explorer.Tours.Core.UseCases
 
             foreach (var t in tourProblems)
             {
-                foreach(var m in t.Messages)
+                foreach (var m in t.Messages)
                 {
-                    if(m.RecipientId == id && !m.IsRead)
+                    if (m.RecipientId == id && !m.IsRead)
                     {
                         unreadMessages.Add(m);
                     }
                 }
             }
             return unreadMessages;
+        }
+        public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId)
+        {
+            var tourProblem = _tourProblemRepository.GiveDeadline(deadline, tourProblemId);
+            return new Result<TourProblemDto>();
         }
     }
 }

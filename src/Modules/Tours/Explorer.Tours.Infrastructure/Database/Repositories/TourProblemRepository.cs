@@ -31,5 +31,14 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             var tourProblems = _dbContext.TourProblems.Where(x => x.TourId == tourId).ToList();
             return tourProblems;
         }
+
+        public TourProblem GiveDeadline(DateTime deadline, long tourProblemId)
+        {
+            var tourProblem=_dbContext.TourProblems.First(tp=>tp.Id==tourProblemId);
+            tourProblem.GiveDeadline(deadline);
+            _dbContext.Update(tourProblem);
+            _dbContext.SaveChanges();
+            return tourProblem;
+        }
     }
 }

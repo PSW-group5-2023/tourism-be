@@ -34,5 +34,6 @@ namespace Explorer.Tours.API.Dtos
         public string AuthorUsername { get; set; }
         public Boolean IsSolved { get; set; }
         public List<TourProblemMessageDto> Messages { get; set; }
+        public DateTime Deadline { get; set; }
     }
 }
