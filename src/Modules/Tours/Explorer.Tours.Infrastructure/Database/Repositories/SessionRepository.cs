@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.Core.Domain.Sessions;
+﻿using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
