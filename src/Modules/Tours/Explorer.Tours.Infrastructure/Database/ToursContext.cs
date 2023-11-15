@@ -2,6 +2,7 @@
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Tours.Infrastructure.Database;
@@ -14,8 +15,8 @@ public class ToursContext : DbContext
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<TourRating> TourRatings { get; set; }
     public DbSet<TourProblem> TourProblems { get; set; }
-    public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
+    public DbSet<Session> Sessions { get; set; }
 
     public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
 
@@ -31,6 +32,15 @@ public class ToursContext : DbContext
         modelBuilder.HasDefaultSchema("tours");
         modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
 
+        modelBuilder.Entity<Session>().Property(item => item.Location).HasColumnType("jsonb");
+
+        modelBuilder.Entity<Session>().Property(item => item.CompletedKeyPoints).HasColumnType("jsonb");
+
+        ConfigureTour(modelBuilder);
+    }
+
+    private static void ConfigureTour(ModelBuilder modelBuilder)
+    {
   /*      modelBuilder.Entity<BoughtItem>()
             .HasOne(item => item.Tour)
             .WithMany()
@@ -42,5 +52,10 @@ public class ToursContext : DbContext
         //    .HasOne<User>()
         //    .WithOne()
         //    .HasForeignKey<Preferences>(s => s.UserId);
+
+        modelBuilder.Entity<Session>()
+            .HasOne<Tour>()
+            .WithOne()
+            .HasForeignKey<Session>(s => s.TourId);
     }
 }

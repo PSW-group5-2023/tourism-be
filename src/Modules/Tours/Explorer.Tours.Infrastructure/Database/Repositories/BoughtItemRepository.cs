@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.Core.Domain;
+﻿using Explorer.Stakeholders.Core.Domain;
+using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,14 +27,14 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return item;
 
         }
-        public List<Tour> GetItemsByUserId(long userId)
+        public List<Tour> GetUnusedTours(long userId)
         {
             List<BoughtItem> boughtItems = new List<BoughtItem>();
             List<Tour> tours = new List<Tour>();
 
             foreach(BoughtItem item in _dbContext.BoughtItems)
             {
-                if (item.UserId == userId) boughtItems.Add(item);
+                if (item.UserId == userId && !item.IsUsed) boughtItems.Add(item);
             }
 
             foreach(var item in boughtItems) 
@@ -55,6 +56,46 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _dbContext.BoughtItems.Remove(item);
             _dbContext.SaveChanges();
         }
+
+        public void GetItemToUpdate(long userId, long tourId)
+        {
+            var itemToUpdate = _dbContext.BoughtItems.Where(item => item.UserId == userId && item.TourId == tourId && !item.IsUsed).FirstOrDefault();
+            typeof(BoughtItem).GetProperty("IsUsed").SetValue(itemToUpdate, true);
+
+
+            try
+            {
+                if (itemToUpdate != null)
+                {
+                    _dbContext.BoughtItems.Update(itemToUpdate);
+                    _dbContext.SaveChanges();
+                }
+
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+        }
+
+        public List<Tour> GetUsedTours(long userId)
+        {
+            List<BoughtItem> boughtItems = new List<BoughtItem>();
+            List<Tour> tours = new List<Tour>();
+
+            foreach (BoughtItem item in _dbContext.BoughtItems)
+            {
+                if (item.UserId == userId && item.IsUsed) boughtItems.Add(item);
+            }
+
+            foreach (var item in boughtItems)
+            {
+                tours.Add(_dbContext.Tour.Find(item.TourId));
+            }
+
+            return tours;
+        }
+
 
     }
 }

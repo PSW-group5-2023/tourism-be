@@ -1,5 +1,6 @@
 using Explorer.API.Startup;
 using Explorer.Stakeholders.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.Followers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapHub<PublicSiteHub>("hub");
+app.MapHub<NotifiationHub>("notificationHub");
 app.MapControllers();
 
 app.Run();
