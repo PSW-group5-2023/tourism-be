@@ -16,5 +16,6 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
         Session Get(long id);
         Session? GetByTouristId(long id);
         Session AddCompletedKeyPoint(int sessionId, int keyPointId);
+        Session? GetByTourAndTouristId(long tourId, long touristId);
     }
 }

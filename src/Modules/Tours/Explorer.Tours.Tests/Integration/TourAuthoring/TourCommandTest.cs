@@ -1,9 +1,9 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
-using Explorer.API.Controllers.Author;
+using Explorer.API.Controllers.Author.Authoring;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Administration;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.API.Public.Authoring;
+using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +31,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourDto
             {
-                Name = "Tura 5",
+                Name = "Tura 55",
                 Description = "Jako lepa tura idemo.",
                 Difficulty = 0,
                 Tags = new List<string>() { "tag1", "tag2" },
