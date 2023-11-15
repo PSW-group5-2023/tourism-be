@@ -69,6 +69,7 @@ namespace Explorer.Tours.Core.UseCases
         public Result<List<TourProblemMessageDto>> GetUnreadMessages(long id)
         {
             var tourProblems = GetPaged(0, 0).Value.Results;
+            FindNames(tourProblems);
             List<TourProblemMessageDto> unreadMessages = new List<TourProblemMessageDto>();
 
             foreach (var t in tourProblems)
