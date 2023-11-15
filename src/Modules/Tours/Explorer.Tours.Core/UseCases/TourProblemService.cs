@@ -11,6 +11,7 @@ using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using Explorer.Stakeholders.API.Internal;
+using Explorer.Tours.API.Public.Authoring;
 
 
 namespace Explorer.Tours.Core.UseCases
