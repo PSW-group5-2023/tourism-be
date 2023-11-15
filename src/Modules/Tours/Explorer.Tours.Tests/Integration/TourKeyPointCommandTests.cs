@@ -66,7 +66,8 @@ namespace Explorer.Tours.Tests.Integration
                 Latitude = -32.6,
                 Status = "Pending",
                 CreatorId = 112,
-                TourId = -2
+                TourId = -2,
+                PositionInTour = null,
             };
 
             // Act

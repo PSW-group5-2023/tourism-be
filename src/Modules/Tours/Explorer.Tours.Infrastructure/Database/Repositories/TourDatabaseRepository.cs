@@ -35,21 +35,21 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             var tour = _dbSet
                 .Where(t => t.Id == id)
-                .Include(t => t.KeyPoints)
+                .Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour))
                 .FirstOrDefault();
             return tour ?? throw new KeyNotFoundException("Not found: " + id);
         }
 
         public PagedResult<Tour> GetPagedByAuthorId(int authorId, int page, int pageSize)
         {
-            var task = _dbSet.Include(t => t.KeyPoints).Where(t => t.AuthorId == authorId).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).Where(t => t.AuthorId == authorId).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }
 
         public PagedResult<Tour> GetPaged(int page, int pageSize)
         {
-            var task = _dbSet.Include(t => t.KeyPoints).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }

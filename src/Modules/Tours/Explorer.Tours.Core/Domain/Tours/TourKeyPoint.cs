@@ -18,8 +18,9 @@ namespace Explorer.Tours.Core.Domain.Tours
         public double Longitude { get; init; }
         public long? TourId { get; init; }
         public string? Secret { get; init; }
+        public int? PositionInTour { get; init; }
 
-        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, long? tourId = 0, string secret = "")
+        public TourKeyPoint(string name, string description, Uri image, double latitude, double longitude, int? positionInTour, long? tourId = 0, string secret = "")
         {
             Name = name;
             Description = description;
@@ -28,6 +29,7 @@ namespace Explorer.Tours.Core.Domain.Tours
             Longitude = longitude;
             TourId = tourId;
             Secret = secret;
+            PositionInTour = positionInTour;
             Validate();
         }
 

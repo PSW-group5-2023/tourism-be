@@ -17,6 +17,7 @@ namespace Explorer.Tours.API.Dtos
         public String Status { get; set; }
         public int CreatorId { get; set; }
         public int? TourId { get; set; }
+        public int? PositionInTour {  get; set; }
 
     }
 }
