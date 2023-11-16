@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Tests.Integration;
+namespace Explorer.Tours.Tests.Integration.TourProblem;
 
 [Collection("Sequential")]
 public class TourProblemQueryTests : BaseToursIntegrationTest
@@ -56,8 +56,8 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
             Id = 3,
             TouristId = 6,
             TourId = 2,
-            Category = API.Dtos.TourProblemCategory.BOOKING, 
-            Priority = API.Dtos.TourProblemPriority.LOW, 
+            Category = API.Dtos.TourProblemCategory.BOOKING,
+            Priority = API.Dtos.TourProblemPriority.LOW,
             Description = "Ne moze se rezervisati ova tura",
             Time = DateTime.Parse("2023-11-05T12:34:56.789Z"),
             IsSolved = false,
