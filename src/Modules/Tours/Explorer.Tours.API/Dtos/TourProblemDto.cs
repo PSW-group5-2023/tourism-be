@@ -8,13 +8,13 @@ namespace Explorer.Tours.API.Dtos
 {
     public enum TourProblemPriority
     {
-        LOW,
+        LOW = 0,
         MEDIUM,
         HIGH
     }
     public enum TourProblemCategory
     {
-        BOOKING,
+        BOOKING = 0,
         ITINERARY,
         PAYMENT,
         TRANSPORTATION,
@@ -30,5 +30,10 @@ namespace Explorer.Tours.API.Dtos
         public TourProblemPriority Priority { get; set; }
         public string Description { get; set; }
         public DateTime Time { get; set; }
+        public string TouristUsername { get; set; }
+        public string AuthorUsername { get; set; }
+        public Boolean IsSolved { get; set; }
+        public List<TourProblemMessageDto> Messages { get; set; }
+        public DateTime Deadline { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Explorer.Blog.Core.Domain;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain;
@@ -18,7 +19,17 @@ public class ToursProfile : Profile
         CreateMap<TourKeyPointDto, TourKeyPoint>().ReverseMap();
         CreateMap<TourRatingDto, TourRating>().ReverseMap();
         CreateMap<FacilityDto, Facility>().ReverseMap();
-        CreateMap<TourProblemDto, TourProblem>().ReverseMap();
+       // CreateMap<TourProblemDto, TourProblem>().ReverseMap();
+        CreateMap<TourProblemMessageDto, TourProblemMessage>().ReverseMap();
+        CreateMap<TourProblemDto, TourProblem>()
+            .IncludeAllDerived()
+            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((dto) => new TourProblemMessage(dto.SenderId,dto.RecipientId, dto.CreationTime, dto.Description,dto.IsRead))));
+        CreateMap<TourProblem, TourProblemDto>()
+            .IncludeAllDerived()
+            .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((message) => new TourProblemMessageDto { SenderId = message.SenderId, RecipientId = message.RecipientId, CreationTime = message.CreationTime, Description = message.Description,IsRead = message.IsRead })));
+
+
+
         CreateMap<PositionSimulatorDto, PositionSimulator>().ReverseMap();
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
         CreateMap<CompletedKeyPointDto, CompletedKeyPoint>().ReverseMap();

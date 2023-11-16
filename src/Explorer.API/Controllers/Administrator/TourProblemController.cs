@@ -22,6 +22,20 @@ namespace Explorer.API.Controllers.Administrator
         public ActionResult<PagedResult<TourProblemDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _problemService.GetPaged(page, pageSize);
+            _problemService.FindNames(result.Value.Results);
+            return CreateResponse(result);
+        }
+        [HttpPut]
+        public ActionResult<TourProblemDto> GiveDeadline([FromBody] TourProblemDto tp)
+        {
+            var result = _problemService.GiveDeadline(tp.Deadline, tp.Id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<TourProblemDto> PunishAuthor([FromBody] TourProblemDto tp)
+        {
+            var result = _problemService.PunishAuthor(tp.AuthorUsername, tp.TourId, tp.Id);
             return CreateResponse(result);
         }
     }
