@@ -20,5 +20,6 @@ namespace Explorer.Tours.API.Public
         public void FindNames(List<TourProblemDto> result);
         Result<List<TourProblemMessageDto>> GetUnreadMessages(long id);
         public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId);
+        public Result<TourProblemDto> PunishAuthor(string authorUsername, long tourId, long tourProblemId);
     }
 }

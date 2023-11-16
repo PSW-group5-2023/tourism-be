@@ -13,5 +13,9 @@ namespace Explorer.Stakeholders.Core.Domain
         {
             await Clients.All.SendAsync("ReceiveProblemMessageNotification", problemMessage, recipientId, senderUsername);
         }
+        public async Task SendDeadlineNotification(string authorUsername, long tourId, DateTime deadline)
+        {
+            await Clients.All.SendAsync("ReceiveDeadlineNotification", authorUsername, tourId, deadline);
+        }
     }
 }

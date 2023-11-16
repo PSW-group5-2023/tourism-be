@@ -90,5 +90,11 @@ namespace Explorer.Tours.Core.UseCases
             var tourProblem = _tourProblemRepository.GiveDeadline(deadline, tourProblemId);
             return new Result<TourProblemDto>();
         }
+
+        public Result<TourProblemDto> PunishAuthor(string authorUsername, long tourId, long tourProblemId)
+        {
+            var tourProblem=_tourProblemRepository.PunishAuthor(authorUsername, tourId, tourProblemId);
+            return new Result<TourProblemDto>();
+        }
     }
 }
