@@ -1,13 +1,13 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
-using Explorer.Stakeholders.API.Public;
+using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Tourist.Identity
+namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/messages")]

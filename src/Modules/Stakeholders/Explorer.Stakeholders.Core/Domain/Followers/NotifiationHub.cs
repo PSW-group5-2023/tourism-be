@@ -13,5 +13,9 @@ namespace Explorer.Stakeholders.Core.Domain.Followers
         {
             await Clients.All.SendAsync("ReceiveNewFollowerNotification", follower, status, followedId);
         }
+        public async Task SendFollowerMessageNotification(long recipientId, string senderUsername)
+        {
+            await Clients.All.SendAsync("ReceiveFollowerMessageNotification", recipientId, senderUsername);
+        }
     }
 }

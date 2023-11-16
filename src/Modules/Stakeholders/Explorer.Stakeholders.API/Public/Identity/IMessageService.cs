@@ -2,7 +2,7 @@
 using Explorer.Stakeholders.API.Dtos;
 using FluentResults;
 
-namespace Explorer.Stakeholders.API.Public
+namespace Explorer.Stakeholders.API.Public.Identity
 {
     public interface IMessageService
     {
