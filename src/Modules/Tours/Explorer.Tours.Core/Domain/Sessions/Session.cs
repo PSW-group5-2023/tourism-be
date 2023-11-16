@@ -47,7 +47,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
         public bool ValidForTouristComment()
         {
             DateTime sevenDaysAgo = DateTime.Now.AddDays(-7);
-            if (LastActivity >= sevenDaysAgo && DistanceCrossedPercent > 35)
+            if (LastActivity >= sevenDaysAgo && DistanceCrossedPercent >= 35)
                 return true;
 
             return false;
