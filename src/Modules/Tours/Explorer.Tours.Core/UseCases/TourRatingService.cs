@@ -32,6 +32,7 @@ namespace Explorer.Tours.Core.UseCases
             {
                 TourRatingDto tourRatingDto = new TourRatingDto
                 {
+                    Id = (int)tourRaing.Id,
                     PersonId = (int)tourRaing.PersonId,
                     TourId = (int)tourRaing.TourId,
                     Mark = (int)tourRaing.Mark,

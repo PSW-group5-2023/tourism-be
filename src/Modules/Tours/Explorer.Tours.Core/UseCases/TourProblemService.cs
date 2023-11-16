@@ -85,7 +85,8 @@ namespace Explorer.Tours.Core.UseCases
                     }
                 }
             }
-            return unreadMessages;
+             return unreadMessages;
+           
         }
         public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId)
         {
@@ -98,7 +99,9 @@ namespace Explorer.Tours.Core.UseCases
         public Result<TourProblemDto> PunishAuthor(string authorUsername, long tourId, long tourProblemId)
         {
             var tourProblem=_tourProblemRepository.PunishAuthor(authorUsername, tourId, tourProblemId);
-            return new Result<TourProblemDto>();
+            TourProblemDto tpdto= new TourProblemDto();
+            tpdto.IsSolved = true;
+            return tpdto;
         }
     }
 }

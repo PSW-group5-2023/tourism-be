@@ -38,7 +38,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             TouristUsername = "tourist",
             AuthorUsername = "author",
             IsSolved = false,
-            Messages = new List<TourProblemMessageDto> (),
+            Messages = new List<TourProblemMessageDto>(),
             Deadline = DateTime.Now.ToUniversalTime()
         };
 
@@ -55,8 +55,8 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
         result.Priority.ShouldBe(newEntity.Priority);
         result.Description.ShouldBe(newEntity.Description);
         result.Time.ShouldBe(newEntity.Time);
-       // result.TouristUsername.ShouldBe(newEntity.TouristUsername);
-       // result.AuthorUsername.ShouldBe(newEntity.AuthorUsername);
+        // result.TouristUsername.ShouldBe(newEntity.TouristUsername);
+        // result.AuthorUsername.ShouldBe(newEntity.AuthorUsername);
         result.IsSolved.ShouldBe(newEntity.IsSolved);
         result.Messages.ShouldBe(newEntity.Messages);
         result.Deadline.ShouldBe(newEntity.Deadline);
@@ -77,7 +77,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
     [Fact]
     public void CreateFailsInvalidData()
     {
-       //Arrange
+        //Arrange
         using var scope = Factory.Services.CreateScope();
         var controller = CreateController(scope);
         var newEntity = new TourProblemDto()
@@ -112,7 +112,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             TouristUsername = null,
             AuthorUsername = null,
             IsSolved = false,
-            Messages = new List<TourProblemMessageDto> (),
+            Messages = new List<TourProblemMessageDto>(),
             Deadline = DateTime.Now.ToUniversalTime()
         };
 

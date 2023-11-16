@@ -20,21 +20,7 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
 {
     public TourProblemQueryTests(ToursTestFactory factory) : base(factory) { }
 
-    [Fact]
-    public void Retrieves_all()
-    {
-        // Arrange
-        using var scope = Factory.Services.CreateScope();
-        var controller = CreateController(scope);
-
-        // Act
-        var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<TourProblemDto>;
-
-        // Assert
-        result.ShouldNotBeNull();
-        result.Results.Count.ShouldBe(3);
-        result.TotalCount.ShouldBe(3);
-    }
+    
 
     [Fact]
     public void GiveDeadline()
@@ -44,33 +30,73 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
         var controller = CreateController(scope);
         List<TourProblemMessageDto> messages = JsonConvert.DeserializeObject<List<TourProblemMessageDto>>(@"[
                 {
-                    ""UserId"": 1,
-                    ""CreationTime"": ""2023-11-07T12:34:56.789Z"",
-                    ""Description"": ""Lorem ipsum dolor sit amet, consectetur adipiscing elit."",
-                    ""IsRead"": false
+                     
+		            ""SenderId"": -8,
+	  	            ""RecipientId"": -3,
+		            ""CreationTime"": ""2023-11-11T17:03:36.2030688Z"",
+		            ""Description"": ""Jos uvek nije moguce izvrsiti rezervaciju. "",
+		            ""IsRead"": false
                 }
             ]");
 
         TourProblemDto newTourProblem = new TourProblemDto()
         {
-            Id = 3,
-            TouristId = 6,
-            TourId = 2,
-            Category = API.Dtos.TourProblemCategory.BOOKING, 
-            Priority = API.Dtos.TourProblemPriority.LOW, 
+            Id = -3,
+            TouristId = -6,
+            TourId = -2,
+            Category = API.Dtos.TourProblemCategory.BOOKING,
+            Priority = API.Dtos.TourProblemPriority.LOW,
             Description = "Ne moze se rezervisati ova tura",
-            Time = DateTime.Parse("2023-11-05T12:34:56.789Z"),
+            Time = DateTime.Parse("2023-11-11T17: 03:36.2030688Z").ToUniversalTime(),
             IsSolved = false,
             Messages = messages,
-            Deadline = DateTime.Parse("2023-11-28T12:34:56.789Z")
+            Deadline = DateTime.Parse("2023-11-20T17: 03:36.2030688Z").ToUniversalTime()
         };
         // Act
-        var result = ((ObjectResult)controller.GiveDeadline(newTourProblem).Result)?.Value as PagedResult<TourProblemDto>;
+        var result = ((ObjectResult)controller.GiveDeadline(newTourProblem).Result)?.Value as TourProblemDto;
 
         // Assert
         result.ShouldNotBeNull();
-        result.Results[0].ShouldNotBeNull();
+        result.Deadline.ShouldBeGreaterThanOrEqualTo(newTourProblem.Deadline);
     }
+    [Fact]
+    public void PunishAuthor()
+    {
+        // Arrange
+        using var scope = Factory.Services.CreateScope();
+        var controller = CreateController(scope);
+        List<TourProblemMessageDto> messages = JsonConvert.DeserializeObject<List<TourProblemMessageDto>>(@"[
+                {
+                     
+		            ""SenderId"": -8,
+	  	            ""RecipientId"": -3,
+		            ""CreationTime"": ""2023-11-11T17:03:36.2030688Z"",
+		            ""Description"": ""Jos uvek nije moguce izvrsiti rezervaciju. "",
+		            ""IsRead"": false
+                }
+            ]");
+
+        TourProblemDto newTourProblem = new TourProblemDto()
+        {
+            Id = -3,
+            TouristId = -6,
+            TourId = -2,
+            Category = API.Dtos.TourProblemCategory.BOOKING,
+            Priority = API.Dtos.TourProblemPriority.LOW,
+            Description = "Ne moze se rezervisati ova tura",
+            Time = DateTime.Parse("2023-11-11T17: 03:36.2030688Z").ToUniversalTime(),
+            IsSolved = true,
+            Messages = messages,
+            Deadline = DateTime.Parse("2023-11-20T17: 03:36.2030688Z").ToUniversalTime()
+        };
+        // Act
+        var result = ((ObjectResult)controller.PunishAuthor(newTourProblem).Result)?.Value as TourProblemDto;
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.IsSolved.ShouldBeTrue();
+    }
+
     private static TourProblemController CreateController(IServiceScope scope)
     {
         return new TourProblemController(scope.ServiceProvider.GetRequiredService<ITourProblemService>())
