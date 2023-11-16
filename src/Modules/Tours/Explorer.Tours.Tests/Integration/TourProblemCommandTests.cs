@@ -40,7 +40,8 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             IsSolved = false,
             Messages = new List<TourProblemMessageDto> { new TourProblemMessageDto { } },
             Deadline = DateTime.Now.ToUniversalTime()
-    };
+        };
+
 
         // Act
         var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as TourProblemDto;

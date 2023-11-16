@@ -33,7 +33,7 @@ namespace Explorer.Tours.Core.Domain
         public TourProblemPriority Priority { get; init; }
         public string Description { get; init; }
         public DateTime Time { get; init; }
-        public Boolean IsSolved { get; init; }      
+        public Boolean IsSolved { get; private set; }      
         public List<TourProblemMessage> Messages { get; init; }
         public DateTime? Deadline { get; private set; }
 
@@ -69,6 +69,10 @@ namespace Explorer.Tours.Core.Domain
                 this.Deadline = deadline;
             else
                 throw new ArgumentException("Invalid date!");
+        }
+        public void CloseProblem()
+        {
+            this.IsSolved = true;
         }
     }
 }

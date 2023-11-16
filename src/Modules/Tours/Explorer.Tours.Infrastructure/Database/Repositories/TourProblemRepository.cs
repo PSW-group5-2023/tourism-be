@@ -40,5 +40,14 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _dbContext.SaveChanges();
             return tourProblem;
         }
+
+        public TourProblem PunishAuthor(string authorUsername, long tourId, long tourProblemId)
+        {
+            var tourProblem = _dbContext.TourProblems.First(tp => tp.Id == tourProblemId);
+            tourProblem.CloseProblem();
+            _dbContext.Update(tourProblem);
+            _dbContext.SaveChanges();
+            return tourProblem;
+        }
     }
 }
