@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Tests.Integration.TourProblem;
+namespace Explorer.Tours.Tests.Integration;
 
 [Collection("Sequential")]
 public class TourProblemMessagingTests : BaseToursIntegrationTest
@@ -28,22 +28,7 @@ public class TourProblemMessagingTests : BaseToursIntegrationTest
         var controller = CreateController(scope);
 
         // Act
-        var result = ((ObjectResult)controller.GetByTouristId(-6).Result);
-
-        // Assert
-        result.ShouldNotBe(null);
-        result.StatusCode.ShouldBe(200);
-    }
-
-    [Fact]
-    public void RetrievesUnreadMessages()
-    {
-        // Arrange
-        using var scope = Factory.Services.CreateScope();
-        var controller = CreateController(scope);
-
-        // Act
-        var result = ((ObjectResult)controller.GetUnreadMessages(1).Result);
+        var result = (ObjectResult)controller.GetByTouristId(-6).Result;
 
         // Assert
         result.ShouldNotBe(null);

@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Explorer.Tours.Tests.Integration.TourProblem;
+namespace Explorer.Tours.Tests.Integration;
 
 [Collection("Sequential")]
 public class TourProblemCommandTests : BaseToursIntegrationTest
