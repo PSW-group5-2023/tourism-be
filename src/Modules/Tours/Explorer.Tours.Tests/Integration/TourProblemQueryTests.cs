@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Tests.Integration.Administration;
+namespace Explorer.Tours.Tests.Integration;
 
 [Collection("Sequential")]
 public class TourProblemQueryTests : BaseToursIntegrationTest
@@ -71,8 +71,6 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
         result.ShouldNotBeNull();
         result.Results[0].ShouldNotBeNull();
     }
-
-
     private static TourProblemController CreateController(IServiceScope scope)
     {
         return new TourProblemController(scope.ServiceProvider.GetRequiredService<ITourProblemService>())

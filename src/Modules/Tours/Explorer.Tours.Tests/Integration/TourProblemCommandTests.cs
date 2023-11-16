@@ -38,7 +38,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             TouristUsername = "tourist",
             AuthorUsername = "author",
             IsSolved = false,
-            Messages = new List<TourProblemMessageDto> { new TourProblemMessageDto { } },
+            Messages = new List<TourProblemMessageDto> (),
             Deadline = DateTime.Now.ToUniversalTime()
         };
 
@@ -93,6 +93,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
         result.ShouldNotBeNull();
         result.StatusCode.ShouldBe(400);
     }
+    [Fact]
     public void Updates()
     {
         // Arrange
@@ -102,16 +103,16 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
         var updatedEntity = new TourProblemDto
         {
             Id = -1,
-            TouristId = -6,
+            TouristId = -8,
             TourId = -3,
-            Category = TourProblemCategory.GUIDE_SERVICES,
-            Priority = TourProblemPriority.LOW,
-            Description = "Vodic je zakasnio",
+            Category = TourProblemCategory.BOOKING,
+            Priority = TourProblemPriority.MEDIUM,
+            Description = "Rez",
             Time = DateTime.Now.ToUniversalTime(),
-            TouristUsername = "tourist",
-            AuthorUsername = "author",
-            IsSolved = true,
-            Messages = new List<TourProblemMessageDto> { new TourProblemMessageDto { } },
+            TouristUsername = null,
+            AuthorUsername = null,
+            IsSolved = false,
+            Messages = new List<TourProblemMessageDto> (),
             Deadline = DateTime.Now.ToUniversalTime()
         };
 
@@ -134,10 +135,10 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
         result.Deadline.ShouldBe(updatedEntity.Deadline);
 
         // Assert - Database
-        var storedEntity = dbContext.TourProblems.FirstOrDefault(i => (i.Description == "Vodic je zakasnio") && (i.TouristId == -6) && (i.TourId == -3) && (!i.IsSolved));
+        var storedEntity = dbContext.TourProblems.FirstOrDefault(i => i.Description == "Rez");
         storedEntity.ShouldNotBeNull();
         storedEntity.IsSolved.ShouldBe(updatedEntity.IsSolved);
-        var oldEntity = dbContext.TourProblems.FirstOrDefault(i => (i.Description == "Vodic je zakasnio") && (i.TouristId == -6) && (i.TourId == -3) && (i.IsSolved));
+        var oldEntity = dbContext.TourProblems.FirstOrDefault(i => i.Description == "Rezervacija nije sacuvana");
         oldEntity.ShouldBeNull();
     }
 
