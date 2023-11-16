@@ -7,8 +7,8 @@ using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 
 namespace Explorer.Tours.Core.UseCases
@@ -21,7 +21,7 @@ namespace Explorer.Tours.Core.UseCases
         {
             _tourKeyPointsRepository = tourKeyPointsRepository;
         }
-        public Result<List<TourKeyPointDto>> GetByTourId(int tourId)
+        public Result<List<TourKeyPointDto>> GetByTourId(long tourId)
         {
             List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
            var tourKeyPoints = _tourKeyPointsRepository.GetByTourId(tourId);

@@ -16,5 +16,6 @@ namespace Explorer.Tours.API.Public.Execution
         Result<SessionDto> GetByTouristId(long id);
         Result<bool> ValidForTouristComment(long id);
         Result<SessionDto> AddCompletedKeyPoint(int sessionId, int keyPointId);
+        Result<SessionDto> GetByTourAndTouristId(long tourId, long touristId);
     }
 }

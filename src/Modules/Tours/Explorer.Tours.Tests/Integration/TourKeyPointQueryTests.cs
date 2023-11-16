@@ -34,8 +34,8 @@ namespace Explorer.Tours.Tests.Integration
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(5);
-            result.TotalCount.ShouldBe(5);
+            result.Results.Count.ShouldBe(15);
+            result.TotalCount.ShouldBe(15);
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
                 Latitude = 7,
-                TourId = 17
+                /*TourId = -2*/
             };
 
             // Act
@@ -153,7 +153,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
                 Latitude = 7,
-                TourId = 17
+                TourId = -2
             };
 
             // Act

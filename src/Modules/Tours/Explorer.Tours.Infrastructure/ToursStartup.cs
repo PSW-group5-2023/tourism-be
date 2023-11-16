@@ -13,8 +13,12 @@ using Explorer.Tours.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Explorer.Stakeholders.Core.UseCases;
+using Explorer.Tours.Core.Domain.Tours;
+using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.UseCases.Execution;
+using Explorer.Tours.Core.UseCases.Authoring;
+using Explorer.Tours.API.Public.Authoring;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -51,7 +55,7 @@ public static class ToursStartup
         services.AddScoped<ITourKeyPointsRepository, TourKeyPointsRepository>();
         services.AddScoped<IFacilityRepository, FacilityRepository>();
         services.AddScoped(typeof(ICrudRepository<Equipment>), typeof(CrudDatabaseRepository<Equipment, ToursContext>));
-        services.AddScoped(typeof(ICrudRepository<Tour>), typeof(CrudDatabaseRepository<Tour, ToursContext>));
+        services.AddScoped(typeof(ITourRepository), typeof(TourDatabaseRepository));
         services.AddScoped(typeof(ICrudRepository<TourKeyPoint>), typeof(CrudDatabaseRepository<TourKeyPoint, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<Facility>), typeof(CrudDatabaseRepository<Facility, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<TourRating>), typeof(CrudDatabaseRepository<TourRating, ToursContext>));

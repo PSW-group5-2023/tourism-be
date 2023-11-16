@@ -1,10 +1,10 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
+using Explorer.Tours.API.Public.Authoring;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Author
+namespace Explorer.API.Controllers.Author.Authoring
 {
     [Authorize(Policy = "authorPolicy")]
     [Route("api/tourManagement/tour")]
@@ -26,10 +26,10 @@ namespace Explorer.API.Controllers.Author
 
 
         [HttpPost]
-        public ActionResult<TourDto> Create([FromBody] TourDto tour) 
+        public ActionResult<TourDto> Create([FromBody] TourDto tour)
         {
-            var result = _tourService.Create(tour); 
-            return CreateResponse(result);   
+            var result = _tourService.Create(tour);
+            return CreateResponse(result);
         }
 
         [HttpPut("{id:int}")]
@@ -50,6 +50,27 @@ namespace Explorer.API.Controllers.Author
         public ActionResult<TourDto> Get(int id)
         {
             var result = _tourService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("publish/{id:int}")]
+        public ActionResult<TourDto> Publish(int id, [FromBody] int authorId)
+        {
+            var result = _tourService.Publish(id, authorId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("archive/{id:int}")]
+        public ActionResult<TourDto> Archive(int id, [FromBody] int authorId)
+        {
+            var result = _tourService.Archive(id, authorId);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("author")]
+        public ActionResult<PagedResult<TourDto>> GetAllByAuthorId([FromQuery] int authorId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedByAuthorId(authorId, page, pageSize);
             return CreateResponse(result);
         }
     }

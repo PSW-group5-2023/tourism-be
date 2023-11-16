@@ -150,3 +150,51 @@ INSERT INTO blog."Comments"(
 	VALUES 	(-3, -6, CURRENT_TIMESTAMP, 'Neki com',CURRENT_TIMESTAMP , -22),
 			(-2, -7, CURRENT_TIMESTAMP, 'Neki com2',CURRENT_TIMESTAMP , -22),
 			(-1, -8, CURRENT_TIMESTAMP, 'Neki com3',CURRENT_TIMESTAMP , -22);
+
+INSERT INTO tours."Facilities"("Id", "Name", "Description", "Image", "Category", "Latitude", "Longitude", "Discriminator", "Status", "CreatorId")
+VALUES 
+  (-1, 'Restoran Kod Bake', 'Palacinkarina', 'https://hypetv.rs/wp-content/uploads/2022/12/baka-prase.jpeg', 1, 52.4324, 52.4123, 'Facility', null, null),
+  (-2, 'Javni wc', 'Ovde mozete izvrsiti veliku i malu nuzdu', 'https://naturoplex.com/wp-content/uploads/2018/08/da-li-javni-toaleti-mogu-prouzrokovati-urinarnu-infekciju-naslovna-1.png', 0, 34.6543, 12.3544, 'Facility', null, null),
+  (-3, 'Parking', 'Mesto gde mozete da ostavite vase vozilo', 'https://www.mycity.rs/thumbs4/295872_tmb_735147301_13912895_666347850179892_1004021860248568801_n.jpg', 3, 45.0000, 1.4354, 'Facility', null, null);
+
+INSERT INTO tours."Tour"("Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
+VALUES
+  (-1, 'Tura 1', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 0, 0, -1, '{-1, -2}', 15.5, NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-2, 'Tura 2', 'Ova tura je okej', 1, '{"tag", "tag2"}', 1, 0, -2, '{-1}', 3.8, NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-3, 'Tura 3', 'Ova tura je super', 3, '{"tag", "tag2"}', 2, 0, -3, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-4, '', 'Ova tura je super', 3, '{"tag", "tag2"}', 0, 0, -1, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-5, 'Tura 5', '', 3, '{"tag", "tag2"}', 0, 0, -1, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-6, 'Tura 6', 'Ova tura je super', 3, '{"tag", "tag2"}', 0, -1, -1, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-7, 'Tura 7', 'Ova tura je super', 3, '{}', 0, 0, -1, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-8, 'Tura 8', 'Ova tura je super', 3, '{"tag", "tag2"}', 0, 0, -1, '{-1, -3}', 2.5,  NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-9, 'Tura 9', 'Ova tura je super', 3, '{"tag", "tag2"}', 0, 0, -1, '{-1, -3}', 2.5,  NULL, NULL, '[]'),
+  (-10, 'Tura 10', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 0, 0, -1, '{-1, -2}', 15.5, NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-11, 'Tura 11', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 1, 0, -1, '{-1, -2}', 15.5, NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]'),
+  (-12, 'Tura 12', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 2, 0, -1, '{-1, -2}', 15.5, NULL, NULL, '[{"TimeInSeconds": 5, "Transportation": 0}]');
+
+
+INSERT INTO tours."Equipment"("Id", "Name", "Description")
+VALUES
+	(-1, 'Voda', 'Količina vode varira od temperature i trajanja ture. Preporuka je da se pije pola litre vode na jedan sat umerena fizičke aktivnosti (npr. hajk u prirodi bez značajnog uspona) po umerenoj vrućini'),
+	(-2, 'Štapovi za šetanje', 'Štapovi umanjuju umor nogu, pospešuju aktivnost gornjeg dela tela i pružaju stabilnost na neravnom terenu.'),
+	(-3, 'Obična baterijska lampa', 'Baterijska lampa od 200 do 400 lumena.');
+
+INSERT INTO tours."TourKeyPoints"("Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Discriminator", "Status", "CreatorId", "Secret", "PositionInTour")
+VALUES 
+  (-1, 'Tacka 1', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -1, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-2, 'Tacka 2', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -1, 'TourKeyPoint', null, null, 'Secret 2', 2),
+  (-3, 'Tacka 3', 'Tacka 3 je prva tacka', 'http://tacka3.com/', -64.22, 82.3, -1, 'TourKeyPoint', null, null, 'Secret 1', 3),
+  (-4, 'Tacka 4 public', 'Tacka 3 je prva tacka', 'http://tacka3.com/', -64.22, 82.3, -1, 'PublicTourKeyPoints', 2, 11, 'Secret 1', 4),
+  (-5, 'Tacka 5 public', 'Tacka 3 je prva tacka', 'http://tacka3.com/', -64.22, 82.3, -1, 'PublicTourKeyPoints', 2, 11, 'Secret 1', 5),
+  (-6, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -4, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-7, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -4, 'TourKeyPoint', null, null, 'Secret 1', 2),
+  (-8, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -5, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-9, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -5, 'TourKeyPoint', null, null, 'Secret 1', 2),
+  (-10, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -6, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-11, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -6, 'TourKeyPoint', null, null, 'Secret 1', 2),
+  (-12, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -7, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-13, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -7, 'TourKeyPoint', null, null, 'Secret 1', 2),
+  (-14, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -3, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-15, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -3, 'TourKeyPoint', null, null, 'Secret 1', 2),
+  (-16, 'Tacka', 'Tacka 1 je prva tacka', 'http://tacka1.com/', 24.22, 12.3, -2, 'TourKeyPoint', null, null, 'Secret 1', 1),
+  (-17, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12.3, -2, 'TourKeyPoint', null, null, 'Secret 1', 2);
