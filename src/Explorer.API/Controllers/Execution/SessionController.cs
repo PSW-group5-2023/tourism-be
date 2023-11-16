@@ -57,5 +57,12 @@ namespace Explorer.API.Controllers.Execution
             var result = _sessionService.AddCompletedKeyPoint(sessionId, keyPointId);
             return CreateResponse(result);
         }
+
+        [HttpGet("getByTourAndTouristId/{tourId:long}/{touristId:long}")]
+        public ActionResult<SessionDto> GetByTourAndTouristId(long tourId, long touristId)
+        {
+            var result = _sessionService.GetByTourAndTouristId(tourId, touristId);
+            return CreateResponse(result);
+        }
     }
 }

@@ -1,13 +1,8 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Explorer.Tours.API.Public
+namespace Explorer.Tours.API.Public.Authoring
 {
     public interface ITourService
     {
@@ -16,5 +11,8 @@ namespace Explorer.Tours.API.Public
         Result<TourDto> Update(TourDto tour);
         Result Delete(int id);
         Result<TourDto> Get(int id);
+        Result<TourDto> Publish(int id, int userId);
+        Result<TourDto> Archive(int id, int userId);
+        Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize);
     }
 }

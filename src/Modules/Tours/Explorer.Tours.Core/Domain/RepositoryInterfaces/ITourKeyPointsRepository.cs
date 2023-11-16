@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {
     public interface ITourKeyPointsRepository
     {
-        List<TourKeyPoint> GetByTourId(int tourId);
+        List<TourKeyPoint> GetByTourId(long tourId);
         TourKeyPoint GetById(int id);
         TourKeyPoint Update(TourKeyPoint keyPoint);
 

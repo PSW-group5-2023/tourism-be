@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.Core.Domain.Sessions;
+﻿using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
+        }
+
+        public Session? GetByTourAndTouristId(long tourId, long touristId)
+        {
+            return _context.Sessions.FirstOrDefault(s => s.TouristId == touristId &&  s.TourId == tourId);
         }
     }
 }

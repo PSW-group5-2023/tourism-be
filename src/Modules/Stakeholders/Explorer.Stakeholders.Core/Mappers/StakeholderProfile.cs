@@ -2,6 +2,7 @@ using AutoMapper;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.Followers;
 
 namespace Explorer.Stakeholders.Core.Mappers;
 
@@ -18,5 +19,10 @@ public class StakeholderProfile : Profile
         CreateMap<UserDto, User>().ReverseMap().ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
         CreateMap<MessageDto, Message>().ReverseMap();
         CreateMap<Follower, FollowerDto>().ReverseMap();
+        CreateMap<FollowerNotificationDto, FollowerNotification>().ReverseMap();
+        CreateMap<FollowerDto, Follower>().IncludeAllDerived()
+            .ForMember(dest => dest.Notification, opt => opt.MapFrom(src => new FollowerNotification(src.Notification.Content, src.Notification.TimeOfArrival, src.Notification.Read)));
+        CreateMap<Follower, FollowerDto>().IncludeAllDerived()
+            .ForMember(dest => dest.Notification, opt => opt.MapFrom(src => src.Notification));
     }
 }
