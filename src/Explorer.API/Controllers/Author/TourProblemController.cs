@@ -1,17 +1,14 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Stakeholders.API.Dtos;
-using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.Core.UseCases;
+using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Explorer.API.Controllers.Tourist
+namespace Explorer.API.Controllers.Author
 {
-    [Authorize(Policy = "touristPolicy")]
-    [Route("api/tourist/tourProblem")]
+    [Authorize(Policy = "authorPolicy")]
+    [Route("api/author/tourProblem")]
     public class TourProblemController : BaseApiController
     {
         private readonly ITourProblemService _problemService;
@@ -21,10 +18,11 @@ namespace Explorer.API.Controllers.Tourist
             _problemService = problemService;
         }
 
-        [HttpPost]
-        public ActionResult<TourProblemDto> Create([FromBody] TourProblemDto tourProblem)
+        [HttpGet("{authorId:long}")]
+        public ActionResult<PagedResult<TourProblemDto>> GetByAuthorId(long authorId)
         {
-            var result = _problemService.Create(tourProblem);
+            var result = _problemService.GetByAuthorId(authorId);
+            _problemService.FindNames(result.Value);
             return CreateResponse(result);
         }
 
@@ -32,14 +30,6 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<TourProblemDto> Update([FromBody] TourProblemDto tourProblem)
         {
             var result = _problemService.Update(tourProblem);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("{touristId:long}")]
-        public ActionResult<PagedResult<TourProblemDto>> GetByTouristId(long touristId)
-        {
-            var result = _problemService.GetByTouristId(touristId);
-            _problemService.FindNames(result.Value);
             return CreateResponse(result);
         }
 

@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.Domain;
+﻿using Explorer.Blog.Core.Domain;
+using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
@@ -28,6 +29,7 @@ public class ToursContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("tours");
+        modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
 
         modelBuilder.Entity<Session>().Property(item => item.Location).HasColumnType("jsonb");
 
