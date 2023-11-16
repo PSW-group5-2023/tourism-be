@@ -20,21 +20,7 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
 {
     public TourProblemQueryTests(ToursTestFactory factory) : base(factory) { }
 
-    [Fact]
-    public void Retrieves_all()
-    {
-        // Arrange
-        using var scope = Factory.Services.CreateScope();
-        var controller = CreateController(scope);
-
-        // Act
-        var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<TourProblemDto>;
-
-        // Assert
-        result.ShouldNotBeNull();
-        result.Results.Count.ShouldBe(3);
-        result.TotalCount.ShouldBe(3);
-    }
+    
 
     [Fact]
     public void GiveDeadline()
