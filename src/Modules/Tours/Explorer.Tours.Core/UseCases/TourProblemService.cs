@@ -63,7 +63,7 @@ namespace Explorer.Tours.Core.UseCases
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
                 foreach (var m in r.Messages)
                 {
-                    if(m.SenderId>0)
+                    if(m.SenderId != 0)
                         m.SenderName = _userNamesService.GetName(m.SenderId).Username;
                 }
             }
