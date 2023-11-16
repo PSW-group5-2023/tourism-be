@@ -49,7 +49,7 @@ public class ToursContext : DbContext
 
         modelBuilder.Entity<Session>()
             .HasOne<Tour>()
-            .WithOne()
-            .HasForeignKey<Session>(s => s.TourId);
+            .WithMany()
+            .HasForeignKey(s => s.TourId);
     }
 }
