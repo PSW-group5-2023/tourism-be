@@ -20,9 +20,9 @@ namespace Explorer.API.Controllers.Author.Identity
         }
 
         [HttpPost]
-        public ActionResult<CommentDto> Create([FromBody] MessageDto messageDto)
+        public ActionResult<MessageDto> Create([FromBody] MessageDto messageDto)
         {
-            var result = _messageService.Create(messageDto);
+             var result = _messageService.Create(messageDto);
             return CreateResponse(result);
         }
 

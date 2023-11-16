@@ -25,7 +25,7 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
         public Message Create(Message message)
         {
-            _dbContext.Messages.Add(message);
+                _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
             return message;
         }
