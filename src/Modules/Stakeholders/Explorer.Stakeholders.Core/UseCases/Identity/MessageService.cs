@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
@@ -11,10 +12,11 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
     public class MessageService : BaseService<MessageDto, Message>, IMessageService
     {
         private readonly IMessageRepository _messageRepository;
-
-        public MessageService(IMapper mapper, IMessageRepository messageRepository) : base(mapper)
+        private readonly IUserNames _userNamesService;
+        public MessageService(IMapper mapper, IMessageRepository messageRepository, IUserNames userNamesService) : base(mapper)
         {
             _messageRepository = messageRepository;
+            _userNamesService = userNamesService;
         }
 
         public Result<MessageDto> Create(MessageDto message)
@@ -30,10 +32,24 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
             }
         }
 
-        public Result<PagedResult<MessageDto>> GetMessagesByUserId(int page, int pageSize, long id)
+        public Result<PagedResult<MessageDto>> GetAll(int page, int pageSize)
         {
             var result = _messageRepository.GetPaged(page, pageSize);
             return MapToDto(result);
+        }
+
+        public void FindNames(List<MessageDto> result) 
+        {
+            var messages = _messageRepository.GetPaged(0, 0).Results;
+
+            foreach (var r in result)
+            {
+                long recipientId = messages.Find(m => m.RecipientId == r.RecipientId).RecipientId;
+                long senderId = messages.Find(m => m.SenderId == r.SenderId).SenderId;
+                r.RecipientUsername = _userNamesService.GetName(recipientId).Username;
+                r.SenderUsername = _userNamesService.GetName(senderId).Username;
+                
+            }
         }
     }
 }

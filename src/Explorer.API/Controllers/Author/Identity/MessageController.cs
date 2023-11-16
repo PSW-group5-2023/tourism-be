@@ -26,10 +26,11 @@ namespace Explorer.API.Controllers.Author.Identity
             return CreateResponse(result);
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult<PagedResult<MessageDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize, [FromBody] long id)
+        [HttpGet]
+        public ActionResult<PagedResult<MessageDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _messageService.GetMessagesByUserId(page, pageSize, id);
+            var result = _messageService.GetAll(page, pageSize);
+            _messageService.FindNames(result.Value.Results);
             return CreateResponse(result);
         }
     }

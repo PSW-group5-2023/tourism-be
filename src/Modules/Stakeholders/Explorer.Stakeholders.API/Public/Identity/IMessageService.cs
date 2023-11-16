@@ -7,6 +7,7 @@ namespace Explorer.Stakeholders.API.Public.Identity
     public interface IMessageService
     {
         Result<MessageDto> Create(MessageDto message);
-        Result<PagedResult<MessageDto>> GetMessagesByUserId(int page, int pageSize, long id);
+        Result<PagedResult<MessageDto>> GetAll(int page, int pageSize);
+        public void FindNames(List<MessageDto> result);
     }
 }

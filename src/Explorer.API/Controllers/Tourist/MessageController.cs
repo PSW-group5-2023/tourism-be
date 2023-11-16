@@ -30,8 +30,8 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet]
         public ActionResult<PagedResult<MessageDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
-            long touristId = User.PersonId();
-            var result = _messageService.GetMessagesByUserId(page, pageSize, touristId);
+            var result = _messageService.GetAll(page, pageSize);
+            _messageService.FindNames(result.Value.Results);
             return CreateResponse(result);
         }
     }
