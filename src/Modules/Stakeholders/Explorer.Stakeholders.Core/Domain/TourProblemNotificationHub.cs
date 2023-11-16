@@ -9,9 +9,9 @@ namespace Explorer.Stakeholders.Core.Domain
 {
     public class TourProblemNotificationHub : Hub
     {
-        public async Task SendProblemMessageNotification(string problemMessage, int recipientId, string senderUsername)
+        public async Task SendTourProblemMessageNotification(int recipientId)
         {
-            await Clients.All.SendAsync("ReceiveProblemMessageNotification", problemMessage, recipientId, senderUsername);
+            await Clients.All.SendAsync("ReceiveTourProblemMessageNotification", recipientId);
         }
     }
 }
