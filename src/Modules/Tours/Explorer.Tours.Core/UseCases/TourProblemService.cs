@@ -88,7 +88,9 @@ namespace Explorer.Tours.Core.UseCases
         public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId)
         {
             var tourProblem = _tourProblemRepository.GiveDeadline(deadline, tourProblemId);
-            return new Result<TourProblemDto>();
+            TourProblemDto dto = new TourProblemDto();
+            dto.Deadline=deadline;
+            return dto;
         }
 
         public Result<TourProblemDto> PunishAuthor(string authorUsername, long tourId, long tourProblemId)

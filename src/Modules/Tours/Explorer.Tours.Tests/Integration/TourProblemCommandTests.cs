@@ -36,7 +36,7 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             Description = "Vodic je zakasnio",
             Time = DateTime.Now.ToUniversalTime(),
             IsSolved = false
-    };
+        };
 
         // Act
         var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as TourProblemDto;
