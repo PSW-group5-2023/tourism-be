@@ -37,8 +37,6 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapHub<PublicSiteHub>("hub");
-app.MapHub<NotifiationHub>("notificationHub");
-app.MapHub<TourProblemNotificationHub>("tourProblemNotificationHub");
 app.MapControllers();
 
 app.Run();
