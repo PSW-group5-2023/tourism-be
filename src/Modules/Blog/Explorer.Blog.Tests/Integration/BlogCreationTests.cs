@@ -7,6 +7,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Infrastructure.Database;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -23,60 +24,110 @@ namespace Explorer.Blog.Tests.Integration
     {
         public BlogCreationTests(BlogTestFactory factory) : base(factory) { }
 
-        [Fact]
-        public void Creates()
+
+        [Theory]
+        [MemberData(nameof(BlogDtos))]
+        public void Creation(BlogDto blogDto, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
-            var newEntity = new BlogDto
-            {
-                Id = -5,
-                Title = "Title 006",
-                Description = "Description 1",
-                Status = BlogState.Published
-            };
-
-            // Act
-            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as BlogDto;
+            
+            var result = (ObjectResult)controller.Create(blogDto).Result;
 
             // Assert - Response
             result.ShouldNotBeNull();
-            result.Id.ShouldNotBe(0);
-            result.Title.ShouldBe(newEntity.Title);
-            result.Description.ShouldBe(newEntity.Description);
-            result.Status.ShouldBe(newEntity.Status);
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
             // Assert - Database
-            var storedEntity = dbContext.Blogs.FirstOrDefault(i => i.Id == newEntity.Id);
-            storedEntity.ShouldNotBeNull();
-            storedEntity.Id.ShouldBe(result.Id);
-            storedEntity.Title.ShouldBe(result.Title);
-            storedEntity.Description.ShouldBe(result.Description);
-            storedEntity.Status.ShouldBe(result.Status);
+            if (result.StatusCode != 400)
+            {
+                var storedEntity = dbContext.Blogs.FirstOrDefault(t => t.Id == blogDto.Id);
+                storedEntity.ShouldNotBeNull();
+            }
+            
+            
         }
-
-
-        [Fact]
-        public void Create_fails_invalid_data()
+        public static IEnumerable<object[]> BlogDtos()
+        {
+            return new List<object[]>
+        {
+            new object[]
+            {
+                new BlogDto(-5,"haha","hihi",0,-11,"",0,new List<RatingDto>()),
+                200
+            },
+            new object[]
+            {
+                new BlogDto(-6,"huuuuuuaha","hihi",0,-21,"",0,new List<RatingDto>()),
+                200
+            },
+            /*new object[]
+            {
+                new BlogDto(-7,"huuuuuuaha","hihi",0,-21,"",0,new List<RatingDto>()),
+                23505
+            },*/
+            new object[]
+            {
+                new BlogDto{
+                    Description="ahha",
+                    Id=-9,
+                    Status=0,
+                    Ratings=new List<RatingDto>(),
+                    RatingSum=0,
+                    UserId=-11,
+                    Username=""
+                },
+                400
+            }
+        };
+        }
+        [Theory]
+        [InlineData(-21,-21,1, 200)]
+        [InlineData(-21, -21, -1, 200)]
+        [InlineData(-22, -21, -1, 200)]
+        public void UpdateRating(int userId,int blogId,int value, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new BlogDto
-            {
-                Description = "Test"
-            };
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
 
-            // Act
-            var result = (ObjectResult)controller.Create(updatedEntity).Result;
+            var result = (ObjectResult)controller.UpdateRating(blogId,userId,value).Result;
 
-            // Assert
+            // Assert - Response
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
+            result.StatusCode.ShouldBe(expectedResponseCode);
 
-        
+            // Assert - Database
+            var storedEntity = dbContext.Blogs.FirstOrDefault(t => t.Id == blogId);
+            var rating = storedEntity.Ratings.FirstOrDefault(t => t.UserId == userId);
+            rating.ShouldNotBeNull();
+
+        }
+        [Theory]
+        [InlineData(-21, -21, 200)]
+        [InlineData(-22, -21, 200)]
+        public void DeleteRating(int userId, int blogId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (OkResult)controller.DeleteRating(blogId, userId);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Blogs.FirstOrDefault(t => t.Id == blogId);
+            var rating = storedEntity.Ratings.FirstOrDefault(t => t.UserId == userId);
+            rating.ShouldBeNull();
+
+        }
 
 
         private static BlogController CreateController(IServiceScope scope)

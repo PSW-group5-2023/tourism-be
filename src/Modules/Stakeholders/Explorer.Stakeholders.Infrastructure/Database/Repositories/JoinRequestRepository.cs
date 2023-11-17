@@ -42,13 +42,13 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             {
                 var allClubs = _dbContext.Clubs.Where(club => club.TouristId != userId).ToList();
 
-                // Zatim pronađite ClubId-jeve za koje postoji zahtev sa odgovarajućim UserId
+               
                 var clubIdsWithRequests = _dbContext.JoinRequests
                     .Where(request => request.UserId == userId)
                     .Select(request => request.ClubId)
                     .ToList();
 
-                // Izbacite klubove sa zahtevima iz liste svih klubova
+      
                 var clubsToJoin = allClubs.Where(club => !clubIdsWithRequests.Contains(club.Id)).ToList();
 
 
@@ -58,13 +58,12 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             {
                 var allClubs = _dbContext.Clubs.Where(club => club.TouristId != userId).ToList();
 
-                // Zatim pronađite ClubId-jeve za koje postoji zahtev sa odgovarajućim UserId
                 var clubIdsWithRequests = _dbContext.JoinRequests
                     .Where(request => request.UserId == userId)
                     .Select(request => request.ClubId)
                     .ToList();
 
-                // Izbacite klub vlasnika i klubove sa zahtevima iz liste svih klubova
+                
                 var clubsToJoin = allClubs.Where(club => club.Id != userClub.Id && !clubIdsWithRequests.Contains(club.Id)).ToList();
 
                 return clubsToJoin;

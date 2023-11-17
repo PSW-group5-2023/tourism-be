@@ -1,4 +1,6 @@
 using Explorer.API.Startup;
+using Explorer.Stakeholders.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.Followers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,10 @@ builder.Services.ConfigureAuth();
 
 builder.Services.RegisterModules();
 
+builder.Services.AddSignalR(o =>
+{
+    o.EnableDetailedErrors = true;
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -30,6 +36,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthorization();
 
+app.MapHub<PublicSiteHub>("hub");
 app.MapControllers();
 
 app.Run();

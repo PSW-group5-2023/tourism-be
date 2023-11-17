@@ -34,6 +34,16 @@ namespace Explorer.Stakeholders.Core.UseCases
             }
         }
 
+        public Result<List<PersonDto>> GetAllFollowers(int id)
+        {
+            return MapToDto(_personRepository.GetAllFollowers(id));
+        }
+
+        public Result<List<PersonDto>> GetAllFollowings(int id)
+        {
+            return MapToDto(_personRepository.GetAllFollowings(id));
+        }
+
         public Result<List<PersonDto>> GetAuthorsAndTourists()
         {
             return MapToDto(_personRepository.GetAuthorsAndTourists());

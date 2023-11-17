@@ -14,5 +14,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         List<Person> GetAuthorsAndTourists();
         Person? Get(int id);
         Person Update(Person person);
+        public List<Person> GetAllFollowers(int id);
+        public List<Person> GetAllFollowings(int id);
     }
 }

@@ -1,11 +1,14 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public;
+using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Stakeholders.Core;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Stakeholders.Core.Mappers;
 using Explorer.Stakeholders.Core.UseCases;
+using Explorer.Stakeholders.Core.UseCases.Identity;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Stakeholders.Infrastructure.Database;
 using Explorer.Stakeholders.Infrastructure.Database.Repositories;
@@ -30,7 +33,6 @@ public static class StakeholdersStartup
     {
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
-        services.AddScoped<ITourPreferencesService, TourPreferencesService>();
         services.AddScoped<IApplicationRatingService, ApplicationRatingService>();
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IClubService, ClubService>();
@@ -38,14 +40,17 @@ public static class StakeholdersStartup
         services.AddScoped<IUserInformationService, UserInformationService>();
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
+        services.AddScoped<IUserNames,UserNamesService>();
+        services.AddScoped<IFollowerService, FollowerService>();
+        services.AddScoped<IInternalBlogService, InternalBlogService>();
+        services.AddScoped<IInternalCommentService, InternalCommentService>();
+        services.AddScoped<IMessageService, MessageService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
     {
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
-        services.AddScoped(typeof(ICrudRepository<TourPreferences>), typeof(CrudDatabaseRepository<TourPreferences, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
-        services.AddScoped<ITourPreferencesRepository, TourPreferencesDatabaseRepository>();
         services.AddScoped(typeof(ICrudRepository<ApplicationRating>), typeof(CrudDatabaseRepository<ApplicationRating, StakeholdersContext>));
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
@@ -55,7 +60,10 @@ public static class StakeholdersStartup
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
-
+        services.AddScoped<IFollowerRepository, FollowerRepository>();
+        services.AddScoped<IInternalBlogRepository, InternalBlogRepository>();
+        services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

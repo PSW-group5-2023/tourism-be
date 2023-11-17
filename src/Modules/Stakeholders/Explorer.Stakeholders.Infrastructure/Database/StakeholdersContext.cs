@@ -1,5 +1,6 @@
 ﻿using Explorer.Stakeholders.Core;
 using Explorer.Stakeholders.Core.Domain;
+using Explorer.Stakeholders.Core.Domain.Followers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Stakeholders.Infrastructure.Database;
@@ -9,10 +10,11 @@ public class StakeholdersContext : DbContext
     
     public DbSet<User> Users { get; set; }
     public DbSet<Person> People { get; set; }
-    public DbSet<TourPreferences> TourPreferences { get; set; }
     public DbSet<ApplicationRating> ApplicationRatings { get; set; }
     public DbSet<Club> Clubs { get; set; }
     public DbSet<JoinRequest> JoinRequests { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<Follower> Followers { get; set; }
 
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
@@ -21,6 +23,8 @@ public class StakeholdersContext : DbContext
         modelBuilder.HasDefaultSchema("stakeholders");
 
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+
+        modelBuilder.Entity<Follower>().Property(item => item.Notification).HasColumnType("jsonb");
 
         ConfigureStakeholder(modelBuilder); 
     }
@@ -31,12 +35,6 @@ public class StakeholdersContext : DbContext
             .HasOne<User>()
             .WithOne()
             .HasForeignKey<Person>(s => s.UserId);
-
-
-        modelBuilder.Entity<TourPreferences>()
-            .HasOne<User>()
-            .WithOne()
-            .HasForeignKey<TourPreferences>(s => s.UserId);
 
         modelBuilder.Entity<Club>()
             .HasOne<User>()
@@ -52,5 +50,15 @@ public class StakeholdersContext : DbContext
             .HasOne<Club>()
             .WithMany()
             .HasForeignKey(jr => jr.ClubId);
+
+        modelBuilder.Entity<Follower>()
+            .HasOne<Person>()
+            .WithMany()
+            .HasForeignKey(f => f.FollowerId);
+
+        modelBuilder.Entity<Follower>()
+            .HasOne<Person>()
+            .WithMany()
+            .HasForeignKey(f => f.FollowedId);  
     }
 }
