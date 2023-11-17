@@ -33,5 +33,9 @@ namespace Explorer.Stakeholders.Core.Domain
         {
             await Clients.All.SendAsync("ReceiveDeadlineNotification", authorUsername, tourId, deadline);
         }
+        public async Task SendFollowerMessageNotification(long recipientId, string senderUsername)
+        {
+            await Clients.All.SendAsync("ReceiveFollowerMessageNotification", recipientId, senderUsername);
+        }
     }
 }
