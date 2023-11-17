@@ -44,7 +44,7 @@ public static class StakeholdersStartup
         services.AddScoped<IFollowerService, FollowerService>();
         services.AddScoped<IInternalBlogService, InternalBlogService>();
         services.AddScoped<IInternalCommentService, InternalCommentService>();
-
+        services.AddScoped<IMessageService, MessageService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -63,6 +63,7 @@ public static class StakeholdersStartup
         services.AddScoped<IFollowerRepository, FollowerRepository>();
         services.AddScoped<IInternalBlogRepository, InternalBlogRepository>();
         services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

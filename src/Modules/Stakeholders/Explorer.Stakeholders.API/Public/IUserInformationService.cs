@@ -13,6 +13,6 @@ namespace Explorer.Stakeholders.API.Public
     {
         Result<PagedResult<UserInformationDto>> GetPaged(int page, int pageSize);
         Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons);
-       
+
     }
 }
