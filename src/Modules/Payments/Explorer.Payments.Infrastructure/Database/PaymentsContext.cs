@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Explorer.Payments.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Explorer.Payments.Infrastructure.Database
 {
     public class PaymentsContext : DbContext
     {
+        public DbSet<BoughtItem> BoughtItems { get; set; }
+
+        public PaymentsContext(DbContextOptions<PaymentsContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("payments");

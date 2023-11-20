@@ -8,11 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Explorer.Payments.API\Explorer.Payments.API.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\RepositoryInterfaces\" />
-    <Folder Include="UseCases\" />
+	<ProjectReference Include="..\..\Tours\Explorer.Tours.API\Explorer.Tours.API.csproj" />
   </ItemGroup>
 
 </Project>

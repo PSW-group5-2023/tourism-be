@@ -1,4 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Dtos;
+using Explorer.Payments.API.Public;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Tours.API.Dtos;
@@ -22,13 +24,13 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet]
-        public ActionResult<BoughtItemDto> GetUnusedItems(long userId)
+        public ActionResult<BoughtItemDto> GetUnusedItems(int userId)
         {
             return CreateResponse(shoppingCartService.GetUnusedTours(userId));
         }
 
-        [HttpGet("{userId:long}")]
-        public ActionResult<BoughtItemDto> GetUsedItems(long userId)
+        [HttpGet("{userId:int}")]
+        public ActionResult<BoughtItemDto> GetUsedItems(int userId)
         {
             return CreateResponse(shoppingCartService.GetUsedTours(userId));
         }

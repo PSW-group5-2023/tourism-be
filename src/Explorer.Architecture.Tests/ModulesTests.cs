@@ -87,8 +87,19 @@ public class ModulesTests : BaseArchitecturalTests
     {
         new object[]
         {
-            "Stakeholders",
+            "Stakeholders"
+        },
+        new object[]
+        {
             "Payments"
+        },
+        new object[]
+        {
+            "Blog"
+        },
+        new object[]
+        {
+            "Tours"
         }
     };
 }

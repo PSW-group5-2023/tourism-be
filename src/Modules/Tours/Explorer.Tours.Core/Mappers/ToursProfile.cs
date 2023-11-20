@@ -42,7 +42,5 @@ public class ToursProfile : Profile
         CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
         CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
-        CreateMap<BoughtItemDto,BoughtItem>().ReverseMap();
-
     }
 }
