@@ -4,10 +4,10 @@ using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.Author
+namespace Explorer.API.Controllers.Administrator
 {
-    [Authorize(Policy = "touristPolicy")]
-    [Route("api/tourist/encounter")]
+    [Authorize(Policy = "administratorPolicy")]
+    [Route("api/administrator/encounter")]
     public class EncounterController : BaseApiController
     {
         private readonly IEncounterService _encounterService;
