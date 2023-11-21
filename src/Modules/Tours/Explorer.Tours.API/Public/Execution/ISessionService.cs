@@ -1,4 +1,6 @@
-﻿using Explorer.Tours.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -17,5 +19,7 @@ namespace Explorer.Tours.API.Public.Execution
         Result<bool> ValidForTouristComment(long id);
         Result<SessionDto> AddCompletedKeyPoint(int sessionId, int keyPointId);
         Result<SessionDto> GetByTourAndTouristId(long tourId, long touristId);
+        Result<List<TourStatisticsDto>> GetAttendanceStatistics();
+        Result<List<TourStatisticsDto>> GetAbandonedStatistics();
     }
 }
