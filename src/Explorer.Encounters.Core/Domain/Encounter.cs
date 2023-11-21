@@ -35,7 +35,6 @@ namespace Explorer.Encounters.Core.Domain
             if (AdministratorId == 0) throw new ArgumentException("Invalid AdministratorId");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
-            if (Status == EncounterStatus.Active) throw new ArgumentException("Invalid encounter status");
             if (Latitude is > 90 or < -90) throw new ArgumentException("Invalid latitude");
             if (Longitude is > 180 or < -180) throw new ArgumentException("Invalid longitude");
         }
