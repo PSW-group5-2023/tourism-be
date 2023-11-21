@@ -18,13 +18,13 @@ namespace Explorer.Encounters.Core.Domain
         public double Latitude { get; init; }
         public double Longitude { get; set; }
 
-        public Encounter(int administratorId, int touristId, string description, string name, double expiriencePoints, EncounterStatus status, EncounterType encounterType, double latitude, double longitude)
+        public Encounter(int administratorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude)
         {
             AdministratorId = administratorId;
             Description = description;
             Name = name;
             Status = status;
-            Type = encounterType;
+            Type = type;
             Latitude = latitude;
             Longitude = longitude;
 
@@ -32,7 +32,6 @@ namespace Explorer.Encounters.Core.Domain
         }
         private void Validate()
         {
-            if (AdministratorId == 0) throw new ArgumentException("Invalid AdministratorId");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
             if (Latitude is > 90 or < -90) throw new ArgumentException("Invalid latitude");
