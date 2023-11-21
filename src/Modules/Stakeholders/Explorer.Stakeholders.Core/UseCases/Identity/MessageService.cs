@@ -51,5 +51,18 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
                 
             }
         }
+
+        public Result Delete(int messageId)
+        {
+            try
+            {
+                _messageRepository.Delete(messageId);
+                return Result.Ok();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }
