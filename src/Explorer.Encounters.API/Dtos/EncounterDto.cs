@@ -10,10 +10,8 @@ namespace Explorer.Encounters.API.Dtos
     {
         public int Id { get; set; }
         public int AdministratorId { get; set; }
-        public int TouristId { get; set; }
         public string? Description { get; set; }
         public string? Name { get; set; }
-        public double ExpiriencePoints { get; set; }
         public int Status { get; set; }
         public int Type { get; set; }
         public double Latitude { get; set; }
