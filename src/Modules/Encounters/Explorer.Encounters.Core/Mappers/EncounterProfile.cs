@@ -13,7 +13,7 @@ namespace Explorer.Encounters.Core.Mappers
     {
         public EncounterProfile() 
         {
-            CreateMap<EncounterDto, Encounter>().ReverseMap();
+            CreateMap<ChallengeDto, Challenge>().ReverseMap();
         }
     }
 }

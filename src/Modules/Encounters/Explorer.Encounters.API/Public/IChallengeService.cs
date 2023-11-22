@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.API.Public
 {
-    public interface IEncounterService
+    public interface IChallengeService
     {
-        Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize);
-        Result<EncounterDto> Create(EncounterDto encounterDto);
-        Result<EncounterDto> Update(EncounterDto encounterDto);
+        Result<PagedResult<ChallengeDto>> GetPaged(int page, int pageSize);
+        Result<ChallengeDto> Create(ChallengeDto challengeDto);
+        Result<ChallengeDto> Update(ChallengeDto challengeDto);
         Result Delete(int id);
-        Result<EncounterDto> Get(int id);
+        Result<ChallengeDto> Get(int id);
     }
 }

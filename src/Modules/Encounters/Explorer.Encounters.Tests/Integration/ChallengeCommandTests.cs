@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 namespace Explorer.Encounters.Tests.Integration
 {
     [Collection("Sequential")]
-    public class EncounterCommandTests : BaseEncountersIntegrationTest
+    public class ChallengeCommandTests : BaseEncountersIntegrationTest
     {
-        public EncounterCommandTests(EncountersTestFactory factory) : base(factory)
+        public ChallengeCommandTests(EncountersTestFactory factory) : base(factory)
         {
         }
 
@@ -30,7 +30,7 @@ namespace Explorer.Encounters.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
-            var newEntity = new EncounterDto
+            var newEntity = new ChallengeDto
             {
                 AdministratorId = -1,
                 Description = "Na očaravajućem ostrvu Santorini, turista može se suočiti s izazovom istraživanja skrivenih staza i slikovitih sokaka, otkrivajući autentične grčke trenutke izvan uobičajenih turističkih ruta.",
@@ -42,7 +42,7 @@ namespace Explorer.Encounters.Tests.Integration
             };
 
             // Act
-            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as EncounterDto;
+            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as ChallengeDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -53,7 +53,7 @@ namespace Explorer.Encounters.Tests.Integration
             result.Latitude.ShouldBe(newEntity.Latitude);
 
             // Assert - Database
-            var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == result.Id);
+            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Id == result.Id);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
@@ -64,7 +64,7 @@ namespace Explorer.Encounters.Tests.Integration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new EncounterDto
+            var updatedEntity = new ChallengeDto
             {
                 Status = 20
             };
@@ -84,7 +84,7 @@ namespace Explorer.Encounters.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
-            var updatedEntity = new EncounterDto
+            var updatedEntity = new ChallengeDto
             {
                 Id = -1,
                 AdministratorId = -1,
@@ -93,7 +93,7 @@ namespace Explorer.Encounters.Tests.Integration
             };
 
             // Act
-            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as EncounterDto;
+            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as ChallengeDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -102,10 +102,10 @@ namespace Explorer.Encounters.Tests.Integration
             result.Description.ShouldBe(updatedEntity.Description);
 
             // Assert - Database
-            var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Name == "Update");
+            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Update");
             storedEntity.ShouldNotBeNull();
             storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.Encounters.FirstOrDefault(i => i.Name == "Skrivene staze");
+            var oldEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Skrivene staze");
             oldEntity.ShouldBeNull();
         }
 
@@ -115,7 +115,7 @@ namespace Explorer.Encounters.Tests.Integration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new EncounterDto
+            var updatedEntity = new ChallengeDto
             {
                 Id = -1000,
                 AdministratorId = -1,
@@ -148,7 +148,7 @@ namespace Explorer.Encounters.Tests.Integration
 
         private static EncounterController CreateController(IServiceScope scope)
         {
-            return new EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
+            return new EncounterController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

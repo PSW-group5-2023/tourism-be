@@ -10,17 +10,17 @@ namespace Explorer.API.Controllers.Tourist
     [Route("api/tourist/encounter")]
     public class EncounterController : BaseApiController
     {
-        private readonly IEncounterService _encounterService;
+        private readonly IChallengeService _challengeService;
 
-        public EncounterController(IEncounterService encounterController)
+        public EncounterController(IChallengeService challengeController)
         {
-            _encounterService = encounterController;
+            _challengeService = challengeController;
         }
 
         [HttpGet]
-        public ActionResult<PagedResult<EncounterDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<PagedResult<ChallengeDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _encounterService.GetPaged(page, pageSize);
+            var result = _challengeService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
     }

@@ -28,12 +28,12 @@ namespace Explorer.Encounters.Infrastructure
 
         private static void SetupCore(IServiceCollection services)
         {
-            services.AddScoped<IEncounterService, EncounterService>();
+            services.AddScoped<IChallengeService, ChallengeService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
-            services.AddScoped(typeof(ICrudRepository<Encounter>), typeof(CrudDatabaseRepository<Encounter, EncountersContext>));
+            services.AddScoped(typeof(ICrudRepository<Challenge>), typeof(CrudDatabaseRepository<Challenge, EncountersContext>));
 
             services.AddDbContext<EncountersContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("encounters"),

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Core.UseCases
 {
-    public class EncounterService : CrudService<EncounterDto, Encounter>, IEncounterService
+    public class ChallengeService : CrudService<ChallengeDto, Challenge>, IChallengeService
     {
-        public EncounterService(ICrudRepository<Encounter> crudRepository, IMapper mapper) : base(crudRepository, mapper)
+        public ChallengeService(ICrudRepository<Challenge> crudRepository, IMapper mapper) : base(crudRepository, mapper)
         {
         }
     }

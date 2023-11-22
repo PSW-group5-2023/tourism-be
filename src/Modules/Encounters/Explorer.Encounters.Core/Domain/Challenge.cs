@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Core.Domain
 {
-    public class Encounter : Entity
+    public class Challenge : Entity
     {
         public int AdministratorId { get; init; }
         public string Description { get; init; }
         public string Name { get; init; }
-        public EncounterStatus Status { get; init; }
-        public EncounterType Type { get; init; }
+        public ChallengeStatus Status { get; init; }
+        public ChallengeType Type { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; set; }
 
-        public Encounter(int administratorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude)
+        public Challenge(int administratorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude)
         {
             AdministratorId = administratorId;
             Description = description;
@@ -38,13 +38,13 @@ namespace Explorer.Encounters.Core.Domain
             if (Longitude is > 180 or < -180) throw new ArgumentException("Invalid longitude");
         }
     }
-    public enum EncounterStatus
+    public enum ChallengeStatus
     {
         Draft,
         Active,
         Archived
     }
-    public enum EncounterType
+    public enum ChallengeType
     {
         Social,
         Location,

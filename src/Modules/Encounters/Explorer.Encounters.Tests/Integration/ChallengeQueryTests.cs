@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Tests.Integration
 {
-    public class EncounterQueryTests : BaseEncountersIntegrationTest
+    public class ChallengeQueryTests : BaseEncountersIntegrationTest
     {
-        public EncounterQueryTests(EncountersTestFactory factory) : base(factory)
+        public ChallengeQueryTests(EncountersTestFactory factory) : base(factory)
         {
         }
 
@@ -30,7 +30,7 @@ namespace Explorer.Encounters.Tests.Integration
             var controller = CreateController(scope);
 
             // Act
-            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<EncounterDto>;
+            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<ChallengeDto>;
 
             // Assert
             result.ShouldNotBeNull();
@@ -40,7 +40,7 @@ namespace Explorer.Encounters.Tests.Integration
         
         private static EncounterController CreateController(IServiceScope scope)
         {
-            return new EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
+            return new EncounterController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

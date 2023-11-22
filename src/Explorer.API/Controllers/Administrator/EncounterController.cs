@@ -10,38 +10,38 @@ namespace Explorer.API.Controllers.Administrator
     [Route("api/administrator/encounter")]
     public class EncounterController : BaseApiController
     {
-        private readonly IEncounterService _encounterService;
+        private readonly IChallengeService _challengeService;
 
-        public EncounterController(IEncounterService encounterController)
+        public EncounterController(IChallengeService challengeController)
         {
-            _encounterService = encounterController;
+            _challengeService = challengeController;
         }
 
         [HttpGet]
-        public ActionResult<PagedResult<EncounterDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<PagedResult<ChallengeDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _encounterService.GetPaged(page, pageSize);
+            var result = _challengeService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
 
         [HttpPost]
-        public ActionResult<EncounterDto> Create([FromBody] EncounterDto encounterDto)
+        public ActionResult<ChallengeDto> Create([FromBody] ChallengeDto challengeDto)
         {
-            var result = _encounterService.Create(encounterDto);
+            var result = _challengeService.Create(challengeDto);
             return CreateResponse(result);
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<EncounterDto> Update([FromBody] EncounterDto encounterDto)
+        public ActionResult<ChallengeDto> Update([FromBody] ChallengeDto challengeDto)
         {
-            var result = _encounterService.Update(encounterDto);
+            var result = _challengeService.Update(challengeDto);
             return CreateResponse(result);
         }
 
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
-            var result = _encounterService.Delete(id);
+            var result = _challengeService.Delete(id);
             return CreateResponse(result);
         }
     }
