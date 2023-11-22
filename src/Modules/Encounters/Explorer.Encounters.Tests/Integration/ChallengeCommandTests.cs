@@ -146,9 +146,9 @@ namespace Explorer.Encounters.Tests.Integration
             result.StatusCode.ShouldBe(404);
         }
 
-        private static EncounterController CreateController(IServiceScope scope)
+        private static ChallengeController CreateController(IServiceScope scope)
         {
-            return new EncounterController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
+            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

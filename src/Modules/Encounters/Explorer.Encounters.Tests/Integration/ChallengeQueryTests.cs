@@ -38,9 +38,9 @@ namespace Explorer.Encounters.Tests.Integration
             result.TotalCount.ShouldBe(6);
         }
         
-        private static EncounterController CreateController(IServiceScope scope)
+        private static ChallengeController CreateController(IServiceScope scope)
         {
-            return new EncounterController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
+            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

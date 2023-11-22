@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
-    [Route("api/tourist/encounter")]
-    public class EncounterController : BaseApiController
+    [Route("api/tourist/challenge")]
+    public class ChallengeController : BaseApiController
     {
         private readonly IChallengeService _challengeService;
 
-        public EncounterController(IChallengeService challengeController)
+        public ChallengeController(IChallengeService challengeController)
         {
             _challengeService = challengeController;
         }

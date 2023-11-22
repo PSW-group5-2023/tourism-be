@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Explorer.API.Controllers.Administrator
 {
     [Authorize(Policy = "administratorPolicy")]
-    [Route("api/administrator/encounter")]
-    public class EncounterController : BaseApiController
+    [Route("api/administrator/challenge")]
+    public class ChallengeController : BaseApiController
     {
         private readonly IChallengeService _challengeService;
 
-        public EncounterController(IChallengeService challengeController)
+        public ChallengeController(IChallengeService challengeController)
         {
             _challengeService = challengeController;
         }
