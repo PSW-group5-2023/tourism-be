@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
@@ -117,5 +118,31 @@ namespace Explorer.Tours.Core.UseCases
 
             return Result.Ok();
         }
+
+        public Result<List<TourStatisticsDto>> GetSoldToursStatistics()
+        {
+            var boughtItems = shoppingCartRepository.GetAll();
+            var mostSoldToursStatistics = new List<TourStatisticsDto>();
+
+            foreach (var item in boughtItems)
+            {
+                var matchingStat = mostSoldToursStatistics.FirstOrDefault(stat => stat.TourId == item.TourId);
+
+                if (matchingStat != null)
+                {
+                    matchingStat.NumberOfStats += 1;
+                }
+                else
+                {
+                    TourStatisticsDto stat = new TourStatisticsDto();
+                    stat.TourId = item.TourId;
+                    stat.NumberOfStats = 1;
+                    mostSoldToursStatistics.Add(stat);
+                }
+            }
+
+            return mostSoldToursStatistics;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace Explorer.Tours.API.Public
         Result Create(List<BoughtItemDto> items);
         Result DeleteItem(long tourId, long userId);
         public Result UpdateItem(long userId, long tourId);
+        Result<List<TourStatisticsDto>> GetSoldToursStatistics();
     }
 }

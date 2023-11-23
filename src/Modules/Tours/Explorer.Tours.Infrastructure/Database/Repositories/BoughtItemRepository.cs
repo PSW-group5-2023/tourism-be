@@ -105,6 +105,10 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return tours;
         }
 
-
+        public List<BoughtItem> GetAll()
+        {
+            var query = _dbContext.BoughtItems;
+            return query.ToList();
+        }
     }
 }

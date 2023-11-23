@@ -16,5 +16,6 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 
         void DeleteItem(long tourId, long userId);
         void GetItemToUpdate(long userId, long tourId);
+        List<BoughtItem> GetAll();
     }
 }
