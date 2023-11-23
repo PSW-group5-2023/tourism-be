@@ -9,6 +9,6 @@ namespace Explorer.Tours.API.Dtos.Statistics
     public class TourStatisticsDto
     {
         public long TourId { get; set; }
-        public long NumberOfStats { get; set; }
+        public double NumberOfStats { get; set; }
     }
 }

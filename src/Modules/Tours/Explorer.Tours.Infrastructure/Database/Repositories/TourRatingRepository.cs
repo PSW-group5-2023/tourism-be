@@ -22,5 +22,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             var tourRatings = _dbContext.TourRatings.Where(x => x.TourId == tourId).ToList();
             return tourRatings;
         }
+
+        public List<TourRating> GetAll()
+        {
+            var query = _dbContext.TourRatings;
+            return query.ToList();
+        }
+
     }
 }
