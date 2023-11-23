@@ -35,6 +35,7 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             return entity;
         }
 
+
         public List<Person> GetAuthorsAndTourists()
         {
             var query = from person in _dbContext.People
