@@ -144,5 +144,41 @@ namespace Explorer.Tours.Core.UseCases.Execution
             return abandonedStatistics;
         }
 
+        public Result<TourStatisticsDto> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var abandonedStatistics = new TourStatisticsDto();
+            TourStatisticsDto stat = new TourStatisticsDto();
+            stat.TourId = tourId;
+            int number = 0;
+            SessionStatus status;
+
+            switch (sessionStatus)
+            {
+                case 0:
+                    status = SessionStatus.ACTIVE;
+                    break;
+                case 1:
+                    status = SessionStatus.COMPLETED;
+                    break;
+                case 2:
+                    status = SessionStatus.ABANDONED;
+                    break;
+                default:
+                    return null;
+            }
+
+            foreach (var session in sessions)
+            {
+
+                if (session.TourId == tourId && session.SessionStatus == status)
+                {
+                    number++;
+                }
+            }        
+            stat.NumberOfStats = number;
+            return stat;
+
+        }
     }
 }
