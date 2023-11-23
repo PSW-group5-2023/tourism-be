@@ -50,7 +50,7 @@ public class TourProblemQueryTests : BaseToursIntegrationTest
             Time = DateTime.Parse("2023-11-11T17: 03:36.2030688Z").ToUniversalTime(),
             IsSolved = false,
             Messages = messages,
-            Deadline = DateTime.Parse("2023-11-20T17: 03:36.2030688Z").ToUniversalTime()
+            Deadline = DateTime.Parse("2024-11-20T17: 03:36.2030688Z").ToUniversalTime()
         };
         // Act
         var result = ((ObjectResult)controller.GiveDeadline(newTourProblem).Result)?.Value as TourProblemDto;
