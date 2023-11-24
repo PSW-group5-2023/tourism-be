@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Explorer.Tours.API.Internal;
 using Explorer.Payments.API.Dtos.Statistics;
+using Explorer.Payments.API.Dtos.ListedTours;
 
 namespace Explorer.Payments.Core.UseCases
 {
