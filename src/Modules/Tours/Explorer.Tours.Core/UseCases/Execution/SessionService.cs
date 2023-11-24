@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
@@ -8,6 +9,7 @@ using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,6 +84,101 @@ namespace Explorer.Tours.Core.UseCases.Execution
         {
             var result = _sessionRepository.GetByTourAndTouristId(tourId,touristId);
             return MapToDto(result);
+        }
+
+
+        public Result<List<TourStatisticsDto>> GetAttendanceStatistics()
+        {
+            var sessions = _sessionRepository.GetAll();
+            var attendanceStatistics = new List<TourStatisticsDto>();
+
+            foreach (var session in sessions)
+            {
+                var matchingStat = attendanceStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
+
+                
+                if (session.SessionStatus == SessionStatus.ACTIVE || session.SessionStatus == SessionStatus.COMPLETED)
+                {
+                    if (matchingStat != null)
+                    {
+                        matchingStat.NumberOfStats += 1;
+                    }
+                    else
+                    {
+                        TourStatisticsDto stat = new TourStatisticsDto();
+                        stat.TourId = session.TourId;
+                        stat.NumberOfStats = 1;
+                        attendanceStatistics.Add(stat);
+                    }
+                }
+            }
+
+            return attendanceStatistics;
+        }
+
+        public Result<List<TourStatisticsDto>> GetAbandonedStatistics()
+        {
+            var sessions = _sessionRepository.GetAll();
+            var abandonedStatistics = new List<TourStatisticsDto>();
+
+            foreach (var session in sessions)
+            {
+                var matchingStat = abandonedStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
+
+                if(session.SessionStatus == SessionStatus.ABANDONED)
+                {
+                    if (matchingStat != null)
+                    {
+                        matchingStat.NumberOfStats += 1;
+                    }
+                    else
+                    {
+                        TourStatisticsDto stat = new TourStatisticsDto();
+                        stat.TourId = session.TourId;
+                        stat.NumberOfStats = 1;
+                        abandonedStatistics.Add(stat);
+                    }
+                }
+            }
+
+            return abandonedStatistics;
+        }
+
+        public Result<TourStatisticsDto> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var abandonedStatistics = new TourStatisticsDto();
+            TourStatisticsDto stat = new TourStatisticsDto();
+            stat.TourId = tourId;
+            int number = 0;
+            SessionStatus status;
+
+            switch (sessionStatus)
+            {
+                case 0:
+                    status = SessionStatus.ACTIVE;
+                    break;
+                case 1:
+                    status = SessionStatus.COMPLETED;
+                    break;
+                case 2:
+                    status = SessionStatus.ABANDONED;
+                    break;
+                default:
+                    return null;
+            }
+
+            foreach (var session in sessions)
+            {
+
+                if (session.TourId == tourId && session.SessionStatus == status)
+                {
+                    number++;
+                }
+            }        
+            stat.NumberOfStats = number;
+            return stat;
+
         }
     }
 }

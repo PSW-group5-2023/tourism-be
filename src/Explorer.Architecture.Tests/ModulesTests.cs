@@ -91,7 +91,7 @@ public class ModulesTests : BaseArchitecturalTests
         },
         new object[]
         {
-            "Payments"
+            "Tours"
         },
         new object[]
         {
@@ -99,7 +99,11 @@ public class ModulesTests : BaseArchitecturalTests
         },
         new object[]
         {
-            "Tours"
+            "Encounters"
+        },
+        new object[]
+        {
+            "Payments"
         }
     };
 }

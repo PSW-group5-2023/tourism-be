@@ -1,4 +1,6 @@
 ﻿using Explorer.Payments.API.Dtos;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,8 @@ namespace Explorer.Payments.API.Public
         Result Create(List<BoughtItemDto> items);
         Result DeleteItem(long tourId, long userId);
         Result UpdateItem(long userId, long tourId);
-        Result<List<ListedTourDto>> GetUnusedTours(int userId);
-        Result<List<ListedTourDto>> GetUsedTours(int userId);
+        Result<List<ListedTourDto>> GetUnusedTours(long userId);
+        Result<List<ListedTourDto>> GetUsedTours(long userId);
+        Result<List<TourStatisticsDto>> GetSoldToursStatistics();
     }
 }

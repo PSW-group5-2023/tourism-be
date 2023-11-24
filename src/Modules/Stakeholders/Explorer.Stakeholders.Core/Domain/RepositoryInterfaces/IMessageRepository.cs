@@ -6,5 +6,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
     {
         Message Create(Message entity);
         PagedResult<Message> GetPaged(int page, int pageSize);
+        void Delete(int messageId);
+
     }
 }

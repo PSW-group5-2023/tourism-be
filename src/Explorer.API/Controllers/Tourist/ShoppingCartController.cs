@@ -24,13 +24,14 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet]
-        public ActionResult<BoughtItemDto> GetUnusedItems(int userId)
+        public ActionResult<BoughtItemDto> GetUnusedItems(long userId)
         {
             return CreateResponse(shoppingCartService.GetUnusedTours(userId));
         }
 
-        [HttpGet("{userId:int}")]
-        public ActionResult<BoughtItemDto> GetUsedItems(int userId)
+        [AllowAnonymous]
+        [HttpGet("{userId:long}")]
+        public ActionResult<BoughtItemDto> GetUsedItems(long userId)
         {
             return CreateResponse(shoppingCartService.GetUsedTours(userId));
         }

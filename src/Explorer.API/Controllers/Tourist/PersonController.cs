@@ -30,6 +30,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("followers/{id:int}")]
         public ActionResult<List<PersonDto>> GetAllFollowers(int id) 
         {
@@ -37,6 +38,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("followings/{id:int}")]
         public ActionResult<List<PersonDto>> GetAllFollowings(int id)
         {

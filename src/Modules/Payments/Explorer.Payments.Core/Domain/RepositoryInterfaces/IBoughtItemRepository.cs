@@ -12,6 +12,7 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
         BoughtItem AddToCart(BoughtItem item);
         void DeleteItem(long tourId, long userId);
         void GetItemToUpdate(long userId, long tourId);
+        List<BoughtItem> GetAll();
         List<BoughtItem> GetAllByUserId(int userId);
     }
 }
