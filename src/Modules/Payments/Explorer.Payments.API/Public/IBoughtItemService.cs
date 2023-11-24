@@ -1,4 +1,5 @@
 ﻿using Explorer.Payments.API.Dtos;
+using Explorer.Payments.API.Dtos.ListedTours;
 using Explorer.Payments.API.Dtos.Statistics;
 using FluentResults;
 using System;

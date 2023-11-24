@@ -1,4 +1,4 @@
-﻿namespace Explorer.Payments.API.Dtos
+﻿namespace Explorer.Payments.API.Dtos.ListedTours
 {
     public class ListedTourDto
     {
