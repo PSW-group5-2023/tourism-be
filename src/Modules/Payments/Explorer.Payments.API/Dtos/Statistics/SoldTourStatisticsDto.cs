@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Payments.API.Dtos.Statistics
 {
-    public class TourStatisticsDto
+    public class SoldTourStatisticsDto
     {
         public long TourId { get; set; }
         public double NumberOfStats { get; set; }

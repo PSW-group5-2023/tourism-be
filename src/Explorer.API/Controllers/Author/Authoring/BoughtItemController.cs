@@ -17,7 +17,7 @@ namespace Explorer.API.Controllers.Author.Authoring
         }
 
         [HttpGet("getMostSoldStats")]
-        public ActionResult<List<TourStatisticsDto>> GetSoldToursStatistics()
+        public ActionResult<List<SoldTourStatisticsDto>> GetSoldToursStatistics()
         {
             var result = _boughtItemService.GetSoldToursStatistics();
             return CreateResponse(result);

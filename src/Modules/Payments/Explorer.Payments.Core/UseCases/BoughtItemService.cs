@@ -106,10 +106,10 @@ namespace Explorer.Payments.Core.UseCases
             return Result.Ok();
         }
 
-        public Result<List<TourStatisticsDto>> GetSoldToursStatistics()
+        public Result<List<SoldTourStatisticsDto>> GetSoldToursStatistics()
         {
             var boughtItems = shoppingCartRepository.GetAll();
-            var mostSoldToursStatistics = new List<TourStatisticsDto>();
+            var mostSoldToursStatistics = new List<SoldTourStatisticsDto>();
 
             foreach (var item in boughtItems)
             {
@@ -121,7 +121,7 @@ namespace Explorer.Payments.Core.UseCases
                 }
                 else
                 {
-                    TourStatisticsDto stat = new TourStatisticsDto();
+                    SoldTourStatisticsDto stat = new SoldTourStatisticsDto();
                     stat.TourId = item.TourId;
                     stat.NumberOfStats = 1;
                     mostSoldToursStatistics.Add(stat);
