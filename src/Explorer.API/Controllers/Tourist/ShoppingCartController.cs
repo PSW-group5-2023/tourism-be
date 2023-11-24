@@ -27,6 +27,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(shoppingCartService.GetUnusedTours(userId));
         }
 
+        [AllowAnonymous]
         [HttpGet("{userId:long}")]
         public ActionResult<BoughtItemDto> GetUsedItems(long userId)
         {

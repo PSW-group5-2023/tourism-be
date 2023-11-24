@@ -16,9 +16,11 @@ namespace Explorer.Stakeholders.Core.UseCases
     public class PersonService : BaseService<PersonDto, Person>, IPersonService
     {
         private readonly IPersonRepository _personRepository;
-        public PersonService(IPersonRepository personRepository, IMapper mapper) : base(mapper)
+        private readonly IUserRepository _userRepository;
+        public PersonService(IPersonRepository personRepository, IUserRepository userRepository, IMapper mapper) : base(mapper)
         {
             _personRepository = personRepository;
+            _userRepository = userRepository;
         }
 
         public Result<PersonDto> Get(int id)
@@ -46,7 +48,25 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<List<PersonDto>> GetAuthorsAndTourists()
         {
-            return MapToDto(_personRepository.GetAuthorsAndTourists());
+            var authorsAndTourists = _personRepository.GetAuthorsAndTourists();
+            List<PersonDto> result = new List<PersonDto>();
+
+            for (int i = 0; i < authorsAndTourists.Count; i++)
+            {
+                result.Add(new PersonDto
+                {
+                    Id = authorsAndTourists[i].Id,
+                    UserId = authorsAndTourists[i].UserId,
+                    Name = authorsAndTourists[i].Name,
+                    Surname = authorsAndTourists[i].Surname,
+                    Email = authorsAndTourists[i].Email,
+                    ProfilePic = authorsAndTourists[i].ProfilePic,
+                    Biography = authorsAndTourists[i].Biography,
+                    Motto = authorsAndTourists[i].Motto,
+                    Role = _userRepository.Get(authorsAndTourists[i].UserId).Role.ToString().ToLower()
+                });   
+            }
+            return result;
         }
 
         public Result<PersonDto> Update(PersonDto person)

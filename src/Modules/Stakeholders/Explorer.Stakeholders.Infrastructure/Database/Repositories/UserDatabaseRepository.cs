@@ -16,6 +16,13 @@ public class UserDatabaseRepository : IUserRepository
     {
         return _dbContext.Users.Any(user => user.Username == username);
     }
+    public User? Get(long userId)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+        if (user == null) throw new KeyNotFoundException("Not found");
+        return user;
+    }
+
 
     public User? GetActiveByName(string username)
     {
