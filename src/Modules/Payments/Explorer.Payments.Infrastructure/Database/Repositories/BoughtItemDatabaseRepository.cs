@@ -1,23 +1,22 @@
-﻿using Explorer.Stakeholders.Core.Domain;
-using Explorer.Tours.Core.Domain;
-using Explorer.Tours.Core.Domain.RepositoryInterfaces;
-using Explorer.Tours.Core.Domain.Tours;
+﻿using Explorer.Payments.Core.Domain.RepositoryInterfaces;
+using Explorer.Payments.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Explorer.Payments.Infrastructure.Database;
 
-namespace Explorer.Tours.Infrastructure.Database.Repositories
+namespace Explorer.Payments.Infrastructure.Database.Repositories
 {
-    public class BoughtItemRepository : IBoughtItemRepository
+    public class BoughtItemDatabaseRepository : IBoughtItemRepository
     {
-        private readonly ToursContext _dbContext;
+        private readonly PaymentsContext _dbContext;
 
-        public BoughtItemRepository(ToursContext dbContext)
+        public BoughtItemDatabaseRepository(PaymentsContext context)
         {
-            _dbContext = dbContext;
+            _dbContext = context;
         }
 
         public BoughtItem AddToCart(BoughtItem item)
@@ -27,28 +26,6 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
             return item;
 
-        }
-        public List<Tour> GetUnusedTours(long userId)
-        {
-            List<BoughtItem> boughtItems = new List<BoughtItem>();
-            List<Tour> tours = new List<Tour>();
-
-            foreach(BoughtItem item in _dbContext.BoughtItems)
-            {
-                if (item.UserId == userId && !item.IsUsed) boughtItems.Add(item);
-            }
-
-            foreach(var item in boughtItems) 
-            {
-                tours.Add(_dbContext.Tour.Find(item.TourId));
-            }
-
-            return tours;
-        }
-
-        public void UpdateItem(long userId, long itemId)
-        {
-            throw new NotImplementedException();
         }
 
         public void DeleteItem(long tourId, long userId)
@@ -85,24 +62,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
+
         }
 
-        public List<Tour> GetUsedTours(long userId)
+        public List<BoughtItem> GetAllByUserId(long userId)
         {
-            List<BoughtItem> boughtItems = new List<BoughtItem>();
-            List<Tour> tours = new List<Tour>();
-
-            foreach (BoughtItem item in _dbContext.BoughtItems)
-            {
-                if (item.UserId == userId && item.IsUsed) boughtItems.Add(item);
-            }
-
-            foreach (var item in boughtItems)
-            {
-                tours.Add(_dbContext.Tour.Find(item.TourId));
-            }
-
-            return tours;
+            return _dbContext.BoughtItems.Where(i => i.UserId == userId).ToList();
         }
 
         public List<BoughtItem> GetAll()

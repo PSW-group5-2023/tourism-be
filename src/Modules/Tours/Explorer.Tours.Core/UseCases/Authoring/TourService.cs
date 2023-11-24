@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
+using Microsoft.AspNetCore.SignalR;
+using System.Dynamic;
 
 namespace Explorer.Tours.Core.UseCases.Authoring
 {
-    public class TourService : CrudService<TourDto, Tour>, ITourService
+    public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
         private readonly ITourRepository _tourRepository;
 

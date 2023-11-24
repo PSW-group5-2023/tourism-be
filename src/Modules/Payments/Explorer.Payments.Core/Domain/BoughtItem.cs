@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Payments.Core.Domain
 {
     public class BoughtItem : Entity
     {
 
-        public long UserId { get; init; }
-        public long TourId { get; init; }        
+        public int UserId { get; init; }
+        public int TourId { get; init; }
         public DateTime? DateOfBuying { get; init; }
 
         public bool IsUsed { get; init; }
 
-        public BoughtItem(long userId, long tourId)
+        public BoughtItem(int userId, int tourId)
         {
             UserId = userId;
             TourId = tourId;
