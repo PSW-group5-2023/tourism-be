@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Explorer.Tours.API.Internal;
+using Explorer.Payments.API.Dtos.Statistics;
 
 namespace Explorer.Payments.Core.UseCases
 {
@@ -28,7 +29,7 @@ namespace Explorer.Payments.Core.UseCases
         }
 
 
-        public Result<List<ListedTourDto>> GetUnusedTours(int userId)
+        public Result<List<ListedTourDto>> GetUnusedTours(long userId)
         {
             List<ListedTourDto> tourDtos = new List<ListedTourDto>();
             foreach (BoughtItem item in shoppingCartRepository.GetAllByUserId(userId))
@@ -44,7 +45,7 @@ namespace Explorer.Payments.Core.UseCases
             return tourDtos;
         }
 
-        public Result<List<ListedTourDto>> GetUsedTours(int userId)
+        public Result<List<ListedTourDto>> GetUsedTours(long userId)
         {
             List<ListedTourDto> tourDtos = new List<ListedTourDto>();
             foreach (BoughtItem item in shoppingCartRepository.GetAllByUserId(userId))
@@ -103,6 +104,31 @@ namespace Explorer.Payments.Core.UseCases
             }
 
             return Result.Ok();
+        }
+
+        public Result<List<TourStatisticsDto>> GetSoldToursStatistics()
+        {
+            var boughtItems = shoppingCartRepository.GetAll();
+            var mostSoldToursStatistics = new List<TourStatisticsDto>();
+
+            foreach (var item in boughtItems)
+            {
+                var matchingStat = mostSoldToursStatistics.FirstOrDefault(stat => stat.TourId == item.TourId);
+
+                if (matchingStat != null)
+                {
+                    matchingStat.NumberOfStats += 1;
+                }
+                else
+                {
+                    TourStatisticsDto stat = new TourStatisticsDto();
+                    stat.TourId = item.TourId;
+                    stat.NumberOfStats = 1;
+                    mostSoldToursStatistics.Add(stat);
+                }
+            }
+
+            return mostSoldToursStatistics;
         }
     }
 }

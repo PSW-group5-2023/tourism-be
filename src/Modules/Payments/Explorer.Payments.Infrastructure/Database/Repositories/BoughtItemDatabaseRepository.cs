@@ -65,9 +65,15 @@ namespace Explorer.Payments.Infrastructure.Database.Repositories
 
         }
 
-        public List<BoughtItem> GetAllByUserId(int userId)
+        public List<BoughtItem> GetAllByUserId(long userId)
         {
             return _dbContext.BoughtItems.Where(i => i.UserId == userId).ToList();
+        }
+
+        public List<BoughtItem> GetAll()
+        {
+            var query = _dbContext.BoughtItems;
+            return query.ToList();
         }
     }
 }

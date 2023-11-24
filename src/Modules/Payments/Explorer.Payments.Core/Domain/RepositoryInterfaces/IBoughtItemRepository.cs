@@ -13,6 +13,6 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
         void DeleteItem(long tourId, long userId);
         void GetItemToUpdate(long userId, long tourId);
         List<BoughtItem> GetAll();
-        List<BoughtItem> GetAllByUserId(int userId);
+        List<BoughtItem> GetAllByUserId(long userId);
     }
 }

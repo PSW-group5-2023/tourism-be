@@ -1,6 +1,5 @@
 ﻿using Explorer.Payments.API.Dtos;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Dtos.Statistics;
+using Explorer.Payments.API.Dtos.Statistics;
 using FluentResults;
 using System;
 using System.Collections.Generic;
