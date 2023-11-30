@@ -34,5 +34,12 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        //[AllowAnonymous]
+        //[HttpPut("{id:int}")]
+        //public ActionResult<TourDto> SearchByPublicKeypoints()
+        //{
+        //    return CreateResponse(result);
+        //}
+
     }
 }
