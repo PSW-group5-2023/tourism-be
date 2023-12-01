@@ -195,7 +195,7 @@ namespace Explorer.Encounters.Tests.Integration
 
             // Assert - Response
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(-1);
+            result.Id.ShouldBe(-2);
             result.Name.ShouldBe(updatedEntity.Name);
             result.Description.ShouldBe(updatedEntity.Description);
         }

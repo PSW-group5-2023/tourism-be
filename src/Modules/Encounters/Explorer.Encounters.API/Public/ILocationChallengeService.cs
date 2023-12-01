@@ -13,5 +13,7 @@ namespace Explorer.Encounters.API.Public
     {      
         Result<LocationChallengeDto> Create(LocationChallengeDto challengeDto);
         Result<PagedResult<LocationChallengeDto>> GetPaged(int page, int pageSize);
+        Result<LocationChallengeDto> Update(LocationChallengeDto challengeDto);
+        Result Delete(int id);
     }
 }
