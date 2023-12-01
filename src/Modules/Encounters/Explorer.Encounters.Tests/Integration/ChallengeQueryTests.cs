@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Tests.Integration
 {
+    [Collection("Sequential")]
     public class ChallengeQueryTests : BaseEncountersIntegrationTest
     {
         public ChallengeQueryTests(EncountersTestFactory factory) : base(factory)
@@ -39,7 +40,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void RetrievesAllLocationChallange()
+        public void Retrieves_location_challenge_all()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();

@@ -61,5 +61,17 @@ namespace Explorer.API.Controllers.Administrator
             var result = _locationChallengeService.Create(challangeDto);
             return CreateResponse(result);
         }
+
+        [HttpPut("location/{id:int}")]
+        public ActionResult<ChallengeDto> UpdateLocationChallenge([FromBody] LocationChallengeDto challengeDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("location/{id:int}")]
+        public ActionResult DeleteLocationChallenge(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

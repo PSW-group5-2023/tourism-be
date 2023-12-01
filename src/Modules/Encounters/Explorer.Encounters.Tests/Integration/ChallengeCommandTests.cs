@@ -59,95 +59,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Create_fails_invalid_data()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var updatedEntity = new ChallengeDto
-            {
-                Status = 20
-            };
-
-            // Act
-            var result = (ObjectResult)controller.Create(updatedEntity).Result;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
-
-        [Fact]
-        public void Updates()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
-            var updatedEntity = new ChallengeDto
-            {
-                Id = -1,
-                AdministratorId = -1,
-                Name = "Update",
-                Description = "update test"
-            };
-
-            // Act
-            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as ChallengeDto;
-
-            // Assert - Response
-            result.ShouldNotBeNull();
-            result.Id.ShouldBe(-1);
-            result.Name.ShouldBe(updatedEntity.Name);
-            result.Description.ShouldBe(updatedEntity.Description);
-
-            // Assert - Database
-            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Update");
-            storedEntity.ShouldNotBeNull();
-            storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Skrivene staze");
-            oldEntity.ShouldBeNull();
-        }
-
-        [Fact]
-        public void Update_fails_invalid_id()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var updatedEntity = new ChallengeDto
-            {
-                Id = -1000,
-                AdministratorId = -1,
-                Name = "Test",
-                Description = "failed update test"
-            };
-
-            // Act
-            var result = (ObjectResult)controller.Update(updatedEntity).Result;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
-        }
-
-        [Fact]
-        public void Delete_fails_invalid_id()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Act
-            var result = (ObjectResult)controller.Delete(-1000);
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
-        }
-
-        [Fact]
-        public void CreatesLocationChallange()
+        public void Creates_location_challange()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -191,6 +103,157 @@ namespace Explorer.Encounters.Tests.Integration
             storedEntity.Id.ShouldBe(result.Id);
 
         }
+
+        [Fact]
+        public void Create_fails_invalid_data()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var updatedEntity = new ChallengeDto
+            {
+                Status = 20
+            };
+
+            // Act
+            var result = (ObjectResult)controller.Create(updatedEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(400);
+        }
+
+        [Fact]
+        public void Create_location_challenge_fails_invalid_data()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var newEntity = new LocationChallengeDto
+            {
+                Status = 20
+            };
+
+            // Act
+            var result = (ObjectResult)controller.CreateLocationChallange(newEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(400);
+        }
+
+        [Fact]
+        public void Updates()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+            var updatedEntity = new ChallengeDto
+            {
+                Id = -1,
+                AdministratorId = -1,
+                Name = "Update",
+                Description = "update test"
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as ChallengeDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-1);
+            result.Name.ShouldBe(updatedEntity.Name);
+            result.Description.ShouldBe(updatedEntity.Description);
+
+            // Assert - Database
+            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Update");
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Description.ShouldBe(updatedEntity.Description);
+            var oldEntity = dbContext.Challenges.FirstOrDefault(i => i.Name == "Skrivene staze");
+            oldEntity.ShouldBeNull();
+        }
+
+        [Fact]
+        public void Updates_location_challenge()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+            var updatedEntity = new LocationChallengeDto
+            {
+                Id = -2,
+                AdministratorId = -4,
+                Name = "Update name",
+                Description = "update test",
+                Image = "https://upload.wikimedia.org/wikipedia/commons/1/1f/Katedrala_Novi_Sad_-_Srbija.JPG"
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.UpdateLocationChallenge(updatedEntity).Result)?.Value as LocationChallengeDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-1);
+            result.Name.ShouldBe(updatedEntity.Name);
+            result.Description.ShouldBe(updatedEntity.Description);
+        }
+
+        [Fact]
+        public void Update_fails_invalid_id()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var updatedEntity = new ChallengeDto
+            {
+                Id = -1000,
+                AdministratorId = -1,
+                Name = "Test",
+                Description = "failed update test"
+            };
+
+            // Act
+            var result = (ObjectResult)controller.Update(updatedEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
+        }
+
+        [Fact]
+        public void Delete_fails_invalid_id()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.Delete(-1000);
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
+        }
+
+        [Fact]
+        public void Deletes_location_challenge()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+
+            // Act
+            var result = (OkResult)controller.DeleteLocationChallenge(-5);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
+
+        }
+
 
         private static ChallengeController CreateController(IServiceScope scope)
         {
