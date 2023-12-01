@@ -12,5 +12,6 @@ namespace Explorer.Encounters.API.Public
     public interface ILocationChallengeService
     {      
         Result<LocationChallengeDto> Create(LocationChallengeDto challengeDto);
+        Result<PagedResult<LocationChallengeDto>> GetPaged(int page, int pageSize);
     }
 }

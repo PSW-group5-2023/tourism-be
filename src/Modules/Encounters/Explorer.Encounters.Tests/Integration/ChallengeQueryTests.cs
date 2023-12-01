@@ -50,6 +50,8 @@ namespace Explorer.Encounters.Tests.Integration
 
             //Assert
             result.ShouldNotBe(null);
+            result.Results.Count.ShouldBe(2);
+            result.TotalCount.ShouldBe(2);
         }
 
         private static ChallengeController CreateController(IServiceScope scope)

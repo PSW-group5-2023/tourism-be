@@ -51,7 +51,8 @@ namespace Explorer.API.Controllers.Administrator
         [HttpGet("location")]
         public ActionResult<PagedResult<LocationChallengeDto>> GetAllLocationChallenge([FromQuery] int page, [FromQuery] int pageSize)
         {
-            throw new NotImplementedException();
+            var result = _locationChallengeService.GetPaged(page,pageSize);
+            return CreateResponse(result);
         }
 
         [HttpPost("location")]
