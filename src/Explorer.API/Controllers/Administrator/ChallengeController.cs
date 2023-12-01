@@ -3,6 +3,7 @@ using Explorer.Encounters.API.Public;
 using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Explorer.Tours.API.Dtos;
 
 namespace Explorer.API.Controllers.Administrator
 {
@@ -45,6 +46,12 @@ namespace Explorer.API.Controllers.Administrator
         {
             var result = _challengeService.Delete(id);
             return CreateResponse(result);
+        }
+
+        [HttpGet("location")]
+        public ActionResult<PagedResult<LocationChallengeDto>> GetAllLocationChallenge([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost("location")]

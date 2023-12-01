@@ -185,6 +185,11 @@ namespace Explorer.Encounters.Tests.Integration
             result.LongitudeImage.ShouldBe(newEntity.LongitudeImage);
             result.Range.ShouldBe(newEntity.Range);
 
+            // Assert - Database
+            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Id == result.Id);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(result.Id);
+
         }
 
         private static ChallengeController CreateController(IServiceScope scope)
