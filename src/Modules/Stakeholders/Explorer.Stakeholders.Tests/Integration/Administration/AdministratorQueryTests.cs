@@ -1,5 +1,6 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Public;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Tours.API.Dtos;
@@ -37,7 +38,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
         }
         private static UserInformationController CreateController(IServiceScope scope)
         {
-            return new UserInformationController(scope.ServiceProvider.GetRequiredService<IUserInformationService>(), scope.ServiceProvider.GetRequiredService<IPersonInformationService>(),scope.ServiceProvider.GetRequiredService<IUserActivityService>())
+            return new UserInformationController(scope.ServiceProvider.GetRequiredService<IUserInformationService>(), scope.ServiceProvider.GetRequiredService<IPersonInformationService>(),scope.ServiceProvider.GetRequiredService<IUserActivityService>(), scope.ServiceProvider.GetRequiredService<IWalletService>())
             {
                 ControllerContext = BuildContext("-1")
             };

@@ -29,11 +29,13 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<IWalletService, WalletService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
+            services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
 
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),
