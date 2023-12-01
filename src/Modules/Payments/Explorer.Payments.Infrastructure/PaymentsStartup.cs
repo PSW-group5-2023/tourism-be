@@ -29,6 +29,7 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<IBundleService, BundleService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
