@@ -44,5 +44,11 @@ namespace Explorer.API.Controllers.Administrator
             var result = _challengeService.Delete(id);
             return CreateResponse(result);
         }
+
+        [HttpPost("location")]
+        public ActionResult<LocationChallangeDto> CreateLocationChallange([FromBody] LocationChallangeDto challangeDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

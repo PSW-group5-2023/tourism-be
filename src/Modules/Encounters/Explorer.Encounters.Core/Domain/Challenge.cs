@@ -16,7 +16,7 @@ namespace Explorer.Encounters.Core.Domain
         public ChallengeStatus Status { get; init; }
         public ChallengeType Type { get; init; }
         public double Latitude { get; init; }
-        public double Longitude { get; set; }
+        public double Longitude { get; init; }
 
         public Challenge(int administratorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude)
         {
