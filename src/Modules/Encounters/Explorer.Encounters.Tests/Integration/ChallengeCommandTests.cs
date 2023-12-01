@@ -146,6 +146,47 @@ namespace Explorer.Encounters.Tests.Integration
             result.StatusCode.ShouldBe(404);
         }
 
+        [Fact]
+        public void CreatesLocationChallange()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+            var newEntity = new LocationChallengeDto
+            {
+                AdministratorId = -1,
+                Description = "Pronadji datu sliku, tacnije mjesto sa koje je slika uslikana i zadrzi se 30 sekundi tacno na toj lokaciji.",
+                Name = "Izazov 1",
+                Status = 0,
+                Type = 1,
+                Longitude = 50,
+                Latitude = 50,
+                Image = "https://upload.wikimedia.org/wikipedia/commons/1/1f/Katedrala_Novi_Sad_-_Srbija.JPG",
+                LatitudeImage = 49.8213,
+                LongitudeImage = 19.2318,
+                Range = 15
+            };
+
+
+            // Act
+            var result = ((ObjectResult)controller.CreateLocationChallange(newEntity).Result)?.Value as LocationChallengeDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldNotBe(0);
+            result.Name.ShouldBe(newEntity.Name);
+            result.Description.ShouldBe(newEntity.Description);
+            result.Type.ShouldBe(newEntity.Type);
+            result.Longitude.ShouldBe(newEntity.Longitude);
+            result.Latitude.ShouldBe(newEntity.Latitude);
+            result.Image.ShouldBe(newEntity.Image);
+            result.LatitudeImage.ShouldBe(newEntity.LatitudeImage);
+            result.LongitudeImage.ShouldBe(newEntity.LongitudeImage);
+            result.Range.ShouldBe(newEntity.Range);
+
+        }
+
         private static ChallengeController CreateController(IServiceScope scope)
         {
             return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>(), scope.ServiceProvider.GetRequiredService<ILocationChallengeService>())
