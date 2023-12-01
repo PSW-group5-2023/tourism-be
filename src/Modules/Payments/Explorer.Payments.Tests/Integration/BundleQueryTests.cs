@@ -25,7 +25,7 @@ namespace Explorer.Payments.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
-            var result = ((ObjectResult)controller.GetAll().Result)?.Value as List<BundleDto>;
+            var result = ((ObjectResult)controller.GetAll(0,0).Result)?.Value as List<BundleDto>;
 
             result.ShouldNotBeNull();
             result.Count.ShouldBe(5);

@@ -40,13 +40,11 @@ namespace Explorer.Payments.Tests.Integration
 
             // Assert - Database
 
-            //skloniti komentar nakon implementacije modela
-
-            //if (result.StatusCode != 400)
-            //{
-            //    var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleDto.Id);
-            //    storedEntity.ShouldNotBeNull();
-            //}
+            if (result.StatusCode != 400)
+            {
+                var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleDto.Id);
+                storedEntity.ShouldNotBeNull();
+            }
         }
         public static IEnumerable<object[]> BundleCreateDtos()
         {
@@ -57,8 +55,9 @@ namespace Explorer.Payments.Tests.Integration
                         new BundleDto{
                             Id=-9,
                             Name="bundle4",
+                            Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>(-13)
+                            ToursId=new List<int>{-13 }
                             
                         },
                         200
@@ -68,7 +67,8 @@ namespace Explorer.Payments.Tests.Integration
                         new BundleDto{
                             Id=-10,
                             Name="bundle5",
-                            ToursId=new List<int>(-13)
+                            Price=120,
+                            ToursId=new List<int>{-13 }
 
                         },
                         400
@@ -96,12 +96,12 @@ namespace Explorer.Payments.Tests.Integration
             // Assert - Database
 
 
-            //if(result.StatusCode != 400)
-            //{
-            //    var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundle.Id);
-            //    storedEntity.ShouldNotBeNull();
-            //}
-            
+            if (result.StatusCode != 400)
+            {
+                var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundle.Id);
+                storedEntity.ShouldNotBeNull();
+            }
+
         }
 
         public static IEnumerable<object[]> BundleUpdateDtos()
@@ -113,8 +113,9 @@ namespace Explorer.Payments.Tests.Integration
                         new BundleDto{
                             Id=-9,
                             Name="bundle8",
+                            Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>(-13)
+                            ToursId=new List<int>{-13 }
 
                         },
                         200
@@ -124,8 +125,9 @@ namespace Explorer.Payments.Tests.Integration
                         new BundleDto{
                             Id=-10,
                             Name="bundle5",
+                            Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>(-13)
+                            ToursId=new List<int>{-13 }
 
                         },
                         400
@@ -135,7 +137,7 @@ namespace Explorer.Payments.Tests.Integration
 
         [Theory]
         [InlineData(-9, 200)]
-        [InlineData(-10, 400)]
+        [InlineData(-10, 404)]
         public void Delete_comment_fail(int bundleId, int expectedResponseCode)
         {
             // Arrange
@@ -151,12 +153,12 @@ namespace Explorer.Payments.Tests.Integration
 
             //Assert - Database
 
-            //if (expectedResponseCode != 400)
-            //{
-            //    var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleId);
-            //    storedEntity.ShouldBeNull();
-            //}
-            
+            if (expectedResponseCode != 400)
+            {
+                var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleId);
+                storedEntity.ShouldBeNull();
+            }
+
         }
 
         private static BundleController CreateController(IServiceScope scope)
