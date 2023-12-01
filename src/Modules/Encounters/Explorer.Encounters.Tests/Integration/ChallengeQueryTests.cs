@@ -40,7 +40,7 @@ namespace Explorer.Encounters.Tests.Integration
         
         private static ChallengeController CreateController(IServiceScope scope)
         {
-            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
+            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>(), scope.ServiceProvider.GetRequiredService<ILocationChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

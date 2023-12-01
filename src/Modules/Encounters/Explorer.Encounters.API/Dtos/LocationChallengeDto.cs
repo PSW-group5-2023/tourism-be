@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.API.Dtos
 {
-    public class LocationChallangeDto
+    public class LocationChallengeDto
     {
         public int Id { get; set; }
         public int AdministratorId { get; set; }

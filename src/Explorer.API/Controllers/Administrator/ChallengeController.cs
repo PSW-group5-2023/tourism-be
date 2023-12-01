@@ -11,10 +11,12 @@ namespace Explorer.API.Controllers.Administrator
     public class ChallengeController : BaseApiController
     {
         private readonly IChallengeService _challengeService;
+        private readonly ILocationChallengeService _locationChallengeService;
 
-        public ChallengeController(IChallengeService challengeController)
+        public ChallengeController(IChallengeService challengeService, ILocationChallengeService locationChallengeService)
         {
-            _challengeService = challengeController;
+            _challengeService = challengeService;
+            _locationChallengeService = locationChallengeService;
         }
 
         [HttpGet]
@@ -46,9 +48,10 @@ namespace Explorer.API.Controllers.Administrator
         }
 
         [HttpPost("location")]
-        public ActionResult<LocationChallangeDto> CreateLocationChallange([FromBody] LocationChallangeDto challangeDto)
+        public ActionResult<LocationChallengeDto> CreateLocationChallange([FromBody] LocationChallengeDto challangeDto)
         {
-            throw new NotImplementedException();
+            var result = _locationChallengeService.Create(challangeDto);
+            return CreateResponse(result);
         }
     }
 }
