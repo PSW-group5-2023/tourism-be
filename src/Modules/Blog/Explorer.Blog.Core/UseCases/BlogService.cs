@@ -138,7 +138,7 @@ namespace Explorer.Blog.Core.UseCases
             return MapToDto(result);
         }
 
-        public Result<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        public Result<List<BlogDto>> GetBlogsByStatus(int state)
         {
             var blogs = _blogRepository.GetBlogsByStatus(state);
             if(blogs==null)return Result.Fail(FailureCode.NotFound).WithError("Blog not found.");  

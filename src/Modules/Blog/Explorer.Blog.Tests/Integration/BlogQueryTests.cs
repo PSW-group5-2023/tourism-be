@@ -51,9 +51,9 @@ namespace Explorer.Blog.Tests.Integration
         }
 
         [Theory]
-        [InlineData(BlogState.Draft, 200)]
-        [InlineData(BlogState.Closed, 200)]
-        public void GetBlogsByStatus(BlogState state, int expectedResponseCode)
+        [InlineData(0, 200)]
+        [InlineData(2, 200)]
+        public void GetBlogsByStatus(int state, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -66,8 +66,8 @@ namespace Explorer.Blog.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectedResponseCode);
             
-            if(state==BlogState.Draft)(result.Value as List<BlogDto>).Count.ShouldBe(1);
-            else if(state==BlogState.Closed) (result.Value as List<BlogDto>).Count.ShouldBe(2);
+            if(state==0)(result.Value as List<BlogDto>).Count.ShouldBe(1);
+            else if(state==2) (result.Value as List<BlogDto>).Count.ShouldBe(2);
 
         }
 
