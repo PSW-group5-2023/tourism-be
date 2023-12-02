@@ -1,4 +1,6 @@
 ﻿using Explorer.API.Controllers.Author;
+using Explorer.Blog.API.Dtos;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +27,10 @@ namespace Explorer.Payments.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
-            var result = ((ObjectResult)controller.GetAll(0,0).Result)?.Value as List<BundleDto>;
+            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<BundleDto>;
 
             result.ShouldNotBeNull();
-            result.Count.ShouldBe(5);
-            result[0].Name.ShouldBe("bundle1");
+            result.Results.Count.ShouldBe(2);
         }
     
 

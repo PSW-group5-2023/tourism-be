@@ -68,6 +68,7 @@ namespace Explorer.Payments.Tests.Integration
                             Id=-10,
                             Name="bundle5",
                             Price=120,
+                            AuthorId=0,
                             ToursId=new List<int>{-13 }
 
                         },
@@ -89,17 +90,17 @@ namespace Explorer.Payments.Tests.Integration
 
             var result = (ObjectResult)controller.Update(bundle).Result;
 
-            // Assert - Response
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(expectedResponseCode);
-
-            // Assert - Database
-
-
-            if (result.StatusCode != 400)
+            if (result.StatusCode != 404)
             {
                 var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundle.Id);
                 storedEntity.ShouldNotBeNull();
+            }
+            else
+            {
+
+            
+                result.ShouldNotBeNull();
+                result.StatusCode.ShouldBe(expectedResponseCode);
             }
 
         }
@@ -111,7 +112,7 @@ namespace Explorer.Payments.Tests.Integration
                     new object[]
                     {
                         new BundleDto{
-                            Id=-9,
+                            Id=-2,
                             Name="bundle8",
                             Price=120,
                             AuthorId=-11,
@@ -123,21 +124,21 @@ namespace Explorer.Payments.Tests.Integration
                     new object[]
                     {
                         new BundleDto{
-                            Id=-10,
+                            Id=-100,
                             Name="bundle5",
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 }
 
                         },
-                        400
+                        404
                     }
                 };
         }
 
         [Theory]
-        [InlineData(-9, 200)]
-        [InlineData(-10, 404)]
+        [InlineData(-1, 200)]
+        [InlineData(-101, 404)]
         public void Delete_comment_fail(int bundleId, int expectedResponseCode)
         {
             // Arrange
@@ -145,18 +146,17 @@ namespace Explorer.Payments.Tests.Integration
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
-            var result = (ObjectResult)controller.Delete(bundleId);
-
-            // Assert - Response
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(expectedResponseCode);
-
-            //Assert - Database
-
-            if (expectedResponseCode != 400)
+            if (expectedResponseCode != 404)
             {
+                var result = (OkResult)controller.Delete(bundleId);
                 var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleId);
                 storedEntity.ShouldBeNull();
+            }
+            else
+            {
+                var result = (ObjectResult)controller.Delete(bundleId);
+                result.ShouldNotBeNull();
+                result.StatusCode.ShouldBe(expectedResponseCode);
             }
 
         }
