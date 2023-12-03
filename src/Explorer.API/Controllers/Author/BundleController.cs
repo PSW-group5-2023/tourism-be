@@ -28,9 +28,8 @@ namespace Explorer.API.Controllers.Author
         [HttpGet("{id:int}")]
         public ActionResult<BundleDto> Get(int id)
         {
-            //var result = _bundleService.Get(id);
-            //return CreateResponse(result);
-            throw new NotImplementedException();
+            var result = _bundleService.Get(id);
+            return CreateResponse(result);
         }
 
         [HttpPost]
