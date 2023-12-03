@@ -25,6 +25,13 @@ namespace Explorer.API.Controllers.Author
             var result = _bundleService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
+        [HttpGet("{id:int}")]
+        public ActionResult<BundleDto> Get(int id)
+        {
+            //var result = _bundleService.Get(id);
+            //return CreateResponse(result);
+            throw new NotImplementedException();
+        }
 
         [HttpPost]
         public ActionResult<BundleDto> Create([FromBody] BundleDto bundle)

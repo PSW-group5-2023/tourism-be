@@ -32,7 +32,20 @@ namespace Explorer.Payments.Tests.Integration
             result.ShouldNotBeNull();
             result.Results.Count.ShouldBe(2);
         }
-    
+        [Theory]
+        [InlineData(-2, 200)]
+        [InlineData(-101, 404)]
+        public void Retrieves_by_id(int id,int expectCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            var result = ((ObjectResult)controller.Get(id).Result);
+
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectCode);
+        }
+
 
         private static BundleController CreateController(IServiceScope scope)
         {

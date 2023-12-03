@@ -12,6 +12,7 @@ namespace Explorer.Payments.API.Public
 {
     public interface IBundleService
     {
+        Result<BundleDto> Get(int id);
         Result<PagedResult<BundleDto>> GetPaged(int page, int pageSize);
         Result<BundleDto> Create(BundleDto bundle);
         Result<BundleDto> Update(BundleDto bundle);
