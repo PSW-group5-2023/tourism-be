@@ -32,8 +32,8 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(13);
-            result.TotalCount.ShouldBe(13);
+            result.Results.Count.ShouldBe(15);
+            result.TotalCount.ShouldBe(15);
         }
 
         [Fact]
