@@ -41,7 +41,7 @@ public class CouponController : BaseApiController
     }
 
     [HttpGet]
-    public ActionResult<PagedResult<TourDto>> GetAllByAuthorId([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int authorId)
+    public ActionResult<PagedResult<CouponDto>> GetAllByAuthorId([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int authorId)
     {
         var result = _couponService.GetPagedByAuthorId(page, pageSize, authorId);
         return CreateResponse(result);
