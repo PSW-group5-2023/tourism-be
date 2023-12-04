@@ -2,7 +2,7 @@
 using Explorer.Payments.API.Dtos;
 using FluentResults;
 
-namespace Explorer.Tours.API.Public.Administration;
+namespace Explorer.Payments.API.Public;
 
 public interface ICouponService
 {

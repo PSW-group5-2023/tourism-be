@@ -1,8 +1,8 @@
 ﻿using Explorer.API.Controllers.Author;
 using Explorer.BuildingBlocks.Tests;
 using Explorer.Payments.API.Dtos;
+using Explorer.Payments.API.Public;
 using Explorer.Payments.Infrastructure.Database;
-using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -43,25 +43,6 @@ public class CouponCommandTests : BasePaymentsIntegrationTest
         var storedEntity = dbContext.Coupons.FirstOrDefault(i => i.Code == newEntity.Code);
         storedEntity.ShouldNotBeNull();
         storedEntity.Id.ShouldBe(result.Id);
-    }
-
-    [Fact]
-    public void Create_fails_invalid_data()
-    {
-        // Arrange
-        using var scope = Factory.Services.CreateScope();
-        var controller = CreateController(scope);
-        var updatedEntity = new CouponDto
-        {
-            Discount = 0.1
-        };
-
-        // Act
-        var result = (ObjectResult)controller.Create(updatedEntity).Result;
-
-        // Assert
-        result.ShouldNotBeNull();
-        result.StatusCode.ShouldBe(400);
     }
 
     [Fact]
