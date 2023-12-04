@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
+using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,13 @@ public class CouponController : BaseApiController
     public ActionResult Delete(int id)
     {
         var result = _couponService.Delete(id);
+        return CreateResponse(result);
+    }
+
+    [HttpGet]
+    public ActionResult<PagedResult<TourDto>> GetAllByAuthorId([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int authorId)
+    {
+        var result = _couponService.GetPagedByAuthorId(page, pageSize, authorId);
         return CreateResponse(result);
     }
 }

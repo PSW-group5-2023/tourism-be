@@ -103,6 +103,21 @@ public class CouponCommandTests : BasePaymentsIntegrationTest
     }
 
     [Fact]
+    public void Deletes()
+    {
+        // Arrange
+        using var scope = Factory.Services.CreateScope();
+        var controller = CreateController(scope);
+
+        // Act
+        var result = (OkResult)controller.Delete(-2);
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.StatusCode.ShouldBe(200);
+    }
+
+    [Fact]
     public void Delete_fails_invalid_id()
     {
         // Arrange
