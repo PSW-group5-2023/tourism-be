@@ -11,16 +11,16 @@ namespace Explorer.Payments.Core.Domain
     {
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
-        public decimal DiscountPercentage { get; init; }
+        public float DiscountPercentage { get; init; }
 
-        private List<int> DiscountedTours = new List<int>();
+        //private List<int> DiscountedTours = new List<int>();
 
-        public Sales(DateTime startDate, DateTime endDate, decimal discountPercentage, List<int> discountedTours)
+        public Sales(DateTime startDate, DateTime endDate, float discountPercentage)
         {
             StartDate = startDate;
             EndDate = endDate;
             DiscountPercentage = discountPercentage;
-            DiscountedTours = discountedTours;
+            //DiscountedTours = discountedTours;
         }
     }
 }

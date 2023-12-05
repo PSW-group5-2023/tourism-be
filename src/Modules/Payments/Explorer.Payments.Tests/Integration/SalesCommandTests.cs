@@ -34,7 +34,7 @@ namespace Explorer.Payments.Tests.Integration
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
                 DiscountPercentage = 10,
-                DiscountedTours = new List<int> { 1, 2, 3 }
+                //DiscountedTours = new List<int> { 1, 2, 3 }
             };
 
             // Act
@@ -66,7 +66,7 @@ namespace Explorer.Payments.Tests.Integration
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
                 DiscountPercentage = 110,
-                DiscountedTours = new List<int> { 1, 2, 3 }
+                //DiscountedTours = new List<int> { 1, 2, 3 }
             };
 
             // Act
@@ -91,7 +91,7 @@ namespace Explorer.Payments.Tests.Integration
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
                 DiscountPercentage = 15,
-                DiscountedTours = new List<int> { 4, 5, 6 }
+                //DiscountedTours = new List<int> { 4, 5, 6 }
             };
 
             // Act
@@ -124,7 +124,7 @@ namespace Explorer.Payments.Tests.Integration
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
                 DiscountPercentage = 20,
-                DiscountedTours = new List<int> { 7, 8, 9 }
+                //DiscountedTours = new List<int> { 7, 8, 9 }
             };
 
             // Act
