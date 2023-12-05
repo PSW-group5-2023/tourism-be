@@ -8,16 +8,20 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using Microsoft.AspNetCore.SignalR;
 using System.Dynamic;
+using Explorer.Tours.API.Public;
+using Explorer.BuildingBlocks.Core.Domain;
 
 namespace Explorer.Tours.Core.UseCases.Authoring
 {
     public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
         private readonly ITourRepository _tourRepository;
+        private readonly ITourKeyPointService _tourKeyPointService;
 
-        public TourService(ITourRepository repository, IMapper mapper) : base(repository, mapper)
+        public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService) : base(repository, mapper)
         {
             _tourRepository = repository;
+            _tourKeyPointService = tourKeyPointService;
         }
 
         public Result<TourDto> Archive(int id, int userId)
