@@ -13,12 +13,12 @@ namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/shoppingcart")]
-    public class ShoppingCartController : BaseApiController
+    public class BoughtItemController : BaseApiController
     {
 
         private IBoughtItemService shoppingCartService;
 
-        public ShoppingCartController(IBoughtItemService shoppingCartService)
+        public BoughtItemController(IBoughtItemService shoppingCartService)
         {
             this.shoppingCartService = shoppingCartService;
         }
@@ -54,6 +54,8 @@ namespace Explorer.API.Controllers.Tourist
             var result = shoppingCartService.UpdateItem(userId, tourId);
             return CreateResponse(result);
         }
+
+        //public ActionResult<>
 
 
     }
