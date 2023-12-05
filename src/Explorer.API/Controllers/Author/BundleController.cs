@@ -67,9 +67,10 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpPut("archiveBundle")]
-        public ActionResult<BundleDto> ArchiveBundle([FromBody] BundleDto bundle)
+        public ActionResult<List<BundleDto>> ArchiveBundle([FromBody] BundleDto bundle)
         {
-            throw new NotImplementedException();
+            var result = _bundleService.Update(bundle);
+            return CreateResponse(result);
         }
     }
 }

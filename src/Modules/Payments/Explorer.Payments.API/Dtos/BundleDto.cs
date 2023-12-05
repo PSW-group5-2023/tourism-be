@@ -13,6 +13,6 @@ namespace Explorer.Payments.API.Dtos
         public int Price { get; set; }
         public int AuthorId { get; set; }
         public List<int> ToursId { get; set; }
-        public int BundleStatus { get; set; }
+        public int BundleState { get; set; }
     }
 }

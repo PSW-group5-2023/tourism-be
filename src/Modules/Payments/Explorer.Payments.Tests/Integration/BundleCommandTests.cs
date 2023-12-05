@@ -4,6 +4,7 @@ using Explorer.Blog.API.Public;
 using Explorer.Blog.Infrastructure.Database;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
+using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,7 +60,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=0
+                            BundleState=0
                         },
                         200
                     },
@@ -70,7 +72,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=0,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=1
+                            BundleState=1
                         },
                         400
                     }
@@ -89,7 +91,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=1
+                            BundleState=1
                         },
                         200
                     },
@@ -101,7 +103,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=0,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=2
+                            BundleState=2
                         },
                         404
                     }
@@ -168,7 +170,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=0
+                            BundleState=0
                         },
                         200
                     },
@@ -180,7 +182,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=1
+                            BundleState=1
                         },
                         404
                     }
@@ -223,7 +225,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=2
+                            BundleState=2
                         },
                         400
                     },
@@ -235,7 +237,7 @@ namespace Explorer.Payments.Tests.Integration
                             Price=120,
                             AuthorId=-11,
                             ToursId=new List<int>{-13 },
-                            BundleStatus=2
+                            BundleState=2
                         },
                         404
                     }
@@ -251,10 +253,19 @@ namespace Explorer.Payments.Tests.Integration
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
+            //Assert - Response
             var result = (ObjectResult)controller.ArchiveBundle(bundleDto).Result;
 
-            //Assert - Response
-            
+            if (result.StatusCode != 404)
+            {
+                var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundleDto.Id);
+                storedEntity.ShouldNotBeNull();
+            }
+            else
+            {
+                result.ShouldNotBeNull();
+                result.StatusCode.ShouldBe(expectedResponseCode);
+            }
         }
 
         private static BundleController CreateController(IServiceScope scope)
