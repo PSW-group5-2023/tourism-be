@@ -1,4 +1,5 @@
 ﻿using Explorer.Blog.API.Dtos;
+using Explorer.Blog.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using FluentResults;
 using System;

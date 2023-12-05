@@ -58,5 +58,12 @@ namespace Explorer.API.Controllers.Tourist
             var result = _tourKeyPointService.GetSecret(keyPointId);
             return CreateResponse(result);
         }
+
+        [HttpGet("search/{publicId:int}")]
+        public ActionResult<List<TourKeyPointDto>> GetAllByPublicKeypointId(int publicId)
+        {
+            var result = _tourKeyPointService.GetAllByPublicKeypointId(publicId);
+            return CreateResponse(result);
+        }
     }
 }
