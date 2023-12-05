@@ -62,10 +62,9 @@ namespace Explorer.Payments.Infrastructure.Database.Repositories
             return result.Result;
         }
 
-        public Coupon GetByCode(string code)
+        public Coupon? GetByCode(string code)
         {
-            var coupon = _dbContext.Coupons.Where(x => x.Code == code);
-            return (Coupon)coupon;
+             return _dbContext.Coupons.FirstOrDefault(x => x.Code == code);           
         }
     }
 }

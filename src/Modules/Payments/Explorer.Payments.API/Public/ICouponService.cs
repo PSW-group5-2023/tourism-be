@@ -10,5 +10,5 @@ public interface ICouponService
     Result<CouponDto> Create(CouponDto coupon);
     Result<CouponDto> Update(CouponDto coupon);
     Result Delete(int id);
-    Result<CouponDto> GetByCode(string code);
+    Result<CouponDto>? GetByCode(string code);
 }

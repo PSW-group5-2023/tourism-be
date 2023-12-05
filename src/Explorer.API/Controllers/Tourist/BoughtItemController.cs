@@ -16,46 +16,53 @@ namespace Explorer.API.Controllers.Tourist
     public class BoughtItemController : BaseApiController
     {
 
-        private IBoughtItemService shoppingCartService;
+        private IBoughtItemService _shoppingCartService;
+        private ICouponService _couponService;
 
-        public BoughtItemController(IBoughtItemService shoppingCartService)
+        public BoughtItemController(IBoughtItemService shoppingCartService, ICouponService couponService)
         {
-            this.shoppingCartService = shoppingCartService;
+            _shoppingCartService = shoppingCartService;
+            _couponService = couponService;
         }
 
         [HttpGet]
         public ActionResult<BoughtItemDto> GetUnusedItems(long userId)
         {
-            return CreateResponse(shoppingCartService.GetUnusedTours(userId));
+            return CreateResponse(_shoppingCartService.GetUnusedTours(userId));
         }
 
         [AllowAnonymous]
         [HttpGet("{userId:long}")]
         public ActionResult<BoughtItemDto> GetUsedItems(long userId)
         {
-            return CreateResponse(shoppingCartService.GetUsedTours(userId));
+            return CreateResponse(_shoppingCartService.GetUsedTours(userId));
         }
 
         [HttpPost("addToCart")]
         public ActionResult<BoughtItemDto> AddToCart(List<BoughtItemDto> items)
         {
-            return CreateResponse(shoppingCartService.Create(items));
+            return CreateResponse(_shoppingCartService.Create(items));
         }
 
         [HttpDelete("deleteCartItem")]
         public ActionResult DeleteCartItem(long tourId, long userId)
         {
-            return CreateResponse(shoppingCartService.DeleteItem(tourId, userId));
+            return CreateResponse(_shoppingCartService.DeleteItem(tourId, userId));
         }
 
         [HttpPost("{userId:long}/{tourId:long}")]
         public ActionResult<JoinRequestDto> CheckStatus(long userId, long tourId)
         {
-            var result = shoppingCartService.UpdateItem(userId, tourId);
+            var result = _shoppingCartService.UpdateItem(userId, tourId);
             return CreateResponse(result);
         }
 
-        //public ActionResult<>
+        [HttpGet("coupon")]
+        public ActionResult<CouponDto> GetCouponByCode(string code)
+        {
+            var result = _couponService.GetByCode(code);
+            return CreateResponse(result);
+        }
 
 
     }
