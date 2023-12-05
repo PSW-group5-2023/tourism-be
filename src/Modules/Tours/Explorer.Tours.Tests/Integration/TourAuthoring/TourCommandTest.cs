@@ -1,5 +1,6 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
 using Explorer.API.Controllers.Author.Authoring;
+using Explorer.API.Controllers.Tourist;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.API.Public.Authoring;
@@ -27,7 +28,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateAuthorController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourDto
             {
@@ -82,7 +83,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateAuthorController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var updatedEntity = new TourDto
             {
@@ -124,12 +125,102 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             oldEntity.ShouldBeNull();
         }
 
-        private static TourController CreateController(IServiceScope scope)
+        [Fact]
+        public void Creates_Campaign()
         {
-            return new TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateTouristController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+            var campaignDto = new CampaignDto
+            {
+                Tours = new List<TourDto>()
+                {
+                    new TourDto {
+                        Id = -10,
+                        Name = "Tura 10",
+                        Description = "Ova tura je zanimljiva",
+                        Difficulty = 0,
+                        Tags = new List<string>() { "tag2", "tag3" },
+                        Status = 1,
+                        Price = 0,
+                        AuthorId = -1,
+                        Equipment = new int[] { -1, -2 },
+                        DistanceInKm = 3.1,
+                        ArchivedDate = null,
+                        PublishedDate = null
+                    },
+                    new TourDto {
+                        Id = -11,
+                        Name = "Tura 11",
+                        Description = "Ova tura je onako",
+                        Difficulty = 2,
+                        Tags = new List<string>() { "tag4", "tag5" },
+                        Status = 1,
+                        Price = 0,
+                        AuthorId = -1,
+                        Equipment = new int[] { -2, -3 },
+                        DistanceInKm = 2.5,
+                        ArchivedDate = null,
+                        PublishedDate = null
+                    }
+                },
+                Name = "Tura 55",
+                Description = "Jako lepa tura idemo.",
+                TouristId = -6
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.CreateCampaign(campaignDto).Result)?.Value as TourDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.Id.ShouldNotBe(0);
+            result.Name.ShouldBe(campaignDto.Name);
+            result.Description.ShouldBe(campaignDto.Description);
+            result.Difficulty.ShouldBe(1);
+            result.Tags.ShouldBe(new List<string>() { "tag2", "tag3" , "tag4", "tag5" });
+            result.Status.ShouldBe(1);
+            result.Price.ShouldBe(0);
+            result.AuthorId.ShouldBe(campaignDto.TouristId);
+            result.Equipment.ShouldBe(new int[] { -1, -2, -3 });
+            result.DistanceInKm.ShouldBe(5.6);
+            result.ArchivedDate.ShouldBe(null);
+            result.PublishedDate.ShouldBe(null);
+
+
+            // Assert - Database
+            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Name == campaignDto.Name);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(result.Id);
+            storedEntity.Name.ShouldBe(result.Name);
+            storedEntity.Description.ShouldBe(result.Description);
+            ((int)storedEntity.Difficulty).ShouldBe(result.Difficulty);
+            storedEntity.Tags.ShouldBe(result.Tags);
+            ((int)storedEntity.Status).ShouldBe(result.Status);
+            storedEntity.Price.ShouldBe(result.Price);
+            storedEntity.AuthorId.ShouldBe(result.AuthorId);
+            storedEntity.Equipment.ShouldBe(result.Equipment);
+            storedEntity.DistanceInKm.ShouldBe(result.DistanceInKm);
+            storedEntity.ArchivedDate.ShouldBe(result.ArchivedDate);
+            storedEntity.PublishedDate.ShouldBe(result.PublishedDate);
+        }
+
+        private static Explorer.API.Controllers.Author.Authoring.TourController CreateAuthorController(IServiceScope scope)
+        {
+            return new Explorer.API.Controllers.Author.Authoring.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
             {
                 ControllerContext = BuildContext("-1")
             };
         }
+
+        private static Explorer.API.Controllers.Tourist.TourController CreateTouristController(IServiceScope scope)
+        {
+            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            {
+                ControllerContext = BuildContext("-1")
+            };
+        }
+
     }
 }
