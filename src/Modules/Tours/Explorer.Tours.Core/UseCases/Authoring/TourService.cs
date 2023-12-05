@@ -6,6 +6,7 @@ using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using System.Dynamic;
 
@@ -63,5 +64,6 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
             return MapToDto(result);
         }
+
     }
 }

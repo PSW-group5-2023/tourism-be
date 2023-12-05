@@ -21,6 +21,31 @@ namespace Explorer.Tours.Core.UseCases
         {
             _tourKeyPointsRepository = tourKeyPointsRepository;
         }
+
+        public Result<List<TourKeyPointDto>> GetAllByPublicKeypointId(long publicId)
+        {
+            List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
+            var tourKeyPoints = _tourKeyPointsRepository.GetAllByPublicId(publicId);
+            foreach (var tourKeyPoint in tourKeyPoints)
+            {
+                TourKeyPointDto tourKeyPointDto = new TourKeyPointDto
+                {
+                    Id = (int)tourKeyPoint.Id,
+                    Name = tourKeyPoint.Name,
+                    Description = tourKeyPoint.Description,
+                    Image = tourKeyPoint.Image,
+                    Latitude = tourKeyPoint.Latitude,
+                    Longitude = tourKeyPoint.Longitude,
+                    TourId = tourKeyPoint.TourId,
+                    PositionInTour = tourKeyPoint.PositionInTour,
+                    PublicPointId = tourKeyPoint.PublicPointId
+                };
+                tourKeyPointDtos.Add(tourKeyPointDto);
+            }
+
+            return tourKeyPointDtos;
+        }
+
         public Result<List<TourKeyPointDto>> GetByTourId(long tourId)
         {
             List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
