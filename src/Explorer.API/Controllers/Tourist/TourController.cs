@@ -32,5 +32,11 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("search/{name}/{tags}")]
+        public ActionResult<PagedResult<TourDto>> Search([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] string name, [FromRoute] string[] tags)
+        {
+            var result = _tourService.GetPagedForSearch(name,  tags, page, pageSize);
+            return CreateResponse(result);
+        }
     }
 }

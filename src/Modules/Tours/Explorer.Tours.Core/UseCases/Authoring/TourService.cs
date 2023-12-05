@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.API.Dtos;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Explorer.Tours.Core.UseCases.Authoring
 {
@@ -60,5 +63,26 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
             return MapToDto(result);
         }
+
+        public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
+        {
+            var tours = _tourRepository.GetPaged(page, pageSize);
+            PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+
+            if (tags[0].Contains(","))
+            {
+                tags = tags[0].Split(",");
+            }
+            filteredTours.Results.AddRange(
+                tours.Results
+                    .Where(tour => (tour.Name.ToLower().Contains(name.ToLower()) || name.Equals("empty")) &&
+                                   tags.All(tag => tour.Tags.Any(tourTag =>
+                                       tourTag.ToLower() == tag.ToLower() || tag == "empty")))
+                    .Select(MapToDto)
+            );
+
+            return filteredTours;
+        }
+
     }
 }
