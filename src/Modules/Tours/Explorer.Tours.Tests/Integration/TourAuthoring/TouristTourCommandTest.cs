@@ -11,9 +11,11 @@ using Explorer.API.Controllers.Tourist;
 using Explorer.Tours.API.Dtos.TouristTour;
 using Explorer.Blog.API.Public;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Public.TouristTour;
 using Explorer.Tours.Infrastructure.Database;
 using Shouldly;
+using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring
 {
@@ -25,10 +27,142 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
 
         }
 
-        [Theory]
-        [MemberData(nameof(TouristTourDtos))]
-        public void Creation(TouristTourDto tourDto, int expectedResponseCode)
+        private static TouristTourController CreateController(IServiceScope scope)
         {
+            return new TouristTourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            {
+                ControllerContext = BuildContext("-1")
+            };
+        }
+
+        public static IEnumerable<object[]> TourData()
+        {
+            var tourData = new List<object[]>
+    {
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -117,
+                Name = "Nova turaaaa",
+                AuthorId = -1,
+                Description = "OpisTure",
+                DistanceInKm = 60,
+                Status =3,
+                Durations = new List<TourDurationDto>
+                {
+                    new TourDurationDto
+                    {
+                        TimeInSeconds = 124124,
+                        Transportation = 0
+                    }
+                },
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3329,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke",
+                        PositionInTour = 1,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3330,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 2",
+                        PositionInTour = 2,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3331,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 3",
+                        PositionInTour = 3,
+                    }
+                }
+            },
+            200
+        },
+
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -118,
+                Name = "Invalid Tour",
+                AuthorId = -1,
+                Description = "Invalid Tour Description",
+                DistanceInKm = 50,
+                Status = 3,
+                Durations = new List<TourDurationDto>
+                {
+                },
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3340,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Invalid Key Point",
+                        Image = new Uri("http://invalid.com/"),
+                        Name = "Invalid Point",
+                        PositionInTour = 1,
+                    }
+                }
+            },
+            400
+        },
+
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -119,
+                Name = "",
+                AuthorId = -1,
+                Description = "Tour Description",
+                DistanceInKm = 70,
+                Status = 3,
+                Durations = new List<TourDurationDto>(),
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3350,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Key Point 1",
+                        Image = new Uri("http://point1.com/"),
+                        Name = "Point 1",
+                        PositionInTour = 1,
+                    }
+                }
+            },
+            400
+        }
+    };
+
+            return tourData;
+        }
+
+
+        [Theory]
+        [MemberData(nameof(TourData))]
+        public void Creation(TourDto tourDto, int expectedResponseCode)
+        {
+
+
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
@@ -43,202 +177,243 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             // Assert - Database
             if (result.StatusCode != 400)
             {
+                var storedEntity = dbContext.Tour.FirstOrDefault(t => t.Id == tourDto.Id);
+                storedEntity.ShouldNotBeNull();
             }
 
 
         }
 
 
-        public static IEnumerable<object[]> TouristTourDtos()
+
+        public static IEnumerable<object[]> TourDataUpdate()
         {
-            return new List<object[]>
+            var tourData = new List<object[]>
+    {
+        new object[]
+        {
+            new TourDto
             {
-                new object[]
+                Id = -14,
+                Name = "Nova turaaaa",
+                AuthorId = -1,
+                Description = "OpisTure",
+                DistanceInKm = 60,
+                Status =3,
+                Durations = new List<TourDurationDto>
                 {
-                    new TouristTourDto
+                    new TourDurationDto
                     {
-                        Id=-1,
-                        Name = "TourName",
-                        AuthorId = -1,
-                        Description = "OpisTure",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3329,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3330,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
-
-                        }
-                    },
-                    200
+                        TimeInSeconds = 124124,
+                        Transportation = 0
+                    }
                 },
-                new object[]
+                KeyPoints = new List<TourKeyPointDto>
                 {
-                    new TouristTourDto
+                    new TourKeyPointDto
                     {
-                        Id=-2,
-                        Name = "",
-                        AuthorId = -1,
-                        Description = "",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3331,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3332,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
-
-                        }
+                        Id = -3329,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke",
+                        PositionInTour = 1,
                     },
-                    400
-                },
-                new object[]
-                {
-                    new TouristTourDto
+                    new TourKeyPointDto
                     {
-                        Id=-3,
-                        Name = "Neki naziv",
-                        AuthorId = -1,
-                        Description = "",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3333,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3334,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3335,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke3",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 3",
-                                PositionInTour = 3,
-                            },
-
-                        }
+                        Id = -3330,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 2",
+                        PositionInTour = 2,
                     },
-                    200
-                },
-                new object[]
-                {
-                    new TouristTourDto
+                    new TourKeyPointDto
                     {
-                        Id=-4,
-                        Name = "Neki naziv",
-                        AuthorId = -1,
-                        Description = "",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3336,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            }
-
-                        }
-                    },
-                    400
-                },
-
-                new object[]
-                {
-                    new TouristTourDto{
-                        Id=-5,
-                        Name = "TourName2",
-                        AuthorId = -1,
-                        Description = "OpisTure",
-                        DistanceInKm = 50,
-                        KeyPoints = new List<TourKeyPointDto>()
-                    },
-                    400
+                        Id = -3331,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 3",
+                        PositionInTour = 3,
+                    }
                 }
-            };
+            },
+            200
+        },
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -14,
+                Name = "",
+                AuthorId = -1,
+                Description = "OpisTure",
+                DistanceInKm = 60,
+                Status =3,
+                Durations = new List<TourDurationDto>
+                {
+                    new TourDurationDto
+                    {
+                        TimeInSeconds = 124124,
+                        Transportation = 0
+                    }
+                },
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3329,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke",
+                        PositionInTour = 1,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3330,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 2",
+                        PositionInTour = 2,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3331,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 3",
+                        PositionInTour = 3,
+                    }
+                }
+            },
+            400
+        },
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -14,
+                Name = "Nova turaaaa",
+                AuthorId = -1,
+                Description = "OpisTure",
+                DistanceInKm = 60,
+                Status =3,
+                Durations = new List<TourDurationDto>
+                {
+                },
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3329,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke",
+                        PositionInTour = 1,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3330,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 2",
+                        PositionInTour = 2,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3331,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 3",
+                        PositionInTour = 3,
+                    }
+                }
+            },
+            400
+        },
+        new object[]
+        {
+            new TourDto
+            {
+                Id = -31214,
+                Name = "Nova turaaaa",
+                AuthorId = -1,
+                Description = "OpisTure",
+                DistanceInKm = 60,
+                Status =3,
+                Durations = new List<TourDurationDto>
+                {
+                    new TourDurationDto
+                    {
+                        TimeInSeconds = 124124,
+                        Transportation = 0
+                    }
+                },
+                KeyPoints = new List<TourKeyPointDto>
+                {
+                    new TourKeyPointDto
+                    {
+                        Id = -3329,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke",
+                        PositionInTour = 1,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3330,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 2",
+                        PositionInTour = 2,
+                    },
+                    new TourKeyPointDto
+                    {
+                        Id = -3331,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Description = "Opis tacke",
+                        Image = new Uri("http://tacka1.com/"),
+                        Name = "Ime tacke 3",
+                        PositionInTour = 3,
+                    }
+                }
+            },
+            404
         }
 
 
-        [Theory]
-        [InlineData(-1, 200)]
-        [InlineData(17900, 404)]
-        public void DeleteTour(int tourId, int expectedResponseCode)
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+    };
 
-            var result = (ObjectResult)controller.Delete(tourId);
-
-            // Assert - Response
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(expectedResponseCode);
-
-            // Assert - Database
-
-
+            return tourData;
         }
 
         [Theory]
-        [MemberData(nameof(TouristTourDtosUpdate))]
-        public void UpdateTour(TouristTourDto tourDto, int expectedResponseCode)
+        [MemberData(nameof(TourDataUpdate))]
+        public void Update(TourDto tourDto, int expectedResponseCode)
         {
+
+
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
@@ -250,146 +425,49 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectedResponseCode);
 
-            // Assert - Database
 
 
         }
-
-
-        public static IEnumerable<object[]> TouristTourDtosUpdate()
+        [Fact]
+        public void Delete()
         {
-            return new List<object[]>
-            {
-                new object[]
-                {
-                    new TouristTourDto
-                    {
-                        Id=30000,
-                        Name = "TourName",
-                        AuthorId = -1,
-                        Description = "OpisTure",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3329,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3330,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
 
-                        }
-                    },
-                    404
-                },
-                new object[]
-                {
-                    new TouristTourDto
-                    {
-                        Id=-3,
-                        Name = "",
-                        AuthorId = -1,
-                        Description = "",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3331,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3332,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
 
-                        }
-                    },
-                    400
-                },
-                new object[]
-                {
-                    new TouristTourDto
-                    {
-                        Id=-3,
-                        Name = "Neki naziv",
-                        AuthorId = -1,
-                        Description = "",
-                        DistanceInKm = 60,
-                        KeyPoints = new List<TourKeyPointDto>()
-                        {
-                            new TourKeyPointDto
-                            {
-                                Id = -3340,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke",
-                                PositionInTour = 1,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3341,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 2",
-                                PositionInTour = 2,
-                            },
-                            new TourKeyPointDto
-                            {
-                                Id = -3342,
-                                Latitude = 0,
-                                Longitude = 0,
-                                Description = "Opis tacke3",
-                                Image = new Uri("noviuri"),
-                                Name = "Ime tacke 3",
-                                PositionInTour = 3,
-                            },
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
-                        }
-                    },
-                    200
-                }
-            };
+            var result = (OkResult)controller.Delete(-15);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
+
+
+
         }
 
-
-
-        private static TouristTourController CreateController(IServiceScope scope)
+        [Fact]
+        public void DeleteNotFound()
         {
-            return new TouristTourController(scope.ServiceProvider.GetRequiredService<ITouristTourService>())
-            {
-                ControllerContext = BuildContext("-1")
-            };
+
+
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.Delete(-11312);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
+
+
+
         }
+
 
 
     }
