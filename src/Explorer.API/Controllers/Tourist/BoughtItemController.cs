@@ -64,6 +64,15 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpPut("couponStatus/{id:int}")]
+        public ActionResult<CouponDto> Update([FromBody] CouponDto equipment)
+        {
+            var result = _couponService.Update(equipment);
+            return CreateResponse(result);
+        }
+
+
+
 
     }
 }
