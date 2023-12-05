@@ -17,8 +17,8 @@ namespace Explorer.Payments.Core.Domain
 
         public Sales(DateTime startDate, DateTime endDate, float discountPercentage)
         {
-            StartDate = startDate;
-            EndDate = endDate;
+            StartDate = startDate.ToUniversalTime();
+            EndDate = endDate.ToUniversalTime();
             DiscountPercentage = discountPercentage;
             //DiscountedTours = discountedTours;
         }
