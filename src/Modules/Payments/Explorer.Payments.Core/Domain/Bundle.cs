@@ -9,14 +9,16 @@ namespace Explorer.Payments.Core.Domain
         public string Price { get; init; }
         public int AuthorId { get; init; }
         public List<int> ToursId { get; init; }
+        public int BundleStatus { get; init; }
 
-        public Bundle(string name, string price, int authorId, List<int> toursId)
+        public Bundle(string name, string price, int authorId, List<int> toursId, int bundleStatus)
         {
             if (authorId == 0) throw new ArgumentException("Invalid authorId.");
             Name = name;
             Price = price;
             AuthorId = authorId;
             ToursId = toursId;
+            BundleStatus = bundleStatus;
         }
 
     }

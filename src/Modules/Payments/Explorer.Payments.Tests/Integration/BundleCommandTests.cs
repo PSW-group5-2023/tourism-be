@@ -57,8 +57,8 @@ namespace Explorer.Payments.Tests.Integration
                             Name="bundle4",
                             Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>{-13 }
-                            
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=0
                         },
                         200
                     },
@@ -69,10 +69,41 @@ namespace Explorer.Payments.Tests.Integration
                             Name="bundle5",
                             Price=120,
                             AuthorId=0,
-                            ToursId=new List<int>{-13 }
-
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=1
                         },
                         400
+                    }
+                };
+        }
+
+        public static IEnumerable<object[]> BundleUpdateStatusDtos()
+        {
+            return new List<object[]>
+                {
+                    new object[]
+                    {
+                        new BundleDto{
+                            Id=-2,
+                            Name="bundle4",
+                            Price=120,
+                            AuthorId=-11,
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=1
+                        },
+                        200
+                    },
+                    new object[]
+                    {
+                        new BundleDto{
+                            Id=-2,
+                            Name="bundle5",
+                            Price=120,
+                            AuthorId=0,
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=2
+                        },
+                        404
                     }
                 };
         }
@@ -80,8 +111,31 @@ namespace Explorer.Payments.Tests.Integration
 
 
         [Theory]
+        [MemberData(nameof(BundleUpdateStatusDtos))]
+        public void Update_bundle_status(BundleDto bundle, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
+
+            var result = (ObjectResult)controller.UpdateStatus(bundle).Result;
+
+            if (result.StatusCode != 404)
+            {
+                var storedEntity = dbContext.Bundles.FirstOrDefault(t => t.Id == bundle.Id);
+                storedEntity.ShouldNotBeNull();
+            }
+            else
+            {
+                result.ShouldNotBeNull();
+                result.StatusCode.ShouldBe(expectedResponseCode);
+            }
+        }
+
+        [Theory]
         [MemberData(nameof(BundleUpdateDtos))]
-        public void Update_comment(BundleDto bundle, int expectedResponseCode)
+        public void Update_bundle(BundleDto bundle, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -97,12 +151,9 @@ namespace Explorer.Payments.Tests.Integration
             }
             else
             {
-
-            
                 result.ShouldNotBeNull();
                 result.StatusCode.ShouldBe(expectedResponseCode);
             }
-
         }
 
         public static IEnumerable<object[]> BundleUpdateDtos()
@@ -116,8 +167,8 @@ namespace Explorer.Payments.Tests.Integration
                             Name="bundle8",
                             Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>{-13 }
-
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=0
                         },
                         200
                     },
@@ -128,8 +179,8 @@ namespace Explorer.Payments.Tests.Integration
                             Name="bundle5",
                             Price=120,
                             AuthorId=-11,
-                            ToursId=new List<int>{-13 }
-
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=1
                         },
                         404
                     }
@@ -139,7 +190,7 @@ namespace Explorer.Payments.Tests.Integration
         [Theory]
         [InlineData(-1, 200)]
         [InlineData(-101, 404)]
-        public void Delete_comment_fail(int bundleId, int expectedResponseCode)
+        public void Delete_bundle_fail(int bundleId, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -158,7 +209,52 @@ namespace Explorer.Payments.Tests.Integration
                 result.ShouldNotBeNull();
                 result.StatusCode.ShouldBe(expectedResponseCode);
             }
+        }
 
+        public static IEnumerable<object[]> BundleArchiveDtos()
+        {
+            return new List<object[]>
+                {
+                    new object[]
+                    {
+                        new BundleDto{
+                            Id=-2,
+                            Name="bundle8",
+                            Price=120,
+                            AuthorId=-11,
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=2
+                        },
+                        400
+                    },
+                    new object[]
+                    {
+                        new BundleDto{
+                            Id=-100,
+                            Name="bundle5",
+                            Price=120,
+                            AuthorId=-11,
+                            ToursId=new List<int>{-13 },
+                            BundleStatus=2
+                        },
+                        404
+                    }
+                };
+        }
+
+        [Theory]
+        [MemberData(nameof(BundleArchiveDtos))]
+        public void Archive_bundle(BundleDto bundleDto, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
+
+            var result = (ObjectResult)controller.ArchiveBundle(bundleDto).Result;
+
+            //Assert - Response
+            
         }
 
         private static BundleController CreateController(IServiceScope scope)

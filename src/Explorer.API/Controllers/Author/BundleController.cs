@@ -16,7 +16,6 @@ namespace Explorer.API.Controllers.Author
         public BundleController(IBundleService bundleService)
         {
             _bundleService = bundleService;
-            
         }
 
         [HttpGet]
@@ -25,12 +24,14 @@ namespace Explorer.API.Controllers.Author
             var result = _bundleService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
+
         [HttpGet("{id:int}")]
         public ActionResult<BundleDto> Get(int id)
         {
             var result = _bundleService.Get(id);
             return CreateResponse(result);
         }
+
         [HttpGet("authorBundles/{id:int}")]
         public ActionResult<PagedResult<BundleDto>> GetByAuthorId([FromQuery] int page, [FromQuery] int pageSize,int id)
         {
@@ -42,7 +43,6 @@ namespace Explorer.API.Controllers.Author
         {
             var result = _bundleService.Create(bundle);
             return CreateResponse(result);
-            
         }
 
         [HttpPut]
@@ -50,7 +50,6 @@ namespace Explorer.API.Controllers.Author
         {
             var result = _bundleService.Update(bundle);
             return CreateResponse(result);
-
         }
 
         [HttpDelete("{id:int}")]
@@ -58,7 +57,19 @@ namespace Explorer.API.Controllers.Author
         {
             var result = _bundleService.Delete(id);
             return CreateResponse(result);
-            
+        }
+
+        [HttpPut("updateBundleStatus")]
+        public ActionResult<BundleDto> UpdateStatus([FromBody] BundleDto bundle)
+        {
+            var result = _bundleService.Update(bundle);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("archiveBundle")]
+        public ActionResult<BundleDto> ArchiveBundle([FromBody] BundleDto bundle)
+        {
+            throw new NotImplementedException();
         }
     }
 }
