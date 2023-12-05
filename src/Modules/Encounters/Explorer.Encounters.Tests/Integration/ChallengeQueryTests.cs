@@ -39,25 +39,11 @@ namespace Explorer.Encounters.Tests.Integration
             result.TotalCount.ShouldBe(6);
         }
 
-        [Fact]
-        public void Retrieves_location_challenge_all()
-        {
-            //Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            //Act
-            var result = ((ObjectResult)controller.GetAllLocationChallenge(0, 0).Result)?.Value as PagedResult<LocationChallengeDto>;
-
-            //Assert
-            result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(2);
-            result.TotalCount.ShouldBe(2);
-        }
+        
 
         private static ChallengeController CreateController(IServiceScope scope)
         {
-            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>(), scope.ServiceProvider.GetRequiredService<ILocationChallengeService>())
+            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
             {
                 ControllerContext = BuildContext("-1")
             };

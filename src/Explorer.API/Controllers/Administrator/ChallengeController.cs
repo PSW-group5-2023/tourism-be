@@ -12,12 +12,10 @@ namespace Explorer.API.Controllers.Administrator
     public class ChallengeController : BaseApiController
     {
         private readonly IChallengeService _challengeService;
-        private readonly ILocationChallengeService _locationChallengeService;
 
-        public ChallengeController(IChallengeService challengeService, ILocationChallengeService locationChallengeService)
+        public ChallengeController(IChallengeService challengeService)
         {
             _challengeService = challengeService;
-            _locationChallengeService = locationChallengeService;
         }
 
         [HttpGet]
@@ -45,34 +43,6 @@ namespace Explorer.API.Controllers.Administrator
         public ActionResult Delete(int id)
         {
             var result = _challengeService.Delete(id);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("location")]
-        public ActionResult<PagedResult<LocationChallengeDto>> GetAllLocationChallenge([FromQuery] int page, [FromQuery] int pageSize)
-        {
-            var result = _locationChallengeService.GetPaged(page,pageSize);
-            return CreateResponse(result);
-        }
-
-        [HttpPost("location")]
-        public ActionResult<LocationChallengeDto> CreateLocationChallange([FromBody] LocationChallengeDto challangeDto)
-        {
-            var result = _locationChallengeService.Create(challangeDto);
-            return CreateResponse(result);
-        }
-
-        [HttpPut("location/{id:int}")]
-        public ActionResult<LocationChallengeDto> UpdateLocationChallenge([FromBody] LocationChallengeDto challengeDto)
-        {
-            var result = _locationChallengeService.Update(challengeDto);
-            return CreateResponse(result);
-        }
-
-        [HttpDelete("location/{id:int}")]
-        public ActionResult DeleteLocationChallenge(int id)
-        {
-            var result = _locationChallengeService.Delete(id);
             return CreateResponse(result);
         }
     }

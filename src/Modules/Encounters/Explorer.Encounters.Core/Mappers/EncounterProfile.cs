@@ -14,8 +14,6 @@ namespace Explorer.Encounters.Core.Mappers
         public EncounterProfile() 
         {
             CreateMap<ChallengeDto, Challenge>().ReverseMap();
-
-            CreateMap<LocationChallengeDto, LocationChallenge>().ReverseMap();
         }
     }
 }

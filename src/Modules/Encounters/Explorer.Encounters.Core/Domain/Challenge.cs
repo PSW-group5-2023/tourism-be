@@ -17,8 +17,13 @@ namespace Explorer.Encounters.Core.Domain
         public ChallengeType Type { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
+        public Uri? Image { get; init; }
+        public double? LatitudeImage { get; init; }
+        public double? LongitudeImage { get; init; }
+        public double? Range { get; init; }
 
-        public Challenge(int administratorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude)
+        public Challenge(int administratorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude, 
+            Uri? image, double? latitudeImage, double? longitudeImage, double? range)
         {
             AdministratorId = administratorId;
             Description = description;
@@ -27,6 +32,10 @@ namespace Explorer.Encounters.Core.Domain
             Type = type;
             Latitude = latitude;
             Longitude = longitude;
+            Image = image;
+            LatitudeImage = latitudeImage;
+            LongitudeImage = longitudeImage;
+            Range = range;
 
             Validate();
         }
