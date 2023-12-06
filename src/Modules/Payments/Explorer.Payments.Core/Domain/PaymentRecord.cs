@@ -29,7 +29,7 @@ namespace Explorer.Payments.Core.Domain
             if (TouristId == 0) throw new ArgumentException("Invalid touristId");
             if (BundleId == 0) throw new ArgumentException("Invalid bundleId");
             if (Price == 0) throw new ArgumentException("Invalid price");
-            if (DateTimeOfBuying < DateTime.Now) throw new ArgumentException("Invalid dateTimeOfBuying");
+            if (DateTimeOfBuying > DateTime.Now) throw new ArgumentException("Invalid dateTimeOfBuying");
         }
     }
 }

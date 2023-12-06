@@ -51,7 +51,7 @@ namespace Explorer.Payments.Tests.Integration
                     new object[]
                     {
                         new PaymentRecordDto{
-                            Id=-9,
+                            Id=-10,
                             TouristId = -21,
                             BundleId = -1,
                             Price = 200,
@@ -62,7 +62,7 @@ namespace Explorer.Payments.Tests.Integration
                     new object[]
                     {
                         new PaymentRecordDto{
-                            Id= -10,
+                            Id= -11,
                             TouristId = 10,
                             BundleId = -1,
                             Price = 200,
