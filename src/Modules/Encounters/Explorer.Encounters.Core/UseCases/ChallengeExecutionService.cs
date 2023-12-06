@@ -31,7 +31,7 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        public Result<PagedResult<ChallengeExecutionDto>> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize)
+        public Result<PagedResult<ChallengeExecutionDto>> GetPagedByKeyPointIds(List<int> keyPointIds, int page, int pageSize)
         {
             var result = _challengeExecutionRepository.GetPagedByKeyPointIds(keyPointIds, page, pageSize);
             return MapToDto(result);

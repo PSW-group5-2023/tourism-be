@@ -8,7 +8,7 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
 
         public ChallengeExecution GetByChallengeIdAndTouristId(long  challengeId, long touristId);
 
-        public PagedResult<ChallengeExecution> GetPagedByKeyPointIds(List<long> tourKeyPointIds, int page, int pageSize);
+        public PagedResult<ChallengeExecution> GetPagedByKeyPointIds(List<int> tourKeyPointIds, int page, int pageSize);
 
         public PagedResult<ChallengeExecution> GetPagedByTouristId(long touristId, int page, int pageSize);
 
