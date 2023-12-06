@@ -14,5 +14,6 @@ namespace Explorer.Payments.API.Dtos
         public DateTime? ExpirationDate { get; set; }
         public int? TourId { get; set; }
         public int AuthorId { get; set; }
+        public bool IsUsed { get; set; }
     }
 }

@@ -24,6 +24,14 @@ public class CouponService : BaseService<CouponDto, Coupon>, ICouponService
         return MapToDto(result);
     }
 
+    public Result<CouponDto> GetByCode(string code)
+    {        
+       
+            var result = _couponRepository.GetByCode(code);
+            return MapToDto(result);
+       
+    }
+
     public Result<CouponDto> Update(CouponDto coupon)
     {
         try

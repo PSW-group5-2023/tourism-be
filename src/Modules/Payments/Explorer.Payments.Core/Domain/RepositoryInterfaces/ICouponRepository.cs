@@ -14,5 +14,6 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
         public void Delete(int id);
         public PagedResult<Coupon> GetPagedByAuthorId(int page, int pageSize, int authorId);
         public Coupon Get(long id);
+        public Coupon? GetByCode(string code);
     }
 }

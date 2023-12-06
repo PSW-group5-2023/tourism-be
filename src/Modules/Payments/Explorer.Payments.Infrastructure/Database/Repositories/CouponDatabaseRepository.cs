@@ -61,5 +61,10 @@ namespace Explorer.Payments.Infrastructure.Database.Repositories
             var result = query.GetPagedById(page, pageSize);
             return result.Result;
         }
+
+        public Coupon? GetByCode(string code)
+        {
+             return _dbContext.Coupons.FirstOrDefault(x => x.Code == code);           
+        }
     }
 }
