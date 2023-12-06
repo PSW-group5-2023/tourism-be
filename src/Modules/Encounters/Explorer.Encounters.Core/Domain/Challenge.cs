@@ -22,12 +22,11 @@ namespace Explorer.Encounters.Core.Domain
         public Uri? Image { get; init; }
         public double? LatitudeImage { get; init; }
         public double? LongitudeImage { get; init; }
-        public double? Range { get; init; }
+        public double Range { get; init; }
         public int? RequiredAttendance { get; set; }
-        public double? RequiredRangeInMeters { get; set; }
 
         public Challenge(long creatorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude, 
-            Uri? image, double? latitudeImage, double? longitudeImage, double? range, int experiencePoints, long? keyPointId, int? requiredAttendance, double? requiredRangeInMeters)
+            Uri? image, double? latitudeImage, double? longitudeImage, double range, int experiencePoints, long? keyPointId, int? requiredAttendance)
         {
             CreatorId = creatorId;
             Description = description;
@@ -43,7 +42,6 @@ namespace Explorer.Encounters.Core.Domain
             ExperiencePoints = experiencePoints;
             KeyPointId = keyPointId;
             RequiredAttendance = requiredAttendance;
-            RequiredRangeInMeters = requiredRangeInMeters;
 
             Validate();
         }

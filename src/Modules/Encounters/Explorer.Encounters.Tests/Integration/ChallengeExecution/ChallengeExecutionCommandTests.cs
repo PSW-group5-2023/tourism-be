@@ -31,11 +31,12 @@ namespace Explorer.Encounters.Tests.Integration.ChallengeExecution
             {
                 Id = 1,
                 TouristId = -21,
-                Challenge = null,
+                ChallengeId = -1,
                 Latitude = 0,
                 Longitude = 0,
-                ActivationTime = DateTime.Now,
-                CompletionTime = null
+                ActivationTime = DateTime.UtcNow,
+                CompletionTime = null,
+                IsCompleted = false,
             };
 
             // Act
@@ -50,7 +51,7 @@ namespace Explorer.Encounters.Tests.Integration.ChallengeExecution
             result.ActivationTime.ShouldBe(newEntity.ActivationTime);
 
             // Assert - Database
-            var storedEntity = dbContext.Challenges.FirstOrDefault(i => i.Id == result.Id);
+            var storedEntity = dbContext.ChallengeExecutions.FirstOrDefault(i => i.Id == result.Id);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
