@@ -18,9 +18,10 @@ namespace Explorer.API.Controllers.Shopping
         }
 
         [HttpPut]
-        public ActionResult<PaymentRecordDto> Create([FromBody] PaymentRecordDto follower)
+        public ActionResult<PaymentRecordDto> Create([FromBody] PaymentRecordDto paymentRecord)
         {
-            return null;
+            var result = _paymentRecordService.Create(paymentRecord);
+            return CreateResponse(result);
         }
     }
 }

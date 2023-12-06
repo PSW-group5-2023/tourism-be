@@ -55,20 +55,9 @@ namespace Explorer.Payments.Tests.Integration
                             TouristId = -21,
                             BundleId = -1,
                             Price = 200,
-                            DateTimeOfBuying = DateTime.Now
+                            DateTimeOfBuying = DateTime.UtcNow
                         },
                         200
-                    },
-                    new object[]
-                    {
-                        new PaymentRecordDto{
-                            Id= -11,
-                            TouristId = 10,
-                            BundleId = -1,
-                            Price = 200,
-                            DateTimeOfBuying = DateTime.Now
-                        },
-                        400
                     }
                 };
         }

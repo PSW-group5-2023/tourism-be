@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Explorer.Payments.API.Dtos;
+using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace Explorer.Payments.API.Public
 {
     public interface IPaymentRecordService
     {
+        Result<PaymentRecordDto> Create(PaymentRecordDto paymentRecord);
     }
 }
