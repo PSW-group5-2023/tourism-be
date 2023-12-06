@@ -79,11 +79,11 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             DbContext.SaveChanges();
         }
 
-        public PagedResult<ChallengeExecution> GetPagedByKeyPointIds(List<long> tourKeyPointIds, int page, int pageSize)
+        public PagedResult<ChallengeExecution> GetPagedByKeyPointIds(List<int> tourKeyPointIds, int page, int pageSize)
         {
             var task = _dbSet
                 .Include(ce => ce.Challenge)
-                .Where(ce => tourKeyPointIds.Contains(ce.Challenge.KeyPointId ?? 0))
+                .Where(ce => tourKeyPointIds.Contains((int?)ce.Challenge.KeyPointId ?? 0))
                 .GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
