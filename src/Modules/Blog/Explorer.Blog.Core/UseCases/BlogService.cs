@@ -154,5 +154,22 @@ namespace Explorer.Blog.Core.UseCases
 
             return result;
         }
+
+        public Result<List<BlogDto>> GetBlogsByAuthor(int authorId)
+        {
+            var blogs = _blogRepository.GetBlogsByAuthor(authorId);
+            if (blogs == null) return Result.Fail(FailureCode.NotFound).WithError("Blog not found.");
+
+            var result = MapToDto(blogs);
+
+            foreach (var blog in result.Value)
+            {
+                var user = _internalBlogService.GetByUserId(blog.UserId);
+                if (user == null) return Result.Fail(FailureCode.NotFound).WithError("User not found.");
+                blog.Username = user.Username;
+            }
+
+            return result;
+        }
     }
 }
