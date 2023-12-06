@@ -1,10 +1,11 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
+using Explorer.Tours.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Explorer.API.Controllers.challengeExecutionist.Execution
+namespace Explorer.API.Controllers.Tourist.Execution
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/challengeExecution")]
@@ -45,5 +46,20 @@ namespace Explorer.API.Controllers.challengeExecutionist.Execution
             var result = _challengeExecutionService.Delete(id);
             return CreateResponse(result);
         }
+
+        [HttpPost("tour")]
+        public ActionResult GetPagedByTour([FromQuery] int page, [FromQuery] int pageSize, [FromBody] TourDto tour)
+        {
+            var result = _challengeExecutionService.GetPagedByKeyPointIds(tour.KeyPoints.Select(kp => kp.Id).ToList(), page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{touristId:int}")]
+        public ActionResult GetPagedByTouristId(int touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _challengeExecutionService.GetPagedByTouristId(touristId, page, pageSize);
+            return CreateResponse(result);
+        }
+
     }
 }

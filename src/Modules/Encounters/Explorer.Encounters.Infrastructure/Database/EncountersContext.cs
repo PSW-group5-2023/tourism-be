@@ -19,6 +19,11 @@ namespace Explorer.Encounters.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("encounters");
+
+            modelBuilder.Entity<ChallengeExecution>()
+                .HasOne(item => item.Challenge)
+                .WithMany()
+                .HasForeignKey("ChallengeId");
         }
     }
 }

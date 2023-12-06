@@ -20,9 +20,8 @@ namespace Explorer.Encounters.API.Dtos
         public string? Image { get; set; }
         public double? LatitudeImage { get; set; }
         public double? LongitudeImage { get; set; }
-        public double? Range { get; set; }
+        public double Range { get; set; }
         public long? KeyPointId { get; set; }
         public int? RequiredAttendance { get; set; }
-        public double? RequiredRangeInMeters { get; set; }
     }
 }

@@ -3,11 +3,14 @@ namespace Explorer.Encounters.API.Dtos
 {
     public class ChallengeExecutionDto
     {
-        public long TouristId { get; init; }
-        public long ChallengeId { get; init; }
-        public double Latitude { get; init; }
-        public double Longitude { get; init; }
-        public DateTime ActivationTime { get; init; }
-        public DateTime? CompletionTime { get; init; }
+        public long Id { get; set; }
+        public long TouristId { get; set; }
+        public ChallengeDto? Challenge { get; set; }
+        public long ChallengeId { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public DateTime ActivationTime { get; set; }
+        public DateTime? CompletionTime { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }
