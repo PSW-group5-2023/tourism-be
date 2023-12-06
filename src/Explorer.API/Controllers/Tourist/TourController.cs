@@ -37,10 +37,8 @@ namespace Explorer.API.Controllers.Tourist
         [HttpPost]
         public ActionResult<TourDto> CreateCampaign([FromBody] CampaignDto campaignDto)
         {
-            /*var result = _tourService.CreateCampaign(campaignDto.Tours, campaignDto.Name, campaignDto.Description, campaignDto.TouristId);
-            return CreateResponse(result);*/
-
-            throw new NotImplementedException();
+            var result = _tourService.CreateCampaign(campaignDto.Tours, campaignDto.Name, campaignDto.Description, campaignDto.TouristId);
+            return CreateResponse(result);
         }
 
     }
