@@ -15,6 +15,7 @@ namespace Explorer.Payments.Core.Mappers
         {
             CreateMap<BoughtItemDto, BoughtItem>().ReverseMap();
             CreateMap<CouponDto, Coupon>().ReverseMap();
+            CreateMap<WalletDto,Wallet>().ReverseMap();
         }
     }
 }
