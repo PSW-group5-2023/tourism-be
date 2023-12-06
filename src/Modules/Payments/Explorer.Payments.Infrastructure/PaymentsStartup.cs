@@ -30,12 +30,14 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
+            services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
             services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();
 
             services.AddDbContext<PaymentsContext>(opt =>
