@@ -18,14 +18,12 @@ namespace Explorer.API.Controllers.Tourist
 
         private IBoughtItemService _shoppingCartService;
         private ICouponService _couponService;
-        private IBoughtItemService shoppingCartService;
         private readonly IWalletService _walletService;
 
-        public BoughtItemController(IBoughtItemService shoppingCartService, ICouponService couponService)
+        public BoughtItemController(IBoughtItemService shoppingCartService, ICouponService couponService, IWalletService walletService)
         {
             _shoppingCartService = shoppingCartService;
             _couponService = couponService;
-            this.shoppingCartService = shoppingCartService;
             _walletService = walletService;
         }
 
@@ -45,9 +43,8 @@ namespace Explorer.API.Controllers.Tourist
         [HttpPost("addToCart")]
         public ActionResult<BoughtItemDto> AddToCart([FromBody] List<BoughtItemDto> items, [FromQuery] int cost)
         {
-            return CreateResponse(_shoppingCartService.Create(items));
             _walletService.SubFromBallance(items.First().UserId, cost);
-            return CreateResponse(shoppingCartService.Create(items));
+            return CreateResponse(_shoppingCartService.Create(items));
         }
 
         [HttpDelete("deleteCartItem")]
