@@ -166,7 +166,7 @@ VALUES
   (-5, 'Tura za javne 1, 2', 'Ova tura je okej', 1, '{"forest", "nature"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-6, 'Tura za javne 1, 3, 4', 'Ova tura je okej', 3, '{"history", "walking"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-7, 'Tura za javne 4, 5', 'Ova tura je okej', 2, '{"forest"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]');
 
 INSERT INTO tours."Preferences"(
 	"Id", "UserId", "DifficultyLevel", "WalkingRate", "BicycleRate", "CarRate", "BoatRate", "Tags")
@@ -204,7 +204,7 @@ VALUES
   (-20, 'Javna 5 (u turi -7)', 'najnovija javna kt', 'https://cdn.britannica.com/95/136995-050-6209F94F/rainforest-Malaysia.jpg', 45.22830260204978, 19.79891452593411, -7, 'TourKeyPoint', null, null, '', 1, -13),
   (-21, 'Javna 2 (u turi -8)', 'Lepsa kt', 'https://plus.unsplash.com/premium_photo-1673859055803-593f6cda5e2b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHNub3clMjBtb3VudGFpbnxlbnwwfHwwfHx8MA%3D%3D', 45.24616355261428, 19.820365905761722, -8, 'TourKeyPoint', null, null, '', 1, -10),
   (-22, 'Javna 3 (u turi -8)', 'Najlepsa kt', 'https://wallpapers.com/images/featured/snow-mountain-ydg6x966wun8nkjs.jpg', 45.24628421561786, 19.84560012817383, -8, 'TourKeyPoint', null, null, '', 2, -11),
-  (-23, 'Javna 4 (u turi -8)', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, -8, 'TourKeyPoint', null, null, '', 3, -12),
+  (-23, 'Javna 4 (u turi -8)', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, -8, 'TourKeyPoint', null, null, '', 3, -12);
 
 INSERT INTO tours."TourProblems"(
     "Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
