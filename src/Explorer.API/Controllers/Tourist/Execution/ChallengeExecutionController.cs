@@ -47,17 +47,17 @@ namespace Explorer.API.Controllers.Tourist.Execution
             return CreateResponse(result);
         }
 
-        [HttpPost("/tour")]
+        [HttpPost("tour")]
         public ActionResult GetPagedByTour([FromQuery] int page, [FromQuery] int pageSize, [FromBody] TourDto tour)
         {
             var result = _challengeExecutionService.GetPagedByKeyPointIds((List<long>)tour.KeyPoints.Select(kp => kp.Id), page, pageSize);
             return CreateResponse(result);
         }
 
-        [HttpGet("/tourist/{id:int}")]
-        public ActionResult GetPagedByTouristId(int id, [FromQuery] int page, [FromQuery] int pageSize)
+        [HttpGet("{touristId:int}")]
+        public ActionResult GetPagedByTouristId(int touristId, [FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _challengeExecutionService.GetPagedByTouristId(id, page, pageSize);
+            var result = _challengeExecutionService.GetPagedByTouristId(touristId, page, pageSize);
             return CreateResponse(result);
         }
 
