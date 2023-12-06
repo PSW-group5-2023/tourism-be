@@ -8,5 +8,6 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
 {
     public interface IUserExperienceRepository
     {
+        UserExperience GetByUserId(long userId);
     }
 }

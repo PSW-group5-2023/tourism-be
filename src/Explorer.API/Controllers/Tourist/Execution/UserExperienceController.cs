@@ -9,7 +9,7 @@ namespace Explorer.API.Controllers.Tourist.Execution
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/userExperience")]
-    public class UserExperienceController:BaseApiController
+    public class UserExperienceController : BaseApiController
     {
         private readonly IUserExperienceService _userExperienceService;
 
@@ -43,5 +43,12 @@ namespace Explorer.API.Controllers.Tourist.Execution
             var result = _userExperienceService.Delete(id);
             return CreateResponse(result);
         }
+        [HttpGet("userxp/{userId:long}")]
+        public ActionResult<PagedResult<UserExperienceDto>> GetByUserId(long userId)
+        {
+            var result = _userExperienceService.GetByUserId(userId);
+            return CreateResponse(result);
+        }
+
     }
 }
