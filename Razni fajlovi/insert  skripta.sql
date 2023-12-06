@@ -218,3 +218,10 @@ VALUES
     (-3, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-15 14:00:00'::timestamp, false, '[]', null),
     (-4, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
     (-5, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
+
+
+INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
+VALUES (-1, -6, 0, 1),
+		  (-2, -7, 0, 1),
+		  (-3, -8, 0, 1),
+		  (-4, -9, 0, 1);

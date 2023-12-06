@@ -13,6 +13,7 @@ namespace Explorer.Encounters.Infrastructure.Database
     {
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<ChallengeExecution> ChallengeExecutions { get; set; }
+        public DbSet<UserExperience> UserExperience { get; set; }
         public EncountersContext(DbContextOptions<EncountersContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

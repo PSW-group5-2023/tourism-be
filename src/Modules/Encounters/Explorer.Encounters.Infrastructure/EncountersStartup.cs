@@ -30,6 +30,7 @@ namespace Explorer.Encounters.Infrastructure
         {
             services.AddScoped<IChallengeService, ChallengeService>();
             services.AddScoped<IChallengeExecutionService, ChallengeExecutionService>();
+            services.AddScoped<IUserExperienceService, UserExperienceService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
@@ -37,6 +38,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped(typeof(ICrudRepository<Challenge>), typeof(CrudDatabaseRepository<Challenge, EncountersContext>));
             services.AddScoped(typeof(ICrudRepository<ChallengeExecution>),
                 typeof(CrudDatabaseRepository<ChallengeExecution, EncountersContext>));
+            services.AddScoped(typeof(ICrudRepository<UserExperience>), typeof(CrudDatabaseRepository<UserExperience, EncountersContext>));
 
             services.AddDbContext<EncountersContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("encounters"),

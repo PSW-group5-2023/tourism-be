@@ -15,6 +15,7 @@ namespace Explorer.Encounters.Core.Mappers
         {
             CreateMap<ChallengeDto, Challenge>().ReverseMap();
             CreateMap<ChallengeExecutionDto, ChallengeExecution>().ReverseMap();
+            CreateMap<UserExperienceDto, UserExperience>().ReverseMap();
         }
     }
 }

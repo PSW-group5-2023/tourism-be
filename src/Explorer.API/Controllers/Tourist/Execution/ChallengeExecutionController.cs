@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.challengeExecutionist.Execution
 {
-    [Authorize(Policy = "challengeExecutionistPolicy")]
-    [Route("api/challengeExecutionist/challengeExecution")]
+    [Authorize(Policy = "touristPolicy")]
+    [Route("api/tourist/challengeExecution")]
     public class ChallengeExecutionController : BaseApiController
     {
         private readonly IChallengeExecutionService _challengeExecutionService;
