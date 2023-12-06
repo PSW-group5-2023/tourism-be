@@ -205,13 +205,13 @@ VALUES
   (-21, 'Javna 2 (u turi -8)', 'Lepsa kt', 'https://plus.unsplash.com/premium_photo-1673859055803-593f6cda5e2b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHNub3clMjBtb3VudGFpbnxlbnwwfHwwfHx8MA%3D%3D', 45.24616355261428, 19.820365905761722, -8, 'TourKeyPoint', null, null, '', 1, -10),
   (-22, 'Javna 3 (u turi -8)', 'Najlepsa kt', 'https://wallpapers.com/images/featured/snow-mountain-ydg6x966wun8nkjs.jpg', 45.24628421561786, 19.84560012817383, -8, 'TourKeyPoint', null, null, '', 2, -11),
   (-23, 'Javna 4 (u turi -8)', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, -8, 'TourKeyPoint', null, null, '', 3, -12);
-
+  
 INSERT INTO tours."TourProblems"(
     "Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
 VALUES 
     (-1, -8, -2, 0, 1, 'Rezervacija nije sacuvana', '2023-11-11 14:00:00'::timestamp, false, '[
       {
-        "SenderId": -3,
+        "SenderId": -4,
           "RecipientId": -8,
         "CreationTime": "2023-11-11T15:03:36.2030688Z",
         "Description": "Problem u sistemu je u procesu resavanja. Rezervacija ce biti omogucena u narednih nekoliko sati. ",
@@ -219,7 +219,7 @@ VALUES
       },
       {
         "SenderId": -8,
-          "RecipientId": -3,
+          "RecipientId": -4,
         "CreationTime": "2023-11-11T17:03:36.2030688Z",
         "Description": "Jos uvek nije moguce izvrsiti rezervaciju. ",
         "IsRead": false
@@ -227,7 +227,7 @@ VALUES
     ]', '2023-11-29 00:00:00+01'),
     (-2, -6, -2, 2, 2, 'Dodatni troskovi su naplaceni, a nisu bili navedeni prilikom rezervacije. ', '2023-11-13 15:00:00'::timestamp, false, '[
       {
-        "SenderId": -3,
+        "SenderId": -4,
           "RecipientId": -6,
         "CreationTime": "2023-11-13T20:03:36.2030688Z",
         "Description": "Dodatni troskovi su sada azurirani i vidljivi prilikom rezervacije. ",
@@ -235,8 +235,8 @@ VALUES
       }
     ]', null),
     (-3, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-15 14:00:00'::timestamp, false, '[]', null),
-    (-4, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
-    (-5, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
+    (-4, -6, -3, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
+    (-5, -6, -1, 0, 4, 'Rezervacija nije sacuvana', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
 
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")
@@ -250,3 +250,7 @@ INSERT INTO payments."Wallet"(
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")
 	VALUES (-4, -9, 15);
+
+INSERT INTO tours."EquipmentTrackings"(
+    "Id", "TouristId", "NeededEquipment")
+VALUES (-1, -6, '{-1, -2}');
