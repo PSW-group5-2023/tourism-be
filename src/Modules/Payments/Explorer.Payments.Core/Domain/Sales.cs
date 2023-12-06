@@ -12,15 +12,13 @@ namespace Explorer.Payments.Core.Domain
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
         public float DiscountPercentage { get; init; }
-
-        //private List<int> DiscountedTours = new List<int>();
-
-        public Sales(DateTime startDate, DateTime endDate, float discountPercentage)
+        public long TourId { get; init; }
+        public Sales(DateTime startDate, DateTime endDate, float discountPercentage, long tourId)
         {
             StartDate = startDate.ToUniversalTime();
             EndDate = endDate.ToUniversalTime();
             DiscountPercentage = discountPercentage;
-            //DiscountedTours = discountedTours;
+            TourId = tourId;
         }
     }
 }

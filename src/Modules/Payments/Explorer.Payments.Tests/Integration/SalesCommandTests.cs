@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Explorer.API.Controllers.Author;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
@@ -26,7 +27,7 @@ namespace Explorer.Payments.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
+            var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
             var newEntity = new SalesDto
@@ -34,47 +35,22 @@ namespace Explorer.Payments.Tests.Integration
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
                 DiscountPercentage = 10,
-                //DiscountedTours = new List<int> { 1, 2, 3 }
             };
 
             // Act
-            //var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as SalesDto;
+            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as SalesDto;
 
             // Assert - Response
-            //result.ShouldNotBeNull();
-            //result.Id.ShouldNotBe(0);
-            //result.StartDate.ShouldBe(newEntity.StartDate);
-            //result.EndDate.ShouldBe(newEntity.EndDate);
-            //result.DiscountPercentage.ShouldBe(newEntity.DiscountPercentage);
-            //result.DiscountedTours.ShouldBe(newEntity.DiscountedTours);
+            result.ShouldNotBeNull();
+            result.Id.ShouldNotBe(0);
+            result.StartDate.ShouldBe(newEntity.StartDate);
+            result.EndDate.ShouldBe(newEntity.EndDate);
+            result.DiscountPercentage.ShouldBe(newEntity.DiscountPercentage);        
 
             // Assert - Database
-            //var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == result.Id);
-            //storedEntity.ShouldNotBeNull();
-            //storedEntity.Id.ShouldBe(result.Id);
-        }
-
-        [Fact]
-        public void Create_fails_invalid_data()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
-
-            var updatedEntity = new SalesDto
-            {
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(14),
-                DiscountPercentage = 110,
-                //DiscountedTours = new List<int> { 1, 2, 3 }
-            };
-
-            // Act
-            //var result = (ObjectResult)controller.Create(updatedEntity).Result;
-
-            // Assert
-            //result.ShouldNotBeNull();
-            //result.StatusCode.ShouldBe(400);
+            var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == result.Id);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(result.Id);
         }
 
         [Fact]
@@ -82,7 +58,7 @@ namespace Explorer.Payments.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
+            var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
             var updatedEntity = new SalesDto
@@ -90,25 +66,23 @@ namespace Explorer.Payments.Tests.Integration
                 Id = -1,
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
-                DiscountPercentage = 15,
-                //DiscountedTours = new List<int> { 4, 5, 6 }
+                DiscountPercentage = 15,         
             };
 
             // Act
-            //var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as SalesDto;
+            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as SalesDto;
 
             // Assert - Response
-            //result.ShouldNotBeNull();
-            //result.Id.ShouldBe(-1);
-            //result.StartDate.ShouldBe(updatedEntity.StartDate);
-            //result.EndDate.ShouldBe(updatedEntity.EndDate);
-            //result.DiscountPercentage.ShouldBe(updatedEntity.DiscountPercentage);
-            //result.DiscountedTours.ShouldBe(updatedEntity.DiscountedTours);
-
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-1);
+            result.StartDate.ShouldBe(updatedEntity.StartDate);
+            result.EndDate.ShouldBe(updatedEntity.EndDate);
+            result.DiscountPercentage.ShouldBe(updatedEntity.DiscountPercentage);
+            
             // Assert - Database
-            //var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == -1);
-            //storedEntity.ShouldNotBeNull();
-            //storedEntity.DiscountPercentage.ShouldBe(updatedEntity.DiscountPercentage);
+            var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == -1);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.DiscountPercentage.ShouldBe(updatedEntity.DiscountPercentage);
         }
 
         [Fact]
@@ -116,23 +90,22 @@ namespace Explorer.Payments.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
+            var controller = CreateController(scope);
 
             var updatedEntity = new SalesDto
             {
                 Id = -1000,
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(14),
-                DiscountPercentage = 20,
-                //DiscountedTours = new List<int> { 7, 8, 9 }
+                DiscountPercentage = 20,         
             };
 
             // Act
-            //var result = (ObjectResult)controller.Update(updatedEntity).Result;
+            var result = (ObjectResult)controller.Update(updatedEntity).Result;
 
             // Assert
-            //result.ShouldNotBeNull();
-            //result.StatusCode.ShouldBe(404);
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
         }
 
         [Fact]
@@ -140,19 +113,19 @@ namespace Explorer.Payments.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
+            var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
             // Act
-            //var result = (OkResult)controller.Delete(-2);
+            var result = (OkResult)controller.Delete(-2);
 
             // Assert - Response
-            //result.ShouldNotBeNull();
-            //result.StatusCode.ShouldBe(200);
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            //var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == 2);
-            //storedEntity.ShouldBeNull();
+            var storedEntity = dbContext.Sales.FirstOrDefault(i => i.Id == -2);
+            storedEntity.ShouldBeNull();
         }
 
         [Fact]
@@ -160,23 +133,22 @@ namespace Explorer.Payments.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            //var controller = CreateController(scope);
+            var controller = CreateController(scope);
 
             // Act
-            //var result = (ObjectResult)controller.Delete(-1000);
+            var result = (ObjectResult)controller.Delete(-1000);
 
             // Assert
-            //result.ShouldNotBeNull();
-            //result.StatusCode.ShouldBe(404);
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
         }
 
-      /*  private static SalesController CreateController(IServiceScope scope)
-        
+         private static SalesController CreateController(IServiceScope scope)
+         { 
             return new SalesController(scope.ServiceProvider.GetRequiredService<ISalesService>())
             {
                 ControllerContext = BuildContext("-1")
             };
-        }
-      */
+         }
     }
 }

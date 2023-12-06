@@ -12,6 +12,6 @@ namespace Explorer.Payments.API.Dtos
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public float DiscountPercentage { get; set; }
-        //public List<int> DiscountedTours { get; set; }
+        public long TourId { get; set; }
     }
 }

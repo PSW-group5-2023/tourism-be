@@ -1,5 +1,6 @@
 ﻿using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,13 @@ namespace Explorer.API.Controllers.Author
         public SalesController(ISalesService salesService)
         {
             _salesService = salesService;
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<Result<SalesDto>> Get(int id)
+        {
+            var result = _salesService.Get(id);
+            return CreateResponse(result);
         }
 
         [HttpPost]
