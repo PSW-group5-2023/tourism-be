@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,26 @@ namespace Explorer.Stakeholders.Core.Domain
 {
     public class PublicSiteHub : Hub
     {
+ 
+
+        public override Task OnConnectedAsync()
+        {
+
+            var httpContext = Context.GetHttpContext();
+            var token = httpContext.Request.Query["access_token"];
+
+            var handler = new JwtSecurityTokenHandler();
+            if (!token.IsNullOrEmpty())
+            {
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "id")?.Value;
+                if (userId != null) Groups.AddToGroupAsync(Context.ConnectionId, userId);
+            }
+
+
+            return base.OnConnectedAsync();
+        }
 
         public async Task SendPublicKeyPointNotification(string publicKeyPoint, string status, int creatorId)
         {
@@ -37,5 +59,11 @@ namespace Explorer.Stakeholders.Core.Domain
         {
             await Clients.All.SendAsync("ReceiveFollowerMessageNotification", recipientId, senderUsername);
         }
+
+        public async Task BalanceChanged(string recipientId, string addedCoins, string balance)
+        {
+            await Clients.Group(recipientId).SendAsync("BalanceChanged", addedCoins, balance);
+        }
+
     }
 }
