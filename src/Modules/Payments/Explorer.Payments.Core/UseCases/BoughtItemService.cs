@@ -13,10 +13,11 @@ using System.Threading.Tasks;
 using Explorer.Tours.API.Internal;
 using Explorer.Payments.API.Dtos.Statistics;
 using Explorer.Payments.API.Dtos.ListedTours;
+using Explorer.Payments.API.Internal;
 
 namespace Explorer.Payments.Core.UseCases
 {
-    public class BoughtItemService : BaseService<BoughtItemDto, BoughtItem>, IBoughtItemService
+    public class BoughtItemService : BaseService<BoughtItemDto, BoughtItem>, IBoughtItemService, IInternalBoughtItemService
     {
         private readonly IMapper mapper;
         private IBoughtItemRepository shoppingCartRepository;
@@ -130,6 +131,20 @@ namespace Explorer.Payments.Core.UseCases
             }
 
             return mostSoldToursStatistics;
+        }
+
+        public Result<BoughtItemDto> CreateBoughtItem(BoughtItemDto boughtItemDto)
+        {
+            try
+            {
+                shoppingCartRepository.AddToCart(MapToDomain(boughtItemDto));
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+
+            return Result.Ok();
         }
     }
 }

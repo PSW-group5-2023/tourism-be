@@ -116,9 +116,16 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpGet("getByStatus/{state:int}")]
-        public ActionResult<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        public ActionResult<List<BlogDto>> GetBlogsByStatus(int state)
         {
             var result = _blogService.GetBlogsByStatus(state);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("getByAuthor/{authorId:int}")]
+        public ActionResult<List<BlogDto>> GetBlogsByAuthor(int authorId)
+        {
+            var result = _blogService.GetBlogsByAuthor(authorId);
             return CreateResponse(result);
         }
     }

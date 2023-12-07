@@ -51,9 +51,9 @@ namespace Explorer.Blog.Tests.Integration
         }
 
         [Theory]
-        [InlineData(BlogState.Draft, 200)]
-        [InlineData(BlogState.Closed, 200)]
-        public void GetBlogsByStatus(BlogState state, int expectedResponseCode)
+        [InlineData(0, 200)]
+        [InlineData(2, 200)]
+        public void GetBlogsByStatus(int state, int expectedResponseCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -66,8 +66,29 @@ namespace Explorer.Blog.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectedResponseCode);
             
-            if(state==BlogState.Draft)(result.Value as List<BlogDto>).Count.ShouldBe(1);
-            else if(state==BlogState.Closed) (result.Value as List<BlogDto>).Count.ShouldBe(2);
+            if(state==0)(result.Value as List<BlogDto>).Count.ShouldBe(1);
+            else if(state==2) (result.Value as List<BlogDto>).Count.ShouldBe(2);
+
+        }
+
+        [Theory]
+        [InlineData(-21, 200)]
+        [InlineData(-22, 200)]
+        public void GetBlogsByAuthor(int authorId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.GetBlogsByAuthor(authorId).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            if (authorId == -21) (result.Value as List<BlogDto>).Count.ShouldBe(3);
+            else if (authorId == -22) (result.Value as List<BlogDto>).Count.ShouldBe(2);
 
         }
 

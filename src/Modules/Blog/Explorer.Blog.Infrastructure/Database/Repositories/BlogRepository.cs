@@ -74,12 +74,17 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
-
         }
 
-        public List<BlogPage> GetBlogsByStatus(BlogState state)
+        public List<BlogPage> GetBlogsByStatus(int state)
         {
             var query = _dbContext.Blogs.Where(blog => blog.Status == state);
+            return query.ToList();
+        }
+
+        public List<BlogPage> GetBlogsByAuthor(int authorId)
+        {
+            var query = _dbContext.Blogs.Where(blog => blog.UserId == authorId);
             return query.ToList();
         }
 
