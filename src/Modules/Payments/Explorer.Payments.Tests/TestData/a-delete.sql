@@ -1,2 +1,2 @@
 ﻿DELETE FROM payments."Sales";
-﻿DELETE FROM payments."Wallet";
+DELETE FROM payments."Wallet";
