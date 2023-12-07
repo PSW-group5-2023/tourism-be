@@ -37,6 +37,7 @@ namespace Explorer.Payments.Infrastructure
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
             services.AddScoped(typeof(ICrudRepository<Bundle>), typeof(CrudDatabaseRepository<Bundle, PaymentsContext>));
+            services.AddScoped<IBundleRepository, BundleRepository>();
 
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),

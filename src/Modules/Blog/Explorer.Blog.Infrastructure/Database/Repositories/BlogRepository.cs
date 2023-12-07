@@ -74,7 +74,6 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             {
                 throw new KeyNotFoundException(e.Message);
             }
-
         }
 
         public List<BlogPage> GetBlogsByStatus(int state)

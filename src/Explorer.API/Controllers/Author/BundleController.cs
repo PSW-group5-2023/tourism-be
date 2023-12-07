@@ -35,7 +35,8 @@ namespace Explorer.API.Controllers.Author
         [HttpGet("authorBundles/{id:int}")]
         public ActionResult<PagedResult<BundleDto>> GetByAuthorId([FromQuery] int page, [FromQuery] int pageSize,int id)
         {
-            throw new NotImplementedException();
+            var result = _bundleService.GetByAuthorId(page, pageSize, id);
+            return CreateResponse(result);
         }
 
         [HttpPost]

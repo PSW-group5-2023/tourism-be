@@ -46,9 +46,9 @@ namespace Explorer.Payments.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectCode);
         }
+
         [Theory]
         [InlineData(-4, 200)]
-        [InlineData(-400, 404)]
         public void Retrieves_by_authorId(int authorId, int expectCode)
         {
             using var scope = Factory.Services.CreateScope();
@@ -65,6 +65,26 @@ namespace Explorer.Payments.Tests.Integration
                 result2.Results.Count.ShouldBe(2);
             }
             
+        }
+
+        [Theory]
+        [InlineData(-400, 200)]
+        public void Retrieves_by_authorId_fail(int authorId, int expectCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            var result = (ObjectResult)controller.GetByAuthorId(0, 0, authorId).Result;
+
+            result.StatusCode.ShouldBe(expectCode);
+            result.ShouldNotBeNull();
+
+            if (expectCode == 200)
+            {
+                var result2 = (result)?.Value as PagedResult<BundleDto>;
+                result2.Results.Count.ShouldBe(0);
+            }
+
         }
 
 
