@@ -28,6 +28,7 @@ namespace Explorer.Blog.API.Public
         Result<BlogDto> UpdateRating(int blogId, int userId,int value);
 
         Result<List<BlogDto>> GetBlogsByStatus(BlogState state);
+        Result<List<BlogDto>> GetBlogsByAuthor(int authorId);
 
     }
 }

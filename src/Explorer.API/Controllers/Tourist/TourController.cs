@@ -18,6 +18,7 @@ namespace Explorer.API.Controllers.Tourist
             _tourService = tourService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<PagedResult<TourDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
@@ -25,10 +26,18 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<TourDto> Get(int id)
         {
             var result = _tourService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPost]
+        public ActionResult<TourDto> CreateCampaign([FromBody] CampaignDto campaignDto)
+        {
+            var result = _tourService.CreateCampaign(campaignDto.Tours, campaignDto.Name, campaignDto.Description, campaignDto.TouristId);
             return CreateResponse(result);
         }
 

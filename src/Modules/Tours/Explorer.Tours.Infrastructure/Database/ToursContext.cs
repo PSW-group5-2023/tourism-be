@@ -21,7 +21,6 @@ public class ToursContext : DbContext
     public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
     public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
-    public DbSet<BoughtItem> BoughtItems { get; set; }
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}
