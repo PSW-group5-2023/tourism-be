@@ -12,6 +12,8 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
 
         public PagedResult<ChallengeExecution> GetPagedByTouristId(long touristId, int page, int pageSize);
 
+        public PagedResult<ChallengeExecution> GetIncompletePagedByChallengeId(long challengeId, int page, int pageSize);
+
         public void SaveChanges();
     }
 }
