@@ -235,8 +235,18 @@ VALUES
       }
     ]', null),
     (-3, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-15 14:00:00'::timestamp, false, '[]', null),
+
     (-4, -6, -3, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
     (-5, -6, -1, 0, 4, 'Rezervacija nije sacuvana', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
+
+
+INSERT INTO payments."Bundles"(
+	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
+	VALUES 
+	(-4, 'Bundle 4', '77', -3, '{-3,-4}', 0),
+	(-3, 'Bundle 3', '10', -3, '{-4,-3}', 2),
+	(-2, 'Bundle 2', '100', -3, '{-1,-3,-4}', 1),
+	(-1, 'Bundle 1', '3', -3, '{-1,-4}', 0);
 
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")

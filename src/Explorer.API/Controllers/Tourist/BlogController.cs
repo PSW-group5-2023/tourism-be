@@ -119,7 +119,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("getByStatus/{state:int}")]
-        public ActionResult<List<BlogDto>> GetBlogsByStatus(BlogState state)
+        public ActionResult<List<BlogDto>> GetBlogsByStatus(int state)
         {
             var result = _blogService.GetBlogsByStatus(state);
             return CreateResponse(result);
