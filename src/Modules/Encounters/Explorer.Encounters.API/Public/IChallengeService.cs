@@ -16,5 +16,7 @@ namespace Explorer.Encounters.API.Public
         Result<ChallengeDto> Update(ChallengeDto challengeDto);
         Result Delete(int id);
         Result<ChallengeDto> Get(int id);
+
+        Result<PagedResult<ChallengeDto>> GetPagedByKeyPointIds(int page, int pageSize, List<int> keyPointIds);
     }
 }

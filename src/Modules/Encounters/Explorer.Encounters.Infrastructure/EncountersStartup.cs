@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.API.Public;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
@@ -32,13 +33,19 @@ namespace Explorer.Encounters.Infrastructure
         {
             services.AddScoped<IChallengeService, ChallengeService>();
             services.AddScoped<IChallengeExecutionService, ChallengeExecutionService>();
+            services.AddScoped<IUserExperienceService, UserExperienceService>();
+            services.AddScoped<IUserXP, UserXPService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
-            services.AddScoped(typeof(ICrudRepository<Challenge>), typeof(CrudDatabaseRepository<Challenge, EncountersContext>));
+            services.AddScoped(typeof(IChallengeRepository), typeof(ChallengeDatabaseRepository));
+            services.AddScoped(typeof(ICrudRepository<ChallengeExecution>),
+                typeof(CrudDatabaseRepository<ChallengeExecution, EncountersContext>));
+            services.AddScoped(typeof(ICrudRepository<UserExperience>), typeof(CrudDatabaseRepository<UserExperience, EncountersContext>));
             services.AddScoped(typeof(IChallengeExecutionRepository),
                 typeof(ChallengeExecutionDatabaseRepository));
+            services.AddScoped(typeof(IUserExperienceRepository), typeof(UserExperienceRepository));
 
             services.AddDbContext<EncountersContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("encounters"),

@@ -8,7 +8,7 @@ VALUES
 	(-6, 'tourist', 'tourist', 2, true),
 	(-7, 'sophia_brown', 'tourist', 2, false),
 	(-8, 'ethan_clark', 'tourist', 2, true),
-	(-9, 'ava_young', 'tourist', 2, false),
+	(-9, 'ava_young', 'tourist', 2, true),
 	(-10, 'james_brown', 'admin', 0, true);
 
 
@@ -218,3 +218,27 @@ VALUES
     (-3, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-15 14:00:00'::timestamp, false, '[]', null),
     (-4, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
     (-5, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
+
+
+INSERT INTO encounters."Challenges"(
+    "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "KeyPointId", "Image", "LatitudeImage", "LongitudeImage", "Range", "RequiredAttendance")
+VALUES (-1, -1, 'Na očaravajućem ostrvu Santorini, turista može se suočiti s izazovom istraživanja skrivenih staza i slikovitih sokaka, otkrivajući autentične grčke trenutke izvan uobičajenih turističkih ruta.', 'Skrivene staze', 1, 0, 45.249055, 19.850548, 190, null, null, null, null, 50, 2),
+    (-2, -4, 'Description 2', 'Name 2', 1, 1, 45.252909, 19.855888, 30, null, 'https://fajlovi.bos4.tours/uploads/2020/10/images/tour_217/Petrovaradinska%20tvrdjava%20sat.jpg', 45.253355, 19.861284, 50, null),
+    (-3, -1, 'Description 3', 'Name 3', 1, 2, 45.255387, 19.845547, 20, null, null, null, null, 50, null),
+    (-4, -1, 'Description 4', 'Name 4', 1, 2, 45.244873, 19.841853, 10, null, null, null, null, 50, null),
+    (-5, -1, 'Description 5', 'Name 5', 1, 1, 45.249647, 19.825326, 10, null, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, 50, null),
+    (-6, -1, 'Description 6', 'Name 6', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2),
+    (-7, -4, 'Description 7', 'Name 7', 1, 2, 45.25783231694552, 19.84560012817383, 10, -4, null, null, null, 50, null);
+
+
+INSERT INTO encounters."ChallengeExecutions"(
+	"Id", "TouristId", "ChallengeId", "Latitude", "Longitude", "ActivationTime", "CompletionTime", "IsCompleted")
+	VALUES (-1, -8, -1, 45.249058, 19.850543, CURRENT_TIMESTAMP, null, false),
+    -- (-2, -9, -1, 0, 0, CURRENT_TIMESTAMP, null, false),
+    (-3, -6, -1, 0, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true);
+
+INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
+VALUES (-1, -6, 190, 10),
+		  (-2, -7, 0, 1),
+		  (-3, -8, 50, 3),
+		  (-4, -9, 0, 1);

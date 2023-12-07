@@ -11,7 +11,7 @@ namespace Explorer.Encounters.Core.Domain
         public double Longitude { get; init; }
         public DateTime ActivationTime { get; init; }
         public DateTime? CompletionTime { get; private set; }
-        public bool IsCompleted { get; init; }
+        public bool IsCompleted { get; private set; }
 
         public ChallengeExecution(long touristId, double latitude, double longitude,
             DateTime activationTime, DateTime? completionTime, long challengeId, bool isCompleted)
@@ -25,16 +25,15 @@ namespace Explorer.Encounters.Core.Domain
             IsCompleted = isCompleted;
         }
 
-        public void CompleteSocial(int numberOfTourists)
+        public void Complete()
         {
-
-            CheckSocialCompletionConditions(numberOfTourists);
             CompletionTime = DateTime.UtcNow;
+            IsCompleted = true;
         }
         public void CheckSocialCompletionConditions(int numberOfTourists)
         {
             if (Challenge.RequiredAttendance > numberOfTourists) throw new ArgumentException("Not enough tourists to complete the challenge");
-            // if (Challenge.Range > CalculateDistance(Challenge.Latitude, Challenge.Longitude, Latitude, Longitude)) throw new ArgumentException("Not close enough to complete the challenge");
+            if (Challenge.Range > CalculateDistance(Challenge.Latitude, Challenge.Longitude, Latitude, Longitude)) throw new ArgumentException("Not close enough to complete the challenge");
         }
 
         private double CalculateDistance(double challengeLatitude, double challengeLongitude, double touristLatitude, double touristLongitude)

@@ -21,7 +21,7 @@ namespace Explorer.Encounters.Core.UseCases
             try
             {
                 var challengeExecution = _challengeExecutionRepository.GetByChallengeIdAndTouristId(challengeId, touristId);
-                challengeExecution.CompleteSocial(_challengeExecutionRepository.GetNumberOfTouristsByChallengeId(challengeExecution.Challenge.Id));
+                challengeExecution.Complete();
                 _challengeExecutionRepository.SaveChanges();
                 return MapToDto(challengeExecution);
             }
@@ -41,6 +41,69 @@ namespace Explorer.Encounters.Core.UseCases
         {
             var result = _challengeExecutionRepository.GetPagedByTouristId(touristId, page, pageSize);
             return MapToDto(result);
+        }
+
+        public override Result<ChallengeExecutionDto> Create(ChallengeExecutionDto entity)
+        {
+            try
+            {
+                var result = _challengeExecutionRepository.Create(MapToDomain(entity));
+                result = _challengeExecutionRepository.Get(result.Id);
+                if (result.Challenge.Type == ChallengeType.Social)
+                {
+                    if (_challengeExecutionRepository.GetNumberOfTouristsByChallengeId(result.ChallengeId) >= result.Challenge.RequiredAttendance)
+                    {
+                        result.Complete();
+                        _challengeExecutionRepository.SaveChanges();
+                        foreach (var execution in _challengeExecutionRepository.GetIncompletePagedByChallengeId(result.ChallengeId, 0, 0).Results)
+                        {
+                            execution.Complete();
+                            _challengeExecutionRepository.SaveChanges();
+                        }
+                    }
+
+                }
+                return MapToDto(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
+        public override Result<ChallengeExecutionDto> Update(ChallengeExecutionDto entity)
+        {
+            try
+            {
+                var result = CrudRepository.Update(MapToDomain(entity));
+                if (result.Challenge.Type == ChallengeType.Social)
+                {
+                    if (_challengeExecutionRepository.GetNumberOfTouristsByChallengeId(result.ChallengeId) >= result.Challenge.RequiredAttendance)
+                    {
+                        result.Complete();
+                        _challengeExecutionRepository.SaveChanges();
+                        foreach (var execution in _challengeExecutionRepository.GetIncompletePagedByChallengeId(result.ChallengeId, 0, 0).Results)
+                        {
+                            execution.Complete();
+                            _challengeExecutionRepository.SaveChanges();
+                        }
+                    }
+
+                }
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+        public Result<List<long>> GetUserIds(long challengeId)
+        {
+            return _challengeExecutionRepository.GetUserIds(challengeId);
         }
     }
 }

@@ -22,5 +22,6 @@ namespace Explorer.Encounters.API.Public
         Result<PagedResult<ChallengeExecutionDto>> GetPagedByKeyPointIds(List<int> keyPointIds, int page, int pageSize);
 
         Result<PagedResult<ChallengeExecutionDto>> GetPagedByTouristId(long touristId, int page, int pageSize);
+        Result<List<long>> GetUserIds(long challengeId);
     }
 }
