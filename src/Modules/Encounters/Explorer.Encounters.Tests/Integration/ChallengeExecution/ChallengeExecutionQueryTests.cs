@@ -1,10 +1,8 @@
-﻿using Explorer.API.Controllers.Administrator;
+﻿using Explorer.API.Controllers.Tourist.Execution;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
-using Explorer.Encounters.Infrastructure.Database;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -14,12 +12,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Encounters.Tests.Integration
+namespace Explorer.Encounters.Tests.Integration.ChallengeExecution
 {
     [Collection("Sequential")]
-    public class ChallengeQueryTests : BaseEncountersIntegrationTest
+    public class ChallengeExecutionQueryTests : BaseEncountersIntegrationTest
     {
-        public ChallengeQueryTests(EncountersTestFactory factory) : base(factory)
+        public ChallengeExecutionQueryTests(EncountersTestFactory factory) : base(factory)
         {
         }
 
@@ -31,19 +29,17 @@ namespace Explorer.Encounters.Tests.Integration
             var controller = CreateController(scope);
 
             // Act
-            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<ChallengeDto>;
+            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<ChallengeExecutionDto>;
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(6);
-            result.TotalCount.ShouldBe(6);
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
         }
 
-        
-
-        private static ChallengeController CreateController(IServiceScope scope)
+        private static ChallengeExecutionController CreateController(IServiceScope scope)
         {
-            return new ChallengeController(scope.ServiceProvider.GetRequiredService<IChallengeService>())
+            return new ChallengeExecutionController(scope.ServiceProvider.GetRequiredService<IChallengeExecutionService>())
             {
                 ControllerContext = BuildContext("-1")
             };

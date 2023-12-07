@@ -32,7 +32,7 @@ namespace Explorer.Encounters.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
             var newEntity = new ChallengeDto
             {
-                AdministratorId = -1,
+                CreatorId = -1,
                 Description = "Na očaravajućem ostrvu Santorini, turista može se suočiti s izazovom istraživanja skrivenih staza i slikovitih sokaka, otkrivajući autentične grčke trenutke izvan uobičajenih turističkih ruta.",
                 Name = "asdasdsadas",
                 Status = 0,
@@ -76,6 +76,7 @@ namespace Explorer.Encounters.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(400);
         }
+   
 
         [Fact]
         public void Updates()
@@ -87,7 +88,7 @@ namespace Explorer.Encounters.Tests.Integration
             var updatedEntity = new ChallengeDto
             {
                 Id = -1,
-                AdministratorId = -1,
+                CreatorId = -1,
                 Name = "Update",
                 Description = "update test"
             };
@@ -118,7 +119,7 @@ namespace Explorer.Encounters.Tests.Integration
             var updatedEntity = new ChallengeDto
             {
                 Id = -1000,
-                AdministratorId = -1,
+                CreatorId = -1,
                 Name = "Test",
                 Description = "failed update test"
             };
@@ -145,6 +146,8 @@ namespace Explorer.Encounters.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(404);
         }
+
+
 
         private static ChallengeController CreateController(IServiceScope scope)
         {

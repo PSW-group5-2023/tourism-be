@@ -10,23 +10,38 @@ namespace Explorer.Encounters.Core.Domain
 {
     public class Challenge : Entity
     {
-        public int AdministratorId { get; init; }
+        public long CreatorId { get; init; }
         public string Description { get; init; }
         public string Name { get; init; }
         public ChallengeStatus Status { get; init; }
         public ChallengeType Type { get; init; }
         public double Latitude { get; init; }
-        public double Longitude { get; set; }
+        public double Longitude { get; init; }
+        public int ExperiencePoints { get; init; }
+        public long? KeyPointId { get; init; }
+        public Uri? Image { get; init; }
+        public double? LatitudeImage { get; init; }
+        public double? LongitudeImage { get; init; }
+        public double Range { get; init; }
+        public int? RequiredAttendance { get; set; }
 
-        public Challenge(int administratorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude)
+        public Challenge(long creatorId, string description, string name, ChallengeStatus status, ChallengeType type, double latitude, double longitude, 
+            Uri? image, double? latitudeImage, double? longitudeImage, double range, int experiencePoints, long? keyPointId, int? requiredAttendance)
         {
-            AdministratorId = administratorId;
+            CreatorId = creatorId;
             Description = description;
             Name = name;
             Status = status;
             Type = type;
             Latitude = latitude;
             Longitude = longitude;
+            Image = image;
+            LatitudeImage = latitudeImage;
+            LongitudeImage = longitudeImage;
+            Range = range;
+            ExperiencePoints = experiencePoints;
+            KeyPointId = keyPointId;
+            RequiredAttendance = requiredAttendance;
 
             Validate();
         }
@@ -44,6 +59,7 @@ namespace Explorer.Encounters.Core.Domain
         Active,
         Archived
     }
+
     public enum ChallengeType
     {
         Social,

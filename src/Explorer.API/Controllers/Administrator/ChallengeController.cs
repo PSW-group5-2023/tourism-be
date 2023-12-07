@@ -3,6 +3,8 @@ using Explorer.Encounters.API.Public;
 using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Explorer.Tours.API.Dtos;
+using Explorer.Encounters.Core.UseCases;
 
 namespace Explorer.API.Controllers.Administrator
 {
@@ -12,9 +14,9 @@ namespace Explorer.API.Controllers.Administrator
     {
         private readonly IChallengeService _challengeService;
 
-        public ChallengeController(IChallengeService challengeController)
+        public ChallengeController(IChallengeService challengeService)
         {
-            _challengeService = challengeController;
+            _challengeService = challengeService;
         }
 
         [HttpGet]
