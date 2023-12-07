@@ -2,6 +2,7 @@
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Payments.API.Internal;
 using Explorer.Payments.API.Public;
+using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
 using Explorer.Payments.Core.Mappers;
 using Explorer.Payments.Core.UseCases;
@@ -30,6 +31,7 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<ISalesService, SalesService>();
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
         }
@@ -37,6 +39,7 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
+            services.AddScoped(typeof(ICrudRepository<Sales>), typeof(CrudDatabaseRepository<Sales, PaymentsContext>));
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
             services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();
 
