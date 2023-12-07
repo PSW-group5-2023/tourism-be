@@ -6,12 +6,12 @@ namespace Explorer.Payments.Core.Domain
     public class Bundle : Entity
     {
         public string Name { get; init; }
-        public int Price { get; init; }
+        public string Price { get; init; }
         public int AuthorId { get; init; }
         public List<int> ToursId { get; init; }
         public int BundleState { get; init; }
 
-        public Bundle(string name, int price, int authorId, List<int> toursId, int bundleState)
+        public Bundle(string name, string price, int authorId, List<int> toursId, int bundleState)
         {
             if (authorId == 0) throw new ArgumentException("Invalid authorId.");
             Name = name;

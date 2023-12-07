@@ -224,7 +224,7 @@ INSERT INTO payments."Bundles"(
 	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
 	VALUES 
 	(-4, 'Bundle 4', '77', -3, '{-3,-4}', 0),
-	(-3, 'Bundle 3', '10', -3, '{-4}', 2),
+	(-3, 'Bundle 3', '10', -3, '{-4,-3}', 2),
 	(-2, 'Bundle 2', '100', -3, '{-1,-3,-4}', 1),
 	(-1, 'Bundle 1', '3', -3, '{-1,-4}', 0);
 	    
