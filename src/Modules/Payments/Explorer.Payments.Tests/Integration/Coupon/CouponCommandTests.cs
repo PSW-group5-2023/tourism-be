@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 
 
-namespace Explorer.Payments.Tests.Integration;
+namespace Explorer.Payments.Tests.Integration.Coupon;
 
 [Collection("Sequential")]
 public class CouponCommandTests : BasePaymentsIntegrationTest

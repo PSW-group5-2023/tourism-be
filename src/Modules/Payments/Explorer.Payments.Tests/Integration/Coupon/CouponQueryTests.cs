@@ -13,8 +13,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Payments.Tests.Integration
-{ 
+namespace Explorer.Payments.Tests.Integration.Coupon
+{
     [Collection("Sequential")]
     public class CouponQueryTests : BasePaymentsIntegrationTest
     {

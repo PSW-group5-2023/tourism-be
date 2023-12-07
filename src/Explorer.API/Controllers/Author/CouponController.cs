@@ -18,16 +18,16 @@ public class CouponController : BaseApiController
     }
 
     [HttpPost]
-    public ActionResult<CouponDto> Create([FromBody] CouponDto equipment)
+    public ActionResult<CouponDto> Create([FromBody] CouponDto coupon)
     {
-        var result = _couponService.Create(equipment);
+        var result = _couponService.Create(coupon);
         return CreateResponse(result);
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult<CouponDto> Update([FromBody] CouponDto equipment)
+    public ActionResult<CouponDto> Update([FromBody] CouponDto coupon)
     {
-        var result = _couponService.Update(equipment);
+        var result = _couponService.Update(coupon);
         return CreateResponse(result);
     }
 
