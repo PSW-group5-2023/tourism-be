@@ -12,6 +12,7 @@ namespace Explorer.Payments.Infrastructure.Database
     {
         public DbSet<BoughtItem> BoughtItems { get; set; }
         public DbSet<Sales> Sales { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
         public DbSet<Wallet> Wallet { get; set; }
 
         public PaymentsContext(DbContextOptions<PaymentsContext> options) : base(options) { }

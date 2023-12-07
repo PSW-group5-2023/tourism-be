@@ -36,9 +36,9 @@ namespace Explorer.Payments.Tests.Integration.Wallet
 
         }
 
-        private static ShoppingCartController CreateController(IServiceScope scope)
+        private static BoughtItemController CreateController(IServiceScope scope)
         {
-            return new ShoppingCartController(scope.ServiceProvider.GetRequiredService<IBoughtItemService>(), scope.ServiceProvider.GetRequiredService<IWalletService>())
+            return new BoughtItemController(scope.ServiceProvider.GetRequiredService<IBoughtItemService>(),scope.ServiceProvider.GetRequiredService<ICouponService>(), scope.ServiceProvider.GetRequiredService<IWalletService>())
             {
                 ControllerContext = BuildContext("-1")
             };
