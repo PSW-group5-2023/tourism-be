@@ -71,7 +71,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
 
         public int GetNumberOfTouristsByChallengeId(long challengeId)
         {
-            return _dbSet.Include(ce => ce.Challenge).Where(ce => ce.Challenge.Id == challengeId).Count();
+            return _dbSet.Include(ce => ce.Challenge).Where(ce => ce.Challenge.Id == challengeId && !ce.IsCompleted).Count();
         }
 
         public void SaveChanges()
@@ -94,6 +94,16 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             var task = _dbSet
                 .Include(ce => ce.Challenge)
                 .Where(ce => ce.TouristId == touristId)
+                .GetPagedById(page, pageSize);
+            task.Wait();
+            return task.Result;
+        }
+
+        public PagedResult<ChallengeExecution> GetIncompletePagedByChallengeId(long challengeId, int page, int pageSize)
+        {
+            var task = _dbSet
+                .Include(ce => ce.Challenge)
+                .Where(ce => ce.ChallengeId == challengeId && !ce.IsCompleted)
                 .GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;

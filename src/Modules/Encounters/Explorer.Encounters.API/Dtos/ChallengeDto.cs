@@ -17,7 +17,7 @@ namespace Explorer.Encounters.API.Dtos
         public double Longitude { get; set; }
         public int Type { get; set; }
         public int ExperiencePoints { get; set; }
-        public string? Image { get; set; }
+        public Uri? Image { get; set; }
         public double? LatitudeImage { get; set; }
         public double? LongitudeImage { get; set; }
         public double Range { get; set; }
