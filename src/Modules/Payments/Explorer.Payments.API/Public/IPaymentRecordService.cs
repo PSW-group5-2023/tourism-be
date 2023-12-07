@@ -1,4 +1,5 @@
-﻿using Explorer.Payments.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Dtos;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Explorer.Payments.API.Public
 {
     public interface IPaymentRecordService
     {
+        Result<PagedResult<PaymentRecordDto>> GetPaged(int page, int pageSize);
         Result<PaymentRecordDto> Create(PaymentRecordDto paymentRecord);
     }
 }
