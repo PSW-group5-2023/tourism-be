@@ -61,5 +61,11 @@ namespace Explorer.API.Controllers.Tourist.Execution
             return CreateResponse(result);
         }
 
+        //[HttpGet("userids/{challengeId:long}")]
+        //public ActionResult GetPagedByTouristId(long challengeId)
+        //{
+        //    var result = _challengeExecutionService.GetUserIds(challengeId);
+        //    return CreateResponse(result);
+        //}
     }
 }

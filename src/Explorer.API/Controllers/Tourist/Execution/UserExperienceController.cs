@@ -2,6 +2,7 @@
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
 using Explorer.Encounters.Core.UseCases;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace Explorer.API.Controllers.Tourist.Execution
     public class UserExperienceController : BaseApiController
     {
         private readonly IUserExperienceService _userExperienceService;
+        private readonly IChallengeExecutionService _challengeExecutionService;
 
-        public UserExperienceController(IUserExperienceService userExperienceService)
+        public UserExperienceController(IUserExperienceService userExperienceService, IChallengeExecutionService challengeExecutionService)
         {
             _userExperienceService = userExperienceService;
+            _challengeExecutionService = challengeExecutionService;
         }
         [HttpGet]
         public ActionResult<PagedResult<UserExperienceDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
@@ -54,6 +57,17 @@ namespace Explorer.API.Controllers.Tourist.Execution
         public ActionResult<UserExperienceDto> AddXP(long id,int xp)
         {
             var result = _userExperienceService.AddXP(id,xp);
+            return CreateResponse(result);
+        }
+        [HttpPut("addxpsocial/{challengeId:long}/{xp:int}")]
+        public ActionResult<UserExperienceDto> AddXPSocial(long challengeId, int xp)
+        {
+            var ids= _challengeExecutionService.GetUserIds(challengeId);
+            Result<UserExperienceDto> result=new Result<UserExperienceDto>();
+            foreach (var id in ids.Value) 
+            {
+                result = _userExperienceService.AddXP(_userExperienceService.GetByUserId(id).Value.Id, xp);
+            }
             return CreateResponse(result);
         }
     }

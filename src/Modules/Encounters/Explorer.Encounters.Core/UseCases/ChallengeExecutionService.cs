@@ -101,5 +101,9 @@ namespace Explorer.Encounters.Core.UseCases
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
+        public Result<List<long>> GetUserIds(long challengeId)
+        {
+            return _challengeExecutionRepository.GetUserIds(challengeId);
+        }
     }
 }

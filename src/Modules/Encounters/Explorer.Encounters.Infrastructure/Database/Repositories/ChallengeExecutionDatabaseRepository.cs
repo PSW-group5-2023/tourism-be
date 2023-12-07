@@ -108,5 +108,17 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             task.Wait();
             return task.Result;
         }
+
+        public List<long> GetUserIds(long challengeId)
+        {
+            var tasks = _dbSet.GetPaged(0, 0);
+            List<long> ids = new List<long>();
+            foreach (var task in tasks.Result.Results)
+            {
+                if(task.ChallengeId==challengeId && !task.IsCompleted)
+                    ids.Add(task.TouristId);
+            }
+            return ids;
+        }
     }
 }
