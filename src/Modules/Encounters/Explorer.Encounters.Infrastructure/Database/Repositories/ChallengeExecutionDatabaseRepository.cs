@@ -115,7 +115,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             List<long> ids = new List<long>();
             foreach (var task in tasks.Result.Results)
             {
-                if(task.ChallengeId==challengeId && !task.IsCompleted)
+                if(task.ChallengeId==challengeId)
                     ids.Add(task.TouristId);
             }
             return ids;
