@@ -31,12 +31,14 @@ namespace Explorer.Payments.Infrastructure
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
             services.AddScoped<ISalesService, SalesService>();
+            services.AddScoped<IWalletService, WalletService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
             services.AddScoped(typeof(ICrudRepository<Sales>), typeof(CrudDatabaseRepository<Sales, PaymentsContext>));
+            services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
 
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),

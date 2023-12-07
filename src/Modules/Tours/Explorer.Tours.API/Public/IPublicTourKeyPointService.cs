@@ -15,7 +15,6 @@ namespace Explorer.Tours.API.Public
         Result<PublicTourKeyPointDto> Get(int id);
         Result<PublicTourKeyPointDto> Create(PublicTourKeyPointDto tourKeyPoint);
         Result<PublicTourKeyPointDto> ChangeStatus(int id, String status);
-
         Result<List<PublicTourKeyPointDto>> GetByStatus(String status);
         Result Delete(int id);
     }

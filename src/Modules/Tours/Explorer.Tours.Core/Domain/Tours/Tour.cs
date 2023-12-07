@@ -6,7 +6,7 @@ namespace Explorer.Tours.Core.Domain.Tours
 
     public class Tour : Entity
     {
-        public string Name { get; init; }
+        public string Name { get; private set; }
         public string Description { get; init; }
         public TourDifficulty Difficulty { get; init; }
         public List<string> Tags { get; init; }
@@ -17,8 +17,8 @@ namespace Explorer.Tours.Core.Domain.Tours
         public double DistanceInKm { get; init; }
         public DateTime? ArchivedDate { get; private set; }
         public DateTime? PublishedDate { get; private set; }
-        public List<TourDuration> Durations { get; init; }
-        public List<TourKeyPoint> KeyPoints { get; init; }
+        public List<TourDuration> Durations { get; private set; }
+        public List<TourKeyPoint> KeyPoints { get; private set; }
 
         public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations)
         {
@@ -35,6 +35,10 @@ namespace Explorer.Tours.Core.Domain.Tours
             PublishedDate = publishedDate;
             Durations = durations;
             KeyPoints = new List<TourKeyPoint>();
+            if (Status == TourStatus.TouristMade)
+            {
+                TouristTourValidation();
+            }
         }
 
         private void Validate()
@@ -46,6 +50,13 @@ namespace Explorer.Tours.Core.Domain.Tours
             if (KeyPoints.Count < 2) throw new ArgumentException("Not enough Key Points");
             if (Durations.IsNullOrEmpty()) throw new ArgumentException("Not enough Durations");
             if (Status == TourStatus.Published) throw new ArgumentException("Tour is already published");
+        }
+
+        private void TouristTourValidation()
+        {
+            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
+            if (Durations.Count == 0) throw new ArgumentException("Not enough Durations");
+            if (Status != TourStatus.TouristMade) throw new ArgumentException("Tourist didn't make this tour");
         }
 
         public void Publish(int userId)
@@ -70,13 +81,21 @@ namespace Explorer.Tours.Core.Domain.Tours
         {
             if (AuthorId != userId) throw new UnauthorizedAccessException("User is not the author of the tour");
         }
+
+        public void UpdateTouristTour(Tour tour)
+        {
+            Name = tour.Name;
+            KeyPoints = tour.KeyPoints;
+            Durations = tour.Durations;
+        }
     }
 
     public enum TourStatus
     {
         Draft,
         Published,
-        Archived
+        Archived,
+        TouristMade
     }
 
     public enum TourDifficulty
