@@ -23,5 +23,27 @@ namespace Explorer.API.Controllers.Tourist
             var result = _challengeService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
+
+        [HttpPost]
+        public ActionResult<ChallengeDto> Create([FromBody] ChallengeDto challengeDto)
+        {
+            var result = _challengeService.Create(challengeDto);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<ChallengeDto> Update([FromBody] ChallengeDto challengeDto)
+        {
+            var result = _challengeService.Update(challengeDto);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var result = _challengeService.Delete(id);
+            return CreateResponse(result);
+        }
+    
     }
 }
