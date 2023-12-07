@@ -37,5 +37,9 @@ VALUES (-12, 'Tura 12', 'Ova tura je lepa', 0, '{{"tag", "tag2"}}', 2, 0, -1, '{
 INSERT INTO tours."Tour"(
 "Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
 VALUES (-13, 'Tura 13', 'Ova tura je lepa', 0, '{{"tag", "tag2"}}', 2, 0, -11, '{{-1, -2}}', 15.5, NULL, NULL, '[{{"TimeInSeconds": 5, "Transportation": 0}}]');
-
-
+INSERT INTO tours."Tour"(
+"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
+VALUES (-14, 'Tura 14', 'Ova tura je lepa', 0, '{{"tag", "tag2"}}', 3, 0, -11, '{{-1, -2}}', 15.5, NULL, NULL, '[{{"TimeInSeconds": 5, "Transportation": 0}}]');
+INSERT INTO tours."Tour"(
+"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
+VALUES (-15, 'Tura 14', 'Ova tura je lepa', 0, '{{"tag", "tag2"}}', 3, 0, -11, '{{-1, -2}}', 15.5, NULL, NULL, '[{{"TimeInSeconds": 5, "Transportation": 0}}]');

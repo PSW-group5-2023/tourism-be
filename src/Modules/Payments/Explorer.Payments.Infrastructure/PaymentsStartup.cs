@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Payments.API.Internal;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
@@ -30,15 +31,19 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<ISalesService, SalesService>();
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
+            services.AddScoped(typeof(ICrudRepository<Sales>), typeof(CrudDatabaseRepository<Sales, PaymentsContext>));
             services.AddScoped<ICouponRepository, CouponDatabaseRepository>();
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
+            services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();
 
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),
