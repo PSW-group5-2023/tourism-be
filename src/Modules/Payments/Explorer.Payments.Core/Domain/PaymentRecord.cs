@@ -11,10 +11,10 @@ namespace Explorer.Payments.Core.Domain
     {
         public int TouristId { get; init; }
         public int BundleId { get; init; }
-        public int Price { get; init; }
+        public double Price { get; init; }
         public DateTime DateTimeOfBuying { get; init; }
 
-        public PaymentRecord(int touristId, int bundleId, int price, DateTime dateTimeOfBuying)
+        public PaymentRecord(int touristId, int bundleId, double price, DateTime dateTimeOfBuying)
         {
             TouristId = touristId;
             BundleId = bundleId;
