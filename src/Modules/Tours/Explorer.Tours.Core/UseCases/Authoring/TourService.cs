@@ -191,5 +191,26 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             return campaignEquipmentList.ToArray();
         }
 
+
+        public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
+        {
+            var tours = _tourRepository.GetPaged(page, pageSize);
+            PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+
+            if (tags[0].Contains(","))
+            {
+                tags = tags[0].Split(",");
+            }
+            filteredTours.Results.AddRange(
+                tours.Results
+                    .Where(tour => (tour.Name.ToLower().Contains(name.ToLower()) || name.Equals("empty")) &&
+                                   tags.All(tag => tour.Tags.Any(tourTag =>
+                                       tourTag.ToLower() == tag.ToLower() || tag == "empty")))
+                    .Select(MapToDto)
+            );
+
+            return filteredTours;
+        }
+
     }
 }
