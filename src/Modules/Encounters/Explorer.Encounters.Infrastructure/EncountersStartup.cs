@@ -39,7 +39,7 @@ namespace Explorer.Encounters.Infrastructure
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
-            services.AddScoped(typeof(ICrudRepository<Challenge>), typeof(CrudDatabaseRepository<Challenge, EncountersContext>));
+            services.AddScoped(typeof(IChallengeRepository), typeof(ChallengeDatabaseRepository));
             services.AddScoped(typeof(ICrudRepository<ChallengeExecution>),
                 typeof(CrudDatabaseRepository<ChallengeExecution, EncountersContext>));
             services.AddScoped(typeof(ICrudRepository<UserExperience>), typeof(CrudDatabaseRepository<UserExperience, EncountersContext>));

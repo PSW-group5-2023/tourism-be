@@ -3,6 +3,7 @@ using Explorer.Encounters.API.Public;
 using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Explorer.Tours.API.Dtos;
 
 namespace Explorer.API.Controllers.Tourist
 {
@@ -42,6 +43,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult Delete(int id)
         {
             var result = _challengeService.Delete(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPost("tour")]
+        public ActionResult GetPagedByTour([FromQuery] int page, [FromQuery] int pageSize, [FromBody] TourDto tour)
+        {
+            var result = _challengeService.GetPagedByKeyPointIds(page, pageSize, tour.KeyPoints.Select(kp => kp.Id).ToList());
             return CreateResponse(result);
         }
     
