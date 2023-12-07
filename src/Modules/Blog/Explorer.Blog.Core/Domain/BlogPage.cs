@@ -16,12 +16,12 @@ namespace Explorer.Blog.Core.Domain
         public string Title { get; init; }
         public string? Description { get; init; }
         public DateTime? CreationDate { get; init; }
-        public BlogState? Status { get; init; }
+        public int? Status { get; init; }
         public long UserId {  get; init; }
 
         public int RatingSum { get; set; }
         public List<Rating> Ratings { get; init; }
-        public BlogPage(string title, string? description, BlogState? status, long userId,int ratingSum, List<Rating> ratings)
+        public BlogPage(string title, string? description, int? status, long userId,int ratingSum, List<Rating> ratings)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Invalid title.");
             Title = title;

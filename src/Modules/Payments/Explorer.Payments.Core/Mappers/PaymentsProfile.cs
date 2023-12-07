@@ -14,6 +14,8 @@ namespace Explorer.Payments.Core.Mappers
         public PaymentsProfile()
         {
             CreateMap<BoughtItemDto, BoughtItem>().ReverseMap();
+            CreateMap<BundleDto, Bundle>().ReverseMap();
+            CreateMap<PaymentRecordDto, PaymentRecord>().ReverseMap();
             CreateMap<SalesDto, Sales>().ReverseMap();
             CreateMap<CouponDto, Coupon>().ReverseMap();
             CreateMap<WalletDto,Wallet>().ReverseMap();
