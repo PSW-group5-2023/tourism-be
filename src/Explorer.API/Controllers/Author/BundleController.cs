@@ -4,10 +4,12 @@ using Explorer.Blog.Core.UseCases;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Author
 {
+    [Authorize(Policy = "authorPolicy")]
     [Route("api/author/bundle")]
     public class BundleController : BaseApiController
     {
@@ -18,6 +20,7 @@ namespace Explorer.API.Controllers.Author
             _bundleService = bundleService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<PagedResult<BundleDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
@@ -25,6 +28,7 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<BundleDto> Get(int id)
         {
