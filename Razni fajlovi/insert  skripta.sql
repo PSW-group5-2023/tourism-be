@@ -247,7 +247,7 @@ VALUES (-1, -1, 'Na očaravajućem ostrvu Santorini, turista može se suočiti s
     (-4, -1, 'Description 4', 'Name 4', 1, 2, 45.244873, 19.841853, 10, null, null, null, null, 50, null),
     (-5, -1, 'Description 5', 'Name 5', 1, 1, 45.249647, 19.825326, 10, null, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, 50, null),
     (-6, -1, 'Description 6', 'Name 6', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2),
-    (-7, -4, 'Description 7', 'Name 7', 1, 2, 45.25783231694552, 19.84560012817383, 10, -4, null, null, null, 50, null);
+    (-7, -4, 'Description 7', 'Name 7', 1, 2, 44.1111, 20.5589, 10, -4, null, null, null, 50, null);
 
 
 INSERT INTO encounters."ChallengeExecutions"(
@@ -287,3 +287,48 @@ INSERT INTO payments."Wallet"(
 INSERT INTO tours."EquipmentTrackings"(
     "Id", "TouristId", "NeededEquipment")
 VALUES (-1, -6, '{-1, -2}');
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
+       (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true ),
+       (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "Location", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+VALUES (
+    -1,
+    -4,
+    -9,
+    '{"Latitude": 45.257794555848406, "Longitude": 19.845718145370483}',
+    2,
+    100,
+    '2023-12-07 19:25:42.303+01',
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T16:06:40.0842597Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T16:07:20.101299Z"}]'
+),
+(
+    -2,
+    -4,
+    -6,
+    '{"Latitude": 45.25776057083952, "Longitude": 19.84564304351807}',
+    1,
+    100,
+    '2023-12-07 20:58:19.478+01',
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]'
+),
+(
+    -3,
+    -4,
+    -8,
+    '{"Latitude": 45.25783231694552, "Longitude": 19.84560012817383}',
+    1,
+    100,
+    '2023-12-07 21:05:04.672+01',
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]'
+);
+
+
+INSERT INTO tours."TourRatings"(
+    "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-07 12:34:56', '2023-12-07 12:34:56', ARRAY['https://live.staticflickr.com/7909/47358208621_d866a5513e_b.jpg']),
+       (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']);
