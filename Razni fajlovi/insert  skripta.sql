@@ -227,7 +227,8 @@ VALUES (-1, -1, 'Na očaravajućem ostrvu Santorini, turista može se suočiti s
     (-3, -1, 'Description 3', 'Name 3', 1, 2, 45.255387, 19.845547, 20, null, null, null, null, 50, null),
     (-4, -1, 'Description 4', 'Name 4', 1, 2, 45.244873, 19.841853, 10, null, null, null, null, 50, null),
     (-5, -1, 'Description 5', 'Name 5', 1, 1, 45.249647, 19.825326, 10, null, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, 50, null),
-    (-6, -1, 'Description 6', 'Name 6', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2);
+    (-6, -1, 'Description 6', 'Name 6', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2),
+    (-7, -4, 'Description 7', 'Name 7', 1, 2, 45.25783231694552, 19.84560012817383, 10, -4, null, null, null, 50, null);
 
 
 INSERT INTO encounters."ChallengeExecutions"(

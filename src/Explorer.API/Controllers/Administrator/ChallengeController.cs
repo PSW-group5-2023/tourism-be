@@ -4,6 +4,7 @@ using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Explorer.Tours.API.Dtos;
+using Explorer.Encounters.Core.UseCases;
 
 namespace Explorer.API.Controllers.Administrator
 {
