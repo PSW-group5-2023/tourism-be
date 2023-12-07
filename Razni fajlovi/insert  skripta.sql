@@ -160,13 +160,13 @@ VALUES
 INSERT INTO tours."Tour"("Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
 VALUES
   (-1, 'Tura 1', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 0, 0, -3, '{-1, -2}', 3.484371, NULL, NULL, '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-2, 'Tura 2', 'Ova tura je okej', 1, '{"tag", "tag2"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-2, 'Tura 2', 'Ova tura je okej', 1, '{"tag", "tag2"}', 1, 100, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-3, 'Tura 3', 'Ova tura je super', 3, '{"tag", "tag2"}', 2, 0, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-4, 'Tura 4', 'Ova tura je super', 3, '{"hike"}', 1, 0, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-5, 'Tura za javne 1, 2', 'Ova tura je okej', 1, '{"forest", "nature"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-6, 'Tura za javne 1, 3, 4', 'Ova tura je okej', 3, '{"history", "walking"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-7, 'Tura za javne 4, 5', 'Ova tura je okej', 2, '{"forest"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 0, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]');
+  (-4, 'Tura 4', 'Ova tura je super', 3, '{"hike"}', 1, 50, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-5, 'Tura za javne 1, 2', 'Ova tura je okej', 1, '{"forest", "nature"}', 1, 40, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-6, 'Tura za javne 1, 3, 4', 'Ova tura je okej', 3, '{"history", "walking"}', 1, 60, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-7, 'Tura za javne 4, 5', 'Ova tura je okej', 2, '{"forest"}', 1, 20, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 30, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]');
 
 INSERT INTO tours."Preferences"(
 	"Id", "UserId", "DifficultyLevel", "WalkingRate", "BicycleRate", "CarRate", "BoatRate", "Tags")
@@ -235,8 +235,18 @@ VALUES
       }
     ]', null),
     (-3, -6, -2, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-15 14:00:00'::timestamp, false, '[]', null),
+
     (-4, -6, -3, 0, 4, 'Bilo je problema sa organizacijom', '2023-11-03 14:00:00'::timestamp, false, '[]', '2023-11-10 00:00:00+01'),
     (-5, -6, -1, 0, 4, 'Rezervacija nije sacuvana', '2023-11-13 14:00:00'::timestamp, false, '[]', null);
+
+
+INSERT INTO payments."Bundles"(
+	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
+	VALUES 
+	(-4, 'Bundle 4', '77', -3, '{-3,-4}', 0),
+	(-3, 'Bundle 3', '10', -3, '{-4,-3}', 2),
+	(-2, 'Bundle 2', '100', -3, '{-1,-3,-4}', 1),
+	(-1, 'Bundle 1', '3', -3, '{-1,-4}', 0);
 
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")

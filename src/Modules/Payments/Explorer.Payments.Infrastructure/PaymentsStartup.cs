@@ -31,6 +31,8 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemService, BoughtItemService>();
+            services.AddScoped<IBundleService, BundleService>();
+            services.AddScoped<IPaymentRecordService, PaymentRecordService>();
             services.AddScoped<ISalesService, SalesService>();
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IWalletService, WalletService>();
@@ -40,6 +42,9 @@ namespace Explorer.Payments.Infrastructure
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped<IBoughtItemRepository, BoughtItemDatabaseRepository>();
+            services.AddScoped(typeof(ICrudRepository<Bundle>), typeof(CrudDatabaseRepository<Bundle, PaymentsContext>));
+            services.AddScoped<IBundleRepository, BundleRepository>();
+            services.AddScoped(typeof(ICrudRepository<PaymentRecord>), typeof(CrudDatabaseRepository<PaymentRecord, PaymentsContext>));
             services.AddScoped(typeof(ICrudRepository<Sales>), typeof(CrudDatabaseRepository<Sales, PaymentsContext>));
             services.AddScoped<ICouponRepository, CouponDatabaseRepository>();
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
