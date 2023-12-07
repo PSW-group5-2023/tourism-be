@@ -46,5 +46,10 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return keyPoints;
         }
 
+        public List<TourKeyPoint> GetAllByPublicId(long publicId)
+        {
+            var keyPoints = _dbContext.TourKeyPoints.Where(x => x.PublicPointId == publicId).ToList();
+            return keyPoints;
+        }
     }
 }

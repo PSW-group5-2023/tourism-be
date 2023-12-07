@@ -82,5 +82,11 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             return query.ToList();
         }
 
+        public List<BlogPage> GetBlogsByAuthor(int authorId)
+        {
+            var query = _dbContext.Blogs.Where(blog => blog.UserId == authorId);
+            return query.ToList();
+        }
+
     }
 }

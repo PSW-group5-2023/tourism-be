@@ -71,6 +71,27 @@ namespace Explorer.Blog.Tests.Integration
 
         }
 
+        [Theory]
+        [InlineData(-21, 200)]
+        [InlineData(-22, 200)]
+        public void GetBlogsByAuthor(int authorId, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogContext>();
+
+            var result = (ObjectResult)controller.GetBlogsByAuthor(authorId).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            if (authorId == -21) (result.Value as List<BlogDto>).Count.ShouldBe(3);
+            else if (authorId == -22) (result.Value as List<BlogDto>).Count.ShouldBe(2);
+
+        }
+
 
         private static BlogController CreateController(IServiceScope scope)
         {

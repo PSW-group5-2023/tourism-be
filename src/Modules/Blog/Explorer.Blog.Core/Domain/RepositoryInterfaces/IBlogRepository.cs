@@ -1,4 +1,5 @@
 ﻿using Explorer.Blog.API.Dtos;
+using Explorer.Blog.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using FluentResults;
 using System;
@@ -16,5 +17,6 @@ namespace Explorer.Blog.Core.Domain.RepositoryInterfaces
         List<BlogPage> GetAll();
         BlogPage UpdateRating(int blogId, int userId,int value);
         List<BlogPage> GetBlogsByStatus(int state);
+        List<BlogPage> GetBlogsByAuthor(int author);
     }
 }

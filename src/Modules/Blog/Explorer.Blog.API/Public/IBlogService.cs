@@ -26,8 +26,7 @@ namespace Explorer.Blog.API.Public
         Result<List<BlogDto>> GetAll();
         Result DeleteRating(int blogId, int userId);
         Result<BlogDto> UpdateRating(int blogId, int userId,int value);
-
         Result<List<BlogDto>> GetBlogsByStatus(int state);
-
+        Result<List<BlogDto>> GetBlogsByAuthor(int authorId);
     }
 }
