@@ -69,7 +69,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
         private static UserExperienceController CreateController(IServiceScope scope)
         {
-            return new UserExperienceController(scope.ServiceProvider.GetRequiredService<IUserExperienceService>())
+            return new UserExperienceController(scope.ServiceProvider.GetRequiredService<IUserExperienceService>(), scope.ServiceProvider.GetService<IChallengeExecutionService>())
             {
                 ControllerContext = BuildContext("-1")
             };
