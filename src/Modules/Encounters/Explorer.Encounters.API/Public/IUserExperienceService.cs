@@ -17,5 +17,6 @@ namespace Explorer.Encounters.API.Public
         Result Delete(int id);
         Result<UserExperienceDto> Get(int id);
         Result<UserExperienceDto> GetByUserId(long userId);
+        Result<UserExperienceDto> AddXP(long id,int xp);
     }
 }

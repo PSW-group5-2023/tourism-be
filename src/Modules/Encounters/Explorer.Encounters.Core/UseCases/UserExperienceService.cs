@@ -21,11 +21,26 @@ namespace Explorer.Encounters.Core.UseCases
             _userExperienceRepository = userExperienceRepository;
         }
 
+        public Result<UserExperienceDto> AddXP(long id,int xp)
+        {
+            var userExperience = CrudRepository.Get(id);
+            userExperience.AddXP(xp);
+            userExperience.CalculateLevel();
+            CrudRepository.Update(userExperience);
+            UserExperienceDto dto = new UserExperienceDto();
+            dto.UserId = userExperience.UserId;
+            dto.XP = userExperience.XP;
+            dto.Id = userExperience.Id;
+            dto.Level = userExperience.Level;
+            return dto;
+
+        }
+
         public Result<UserExperienceDto> GetByUserId(long userId)
         {
             var userExperience = _userExperienceRepository.GetByUserId(userId);
             UserExperienceDto dto = new UserExperienceDto();
-            dto.UserId = userId;
+            dto.UserId = userExperience.UserId;
             dto.XP = userExperience.XP;
             dto.Id = userExperience.Id;
             dto.Level = userExperience.Level;

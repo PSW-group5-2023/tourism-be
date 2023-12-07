@@ -50,5 +50,11 @@ namespace Explorer.API.Controllers.Tourist.Execution
             return CreateResponse(result);
         }
 
+        [HttpPut("addxp/{id:long}/{xp:int}")]
+        public ActionResult<UserExperienceDto> AddXP(long id,int xp)
+        {
+            var result = _userExperienceService.AddXP(id,xp);
+            return CreateResponse(result);
+        }
     }
 }
