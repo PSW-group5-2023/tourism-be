@@ -30,7 +30,7 @@ public class ToursProfile : Profile
             .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((message) => new TourProblemMessageDto { SenderId = message.SenderId, RecipientId = message.RecipientId, CreationTime = message.CreationTime, Description = message.Description,IsRead = message.IsRead })));
 
 
-
+       
         CreateMap<PositionSimulatorDto, PositionSimulator>().ReverseMap();
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
         CreateMap<CompletedKeyPointDto, CompletedKeyPoint>().ReverseMap();
