@@ -34,5 +34,12 @@ namespace Explorer.API.Controllers.Tourist
             _messageService.FindNames(result.Value.Results);
             return CreateResponse(result);
         }
+
+        [HttpDelete("{messageId:int}")]
+        public ActionResult Delete(int messageId)
+        {
+            var result = _messageService.Delete(messageId);
+            return CreateResponse(result);
+        }
     }
 }

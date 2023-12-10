@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace Explorer.Tours.API.Public
         Result<TourRatingDto> Create(TourRatingDto rating);
         Result<List<TourRatingDto>> GetByTourId(int tourId);
         Result<TourRatingDto> Update(TourRatingDto rating);
+        Result<List<TourStatisticsDto>> GetBestRatedStatistics();
     }
 }

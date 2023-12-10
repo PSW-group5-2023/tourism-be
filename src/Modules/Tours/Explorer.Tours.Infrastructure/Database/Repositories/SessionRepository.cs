@@ -71,5 +71,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             return _context.Sessions.FirstOrDefault(s => s.TouristId == touristId &&  s.TourId == tourId);
         }
+
+        public List<Session> GetAll()
+        {
+            var query = _context.Sessions;
+            return query.ToList();
+        }
     }
 }

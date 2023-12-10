@@ -36,5 +36,13 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             task.Wait();
             return task.Result;
         }
+
+        public void Delete(int messageId)
+        {
+            var message = _dbContext.Messages.FirstOrDefault(m => m.Id == messageId);
+            if (message == null) throw new KeyNotFoundException("Not found: " + messageId);
+            _dbContext.Messages.Remove(message);
+            _dbContext.SaveChanges();
+        }
     }
 }

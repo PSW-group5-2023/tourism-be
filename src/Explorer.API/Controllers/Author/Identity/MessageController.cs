@@ -3,6 +3,7 @@ using Explorer.Blog.API.Public;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public.Identity;
+using Explorer.Stakeholders.Core.UseCases.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,13 @@ namespace Explorer.API.Controllers.Author.Identity
         {
             var result = _messageService.GetAll(page, pageSize);
             _messageService.FindNames(result.Value.Results);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("{messageId:int}")]
+        public ActionResult Delete(int messageId)
+        {
+            var result = _messageService.Delete(messageId);
             return CreateResponse(result);
         }
     }

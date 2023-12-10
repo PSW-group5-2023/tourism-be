@@ -8,7 +8,7 @@ namespace Explorer.Stakeholders.API.Dtos
 {
     public class PersonDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public long UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -16,5 +16,6 @@ namespace Explorer.Stakeholders.API.Dtos
         public Uri? ProfilePic { get; set; }
         public string? Biography { get; set; }
         public string? Motto { get; set; }
+        public string? Role { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using static Explorer.Tours.Core.Domain.PublicTourKeyPoints;
 
 namespace Explorer.API.Controllers.Tourist
 {
@@ -45,9 +46,9 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("public")]
-        public ActionResult<PagedResult<PublicTourKeyPointDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<List<PublicTourKeyPointDto>> GetAllPublic()
         {
-            var result = _publicTourKeyPointService.GetPaged(page, pageSize);
+            var result = _publicTourKeyPointService.GetByStatus("Approved");
             return CreateResponse(result);
         }
 
@@ -55,6 +56,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<TourKeyPointSecretDto> GetSecret(int keyPointId)
         {
             var result = _tourKeyPointService.GetSecret(keyPointId);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("search/{publicId:int}")]
+        public ActionResult<List<TourKeyPointDto>> GetAllByPublicKeypointId(int publicId)
+        {
+            var result = _tourKeyPointService.GetAllByPublicKeypointId(publicId);
             return CreateResponse(result);
         }
     }

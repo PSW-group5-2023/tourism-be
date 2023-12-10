@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
@@ -45,6 +46,41 @@ namespace Explorer.Tours.Core.UseCases
             }
 
             return tourRatingsDtos;
+        }
+
+        public Result<List<TourStatisticsDto>> GetBestRatedStatistics()
+        {
+            var ratings = _tourRatingRepository.GetAll();
+            var bestRatedToursStats = new List<TourStatisticsDto>();
+            var tourIdToRatingSum = new Dictionary<long, double>();
+            var tourIdToRatingCount = new Dictionary<long, int>();
+
+            foreach (var rating in ratings)
+            {
+                if (tourIdToRatingSum.ContainsKey(rating.TourId))
+                {
+                    tourIdToRatingSum[rating.TourId] += rating.Mark;
+                    tourIdToRatingCount[rating.TourId]++;
+                }
+                else
+                {
+                    tourIdToRatingSum[rating.TourId] = rating.Mark;
+                    tourIdToRatingCount[rating.TourId] = 1;
+                }
+            }
+
+            foreach (var tourId in tourIdToRatingSum.Keys)
+            {
+                var avgRating = tourIdToRatingSum[tourId] / tourIdToRatingCount[tourId];
+                var stat = new TourStatisticsDto();
+
+                stat.TourId = tourId;
+                stat.NumberOfStats = avgRating;
+
+                bestRatedToursStats.Add(stat);
+            }
+
+            return bestRatedToursStats;
         }
     }
 }
