@@ -1,5 +1,6 @@
 ﻿using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,13 @@ namespace Explorer.API.Controllers.Execution
         public ActionResult<PositionSimulatorDto> Update([FromBody] PositionSimulatorDto positionSimulatorDto)
         {
             var result = _positionSimulatorService.Update(positionSimulatorDto);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("touristId/{touristId:long}")]
+        public ActionResult<PositionSimulator> GetByTouristId(long touristId)
+        {
+            var result = _positionSimulatorService.GetByTouristId(touristId);
             return CreateResponse(result);
         }
     }  

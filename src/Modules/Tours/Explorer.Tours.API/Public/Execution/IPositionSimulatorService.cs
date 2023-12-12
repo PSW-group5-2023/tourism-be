@@ -14,5 +14,7 @@ namespace Explorer.Tours.API.Public.Execution
         Result<PositionSimulatorDto> Create(PositionSimulatorDto positionSimulatorDto);
         Result<PositionSimulatorDto> Update(PositionSimulatorDto positionSimulatorDto);
         Result<PositionSimulatorDto> Get(int id);
+
+        Result<PositionSimulatorDto> GetByTouristId(long touristId);
     }
 }
