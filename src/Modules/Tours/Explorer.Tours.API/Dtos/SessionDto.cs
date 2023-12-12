@@ -12,7 +12,7 @@ namespace Explorer.Tours.API.Dtos
         public long Id { get; set; }
         public long TourId { get; set; }
         public long TouristId { get; set; }
-        public PositionSimulatorDto Location { get; set; }
+        public long LocationId { get; set; }
         public int SessionStatus { get; set; }
         public int DistanceCrossedPercent { get; set; }
         public DateTime LastActivity { get; set; }

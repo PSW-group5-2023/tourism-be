@@ -294,13 +294,19 @@ VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
        (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true ),
        (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true);
 
+INSERT INTO tours."PositionSimulators"(
+	"Id", "Latitude", "Longitude", "TouristId")
+VALUES  (-1, 45.257794555848406, 19.845718145370483, -9),
+        (-2, 45.25776057083952, 19.84564304351807, -6),
+        (-3, 45.25783231694552, 19.84560012817383, -8);
+
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "Location", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
 VALUES (
     -1,
     -4,
     -9,
-    '{"Latitude": 45.257794555848406, "Longitude": 19.845718145370483}',
+    -1,
     2,
     100,
     '2023-12-07 19:25:42.303+01',
@@ -310,7 +316,7 @@ VALUES (
     -2,
     -4,
     -6,
-    '{"Latitude": 45.25776057083952, "Longitude": 19.84564304351807}',
+    -2,
     1,
     100,
     '2023-12-07 20:58:19.478+01',
@@ -320,7 +326,7 @@ VALUES (
     -3,
     -4,
     -8,
-    '{"Latitude": 45.25783231694552, "Longitude": 19.84560012817383}',
+    -3,
     1,
     100,
     '2023-12-07 21:05:04.672+01',

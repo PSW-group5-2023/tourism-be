@@ -31,8 +31,6 @@ public class ToursContext : DbContext
         modelBuilder.HasDefaultSchema("tours");
         modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
 
-        modelBuilder.Entity<Session>().Property(item => item.Location).HasColumnType("jsonb");
-
         modelBuilder.Entity<Session>().Property(item => item.CompletedKeyPoints).HasColumnType("jsonb");
 
         ConfigureTour(modelBuilder);
@@ -53,5 +51,10 @@ public class ToursContext : DbContext
             .HasOne<Tour>()
             .WithMany()
             .HasForeignKey(s => s.TourId);
+
+        modelBuilder.Entity<Session>()
+            .HasOne<PositionSimulator>()
+            .WithOne()
+            .HasForeignKey<Session>(s => s.LocationId);
     }
 }
