@@ -146,5 +146,10 @@ namespace Explorer.Payments.Core.UseCases
 
             return Result.Ok();
         }
+
+        public Result<List<ListedTourDto>> GetPagedToursByTouristId(long touristId, int page, int pageSize)
+        {
+            return internalTourUsageService.GetPagedByIds(shoppingCartRepository.GetAllByUserId(touristId).Select(bi => bi.TourId).ToList(), page, pageSize).Value.Results.Select(t => mapper.Map<ListedTourDto>(t)).ToList();
+        }
     }
 }

@@ -73,5 +73,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return entity;
         }
 
+        public PagedResult<Tour> GetPagedByIds(List<int> ids, int page, int pageSize)
+        {
+            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).Where(t => ids.Contains((int)t.Id)).GetPagedById(page, pageSize);
+            task.Wait();
+            return task.Result;
+        }
     }
 }
