@@ -58,7 +58,7 @@ public class ToursContext : DbContext
 
         modelBuilder.Entity<Session>()
             .HasOne<PositionSimulator>()
-            .WithOne()
-            .HasForeignKey<Session>(s => s.LocationId);
+            .WithMany()
+            .HasForeignKey(s => s.LocationId);
     }
 }
