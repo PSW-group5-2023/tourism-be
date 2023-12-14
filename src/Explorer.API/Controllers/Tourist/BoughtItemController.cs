@@ -82,7 +82,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("boughtTours/{touristId:long}")]
-        public ActionResult<List<ListedTourDto>> GetPagedBoughtToursByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<PagedResult<ListedTourDto>> GetPagedBoughtToursByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _shoppingCartService.GetPagedToursByTouristId(touristId, page, pageSize);
             return CreateResponse(result);
