@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Internal;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using System;
@@ -13,13 +14,19 @@ namespace Explorer.Tours.Core.UseCases
     {
         private readonly ITourRepository _tourRepository;
         private readonly IPreferencesRepository _preferencesRepository;
-        public RecommenderService(ITourRepository tourRepository, IPreferencesRepository preferencesRepository)
+        private readonly ITourRatingRepository _tourRatingRepository;
+
+        private readonly IInternalBoughtItemService _internalBoughtItemService;
+
+        public RecommenderService(ITourRepository tourRepository, IPreferencesRepository preferencesRepository, ITourRatingRepository tourRatingRepository, IInternalBoughtItemService internalBoughtItemService)
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
+            _tourRatingRepository = tourRatingRepository;
+            _internalBoughtItemService = internalBoughtItemService;
         }
 
-   
+        
 
     }
 }
