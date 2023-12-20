@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.Blog.API.Dtos;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.UseCases;
@@ -46,6 +47,12 @@ namespace Explorer.API.Controllers.Tourist
         {
             var result = _tourService.GetPagedForSearch(name,  tags, page, pageSize);
             return CreateResponse(result);
+        }
+
+        [HttpGet("active")]
+        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int touristId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
