@@ -28,12 +28,19 @@ namespace Explorer.Payments.Infrastructure.Database.Repositories
             return item;
         }
 
+
         public List<BoughtItem> GetByUserId(int userId)
         {
             var boughtItem = _dbSet
                .Where(t => t.UserId == userId && t.IsUsed == true).ToList();
 
             return boughtItem ?? throw new KeyNotFoundException("Not found: " + userId);
+        }
+
+        public List<BoughtItem> GetByTourId(long tourId)
+        {
+            return _dbContext.BoughtItems.Where(i => i.TourId == tourId).ToList();
+
         }
     }
 }

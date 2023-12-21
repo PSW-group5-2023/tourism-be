@@ -12,5 +12,6 @@ namespace Explorer.Payments.API.Internal
     {
         Result<BoughtItemDto> CreateBoughtItem(BoughtItemDto boughtItemDto);
         Result<List<BoughtItemDto>> GetUsedByUserId(int userId);
+        Result<List<BoughtItemDto>> GetByTourId(long tourId);
     }
 }
