@@ -45,7 +45,7 @@ namespace Explorer.Tours.Core.UseCases
 
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
             var usedTours = new List<TourDto>();
-            var recommendedTours = new List<TourDto>();
+            var recommendedTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
 
             foreach (var item in usedBoughtItems.Value)
             {
@@ -74,9 +74,11 @@ namespace Explorer.Tours.Core.UseCases
 
                 if(tagsSimilarity >= 0.6 && difficultyRelativeError <= 0.4 && usedToursSimilarity >= 0.6)
                 {
-                    recommendedTours.Add(MapToDto(tour));
+                    recommendedTours.Results.Add(MapToDto(tour));
                 }
             }
+
+            return null;
         }
 
         public double calculateJaccardIndex(List<string> firstList, List<string> secondList)
