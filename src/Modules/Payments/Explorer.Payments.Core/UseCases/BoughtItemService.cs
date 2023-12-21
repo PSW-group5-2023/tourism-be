@@ -146,5 +146,22 @@ namespace Explorer.Payments.Core.UseCases
 
             return Result.Ok();
         }
+
+        public Result<List<BoughtItemDto>> GetByTourId(long tourId)
+        {
+            try
+            {
+                List<BoughtItemDto> boughtItems = new List<BoughtItemDto>();
+                foreach (BoughtItem item in shoppingCartRepository.GetByTourId(tourId))
+                {
+                    boughtItems.Add(MapToDto(item));
+                }
+                return Result.Ok(boughtItems);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
     }
 }
