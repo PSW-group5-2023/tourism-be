@@ -75,5 +75,9 @@ namespace Explorer.Payments.Infrastructure.Database.Repositories
             var query = _dbContext.BoughtItems;
             return query.ToList();
         }
+        public List<BoughtItem> GetByTourId(long tourId)
+        {
+            return _dbContext.BoughtItems.Where(i => i.TourId == tourId).ToList();
+        }
     }
 }
