@@ -1,15 +1,15 @@
-INSERT INTO stakeholders."Users"("Id", "Username", "Password", "Role", "IsActive")
+INSERT INTO stakeholders."Users"("Id", "Username", "Password", "Role", "IsActive", "Latitude", "Longitude")
 VALUES 
-	(-1, 'admin', 'admin', 0, true),
-	(-2, 'jane_smith', 'admin', 0, true),
-	(-3, 'author', 'author', 1, true),
-	(-4, 'olivia_wilson', 'author', 1, true),
-	(-5, 'daniel_taylor', 'author', 1, true),
-	(-6, 'tourist', 'tourist', 2, true),
-	(-7, 'sophia_brown', 'tourist', 2, false),
-	(-8, 'ethan_clark', 'tourist', 2, true),
-	(-9, 'ava_young', 'tourist', 2, true),
-	(-10, 'james_brown', 'admin', 0, true);
+	(-1, 'admin', 'admin', 0, true, null, null),
+	(-2, 'jane_smith', 'admin', 0, true, null, null),
+	(-3, 'author', 'author', 1, true, null, null),
+	(-4, 'olivia_wilson', 'author', 1, true, null, null),
+	(-5, 'daniel_taylor', 'author', 1, true, null, null),
+	(-6, 'tourist', 'tourist', 2, true, 49.32141, 19.89212),
+	(-7, 'sophia_brown', 'tourist', 2, false, 59.32141, 19.89212),
+	(-8, 'ethan_clark', 'tourist', 2, true, 19.32141, 39.89212),
+	(-9, 'ava_young', 'tourist', 2, true, 29.32141, 19.89212),
+	(-10, 'james_brown', 'admin', 0, true, null, null);
 
 
 INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto")

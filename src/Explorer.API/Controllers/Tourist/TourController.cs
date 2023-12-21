@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.UseCases;
@@ -45,6 +46,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PagedResult<TourDto>> Search([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] string name, [FromRoute] string[] tags)
         {
             var result = _tourService.GetPagedForSearch(name,  tags, page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("location/{lat}/{lon}/{radius}/{touristId}")]
+        public ActionResult<PagedResult<TourDto>> SearchByLocation([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] double? lat, [FromRoute] double? lon, [FromRoute] double radius, [FromRoute] int touristId)
+        {
+            var result = _tourService.GetPagedForSearchByLocation(page, pageSize, lat, lon, radius, touristId);
             return CreateResponse(result);
         }
     }

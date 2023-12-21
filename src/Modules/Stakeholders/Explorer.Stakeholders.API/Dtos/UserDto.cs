@@ -13,5 +13,7 @@ namespace Explorer.Stakeholders.API.Dtos
         public string Password { get;  set; }
         public String Role { get;  set; }
         public bool IsActive { get; set; }
+        public double? Latitude { get; init; }
+        public double? Longitude { get; init; }
     }
 }

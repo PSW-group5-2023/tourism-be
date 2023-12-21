@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Xml.Linq;
 
 namespace Explorer.Tours.API.Public.Authoring
@@ -17,5 +18,6 @@ namespace Explorer.Tours.API.Public.Authoring
         Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize);
         Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize);
         Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId);
+        Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, double? lat, double? lon, double radius, int touristId);
     }
 }

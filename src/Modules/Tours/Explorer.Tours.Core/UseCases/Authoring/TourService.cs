@@ -11,6 +11,8 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using Microsoft.AspNetCore.SignalR;
 using System.Dynamic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Explorer.Tours.Core.UseCases.Authoring
 {
@@ -20,7 +22,8 @@ namespace Explorer.Tours.Core.UseCases.Authoring
         private readonly ITourKeyPointService _keyPointService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
 
-        public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService, IInternalBoughtItemService internalBoughtItemService) : base(repository, mapper)
+        public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService,
+            IInternalBoughtItemService internalBoughtItemService) : base(repository, mapper)
         {
             _tourRepository = repository;
             _keyPointService = tourKeyPointService;
@@ -73,7 +76,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
         public Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId)
         {
-            if(tours.Count < 2)
+            if (tours.Count < 2)
             {
                 throw new ArgumentException("In order to create campaign, atleast 2 Tours have to be picked.");
             }
@@ -90,7 +93,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
             int counter = 0;
 
-            foreach(var tour in tours)
+            foreach (var tour in tours)
             {
                 distanceInKm += tour.DistanceInKm;
                 difficulty += tour.Difficulty;
@@ -101,7 +104,8 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
             TourDifficulty difficultyTemp = GetCampaignDifficulty(difficulty, counter);
 
-            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment, distanceInKm, archivedDate, publishedDate, durations);
+            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment,
+                distanceInKm, archivedDate, publishedDate, durations);
 
             var createdCampaign = Create(MapToDto(campaign));
 
@@ -125,10 +129,10 @@ namespace Explorer.Tours.Core.UseCases.Authoring
         {
             List<TourKeyPointDto> keypoints = new List<TourKeyPointDto>();
             int positionInCampaign = 1;
-            foreach(var tour in tours)
+            foreach (var tour in tours)
             {
                 keypoints = _keyPointService.GetByTourId(tour.Id).Value;
-                keypoints =  keypoints.OrderBy(kp => kp.PositionInTour).ToList();
+                keypoints = keypoints.OrderBy(kp => kp.PositionInTour).ToList();
                 foreach (var keypoint in keypoints)
                 {
                     keypoint.PositionInTour = positionInCampaign;
@@ -142,15 +146,16 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
         public int CalculateCampaignDifficulty(int difficultySum, int counter)
         {
-            return difficultySum/counter;
+            return difficultySum / counter;
         }
 
         public List<string> CombineCampaignTags(List<string> campaignTags, List<string> tourTags)
         {
-            foreach(var tag in tourTags)
+            foreach (var tag in tourTags)
             {
                 campaignTags.Add(tag);
             }
+
             return campaignTags;
         }
 
@@ -201,6 +206,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             {
                 tags = tags[0].Split(",");
             }
+
             filteredTours.Results.AddRange(
                 tours.Results
                     .Where(tour => (tour.Name.ToLower().Contains(name.ToLower()) || name.Equals("empty")) &&
@@ -212,5 +218,36 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             return filteredTours;
         }
 
+        public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, double? lat, double? lon,
+            double radius, int touristId)
+        {
+            var tours = _tourRepository.GetPaged(page, pageSize);
+            PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+            foreach (var tour in tours.Results)
+            {
+                if (CheckIfAnyKeyPointInRange(tour.KeyPoints, lat, lon, radius))
+                {
+                    filteredTours.Results.Add(MapToDto(tour));
+                }
+            }
+
+            return filteredTours;
+        }
+
+        public bool CheckIfAnyKeyPointInRange(List<TourKeyPoint> keyPoints, double? lat, double? lon, double radius)
+        {
+            return keyPoints.Any(keyPoint => IsInRange(keyPoint, lat, lon, radius));
+        }
+
+        public bool IsInRange(TourKeyPoint keyPoint, double? lat, double? lon, double radius)
+        {
+            double distance;
+            int earthRadius = 6371000;
+            double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
+            distance = Math.Sqrt(Math.Pow((double)(keyPoint.Latitude - lat), 2) + Math.Pow((double)(keyPoint.Longitude - lon), 2));
+            return distance <= radiusInDegrees;
+        }
+
     }
+
 }
