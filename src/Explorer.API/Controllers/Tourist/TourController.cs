@@ -55,8 +55,8 @@ namespace Explorer.API.Controllers.Tourist
             throw new NotImplementedException();
         }
 
-        [HttpGet("recommended")]
-        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int touristId)
+        [HttpGet("recommended/{userId}")]
+        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
         {
             throw new NotImplementedException();
         }

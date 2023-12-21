@@ -9,5 +9,6 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
     public interface IInternalBoughtItemDatabaseRepository
     {
         BoughtItem CreateBoughtItem(BoughtItem item);
+        List<BoughtItem> GetByUserId(int userId);
     }
 }
