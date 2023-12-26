@@ -57,7 +57,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("active/{userId:int}")]
         public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
         {
-            var result = _recommenderService.GetActive(userId,page,pageSize);
+            var result = _recommenderService.GetActive(userId, page, pageSize);
             return CreateResponse(result);
         }
 

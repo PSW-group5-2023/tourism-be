@@ -9,17 +9,13 @@ public class User : Entity
     public string Password { get; private set; }
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
-    public double? Latitude { get; init; }
-    public double? Longitude { get; init; }
 
-    public User(string username, string password, UserRole role, bool isActive, double? latitude, double? longitude)
+    public User(string username, string password, UserRole role, bool isActive)
     {
         Username = username;
         Password = password;
         Role = role;
         IsActive = isActive;
-        Latitude = latitude;
-        Longitude = longitude;
         Validate();
     }
 
@@ -27,8 +23,6 @@ public class User : Entity
     {
         if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
         if (string.IsNullOrWhiteSpace(Password)) throw new ArgumentException("Invalid Surname");
-        if (Latitude is > 90 or < -90) throw new ArgumentException("Invalid latitude");
-        if (Longitude is > 180 or < -180) throw new ArgumentException("Invalid longitude");
     }
 
     public string GetPrimaryRoleName()

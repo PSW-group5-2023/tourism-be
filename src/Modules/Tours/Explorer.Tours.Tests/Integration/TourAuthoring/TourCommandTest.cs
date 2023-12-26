@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Explorer.Tours.API.Public;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring
 {
@@ -218,7 +219,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
 
         private static Explorer.API.Controllers.Tourist.TourController CreateTouristController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>(), scope.ServiceProvider.GetRequiredService<IRecommenderService>())
             {
                 ControllerContext = BuildContext("-1")
             };

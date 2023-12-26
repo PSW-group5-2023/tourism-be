@@ -22,7 +22,7 @@ namespace Explorer.Tours.Tests.Integration
         }
         private static Explorer.API.Controllers.Tourist.TourController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>(), scope.ServiceProvider.GetRequiredService<IRecommenderService>())
             {
                 ControllerContext = BuildContext("-1")
             };
@@ -38,8 +38,8 @@ namespace Explorer.Tours.Tests.Integration
             var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -24).Result;
 
             // Assert
-           result.ShouldNotBeNull();  
-           result.StatusCode.ShouldBe(200);  
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
         }
 
         [Fact]
