@@ -16,5 +16,6 @@ namespace Explorer.Payments.API.Dtos.ListedTours
         public double Longitude { get; set; }
         public long? TourId { get; set; }
         public int? PositionInTour { get; set; }
+        public string Secret { get; set; }
     }
 }

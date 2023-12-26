@@ -41,9 +41,9 @@ namespace Explorer.Tours.Core.UseCases.Execution
             }
         }
 
-        public Result<SessionDto> GetByTouristId(long id)
+        public Result<SessionDto> GetActiveSessionByTouristId(long id)
         {
-            var result = _sessionRepository.GetByTouristId(id);
+            var result = _sessionRepository.GetActiveSessionByTouristId(id);
             return MapToDto(result);
         }
 
