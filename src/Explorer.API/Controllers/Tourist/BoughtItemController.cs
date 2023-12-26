@@ -80,13 +80,6 @@ namespace Explorer.API.Controllers.Tourist
         {
             return CreateResponse(_walletService.GetByUserId(userId));
         }
-
-        [HttpGet("boughtTours/{touristId:long}")]
-        public ActionResult<PagedResult<ListedTourDto>> GetPagedBoughtToursByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
-        {
-            var result = _shoppingCartService.GetPagedToursByTouristId(touristId, page, pageSize);
-            return CreateResponse(result);
-        }
-
     }
 }
+ 
