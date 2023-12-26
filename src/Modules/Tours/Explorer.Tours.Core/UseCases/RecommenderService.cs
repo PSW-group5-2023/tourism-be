@@ -36,35 +36,40 @@ namespace Explorer.Tours.Core.UseCases
             _tourRatingRepository = tourRatingRepository;
             _internalBoughtItemService = internalBoughtItemService;
         }
-        public double CalculateScore(int totalRatings, int totalBoughts, int countOfRatings, int countOfBoughts, double averageRating)
-        {
-            double ratingsPercentage = (countOfRatings / (double)totalRatings);
-            double boughtsPercentage = (countOfBoughts / (double)totalBoughts);
-            double normalizedRating = (averageRating / 5);
-            return 0.3 * ratingsPercentage + 0.5 * boughtsPercentage + 0.3 * normalizedRating;
-        }
 
-        public Result<PagedResult<TourDto>> GetRecommendedTours(int page, int pageSize, int userId)
+        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize)
         {
-            var preference = _preferencesRepository.GetByUserId(userId);
             var tours = _tourRepository.GetPaged(page, pageSize);
             var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+
+            return GetRecommendedTours(userId, publishedTours);
+        }
+
+        public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
+        {
+            var preference = _preferencesRepository.GetByUserId(userId);   
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
-            var usedTours = new List<TourDto>();
+
+            var usedTours = new List<Tour>();
             var recommendedTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             var tourIndexes = new Dictionary<long, double>();
 
+            var toursToRecommend = new List<Tour>();
             foreach (var item in usedBoughtItems.Value)
             {
-                usedTours.Add(MapToDto(_tourRepository.Get(item.TourId)));
-                if(usedTours.Count == 10)
+                if(usedTours.Count <= 10)
                 {
-                    break;
+                    usedTours.Add(_tourRepository.Get(item.TourId));
+                }
+
+                if(tours.Any(t => t.Id == item.TourId))
+                {
+                    tours.Remove(_tourRepository.Get(item.TourId));
                 }
             }
 
 
-            foreach (var tour in publishedTours)
+            foreach (var tour in tours)
             {
                 double tagsSimilarity = getPreferencesTagsSimilarityIndex(preference, tour);
 
@@ -84,7 +89,7 @@ namespace Explorer.Tours.Core.UseCases
 
             foreach(KeyValuePair<long, double> tour in sortedToursByIndexes)
             {
-                recommendedTours.Results.Add(MapToDto(tours.Results.Find(t => t.Id == tour.Key)));
+                recommendedTours.Results.Add(MapToDto(tours.Find(t => t.Id == tour.Key)));
             }
 
             return recommendedTours;
@@ -118,7 +123,7 @@ namespace Explorer.Tours.Core.UseCases
             return inverseDifficultyError;
         }
 
-        public double getUsedToursSimilarityIndex(List<TourDto> usedTours, Tour tour)
+        public double getUsedToursSimilarityIndex(List<Tour> usedTours, Tour tour)
         {
             // similarity based on used tours
             double usedToursSimilarity = 0.0;
@@ -166,35 +171,6 @@ namespace Explorer.Tours.Core.UseCases
             double union = firstList.Union(secondList).Count();
 
             return intersection / union;
-        }
-
-        public Result<PagedResult<TourDto>> GetActive(int userId, int page, int pageSize)
-        {
-            DateTime lastWeek = DateTime.Today.AddDays(-7);
-            var allTours = _tourRepository.GetPaged(page, pageSize).Results.Where(x=> x.Status == TourStatus.Published);
-            int totalRatingsInLastWeek = _tourRatingRepository.GetAll().Where(x => x.DateOfCommenting >= lastWeek)?.Count() ?? 0;
-            int totalBoughts = _internalBoughtItemService.GetAll().Value?.Count() ?? 0;
-            var tourScores = new Dictionary<long, double>();
-
-            foreach (var tour in allTours)
-            {
-                var tourRatingsInLastWeek = _tourRatingRepository.GetByTourId((int)tour.Id).Where(x => x.DateOfCommenting >= lastWeek).ToList();
-                double averageRating = 0;
-                int countOfRatings = tourRatingsInLastWeek?.Count() ?? 0;
-                if (totalRatingsInLastWeek > 15)
-                {
-                    countOfRatings = 0;
-                //Bayesian average za average i broj ratinga
-                }
-                if (countOfRatings > 15)
-                {
-                    averageRating = tourRatingsInLastWeek.Sum(r => r.Mark) / (double)countOfRatings;
-                }
-                int countOfBoughts = _internalBoughtItemService.GetByTourId(tour.Id).Value?.Count() ?? 0;
-                tourScores[tour.Id] = CalculateScore(totalRatingsInLastWeek, totalBoughts, countOfRatings, countOfBoughts, averageRating);
-            }
-            //return MapToDto(sortedTours);
-            return null;
-        }
+        }     
     }
 }
