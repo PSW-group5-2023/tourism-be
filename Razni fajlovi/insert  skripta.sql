@@ -159,26 +159,30 @@ VALUES
 
 INSERT INTO tours."Tour"("Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
 VALUES
-  (-1, 'Tura 1', 'Ova tura je lepa', 0, '{"tag", "tag2"}', 0, 0, -3, '{-1, -2}', 3.484371, NULL, NULL, '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-2, 'Tura 2', 'Ova tura je okej', 1, '{"tag", "tag2"}', 1, 100, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-3, 'Tura 3', 'Ova tura je super', 3, '{"tag", "tag2"}', 2, 0, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-1, 'Tura 1', 'Ova tura je lepa', 0, '{"hike", "bike", "adventure"}', 0, 0, -3, '{-1, -2}', 3.484371, NULL, NULL, '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-2, 'Tura 2', 'Ova tura je okej', 1, '{"adventure", "old", "culture", "beautiful"}', 1, 100, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-3, 'Tura 3', 'Ova tura je super', 3, '{"forest", "adventure"}', 2, 0, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-4, 'Tura 4', 'Ova tura je super', 3, '{"hike"}', 1, 50, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-5, 'Tura za javne 1, 2', 'Ova tura je okej', 1, '{"forest", "nature"}', 1, 40, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-6, 'Tura za javne 1, 3, 4', 'Ova tura je okej', 3, '{"history", "walking"}', 1, 60, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-7, 'Tura za javne 4, 5', 'Ova tura je okej', 2, '{"forest"}', 1, 20, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 30, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]');
+  (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 30, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-9, 'Belgrade Tour 1', 'Explore Belgrade', 1, '{"city", "culture"}', 1, 25, -3, '{-1}', 5.0, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 3600, "Transportation": 1}]'),
+  (-10, 'Kragujevac Tour 1', 'Discover Kragujevac', 2, '{"city", "history"}', 1, 30, -4, '{-1}', 8.5, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 4200, "Transportation": 2}]'),
+  (-11, 'Kraljevo Tour 1', 'Explore Kraljevo', 2, '{"city", "museums", "monuments", "culture"}', 1, 35, -3, '{-1}', 7.5, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 3900, "Transportation": 1}]'),
+  (-12, 'Vlasenica Tour 1', 'Explore Vlasenica', 1, '{"nature", "adventure", "forest"}', 1, 20, -4, '{-1}', 9.0, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 4500, "Transportation": 2}]'),
+  (-13, 'Nis Tour 1', 'Discover Nis', 2, '{"city", "history", "monuments"}', 1, 30, -3, '{-1}', 7.8, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4200, "Transportation": 1}]'),
+  (-14, 'Belgrade Tour 2', 'Explore Belgrade landmarks', 2, '{"history", "culture"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-15, 'Belgrade Tour 3', 'Explore Belgrade landmarks', 2, '{"city", "culture"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-16, 'Belgrade Tour 4', 'Explore Belgrade landmarks', 2, '{"history", "city"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-17, 'Belgrade Tour 5', 'Explore Belgrade landmarks', 2, '{"history", "adventure"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-18, 'Belgrade Tour 6', 'Explore Belgrade landmarks', 2, '{"city", "adventure"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]');
 
 INSERT INTO tours."Preferences"(
 	"Id", "UserId", "DifficultyLevel", "WalkingRate", "BicycleRate", "CarRate", "BoatRate", "Tags")
 	VALUES 
-    (-1, -6, 1, 2, 3, 1, 0, '{"forest", "culture", "cheap", "adventure"}'),
+    (-1, -6, 1, 2, 3, 1, 0, '{"forest", "bike", "hike", "adventure"}'),
     (-2, -8, 3, 0, 1, 2, 3, '{"history", "culture"}');
-
-INSERT INTO tours."Equipment"("Id", "Name", "Description")
-VALUES
-	(-1, 'Voda', 'Količina vode varira od temperature i trajanja ture. Preporuka je da se pije pola litre vode na jedan sat umerena fizičke aktivnosti (npr. hajk u prirodi bez značajnog uspona) po umerenoj vrućini'),
-	(-2, 'Štapovi za šetanje', 'Štapovi umanjuju umor nogu, pospešuju aktivnost gornjeg dela tela i pružaju stabilnost na neravnom terenu.'),
-	(-3, 'Obična baterijska lampa', 'Baterijska lampa od 200 do 400 lumena.');
 
 INSERT INTO tours."TourKeyPoints"("Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Discriminator", "Status", "CreatorId", "Secret", "PositionInTour", "PublicPointId")
 VALUES 
@@ -204,8 +208,38 @@ VALUES
   (-20, 'Javna 5 (u turi -7)', 'najnovija javna kt', 'https://cdn.britannica.com/95/136995-050-6209F94F/rainforest-Malaysia.jpg', 45.22830260204978, 19.79891452593411, -7, 'TourKeyPoint', null, null, '', 1, -13),
   (-21, 'Javna 2 (u turi -8)', 'Lepsa kt', 'https://plus.unsplash.com/premium_photo-1673859055803-593f6cda5e2b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHNub3clMjBtb3VudGFpbnxlbnwwfHwwfHx8MA%3D%3D', 45.24616355261428, 19.820365905761722, -8, 'TourKeyPoint', null, null, '', 1, -10),
   (-22, 'Javna 3 (u turi -8)', 'Najlepsa kt', 'https://wallpapers.com/images/featured/snow-mountain-ydg6x966wun8nkjs.jpg', 45.24628421561786, 19.84560012817383, -8, 'TourKeyPoint', null, null, '', 2, -11),
-  (-23, 'Javna 4 (u turi -8)', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, -8, 'TourKeyPoint', null, null, '', 3, -12);
-  
+  (-23, 'Javna 4 (u turi -8)', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, -8, 'TourKeyPoint', null, null, '', 3, -12),
+  (-24, 'Belgrade Point 1', 'Start your journey in Belgrade', 'https://a.cdn-hotels.com/gdcs/production156/d901/872376c3-a591-42ad-9efa-ed8779372106.jpg?impolicy=fcrop&w=800&h=533&q=medium', 44.7866, 20.4489, -9, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-25, 'Belgrade Point 2', 'Another interesting spot in Belgrade', 'https://upload.wikimedia.org/wikipedia/commons/5/58/Belgrade._National_Assembly_of_Serbia_building.jpg', 44.8186, 20.4671, -9, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-26, 'Kragujevac Point 1', 'Starting point in Kragujevac', 'https://www.rubiconhotel.com/media/page/oKragujevcu/kragujevac.jpg', 44.0128, 20.9110, -10, 'TourKeyPoint', null, null, 'Secret Kragujevac', 1, null),
+  (-27, 'Kragujevac Point 2', 'Historical site in Kragujevac', 'https://kg.ac.rs/slike/aboutkg5.jpg', 44.0165, 20.9126, -10, 'TourKeyPoint', null, null, 'Secret Kragujevac', 2, null),
+  (-28, 'Kraljevo Point 1', 'Starting point in Kraljevo', 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/b1/21/7c/vista-do-restaurante.jpg?w=600&h=400&s=1', 43.7250, 20.6892, -11, 'TourKeyPoint', null, null, 'Secret Kraljevo', 1, null),
+  (-29, 'Kraljevo Point 2', 'Cultural site in Kraljevo', 'https://staklosrbija.rs/wp-content/uploads/2022/03/narodni-muzej-u-kraljevu-f-1200-833.webp', 43.7241, 20.6881, -11, 'TourKeyPoint', null, null, 'Secret Kraljevo', 2, null),
+  (-30, 'Vlasenica Point 1', 'Starting point in Vlasenica', 'https://detektor.ba/wp-content/uploads/2018/02/Vlasenica2-1024x768.jpg', 44.1946, 19.4326, -12, 'TourKeyPoint', null, null, 'Secret Vlasenica', 1, null),
+  (-31, 'Vlasenica Point 2', 'Adventure spot in Vlasenica', 'https://cdn.glassrpske.rs/slika/2022/07/750x500/20220708100003_423401.jpg', 44.1922, 19.4501, -12, 'TourKeyPoint', null, null, 'Secret Vlasenica', 2, null),
+  (-32, 'Nis Point 1', 'Starting point in Nis', 'https://beogradskisajamturizma.rs/wp-content/uploads/nis_tvrdjava-reka-nisava_1100_2023.jpg', 43.3209, 21.8958, -13, 'TourKeyPoint', null, null, 'Secret Nis', 1, null),
+  (-33, 'Nis Point 2', 'Historical site in Nis', 'https://cdn.britannica.com/93/151993-050-D6EF4F79/square-Nis-Serbia.jpg', 43.3195, 21.8969, -13, 'TourKeyPoint', null, null, 'Secret Nis', 2, null),
+  (-34, 'Nis Point 3', 'Historical site in Nis', 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/d4/d4/f3/nis-fortress.jpg?w=1200&h=-1&s=1', 43.322321, 21.930270, -13, 'TourKeyPoint', null, null, 'Secret Nis', 3, null),
+  (-35, 'Belgrade Point 1', 'Visit historical site in Belgrade', 'https://n1info.rs/wp-content/uploads/2023/01/31/1675178925-Beograd-na-vodi-stanovi-Shutterstock-1.jpg', 44.8220, 20.4502, -14, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-36, 'Belgrade Point 2', 'One more in Belgrade', 'https://www.onlycroatia.com/media/cities/124/4281.jpg', 44.810809, 20.479746, -14, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-37, 'Belgrade Point 3', 'Monument in Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.785478, 20.488494, -14, 'TourKeyPoint', null, null, 'Secret Belgrade', 3, null),
+  (-38, 'Belgrade Point 1', 'One more in Belgrade', 'https://www.onlycroatia.com/media/cities/124/4281.jpg', 44.787528, 20.476285, -15, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-39, 'Belgrade Point 2', 'Monument in Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.779923, 20.469455, -15, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-40, 'Belgrade Point 1', 'One more in Belgrade', 'https://www.onlycroatia.com/media/cities/124/4281.jpg', 44.791291, 20.450288, -16, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-41, 'Belgrade Point 2', 'Monument in Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.790347, 20.470520, -16, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-42, 'Belgrade Point 1', 'One more in Belgrade', 'https://www.onlycroatia.com/media/cities/124/4281.jpg', 44.798594, 20.448867, -17, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-43, 'Belgrade Point 2', 'Monument in Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.808277, 20.470254, -17, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-44, 'Belgrade Point 1', 'Visit Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.790347, 20.470520, -18, 'TourKeyPoint', null, null, 'Secret Belgrade', 1, null),
+  (-45, 'Belgrade Point 2', 'One more in Belgrade', 'https://www.onlycroatia.com/media/cities/124/4281.jpg', 44.798594, 20.448867, -18, 'TourKeyPoint', null, null, 'Secret Belgrade', 2, null),
+  (-46, 'Belgrade Point 3', 'Monument in Belgrade', 'https://www.extracafe.rs/wp-content/uploads/2021/07/kako-je-beograd-dobio-ime.jpg', 44.808277, 20.470254, -18, 'TourKeyPoint', null, null, 'Secret Belgrade', 3, null);
+
+
+INSERT INTO tours."Equipment"("Id", "Name", "Description")
+VALUES
+	(-1, 'Voda', 'Količina vode varira od temperature i trajanja ture. Preporuka je da se pije pola litre vode na jedan sat umerena fizičke aktivnosti (npr. hajk u prirodi bez značajnog uspona) po umerenoj vrućini'),
+	(-2, 'Štapovi za šetanje', 'Štapovi umanjuju umor nogu, pospešuju aktivnost gornjeg dela tela i pružaju stabilnost na neravnom terenu.'),
+	(-3, 'Obična baterijska lampa', 'Baterijska lampa od 200 do 400 lumena.');
+
 INSERT INTO tours."TourProblems"(
     "Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
 VALUES 

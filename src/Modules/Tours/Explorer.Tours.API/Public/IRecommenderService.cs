@@ -12,6 +12,7 @@ namespace Explorer.Tours.API.Public
     public interface IRecommenderService
     {
         Result<PagedResult<TourDto>> GetActive(int userId, int page, int pageSize);
+        Result<PagedResult<TourDto>> GetRecommendedTours(int page, int pageSize, int userId);
     }
 }
 

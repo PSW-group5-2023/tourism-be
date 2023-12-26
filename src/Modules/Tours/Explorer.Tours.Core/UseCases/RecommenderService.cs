@@ -41,11 +41,12 @@ namespace Explorer.Tours.Core.UseCases
         {
             var preference = _preferencesRepository.GetByUserId(userId);
             var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Select(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
 
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
             var usedTours = new List<TourDto>();
             var recommendedTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+            var tourIndexes = new Dictionary<long, double>();
 
             foreach (var item in usedBoughtItems.Value)
             {
@@ -53,7 +54,7 @@ namespace Explorer.Tours.Core.UseCases
             }
 
 
-            foreach (var tour in tours.Results)
+            foreach (var tour in publishedTours)
             {
                 // similarity based on preferences tags
                 var tagsSimilarity = calculateJaccardIndex(tour.Tags, preference.Tags);
@@ -72,13 +73,19 @@ namespace Explorer.Tours.Core.UseCases
                 // similarity based on difficulty preference
                 var difficultyRelativeError = Math.Abs((double)(tour.Difficulty - preference.DifficultyLevel)) / preference.DifficultyLevel;
 
-                if(tagsSimilarity >= 0.6 && difficultyRelativeError <= 0.4 && usedToursSimilarity >= 0.6)
-                {
-                    recommendedTours.Results.Add(MapToDto(tour));
-                }
+                // make one similarity index and bind it to tour
+                var averageSimilarityIndexes = (tagsSimilarity + usedToursSimilarity + 1 / difficultyRelativeError) / 3;
+                tourIndexes[tour.Id] = averageSimilarityIndexes;
             }
 
-            return null;
+            var sortedToursByIndexes = tourIndexes.OrderByDescending(x => x.Value);
+
+            foreach(KeyValuePair<long, double> tour in sortedToursByIndexes)
+            {
+                recommendedTours.Results.Add(MapToDto(tours.Results.Find(t => t.Id == tour.Key)));
+            }
+
+            return recommendedTours;
         }
 
         public double calculateJaccardIndex(List<string> firstList, List<string> secondList)
