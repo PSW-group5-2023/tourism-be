@@ -60,7 +60,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpGet("recommended/{userId}")]
+        [HttpGet("recommended/{userId:int}")]
         public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
         {
             var result = _recommenderService.GetRecommendedTours(userId, page, pageSize);
