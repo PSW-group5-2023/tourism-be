@@ -39,6 +39,15 @@ namespace Explorer.Payments.Core.UseCases
 
             return Result.Ok();
         }
+
+
+        public Result<List<BoughtItemDto>> GetUsedByUserId(int userId)
+        {
+            var boughtItems = _internalBoughtItemDatabaseRepository.GetByUserId(userId);
+            return MapToDto(boughtItems);
+        }
+
+
         public Result<List<BoughtItemDto>> GetByTourId(long tourId)
         {
             try

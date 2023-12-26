@@ -22,7 +22,7 @@ namespace Explorer.Tours.Tests.Integration
         }
         private static Explorer.API.Controllers.Tourist.TourController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            return new Explorer.API.Controllers.Tourist.TourController(scope.ServiceProvider.GetRequiredService<ITourService>(), scope.ServiceProvider.GetRequiredService<IRecommenderService>())
             {
                 ControllerContext = BuildContext("-1")
             };

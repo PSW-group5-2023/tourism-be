@@ -180,5 +180,10 @@ namespace Explorer.Payments.Core.UseCases
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
+        public Result<List<BoughtItemDto>> GetUsedByUserId(int userId)
+        {
+            var boughtItems = shoppingCartRepository.GetAllByUserId(userId);
+            return MapToDto(boughtItems);
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
         BoughtItem CreateBoughtItem(BoughtItem item);
         List<BoughtItem> GetByTourId(long tourId);
         List<BoughtItem> GetAll();
-
+        List<BoughtItem> GetByUserId(int userId);
     }
 }
