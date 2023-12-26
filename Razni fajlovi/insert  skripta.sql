@@ -1,15 +1,15 @@
 INSERT INTO stakeholders."Users"("Id", "Username", "Password", "Role", "IsActive")
 VALUES 
-	(-1, 'admin', 'admin', 0, true),
-	(-2, 'jane_smith', 'admin', 0, true),
-	(-3, 'author', 'author', 1, true),
-	(-4, 'olivia_wilson', 'author', 1, true),
-	(-5, 'daniel_taylor', 'author', 1, true),
-	(-6, 'tourist', 'tourist', 2, true),
-	(-7, 'sophia_brown', 'tourist', 2, false),
-	(-8, 'ethan_clark', 'tourist', 2, true),
-	(-9, 'ava_young', 'tourist', 2, true),
-	(-10, 'james_brown', 'admin', 0, true);
+	(-1, 'admin', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true),
+	(-2, 'jane_smith', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true),
+	(-3, 'author', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
+	(-4, 'olivia_wilson', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
+	(-5, 'daniel_taylor', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
+	(-6, 'tourist', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true),
+	(-7, 'sophia_brown', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false),
+	(-8, 'ethan_clark', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true),
+	(-9, 'ava_young', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false),
+	(-10, 'james_brown', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true);
 
 
 INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto")
