@@ -1,4 +1,5 @@
 ﻿
+using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Tours.API.Public;
 using FluentResults;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ namespace Explorer.Stakeholders.Core.Domain
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<PeriodicHostedService> _logger;
-        private readonly TimeSpan _period = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _period = TimeSpan.FromSeconds(30);
         public PeriodicHostedService(ILogger<PeriodicHostedService> logger, IServiceScopeFactory scopeFactory)
         {
 
@@ -37,13 +38,17 @@ namespace Explorer.Stakeholders.Core.Domain
                 {
                     using (var scope = _scopeFactory.CreateScope())
                     {
-                        var myScopedService = scope.ServiceProvider.GetRequiredService<ITourProblemService>();
-                        var users = myScopedService.GetPaged(0, 0);
+                        var myScopedService = scope.ServiceProvider.GetRequiredService<IRecommenderService>();
+                        var rankedTours = myScopedService.GetRecommendedToursByLocation(-1,0,0);
                         _executionCount++;
                         _logger.LogInformation(
-                            $"Executed PeriodicHostedService - Count: {_executionCount}");
+                            $"Executed PeriodicHostedService - Count: {rankedTours.Value.Results.Count}");
                     }
-                   
+                    using (var scope = _scopeFactory.CreateScope())
+                    {
+                        var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
+                        emailScopedService.SendEmailAsync("@gmail.com", "hahahahah", "Radi li ovo?");
+                    } 
                 }
                 catch (Exception ex)
                 {
