@@ -163,17 +163,27 @@ namespace Explorer.Payments.Core.UseCases
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
+
+        public Result<List<BoughtItemDto>> GetAll()
+        {
+            try
+            {
+                List<BoughtItemDto> boughtItems = new List<BoughtItemDto>();
+                foreach (BoughtItem item in shoppingCartRepository.GetAll())
+                {
+                    boughtItems.Add(MapToDto(item));
+                }
+                return Result.Ok(boughtItems);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
         public Result<List<BoughtItemDto>> GetUsedByUserId(int userId)
         {
             var boughtItems = shoppingCartRepository.GetAllByUserId(userId);
             return MapToDto(boughtItems);
-        }
-
-        public Result<PagedResult<ListedTourDto>> GetPagedToursByTouristId(long touristId, int page, int pageSize)
-        {
-            var boughtTourIds = shoppingCartRepository.GetAllByUserId(touristId).Select(bi => bi.TourId).ToList();
-            var result = internalTourUsageService.GetPagedByIds(boughtTourIds, page, pageSize).Value.Results.Select(t => mapper.Map<ListedTourDto>(t)).ToList();
-            return new PagedResult<ListedTourDto>(result, result.Count);
         }
     }
 }

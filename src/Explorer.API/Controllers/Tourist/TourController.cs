@@ -54,17 +54,12 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpGet("active/{userId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
-        {
-            var result = _recommenderService.GetActive(userId, page, pageSize);
-            return CreateResponse(result);
-        }
 
-        [HttpGet("recommended/{userId}")]
+        [HttpGet("recommended/{userId:int}")]
         public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
         {
-            throw new NotImplementedException();
+            var result = _recommenderService.GetRecommendedToursByLocation(userId, page, pageSize);
+            return CreateResponse(result);
         }
 
 

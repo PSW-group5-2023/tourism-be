@@ -21,5 +21,6 @@ namespace Explorer.Payments.API.Public
         Result<List<SoldTourStatisticsDto>> GetSoldToursStatistics();
         Result<List<BoughtItemDto>> GetByTourId(long tourId);
         Result<PagedResult<ListedTourDto>> GetPagedToursByTouristId(long touristId, int page, int pageSize);
+        Result<List<BoughtItemDto>> GetAll();
     }
 }
