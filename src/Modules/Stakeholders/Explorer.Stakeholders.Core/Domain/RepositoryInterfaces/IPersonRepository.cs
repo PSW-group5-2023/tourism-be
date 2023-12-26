@@ -16,5 +16,6 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         Person Update(Person person);
         public List<Person> GetAllFollowers(int id);
         public List<Person> GetAllFollowings(int id);
+        Person GetByEmail(string email);
     }
 }

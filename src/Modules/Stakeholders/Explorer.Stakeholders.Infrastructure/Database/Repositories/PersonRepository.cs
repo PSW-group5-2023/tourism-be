@@ -80,5 +80,11 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
             return query.ToList();
         }
+
+        public Person GetByEmail(string email)
+        {
+            var person = _dbContext.People.FirstOrDefault(x => x.Email == email);
+            return person;
+        }
     }
 }

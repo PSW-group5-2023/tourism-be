@@ -35,4 +35,18 @@ public class AuthenticationController : BaseApiController
         var result = _authenticationService.Login(credentials);
         return CreateResponse(result);
     }
+
+    [HttpPost("changePasswordRequest")]
+    public ActionResult<string> ChangePasswordRequest([FromBody] string email)
+    {
+        var result = _authenticationService.ChangePasswordRequest(email);
+        return CreateResponse(result);
+    }
+
+    [HttpPost("changePassword")]
+    public ActionResult<string> ChangePassword([FromBody] ChangePasswordDto changePassword)
+    {
+        var result = _authenticationService.ChangePassword(changePassword);
+        return CreateResponse(result);
+    }
 }
