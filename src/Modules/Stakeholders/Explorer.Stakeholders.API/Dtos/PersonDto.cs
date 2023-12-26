@@ -17,7 +17,5 @@ namespace Explorer.Stakeholders.API.Dtos
         public string? Biography { get; set; }
         public string? Motto { get; set; }
         public string? Role { get; set; }
-        public double? Latitude { get; set; }
-        public double? Longitude { get; set; }
     }
 }

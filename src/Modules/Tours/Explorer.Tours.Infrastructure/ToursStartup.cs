@@ -50,6 +50,7 @@ public static class ToursStartup
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
         services.AddScoped<IRecommenderService, RecommenderService>();
+        services.AddScoped<IInternalPositionSimulatorService, InternalPositionSimulatorService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -76,6 +77,7 @@ public static class ToursStartup
         services.AddScoped<IEquipmentTrackingRepository, EquipmentTrackingRepository>();
 
         services.AddScoped<ITourRatingRepository, TourRatingRepository>();
+        services.AddScoped<IInternalPositionSimulatorRepository, InternalPositionSimulatorRepository>();
 
         services.AddDbContext<ToursContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("tours"),

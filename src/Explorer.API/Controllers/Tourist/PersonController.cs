@@ -1,5 +1,7 @@
 ﻿using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
+using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,11 @@ namespace Explorer.API.Controllers.Tourist
     public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;
-
-        public PersonController(IPersonService personService)
+        private readonly IInternalPositionSimulatorService _positionSimulatorService;
+        public PersonController(IPersonService personService, IInternalPositionSimulatorService positionSimulatorService)
         {
             _personService = personService;
+            _positionSimulatorService = positionSimulatorService;
         }
 
         [HttpGet("{id:int}")]
@@ -50,6 +53,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
             var result = _personService.Update(person);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("location/{touristId:int}")]
+        public ActionResult<PositionSimulatorDto> GetLocationByTouristId(int touristId)
+        {
+            var result = _positionSimulatorService.GetByTouristId(touristId);
             return CreateResponse(result);
         }
     }
