@@ -37,6 +37,7 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
+            services.AddScoped<IAuthorEarningsService, AuthorEarningsService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
@@ -49,7 +50,6 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<ICouponRepository, CouponDatabaseRepository>();
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
             services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();
-
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "payments")));

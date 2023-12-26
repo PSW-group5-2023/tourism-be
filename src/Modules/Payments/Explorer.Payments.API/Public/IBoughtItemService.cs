@@ -18,5 +18,6 @@ namespace Explorer.Payments.API.Public
         Result<List<ListedTourDto>> GetUnusedTours(long userId);
         Result<List<ListedTourDto>> GetUsedTours(long userId);
         Result<List<SoldTourStatisticsDto>> GetSoldToursStatistics();
+        Result<List<BoughtItemDto>> GetAll();
     }
 }

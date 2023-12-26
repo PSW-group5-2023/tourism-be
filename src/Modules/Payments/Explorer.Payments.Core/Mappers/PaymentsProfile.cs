@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.Payments.API.Dtos;
+using Explorer.Payments.API.Dtos.ListedTours;
 using Explorer.Payments.Core.Domain;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Explorer.Payments.Core.Mappers
             CreateMap<SalesDto, Sales>().ReverseMap();
             CreateMap<CouponDto, Coupon>().ReverseMap();
             CreateMap<WalletDto,Wallet>().ReverseMap();
+            CreateMap<AuthorEarningsDto, BoughtItem>().ReverseMap();
+
         }
     }
 }
