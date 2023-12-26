@@ -55,5 +55,22 @@ namespace Explorer.Payments.Core.UseCases
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
+
+        public Result<List<BoughtItemDto>> GetAll()
+        {
+            try
+            {
+                List<BoughtItemDto> boughtItems = new List<BoughtItemDto>();
+                foreach (BoughtItem item in _internalBoughtItemDatabaseRepository.GetAll())
+                {
+                    boughtItems.Add(MapToDto(item));
+                }
+                return Result.Ok(boughtItems);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
     }
 }
