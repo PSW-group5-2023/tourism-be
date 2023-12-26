@@ -9,7 +9,11 @@ VALUES
 	(-7, 'sophia_brown', 'tourist', 2, false),
 	(-8, 'ethan_clark', 'tourist', 2, true),
 	(-9, 'ava_young', 'tourist', 2, true),
-	(-10, 'james_brown', 'admin', 0, true);
+	(-10, 'james_brown', 'admin', 0, true),
+  (-11, 'eva_davis', 'tourist', 2, true),
+	(-12, 'john_cooper', 'tourist', 2, true),
+	(-13, 'michael_fitch', 'tourist', 2, true),
+	(-14, 'rachel_baker', 'tourist', 2, true);
 
 
 INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto")
@@ -23,7 +27,12 @@ VALUES
     (-7, -7, 'Sophia', 'Brown', 'sophia.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.', 'Embrace the journey'),
     (-8, -8, 'Ethan', 'Clark', 'ethan.clark@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Believe in yourself'),
     (-9, -9, 'Ava', 'Young', 'ava.young@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.', 'Explore the unknown'),
-    (-10, -10, 'James', 'Brown', 'james.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.', 'Create your own destiny');
+    (-10, -10, 'James', 'Brown', 'james.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.', 'Create your own destiny'),
+    (-11, -11, 'Eva', 'Davis', 'eva.davis@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.', 'Adventure awaits, go find it'),
+    (-12, -12, 'John', 'Cooper', 'john.cooper@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Meet new places, make new stories'),
+    (-13, -13, 'Michael', 'Fitch', 'michael.fitch@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Adventure is the best way to learn'),
+    (-14, -14, 'Rachel', 'Baker', 'rachel.baker@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.', 'Every journey is a chance to grow');
+
 
 INSERT INTO blog."Blogs"(
 	"Id", "Title", "Description", "CreationDate", "Status", "UserId", "RatingSum", "Ratings")
@@ -296,7 +305,6 @@ VALUES (-1, -6, 190, 10),
 		  (-3, -8, 50, 3),
 		  (-4, -9, 0, 1);
 
-
 INSERT INTO payments."Bundles"(
 	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
 	VALUES 
@@ -326,7 +334,39 @@ INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
        (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true ),
-       (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true);
+       (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true),
+       (-4, -6, -9, '2023-12-25 11:04:17.950647+01', true),
+       (-5, -6, -10, '2023-12-20 14:10:17.950647+01', true),
+       (-6, -6, -11, '2023-12-22 11:09:17.950647+01', true),
+       (-7, -6, -12, '2023-12-26 14:04:17.950647+01', true),
+       (-8, -6, -13, '2023-12-02 12:08:17.950647+01', true),
+       (-9, -6, -14, '2023-12-25 16:04:17.950647+01', true),
+       (-10, -6, -15, '2023-12-11 19:07:17.950647+01', true),
+       (-11, -6, -16, '2023-12-25 14:04:17.950647+01', true),
+       (-12, -6, -17, '2023-12-25 11:04:17.950647+01', true),
+       (-13, -6, -18, '2023-12-25 14:04:17.950647+01', true),
+       (-14, -8, -12, '2023-12-26 11:04:17.950647+01', true),
+       (-15, -9, -12, '2023-12-26 14:10:17.950647+01', true),
+       (-16, -11, -12, '2023-12-26 11:09:17.950647+01', true),
+       (-17, -12, -12, '2023-12-26 14:04:17.950647+01', true),
+       (-18, -13, -12, '2023-12-26 18:08:17.950647+01', true),
+       (-19, -14, -12, '2023-12-26 16:04:17.950647+01', true),
+       (-20, -8, -14, '2023-12-25 19:07:17.950647+01', true),
+       (-21, -9, -14, '2023-12-25 15:04:17.950647+01', true),
+       (-22, -11, -14, '2023-12-25 12:04:17.950647+01', true),
+       (-23, -12, -14, '2023-12-25 12:04:17.950647+01', true),
+       (-24, -13, -14, '2023-12-25 19:07:17.950647+01', false),
+       (-25, -8, -11, '2023-12-22 15:04:17.950647+01', true),
+       (-26, -9, -11, '2023-12-22 12:04:17.950647+01', true),
+       (-27, -11, -11, '2023-12-22 12:04:17.950647+01', true),
+       (-28, -12, -11, '2023-12-22 12:04:17.950647+01', true),
+       (-29, -8, -10, '2023-12-20 15:04:17.950647+01', true),
+       (-30, -9, -10, '2023-12-20 12:04:17.950647+01', true),
+       (-31, -11, -10, '2023-12-20 12:04:17.950647+01', true),
+       (-32, -8, -13, '2023-12-02 12:04:17.950647+01', true),
+       (-33, -9, -13, '2023-12-02 12:04:17.950647+01', true),
+       (-34, -8, -15, '2023-12-11 12:04:17.950647+01', true),
+       (-35, -11, -15, '2023-12-11 12:04:17.950647+01', false);
 
 INSERT INTO tours."Sessions"(
     "Id", "TourId", "TouristId", "Location", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
@@ -365,4 +405,26 @@ VALUES (
 INSERT INTO tours."TourRatings"(
     "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-07 12:34:56', '2023-12-07 12:34:56', ARRAY['https://live.staticflickr.com/7909/47358208621_d866a5513e_b.jpg']),
-       (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']);
+       (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-3, -8, -12, '5', 'Bilo je odlicno!', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-4, -9, -12, '5', 'Veoma zanimljiva tura.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-5, -11, -12, '5', 'Odlicna tura!', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-6, -12, -12, '4', 'Bilo je dobro.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-7, -13, -12, '5', 'Odlicno, super smo se proveli', '2023-12-29 12:34:56', '2023-12-30 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-8, -14, -12, '3', 'Bilo je dosadno', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-9, -6, -12, '4', 'Bilo je okej', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-10, -6, -14, '2', 'Bilo je lose', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-11, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-12, -9, -14, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-13, -11, -14, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-14, -12, -14, '5', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),      
+       (-15, -8, -11, '5', 'Bilo je sjajno', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-16, -9, -11, '4', 'Bilo je dobro', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-17, -11, -11, '5', 'Odlicna organizacija', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-18, -12, -11, '5', 'Veoma zanimljiva tura', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),       
+       (-19, -8, -10, '2', 'Bilo je prilicmo lose', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-20, -9, -10, '3', 'Jako dosadno, bilo je zanimljivo', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-21, -11, -10, '1', 'Bilo je uzasno', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-22, -8, -13, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-23, -9, -13, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-24, -8, -15, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
