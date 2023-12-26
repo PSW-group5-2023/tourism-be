@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Explorer.Tours.API.Internal;
 
 namespace Explorer.Stakeholders.Tests.Integration.People
 {
@@ -90,7 +91,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
 
         private static PersonController CreateController(IServiceScope scope)
         {
-            return new PersonController(scope.ServiceProvider.GetRequiredService<IPersonService>())
+            return new PersonController(scope.ServiceProvider.GetRequiredService<IPersonService>(), scope.ServiceProvider.GetRequiredService<IInternalPositionSimulatorService>())
             {
                 ControllerContext = BuildContext("-1")
             };

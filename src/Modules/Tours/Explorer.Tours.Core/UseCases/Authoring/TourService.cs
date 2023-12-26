@@ -226,7 +226,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
-                if (CheckIfAnyKeyPointInRange(tour.KeyPoints, lat, lon, radius))
+                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints, lat, lon, radius))
                 {
                     filteredTours.Results.Add(MapToDto(tour));
                 }

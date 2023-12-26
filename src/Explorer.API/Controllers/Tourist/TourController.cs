@@ -69,7 +69,7 @@ namespace Explorer.API.Controllers.Tourist
 
 
         [HttpGet("location/{lat}/{lon}/{radius}/{touristId}")]
-        public ActionResult<PagedResult<TourDto>> SearchByLocation([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] double? lat, [FromRoute] double? lon, [FromRoute] double radius, [FromRoute] int touristId)
+        public ActionResult<PagedResult<TourDto>> SearchByLocation([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] double lat, [FromRoute] double lon, [FromRoute] double radius, [FromRoute] int touristId)
         {
             var result = _tourService.GetPagedForSearchByLocation(page, pageSize, lat, lon, radius, touristId);
             return CreateResponse(result);
