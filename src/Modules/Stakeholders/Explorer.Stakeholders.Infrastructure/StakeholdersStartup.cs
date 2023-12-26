@@ -45,6 +45,8 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalBlogService, InternalBlogService>();
         services.AddScoped<IInternalCommentService, InternalCommentService>();
         services.AddScoped<IMessageService, MessageService>();
+
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
