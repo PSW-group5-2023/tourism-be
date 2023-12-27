@@ -224,7 +224,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
         public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
         {
-            double radius = 20000;
+            double radius = 40000;
             var location = _internalPositionSimulatorService.GetByTouristId(touristId);
             var tours = _tourRepository.GetPaged(page, pageSize);
             var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();

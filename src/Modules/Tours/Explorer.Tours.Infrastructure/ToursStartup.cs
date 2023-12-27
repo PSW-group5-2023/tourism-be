@@ -77,7 +77,6 @@ public static class ToursStartup
         services.AddScoped<IEquipmentTrackingRepository, EquipmentTrackingRepository>();
 
         services.AddScoped<ITourRatingRepository, TourRatingRepository>();
-        services.AddScoped<IInternalPositionSimulatorRepository, InternalPositionSimulatorRepository>();
 
         services.AddDbContext<ToursContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("tours"),

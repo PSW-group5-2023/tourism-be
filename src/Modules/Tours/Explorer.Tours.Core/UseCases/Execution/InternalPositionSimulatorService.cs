@@ -11,6 +11,7 @@ using AutoMapper;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Tours.Core.UseCases.Execution
 {
