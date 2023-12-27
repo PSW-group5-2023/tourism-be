@@ -7,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.Domain
 {
-    public class TourStatistics : Entity
+    public class TourStatistics : ValueObject
     {
-        public long TourId { get; init; }
-        public double NumberOfStats { get; init; }
+        public long TourId { get; set; }
+        public double NumberOfStats { get; set; }
 
-        public TourStatistics(double numberOfStats)
+        public TourStatistics(long tourId, double numberOfStats)
         {
+            TourId = tourId;
             NumberOfStats=numberOfStats;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return TourId;
+            yield return NumberOfStats;
         }
     }
 }

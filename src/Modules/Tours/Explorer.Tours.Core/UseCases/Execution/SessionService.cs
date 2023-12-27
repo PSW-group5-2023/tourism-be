@@ -3,6 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
@@ -150,38 +151,31 @@ namespace Explorer.Tours.Core.UseCases.Execution
         public Result<TourStatisticsDto> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus)
         {
             var sessions = _sessionRepository.GetAll();
-            var abandonedStatistics = new TourStatisticsDto();
+            var result = _tourStatisticsDomainService.GetSessionsByStatusForTourStatistics(tourId,sessionStatus,sessions);
             TourStatisticsDto stat = new TourStatisticsDto();
-            stat.TourId = tourId;
-            int number = 0;
-            SessionStatus status;
-
-            switch (sessionStatus)
-            {
-                case 0:
-                    status = SessionStatus.ACTIVE;
-                    break;
-                case 1:
-                    status = SessionStatus.COMPLETED;
-                    break;
-                case 2:
-                    status = SessionStatus.ABANDONED;
-                    break;
-                default:
-                    return null;
-            }
-
-            foreach (var session in sessions)
-            {
-
-                if (session.TourId == tourId && session.SessionStatus == status)
-                {
-                    number++;
-                }
-            }        
-            stat.NumberOfStats = number;
+            stat.TourId = result.Value.TourId;
+            stat.NumberOfStats = result.Value.NumberOfStats;
             return stat;
+        }
 
+        public Result<TourStatisticsDto> GetNumberSessionsByTour(int tourId)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var result = _tourStatisticsDomainService.GetNumberSessionsByTour(tourId, sessions);
+            TourStatisticsDto stat = new TourStatisticsDto();
+            stat.TourId = result.Value.TourId;
+            stat.NumberOfStats = result.Value.NumberOfStats;
+            return stat;
+        }
+
+        public Result<TourStatisticsDto> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var result = _tourStatisticsDomainService.GetStatisticsForCompletedKeypointOnTour(tourId, keyPointId, sessions);
+            TourStatisticsDto stat = new TourStatisticsDto();
+            stat.TourId = result.Value.TourId;
+            stat.NumberOfStats = result.Value.NumberOfStats;
+            return stat;
         }
     }
 }
