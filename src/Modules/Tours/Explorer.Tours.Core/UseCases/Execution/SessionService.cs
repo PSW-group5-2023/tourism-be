@@ -4,6 +4,7 @@ using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using FluentResults;
 using System;
@@ -18,9 +19,11 @@ namespace Explorer.Tours.Core.UseCases.Execution
     public class SessionService : BaseService<SessionDto, Session>, ISessionService
     {
         private readonly ISessionRepository _sessionRepository;
-        public SessionService( IMapper mapper, ISessionRepository sessionRepository) : base(mapper)
+        private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
+        public SessionService( IMapper mapper, ISessionRepository sessionRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(mapper)
         {
             _sessionRepository = sessionRepository;
+            _tourStatisticsDomainService = tourStatisticsDomainService;
         }
 
         public Result<SessionDto> Create(SessionDto session)
