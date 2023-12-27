@@ -3,6 +3,8 @@ using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Payments.API.Internal;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
+using Explorer.Payments.Core.Domain.DomainServices;
+using Explorer.Payments.Core.Domain.DomainServicesInterface;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
 using Explorer.Payments.Core.Mappers;
 using Explorer.Payments.Core.UseCases;
@@ -38,6 +40,8 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
             services.AddScoped<IAuthorEarningsService, AuthorEarningsService>();
+            services.AddScoped<IBoughtItemDomainService, BoughtItemDomainService>();
+            services.AddScoped<IAuthorEarningsDomainService, AuthorEarningsDomainService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
