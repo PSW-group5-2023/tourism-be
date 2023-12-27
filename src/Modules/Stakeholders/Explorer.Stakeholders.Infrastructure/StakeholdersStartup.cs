@@ -49,6 +49,7 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalCommentService, InternalCommentService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IEmailSendingService, EmailSedningService>();
+        services.AddScoped<IUserNewsService, UserNewsService>();
 
     }
 
@@ -69,6 +70,7 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalBlogRepository, InternalBlogRepository>();
         services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddScoped(typeof(ICrudRepository<UserNews>), typeof(CrudDatabaseRepository<UserNews, StakeholdersContext>));
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

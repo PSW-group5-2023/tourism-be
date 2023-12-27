@@ -16,6 +16,8 @@ public class StakeholdersContext : DbContext
     public DbSet<Message> Messages { get; set; }
     public DbSet<Follower> Followers { get; set; }
 
+    public DbSet<UserNews> UserNews { get; set; }
+
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
