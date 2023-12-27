@@ -13,6 +13,7 @@ namespace Explorer.Tours.API.Public
     {
         Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize);
         Result<PagedResult<TourDto>> GetActiveToursByLocation(int userId, int page, int pageSize);
+        Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId);
     }
 }
 

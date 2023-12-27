@@ -75,5 +75,11 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<List<FollowerDto>> GetFollowings(int id)
+        {
+            var result = _followerRepository.GetFollowings(id);
+            return MapToDto(result);
+        }
     }
 }

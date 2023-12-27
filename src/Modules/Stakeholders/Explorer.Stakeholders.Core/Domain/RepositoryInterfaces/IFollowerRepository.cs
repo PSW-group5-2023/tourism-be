@@ -12,5 +12,6 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         List<Follower> GetFollowersNotifications(int id);
         Follower Create(Follower follower);
         void Delete(int followerId, int followedId);
+        List<Follower> GetFollowings(int id);
     }
 }

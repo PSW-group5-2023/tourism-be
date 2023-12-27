@@ -13,5 +13,6 @@ namespace Explorer.Stakeholders.API.Public.Identity
         public Result<List<SavedNotificationDto>> GetFollowersNotifications(int id);
         public Result<FollowerDto> Create(FollowerDto follower);
         public Result Delete(int followerId, int followedId);
+        public Result<List<FollowerDto>> GetFollowings(int id);
     }
 }
