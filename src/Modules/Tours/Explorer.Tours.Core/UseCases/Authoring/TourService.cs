@@ -6,6 +6,7 @@ using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
+using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
@@ -226,6 +227,18 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             double radius = 20000;
             var location = _internalPositionSimulatorService.GetByTouristId(touristId);
             var tours = _tourRepository.GetPaged(page, pageSize);
+            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var resultTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+
+            if (location.ValueOrDefault == null)
+            {
+                foreach (Tour tour in publishedTours)
+                {
+                    resultTours.Results.Add(MapToDto(tour));
+                }
+
+                return resultTours;
+            }
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
