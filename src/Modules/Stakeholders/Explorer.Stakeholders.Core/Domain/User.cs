@@ -8,14 +8,16 @@ public class User : Entity
     public string Password { get; private set; }
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
+    public string? ResetPasswordToken {  get; set; }
 
-    public User(string username, string password, UserRole role, bool isActive)
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "")
     {
         Username = username;
         Password = password;
         Role = role;
         IsActive = isActive;
         Validate();
+        ResetPasswordToken = resetPasswordToken;
     }
 
     private void Validate()
@@ -27,6 +29,16 @@ public class User : Entity
     public string GetPrimaryRoleName()
     {
         return Role.ToString().ToLower();
+    }
+
+
+    public void UpdatePassword(string password)
+    {
+        Password = password;
+    }
+    public void RemoveChangePasswordToken()
+    {
+        ResetPasswordToken = null;
     }
 }
 
