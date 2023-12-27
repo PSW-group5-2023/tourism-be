@@ -1,5 +1,6 @@
 ﻿using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
         {
             var userExperience = _context.UserExperience.Where(u => u.UserId == userId);
             return userExperience.First();
+        }
+        public UserExperience Create(UserExperience userExperience)
+        {
+            _context.UserExperience.Add(userExperience);
+            _context.SaveChanges();
+            return userExperience;
         }
     }
 }
