@@ -16,18 +16,18 @@ namespace Explorer.Tours.Core.UseCases.Execution
 {
     public class InternalPositionSimulatorService : BaseService<PositionSimulatorDto, PositionSimulator>, IInternalPositionSimulatorService
     {
-        public IInternalPositionSimulatorRepository _internalPositionSimulatorRepository;
+        public IPositionSimulatorRepository _positionSimulatorRepository;
 
-        public InternalPositionSimulatorService(IInternalPositionSimulatorRepository internalPositionSimulatorRepository, IMapper mapper) : base(mapper) 
+        public InternalPositionSimulatorService(IPositionSimulatorRepository positionSimulatorRepository, IMapper mapper) : base(mapper) 
         {
-            _internalPositionSimulatorRepository = internalPositionSimulatorRepository;
+            _positionSimulatorRepository = positionSimulatorRepository;
         }
 
         public Result<PositionSimulatorDto> GetByTouristId(long touristId)
         {
             try
             {
-                return MapToDto(_internalPositionSimulatorRepository.GetByTouristId(touristId));
+                return MapToDto(_positionSimulatorRepository.GetByTouristId(touristId));
             }
             catch (KeyNotFoundException e)
             {
