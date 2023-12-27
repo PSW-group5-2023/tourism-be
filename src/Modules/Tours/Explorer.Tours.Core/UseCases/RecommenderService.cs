@@ -127,10 +127,13 @@ namespace Explorer.Tours.Core.UseCases
 
             foreach (var user in userFromFollowing)
             {
-                if(_sessionService.GetByTourAndTouristId(tourId, user.FollowedId).Value.SessionStatus == 1)
-                {
-                    users.Add(user);
-                }
+                var session = _sessionService.GetByTourAndTouristId(tourId, user.FollowedId).Value;
+
+                if(session != null)
+                    if (session.SessionStatus == 1)
+                    {
+                        users.Add(user);
+                    }
             }
 
             List<Tour> toursFromFollowigns = new List<Tour>();
