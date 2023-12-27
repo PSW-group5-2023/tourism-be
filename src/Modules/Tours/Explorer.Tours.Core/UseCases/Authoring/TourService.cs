@@ -22,13 +22,15 @@ namespace Explorer.Tours.Core.UseCases.Authoring
         private readonly ITourRepository _tourRepository;
         private readonly ITourKeyPointService _keyPointService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
+        private readonly IInternalPositionSimulatorService _internalPositionSimulatorService;
 
         public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService,
-            IInternalBoughtItemService internalBoughtItemService) : base(repository, mapper)
+            IInternalBoughtItemService internalBoughtItemService, IInternalPositionSimulatorService internalPositionSimulatorService) : base(repository, mapper)
         {
             _tourRepository = repository;
             _keyPointService = tourKeyPointService;
             _internalBoughtItemService = internalBoughtItemService;
+            _internalPositionSimulatorService = internalPositionSimulatorService;
         }
 
         public Result<TourDto> Archive(int id, int userId)
@@ -219,14 +221,15 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             return filteredTours;
         }
 
-        public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, double? lat, double? lon,
-            double radius, int touristId)
+        public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
         {
+            double radius = 20000;
+            var location = _internalPositionSimulatorService.GetByTouristId(touristId);
             var tours = _tourRepository.GetPaged(page, pageSize);
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
-                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints, lat, lon, radius))
+                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints, location.Value.Latitude, location.Value.Longitude, radius))
                 {
                     filteredTours.Results.Add(MapToDto(tour));
                 }

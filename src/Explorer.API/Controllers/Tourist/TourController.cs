@@ -1,5 +1,6 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
@@ -53,20 +54,11 @@ namespace Explorer.API.Controllers.Tourist
             var result = _tourService.GetPagedForSearch(name,  tags, page, pageSize);
             return CreateResponse(result);
         }
-
-
-        [HttpGet("recommended/{userId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
+        
+        [HttpGet("recommended/{touristId}")]
+        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetRecommendedToursByLocation(userId, page, pageSize);
-            return CreateResponse(result);
-        }
-
-
-        [HttpGet("location/{lat}/{lon}/{radius}/{touristId}")]
-        public ActionResult<PagedResult<TourDto>> SearchByLocation([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] double lat, [FromRoute] double lon, [FromRoute] double radius, [FromRoute] int touristId)
-        {
-            var result = _tourService.GetPagedForSearchByLocation(page, pageSize, lat, lon, radius, touristId);
+            var result = _recommenderService.GetRecommendedToursByLocation(page, pageSize, touristId);
             return CreateResponse(result);
         }
     }

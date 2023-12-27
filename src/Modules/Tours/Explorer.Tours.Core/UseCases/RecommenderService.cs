@@ -28,21 +28,22 @@ namespace Explorer.Tours.Core.UseCases
         private readonly IPreferencesRepository _preferencesRepository;
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
+        private readonly ITourService _tourService;
 
-        public RecommenderService(IMapper mapper, ITourRepository tourRepository, IPreferencesRepository preferencesRepository, ITourRatingRepository tourRatingRepository, IInternalBoughtItemService internalBoughtItemService) : base(mapper) 
+        public RecommenderService(IMapper mapper, ITourRepository tourRepository, IPreferencesRepository preferencesRepository, ITourRatingRepository tourRatingRepository, IInternalBoughtItemService internalBoughtItemService, ITourService tourService) : base(mapper) 
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
             _tourRatingRepository = tourRatingRepository;
             _internalBoughtItemService = internalBoughtItemService;
+            _tourService = tourService;
         }
 
-        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize)
+        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int page, int pageSize, int touristId)
         {
-            var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetRecommendedTours(userId, publishedTours);
+            return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
