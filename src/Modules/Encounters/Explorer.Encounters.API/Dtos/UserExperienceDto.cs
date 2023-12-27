@@ -16,5 +16,11 @@ namespace Explorer.Encounters.API.Dtos
         public UserExperienceDto()
         {
         }
+        public UserExperienceDto(long userId, int xP, int level)
+        {
+            UserId = userId;
+            XP = xP;
+            Level = level;
+        }
     }
 }
