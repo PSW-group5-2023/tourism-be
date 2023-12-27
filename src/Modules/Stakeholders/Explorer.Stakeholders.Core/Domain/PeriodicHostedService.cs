@@ -1,5 +1,6 @@
 ﻿
 using Explorer.BuildingBlocks.Infrastructure.Email;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Tours.API.Public;
 using FluentResults;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,7 +48,10 @@ namespace Explorer.Stakeholders.Core.Domain
                     using (var scope = _scopeFactory.CreateScope())
                     {
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
-                        emailScopedService.SendEmailAsync("@gmail.com", "hahahahah", "Radi li ovo?");
+
+                        string emailSubject = $"TRAVELO Check out our latest updates.";
+                        string emailBody = $"Dear you,\n\nThank you for being a valued user. We have some exciting news to share...";
+                        emailScopedService.SendEmailAsync("leopoldinica123@gmail.com", emailSubject, emailBody);
                     } 
                 }
                 catch (Exception ex)
