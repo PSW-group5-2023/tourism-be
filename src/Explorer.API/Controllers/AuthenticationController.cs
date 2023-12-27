@@ -37,16 +37,41 @@ public class AuthenticationController : BaseApiController
     }
 
     [HttpPost("changePasswordRequest")]
-    public ActionResult<string> ChangePasswordRequest([FromBody] string email)
+    public ActionResult<string> ChangePasswordRequest([FromQuery] string email)
     {
-        var result = _authenticationService.ChangePasswordRequest(email);
-        return CreateResponse(result);
+        try
+        {
+            var result = _authenticationService.ChangePasswordRequest(email);
+            if (result.IsFailed)
+            {
+                var badRequest = new { Message = result, Success = false };
+                return BadRequest(badRequest);
+            }
+            var response = new { Message = result, Success = true }; 
+
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
     }
 
     [HttpPost("changePassword")]
     public ActionResult<string> ChangePassword([FromBody] ChangePasswordDto changePassword)
     {
-        var result = _authenticationService.ChangePassword(changePassword);
-        return CreateResponse(result);
+        try
+        {
+            var result = _authenticationService.ChangePassword(changePassword);
+            var response = new { Message = result, Success = true };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
+
     }
 }

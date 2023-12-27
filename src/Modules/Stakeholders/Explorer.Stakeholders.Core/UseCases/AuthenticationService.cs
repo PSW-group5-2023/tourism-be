@@ -61,7 +61,6 @@ public class AuthenticationService : IAuthenticationService
         catch (ArgumentException e)
         {
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
-            // There is a subtle issue here. Can you find it?
         }
     }
 
