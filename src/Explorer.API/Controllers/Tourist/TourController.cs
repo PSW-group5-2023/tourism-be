@@ -83,8 +83,8 @@ namespace Explorer.API.Controllers.Tourist
             var result=_recommenderService.SendEmail(userId, subject, body);    
             return CreateResponse(result);
         }
-        [HttpGet("filter/{tourId:int}/{userId:int}")]
-        public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, [FromQuery] int rating)
+        [HttpGet("filter/{tourId:int}/{userId:int}/{rating:int}")]
+        public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
             var result = _recommenderService.FilterRecommendedTours(tourId, userId,rating);
             return CreateResponse(result);

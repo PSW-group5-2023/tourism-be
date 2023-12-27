@@ -296,7 +296,7 @@ namespace Explorer.Tours.Core.UseCases
         public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
             var list= GetRecommendedToursFromFollowings(tourId, userId);
-            Result<PagedResult<TourDto>> filteredList = new Result<PagedResult<TourDto>>();
+            PagedResult<TourDto> filteredList = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var item in list.Value.Results)
             {
                 var tourRatings = _tourRatingRepository.GetByTourId((int)item.Id);
@@ -308,10 +308,10 @@ namespace Explorer.Tours.Core.UseCases
                 double averageRating = sumRating / tourRatings.Count;
                 if (averageRating>rating)
                 {
-                    filteredList.Value.Results.Add(item);
+                    filteredList.Results.Add(item);
                 }
             }
-            return filteredList;
+            return filteredList.ToResult();
         }
     }
 }

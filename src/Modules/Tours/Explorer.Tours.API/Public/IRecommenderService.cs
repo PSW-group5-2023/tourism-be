@@ -15,7 +15,7 @@ namespace Explorer.Tours.API.Public
         Result<PagedResult<TourDto>> GetActiveToursByLocation(int userId, int page, int pageSize);
         Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId);
         Result<bool> SendEmail(int userId, string subject, string body);
-        Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating);
+        public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating);
     }
 }
 
