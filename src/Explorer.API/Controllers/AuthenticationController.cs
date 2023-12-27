@@ -74,4 +74,20 @@ public class AuthenticationController : BaseApiController
         }
 
     }
+
+    [HttpPost("activateUser")]
+    public ActionResult<AuthenticationTokensDto> ActivateUser([FromQuery] string token)
+    {
+        try
+        {
+            var result = _authenticationService.ActivateUser(token);
+            return CreateResponse(result);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
+
+    }
 }

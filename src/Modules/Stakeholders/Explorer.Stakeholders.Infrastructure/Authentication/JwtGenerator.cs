@@ -69,20 +69,23 @@ public class JwtGenerator : ITokenGenerator
         return jwt;
     }
 
-    private string CreateResetPasswordToken(IEnumerable<Claim> claims, double expirationTimeInMinutes)
+    public string GenerateEmailVerificationToken(string email, string username)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        var authenticationResponse = new AuthenticationTokensDto();
 
-        var token = new JwtSecurityToken(
-            _issuer,
-            _audience,
-            claims,
-            expires: DateTime.Now.AddMinutes(expirationTimeInMinutes),
-            signingCredentials: credentials);
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new("username", username),
+            new("email", email)
+        };
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        var jwt = CreateToken(claims, 60 * 24);
+
+
+        return jwt;
     }
+
 
     public long GetUserIdFromToken(string jwtToken)
     {
@@ -98,6 +101,22 @@ public class JwtGenerator : ITokenGenerator
         }
 
         return 0;
+    }
+
+    public string GetUserEmailFromToken(string jwtToken)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(jwtToken) as JwtSecurityToken;
+
+        if (jsonToken?.Payload != null && jsonToken.Payload.TryGetValue("email", out var userEmail))
+        {
+            if (userEmail is string userEmailString)
+            {
+                return userEmailString;
+            }
+        }
+
+        return null;
     }
 
     public DateTime GetTokenExpirationTime(string jwtToken)

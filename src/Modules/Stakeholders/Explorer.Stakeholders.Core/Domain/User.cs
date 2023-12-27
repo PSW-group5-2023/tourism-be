@@ -9,8 +9,9 @@ public class User : Entity
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
     public string? ResetPasswordToken {  get; set; }
+    public string? EmailVerificationToken { get; set; }
 
-    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "")
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null)
     {
         Username = username;
         Password = password;
@@ -18,6 +19,7 @@ public class User : Entity
         IsActive = isActive;
         Validate();
         ResetPasswordToken = resetPasswordToken;
+        EmailVerificationToken = emailVerificationToken;
     }
 
     private void Validate()
@@ -39,6 +41,14 @@ public class User : Entity
     public void RemoveChangePasswordToken()
     {
         ResetPasswordToken = null;
+    }
+    public void RemoveEmailVerificationToken()
+    {
+        EmailVerificationToken = null;
+    }
+    public void ActivateUser()
+    {
+        IsActive = true;
     }
 }
 
