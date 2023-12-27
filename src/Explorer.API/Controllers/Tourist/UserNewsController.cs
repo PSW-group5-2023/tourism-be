@@ -18,16 +18,31 @@ namespace Explorer.API.Controllers.Tourist
             _userNewsService = userNewsService;
         }
 
+        [HttpGet("touristId/{touristId:int}")]
+        public ActionResult<UserNewsDto> GetByTouristId(int touristId)
+        {
+            var result = _userNewsService.GetByTouristId(touristId);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<UserNewsDto> Get(int id)
         {
             var result = _userNewsService.Get(id);
             return CreateResponse(result);
         }
-        [HttpPut("")]
+
+        [HttpPut]
         public ActionResult<UserNewsDto> Update([FromBody] UserNewsDto news)
         {
             var result = _userNewsService.Update(news);
+            return CreateResponse(result);
+        }
+
+        [HttpPost]
+        public ActionResult<UserNewsDto> Create([FromBody] UserNewsDto news)
+        {
+            var result = _userNewsService.Create(news);
             return CreateResponse(result);
         }
 

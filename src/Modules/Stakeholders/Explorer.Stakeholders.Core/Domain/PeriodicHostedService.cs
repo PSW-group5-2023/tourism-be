@@ -62,19 +62,42 @@ namespace Explorer.Stakeholders.Core.Domain
                             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                             long unixTime = (long)(dateTime - unixEpoch).TotalMilliseconds;
 
-                            //_logger.LogInformation($"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: {unixTime} LLLLLLLLL {userNews.LastSendMs}");
-                            if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 86400000)
+                            _logger.LogInformation($"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: {unixTime} LLLLLLLLL {userNews.LastSendMs}");
+
+                            if (userNews.SendingPeriod == 0)
                             {
+                                continue;
+                            }
+                            if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 1000 * 60)
+                            {
+                                var reccommendedTours = myScopedService.GetRecommendedToursByLocation((int)userNews.TouristId, 0, 0);
+                                var toursForUserRecommended = reccommendedTours.Value.Results;
+
                                 string toEmail=personService.Get((int)userNews.TouristId).Value.Email;
+                                string toNameAndSurname = personService.Get((int)userNews.TouristId).Value.Name + " " + personService.Get((int)userNews.TouristId).Value.Surname;
                                 try
                                 {
-                                    emailScopedService.SendEmailAsync(toEmail, "hahahahah", "Radi li ovo?");
+                                    string emailSubject = $"TRAVELO Check out our latest updates.";
+                                    string emailBody = $"Dear {toNameAndSurname},\n\nThank you for being a valued user. We have some exciting news to share...\n\nFirst list:\n\n";
+
+                                    int i = 0;
+                                    foreach (var tour in toursForUserRecommended)
+                                    {
+                                        emailBody += tour.Name;
+                                        emailBody += ",\n";
+                                        i++;
+                                        if (i == 5)
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody);
                                     UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
                                     usersToUpdate.Add(news);
-                                    //_logger.LogInformation($"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC {news.Id},{news.LastSendMs} CCCCCCCCCCCC {toEmail}");
+                                    _logger.LogInformation($"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC {news.Id},{news.LastSendMs} CCCCCCCCCCCC {toEmail}");
                                 }
                                 catch (Exception ex) { _logger.LogInformation($"GRESKAGRESKAGRGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA u bloku {ex.Message}. Good luck next round!"); }
-
                             }
                         }
                         
@@ -82,10 +105,6 @@ namespace Explorer.Stakeholders.Core.Domain
                     using (var scope = _scopeFactory.CreateScope())
                     {
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
-
-                        string emailSubject = $"TRAVELO Check out our latest updates.";
-                        string emailBody = $"Dear you,\n\nThank you for being a valued user. We have some exciting news to share...";
-                        emailScopedService.SendEmailAsync("leopoldinica123@gmail.com", emailSubject, emailBody);
                         
                         var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
                         foreach (var news in usersToUpdate.ToList())

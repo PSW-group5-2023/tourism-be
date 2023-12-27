@@ -71,6 +71,7 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped(typeof(ICrudRepository<UserNews>), typeof(CrudDatabaseRepository<UserNews, StakeholdersContext>));
+        services.AddScoped<IUserNewsRepository, UserNewsRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

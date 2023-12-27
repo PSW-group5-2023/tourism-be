@@ -418,3 +418,10 @@ VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-
        (-22, -8, -13, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
        (-23, -9, -13, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
        (-24, -8, -15, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
+
+INSERT INTO stakeholders."UserNews" (
+    "Id", "TouristId", "LastSendMs", "SendingPeriod")
+VALUES (-1, -6, 0, 0),
+       (-2, -7, 0, 0),
+       (-3, -8, 0, 0),
+       (-4, -9, 0, 0);

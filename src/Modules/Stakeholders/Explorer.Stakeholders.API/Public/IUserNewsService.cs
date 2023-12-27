@@ -15,5 +15,7 @@ namespace Explorer.Stakeholders.API.Public
         Result<UserNewsDto> Get(int id);
         Result<PagedResult<UserNewsDto>> GetPaged(int page, int pageSize);
         Result<UserNewsDto> Update(UserNewsDto userNews);
+        Result<UserNewsDto> GetByTouristId(int touristId);
+        Result<UserNewsDto> Create(UserNewsDto userNews);
     }
 }
