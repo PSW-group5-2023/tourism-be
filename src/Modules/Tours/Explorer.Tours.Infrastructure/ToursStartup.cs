@@ -49,6 +49,7 @@ public static class ToursStartup
         services.AddScoped<IPublicTourKeyPointService, PublicTourKeyPointService>();
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
+        services.AddScoped<IRecommenderService, RecommenderService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
