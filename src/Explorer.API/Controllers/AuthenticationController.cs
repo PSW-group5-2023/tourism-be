@@ -42,13 +42,20 @@ public class AuthenticationController : BaseApiController
         try
         {
             var result = _authenticationService.ChangePasswordRequest(email);
+
             if (result.IsFailed)
             {
-                var badRequest = new { Message = result, Success = false };
-                return BadRequest(badRequest);
-            }
-            var response = new { Message = result, Success = true }; 
+                var errorResponse = new
+                {
+                    ErrorMessage = "Request failed",
+                    Errors = result.Errors.Select(error => error.Message), // Include all error messages
+                    Success = false
+                };
 
+                return BadRequest(errorResponse);
+            }
+
+            var response = new { Message = result, Success = true };
             return Ok(response);
         }
         catch (Exception ex)
@@ -64,6 +71,17 @@ public class AuthenticationController : BaseApiController
         try
         {
             var result = _authenticationService.ChangePassword(changePassword);
+            if (result.IsFailed)
+            {
+                var errorResponse = new
+                {
+                    ErrorMessage = "Request failed",
+                    Errors = result.Errors.Select(error => error.Message),
+                    Success = false
+                };
+
+                return BadRequest(errorResponse);
+            }
             var response = new { Message = result, Success = true };
             return Ok(response);
         }
