@@ -4,6 +4,7 @@ using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
@@ -38,6 +39,7 @@ namespace Explorer.Tours.Core.UseCases
         private readonly IFollowerService _followerService;
         private readonly ISessionService _sessionService;
         private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
+        private readonly IPersonService _personService;
 
         public RecommenderService(IMapper mapper, 
             ITourRepository tourRepository, 
@@ -46,7 +48,9 @@ namespace Explorer.Tours.Core.UseCases
             IInternalBoughtItemService internalBoughtItemService,
             IFollowerService followerService,
             ISessionService sessionService,
-            IEmailSendingTourCommunityRecommendationService emailSendingService) : base(mapper) 
+            IEmailSendingTourCommunityRecommendationService emailSendingService,
+            IPersonService personService
+            ) : base(mapper) 
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
@@ -55,6 +59,7 @@ namespace Explorer.Tours.Core.UseCases
             _followerService = followerService;
             _sessionService = sessionService;
             _emailSendingService = emailSendingService;
+            _personService= personService;
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize)
@@ -278,12 +283,31 @@ namespace Explorer.Tours.Core.UseCases
             return activeTours;
         }
 
-        public Result<bool> SendEmail(string to, string subject, string body)
+        public Result<bool> SendEmail(int userId, string subject, string body)
         {
-            var tour=_tourRepository.Get(-5);
+            var email = _personService.GetEmailByUserId(userId);
+            _emailSendingService.SendEmailAsync(email.Value, subject, body);
+            return _emailSendingService.SendEmailAsync(email.Value, subject, body).IsCanceled.ToResult();
+        }
 
-            _emailSendingService.SendEmailAsync(to, subject, body);
-            return _emailSendingService.SendEmailAsync(to, subject, body).IsCanceled.ToResult();
+        public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
+        {
+            var list= GetRecommendedToursFromFollowings(tourId, userId);
+            foreach(var item in list.Value.Results)
+            {
+                var tourRatings = _tourRatingRepository.GetByTourId((int)item.Id);
+                double sumRating = 0.0;
+                foreach (var mark in tourRatings)
+                {
+                    sumRating += mark.Mark;
+                }
+                double averageRating = sumRating / tourRatings.Count;
+                if (averageRating<rating)
+                {
+                    list.Value.Results.Remove(item);
+                }
+            }
+            return list;
         }
     }
 }

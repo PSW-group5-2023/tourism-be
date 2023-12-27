@@ -29,7 +29,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
-            var result = (ObjectResult)controller.GetByTouristId(id).Result;
+            var result = (ObjectResult)controller.GetActiveByTouristId(id).Result;
 
             // Assert - Response
             result.ShouldNotBeNull();

@@ -4,6 +4,7 @@ using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.UseCases;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
@@ -76,10 +77,16 @@ namespace Explorer.API.Controllers.Tourist
             var result = _recommenderService.GetActiveToursByLocation(userId, page, pageSize);
             return CreateResponse(result);
         }
-        [HttpPost("sendEmail")]
-        public ActionResult<bool> SendEmail([FromQuery] string to, [FromQuery] string subject, [FromQuery] string body)
+        [HttpPost("sendEmail/{userId:int}")]
+        public ActionResult<bool> SendEmail(int userId, [FromQuery] string subject, [FromQuery] string body)
         {
-            var result=_recommenderService.SendEmail(to, subject, body);    
+            var result=_recommenderService.SendEmail(userId, subject, body);    
+            return CreateResponse(result);
+        }
+        [HttpGet("filter/{tourId:int}/{userId:int}")]
+        public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, [FromQuery] int rating)
+        {
+            var result = _recommenderService.FilterRecommendedTours(tourId, userId,rating);
             return CreateResponse(result);
         }
     }
