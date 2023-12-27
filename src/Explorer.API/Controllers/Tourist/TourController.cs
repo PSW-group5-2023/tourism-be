@@ -76,6 +76,11 @@ namespace Explorer.API.Controllers.Tourist
             var result = _recommenderService.GetActiveToursByLocation(userId, page, pageSize);
             return CreateResponse(result);
         }
-
+        [HttpPost("sendEmail")]
+        public ActionResult<bool> SendEmail([FromQuery] string to, [FromQuery] string subject, [FromQuery] string body)
+        {
+            var result=_recommenderService.SendEmail(to, subject, body);    
+            return CreateResponse(result);
+        }
     }
 }

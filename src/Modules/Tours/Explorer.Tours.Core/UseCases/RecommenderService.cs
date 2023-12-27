@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
@@ -36,6 +37,7 @@ namespace Explorer.Tours.Core.UseCases
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IFollowerService _followerService;
         private readonly ISessionService _sessionService;
+        private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
 
         public RecommenderService(IMapper mapper, 
             ITourRepository tourRepository, 
@@ -43,7 +45,8 @@ namespace Explorer.Tours.Core.UseCases
             ITourRatingRepository tourRatingRepository,
             IInternalBoughtItemService internalBoughtItemService,
             IFollowerService followerService,
-            ISessionService sessionService) : base(mapper) 
+            ISessionService sessionService,
+            IEmailSendingTourCommunityRecommendationService emailSendingService) : base(mapper) 
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
@@ -51,6 +54,7 @@ namespace Explorer.Tours.Core.UseCases
             _internalBoughtItemService = internalBoughtItemService;
             _followerService = followerService;
             _sessionService = sessionService;
+            _emailSendingService = emailSendingService;
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize)
@@ -274,5 +278,12 @@ namespace Explorer.Tours.Core.UseCases
             return activeTours;
         }
 
+        public Result<bool> SendEmail(string to, string subject, string body)
+        {
+            var tour=_tourRepository.Get(-5);
+
+            _emailSendingService.SendEmailAsync(to, subject, body);
+            return _emailSendingService.SendEmailAsync(to, subject, body).IsCanceled.ToResult();
+        }
     }
 }

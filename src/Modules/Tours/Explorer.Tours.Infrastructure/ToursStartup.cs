@@ -1,6 +1,5 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
-using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Core.Domain;
@@ -20,6 +19,8 @@ using Explorer.Tours.Core.UseCases.Execution;
 using Explorer.Tours.Core.UseCases.Authoring;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Internal;
+using Explorer.BuildingBlocks.Infrastructure.Email;
+using Explorer.Tours.Infrastructure.Email;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -49,6 +50,7 @@ public static class ToursStartup
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
         services.AddScoped<IRecommenderService, RecommenderService>();
+        services.AddScoped<IEmailSendingTourCommunityRecommendationService, EmailSendingTourCommunityRecommendationService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
