@@ -152,6 +152,9 @@ namespace Explorer.Payments.Core.UseCases
             var boughtTourIds = shoppingCartRepository.GetAllByUserId(touristId).Select(bi => bi.TourId).ToList();
             var result = internalTourUsageService.GetPagedByIds(boughtTourIds, page, pageSize).Value.Results.Select(t => mapper.Map<ListedTourDto>(t)).ToList();
             return new PagedResult<ListedTourDto>(result, result.Count);
+
+        }
+
         public Result<List<BoughtItemDto>> GetByTourId(long tourId)
         {
             try
