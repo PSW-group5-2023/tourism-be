@@ -41,7 +41,6 @@ public class CouponService : BaseService<CouponDto, Coupon>, ICouponService
             var result = _couponRepository.Update(MapToDomain(coupon));
             CouponUsedDto newEventDto = new CouponUsedDto
             {
-                Id = 1,
                 Code = result.Code,
                 DateOfUsing = DateTime.UtcNow
             };
