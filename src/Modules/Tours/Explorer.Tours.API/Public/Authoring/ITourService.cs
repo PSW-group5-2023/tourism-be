@@ -19,5 +19,6 @@ namespace Explorer.Tours.API.Public.Authoring
         Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize);
         Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId);
         Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId);
+        List<TourDto> GetAllByAuthorId(int authorId);
     }
 }
