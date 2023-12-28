@@ -30,7 +30,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return _context.Sessions.SingleOrDefault(s => s.Id == id);
         }
 
-        public Session? GetByTouristId(long id)
+        public Session? GetActiveSessionByTouristId(long id)
         {
             return _context.Sessions.FirstOrDefault(s => s.TouristId == id && s.SessionStatus == SessionStatus.ACTIVE);
         }

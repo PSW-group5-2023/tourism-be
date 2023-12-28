@@ -19,17 +19,17 @@ namespace Explorer.Tours.Core.Domain.Sessions
     {
         public long TourId { get; private set; }
         public long TouristId { get; private set; }
-        public PositionSimulator Location { get; private set; }
+        public long LocationId { get; private set; }
         public SessionStatus SessionStatus { get; private set; }
         public int DistanceCrossedPercent { get; private set; }
         public DateTime LastActivity { get; private set; }
         public List<CompletedKeyPoint> CompletedKeyPoints { get; private set; }
 
-        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
+        public Session(long tourId, long touristId, long locationId, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
         {
             TourId = tourId;
             TouristId = touristId;
-            Location = location;
+            LocationId = locationId;
             SessionStatus = sessionStatus;
             DistanceCrossedPercent = distanceCrossedPercent;
             LastActivity = lastActivity;

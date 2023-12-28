@@ -23,10 +23,10 @@ namespace Explorer.API.Controllers.Execution
             return CreateResponse(result);
         }
 
-        [HttpGet("getByTouristId/{id:long}")]
-        public ActionResult<SessionDto> GetByTouristId(long id)
+        [HttpGet("geActiveSessiontByTouristId/{id:long}")]
+        public ActionResult<SessionDto> GetActiveSessionByTouristId(long id)
         {
-            var result = _sessionService.GetByTouristId(id);
+            var result = _sessionService.GetActiveSessionByTouristId(id);
             return CreateResponse(result);
         }
 

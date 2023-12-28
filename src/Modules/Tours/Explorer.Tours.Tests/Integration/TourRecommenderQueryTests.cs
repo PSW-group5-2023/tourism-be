@@ -44,5 +44,21 @@ namespace Explorer.Tours.Tests.Integration
         }
 
 
+        [Fact]
+        public void RetrievesActiveByTouristId()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -24).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
+        }
+
+
     }
 }
