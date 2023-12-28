@@ -5,6 +5,7 @@ using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.API.Public;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,10 @@ namespace Explorer.Encounters.Core.UseCases
             dto.Id = userExperience.Id;
             dto.Level=userExperience.Level;
             return dto;
+        }
+        public UserExperienceDto Create(UserExperienceDto userExperience)
+        {
+            return base.MapToDto(_userExperienceRepository.Create(base.MapToDomain(userExperience)));
         }
     }
 }
