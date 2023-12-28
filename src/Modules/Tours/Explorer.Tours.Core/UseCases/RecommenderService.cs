@@ -286,11 +286,28 @@ namespace Explorer.Tours.Core.UseCases
             return activeTours;
         }
 
-        public Result<bool> SendEmail(int userId, string subject, string body)
+        public Result<bool> SendEmail(int userId, string body)
         {
+            var links=body.Split('|');
+            string linksForSend = "";
+            foreach (var link in links) 
+            {
+                linksForSend += link+"\n\t\t";
+            }
             var email = _personService.GetEmailByUserId(userId);
-            _emailSendingService.SendEmailAsync(email.Value, subject, body);
-            return _emailSendingService.SendEmailAsync(email.Value, subject, body).IsCanceled.ToResult();
+            string bodyForSend = $@"
+                Hello {_personService.GetNameById(userId).Value},
+                
+                This is list of tours we recommended you:
+
+                {linksForSend}
+               
+                Thank you for using our service.
+
+                Best regards,
+                Travelo";
+            _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend);
+            return _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend).IsCanceled.ToResult();
         }
 
         public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)

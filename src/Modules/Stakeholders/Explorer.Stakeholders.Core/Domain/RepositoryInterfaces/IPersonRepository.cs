@@ -18,5 +18,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
         public List<Person> GetAllFollowings(int id);
         Person GetByEmail(string email);
         public Person GetByUserId(int userId);
+        string GetNameById(int id);
+
     }
 }

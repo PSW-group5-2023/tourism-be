@@ -75,6 +75,12 @@ namespace Explorer.Stakeholders.Core.UseCases
             return person.Email.ToResult();
         }
 
+        public Result<string> GetNameById(int id)
+        {
+            var name=_personRepository.GetNameById(id);
+            return name.ToResult();
+        }
+
         public Result<PersonDto> Update(PersonDto person)
         {
             try

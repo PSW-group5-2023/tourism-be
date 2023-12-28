@@ -91,5 +91,11 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             var person = _dbContext.People.FirstOrDefault(x => x.UserId==userId);
             return person;
         }
+
+        public string GetNameById(int id)
+        {
+            var name = _dbContext.People.FirstOrDefault(x => x.UserId == id).Name+" "+ _dbContext.People.FirstOrDefault(x => x.UserId == id).Surname;
+            return name;
+        }
     }
 }

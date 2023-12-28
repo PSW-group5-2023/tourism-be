@@ -17,5 +17,6 @@ namespace Explorer.Stakeholders.API.Public
         Result<List<PersonDto>> GetAllFollowers(int id);
         Result<List<PersonDto>> GetAllFollowings(int id);
         Result<string> GetEmailByUserId(int id);
+        Result<string> GetNameById(int id);
     }
 }

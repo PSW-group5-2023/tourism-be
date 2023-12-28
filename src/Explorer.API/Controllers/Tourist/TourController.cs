@@ -78,9 +78,9 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
         [HttpPost("sendEmail/{userId:int}")]
-        public ActionResult<bool> SendEmail(int userId, [FromQuery] string subject, [FromQuery] string body)
+        public ActionResult<bool> SendEmail(int userId, [FromQuery] string body)
         {
-            var result=_recommenderService.SendEmail(userId, subject, body);    
+            var result=_recommenderService.SendEmail(userId, body);    
             return CreateResponse(result);
         }
         [HttpGet("filter/{tourId:int}/{userId:int}/{rating:int}")]
