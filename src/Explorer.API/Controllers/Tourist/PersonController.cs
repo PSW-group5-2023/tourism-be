@@ -12,8 +12,8 @@ namespace Explorer.API.Controllers.Tourist
     public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;
-        private readonly IInternalPositionSimulatorService _positionSimulatorService;
-        public PersonController(IPersonService personService, IInternalPositionSimulatorService positionSimulatorService)
+        private readonly IInternalPersonService _positionSimulatorService;
+        public PersonController(IPersonService personService, IInternalPersonService positionSimulatorService)
         {
             _personService = personService;
             _positionSimulatorService = positionSimulatorService;
@@ -53,13 +53,6 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
             var result = _personService.Update(person);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("location/{touristId:int}")]
-        public ActionResult<PositionSimulatorDto> GetLocationByTouristId(int touristId)
-        {
-            var result = _positionSimulatorService.GetByTouristId(touristId);
             return CreateResponse(result);
         }
     }

@@ -91,7 +91,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
 
         private static PersonController CreateController(IServiceScope scope)
         {
-            return new PersonController(scope.ServiceProvider.GetRequiredService<IPersonService>(), scope.ServiceProvider.GetRequiredService<IInternalPositionSimulatorService>())
+            return new PersonController(scope.ServiceProvider.GetRequiredService<IPersonService>(), scope.ServiceProvider.GetRequiredService<IInternalPersonService>())
             {
                 ControllerContext = BuildContext("-1")
             };
