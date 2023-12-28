@@ -16,5 +16,8 @@ namespace Explorer.Tours.Core.Domain.ServiceInterfaces
         List<TourStatistics> CalculateBestRatedStatisticts(List<TourRating> ratings);
         int CalculateNumberOfStartedTours(List<Session> sessions, List<long> authorsTourIds);
         int CalculateNumberOfCompletedTours(List<Session> sessions, List<long> authorsTourIds);
+        Result<TourStatistics> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus, List<Session> sessions);
+        Result<TourStatistics> GetNumberSessionsByTour(int tourId, List<Session> sessions);
+        Result<TourStatistics> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId, List<Session> sessions);
     }
 }

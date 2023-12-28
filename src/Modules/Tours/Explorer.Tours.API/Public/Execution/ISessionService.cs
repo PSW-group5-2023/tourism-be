@@ -25,5 +25,7 @@ namespace Explorer.Tours.API.Public.Execution
         Result<TourStatisticsDto> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus);
         Result<int> GetNumberOfStartedTours(int authorId);
         Result<int> GetNumberOfCompletedTours(int authorId);
+        Result<TourStatisticsDto> GetNumberSessionsByTour(int tourId);
+        Result<TourStatisticsDto> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId);
     }
 }
