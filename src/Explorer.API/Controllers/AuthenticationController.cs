@@ -35,4 +35,77 @@ public class AuthenticationController : BaseApiController
         var result = _authenticationService.Login(credentials);
         return CreateResponse(result);
     }
+
+    [HttpPost("changePasswordRequest")]
+    public ActionResult<string> ChangePasswordRequest([FromQuery] string email)
+    {
+        try
+        {
+            var result = _authenticationService.ChangePasswordRequest(email);
+
+            if (result.IsFailed)
+            {
+                var errorResponse = new
+                {
+                    ErrorMessage = "Request failed",
+                    Errors = result.Errors.Select(error => error.Message), // Include all error messages
+                    Success = false
+                };
+
+                return BadRequest(errorResponse);
+            }
+
+            var response = new { Message = result, Success = true };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
+    }
+
+    [HttpPost("changePassword")]
+    public ActionResult<string> ChangePassword([FromBody] ChangePasswordDto changePassword)
+    {
+        try
+        {
+            var result = _authenticationService.ChangePassword(changePassword);
+            if (result.IsFailed)
+            {
+                var errorResponse = new
+                {
+                    ErrorMessage = "Request failed",
+                    Errors = result.Errors.Select(error => error.Message),
+                    Success = false
+                };
+
+                return BadRequest(errorResponse);
+            }
+            var response = new { Message = result, Success = true };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
+
+    }
+
+    [HttpPost("activateUser")]
+    public ActionResult<AuthenticationTokensDto> ActivateUser([FromQuery] string token)
+    {
+        try
+        {
+            var result = _authenticationService.ActivateUser(token);
+            return CreateResponse(result);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
+
+    }
 }
