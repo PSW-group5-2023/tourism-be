@@ -23,7 +23,7 @@ namespace Explorer.Stakeholders.Core.Domain
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<PeriodicHostedService> _logger;
-        private readonly TimeSpan _period = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _period = TimeSpan.FromSeconds(400);
         public PeriodicHostedService(ILogger<PeriodicHostedService> logger, IServiceScopeFactory scopeFactory)
         {
 
@@ -31,11 +31,8 @@ namespace Explorer.Stakeholders.Core.Domain
             _scopeFactory = scopeFactory ?? throw new ArgumentNullException(nameof(scopeFactory));
         }
 
-
-        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            
             using PeriodicTimer timer = new PeriodicTimer(_period);
             
             while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
@@ -51,23 +48,19 @@ namespace Explorer.Stakeholders.Core.Domain
                         var personService = scope.ServiceProvider.GetRequiredService<IPersonService>();
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
 
-                        //_logger.LogInformation($"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {tours.Count}");
-                    
                         var usersNews = userNewsService.GetPaged(0, 0).Value.Results.AsQueryable().AsNoTracking().ToList();
-                        //_logger.LogInformation($"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB: {usersNews.Count}");
+                        
                         foreach (var userNews in usersNews)
                         {
                             DateTime dateTime = DateTime.UtcNow; 
                             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                             long unixTime = (long)(dateTime - unixEpoch).TotalMilliseconds;
 
-                            _logger.LogInformation($"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: {unixTime} LLLLLLLLL {userNews.LastSendMs}");
-
                             if (userNews.SendingPeriod == 0)
                             {
                                 continue;
                             }
-                            if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 1000 * 60)
+                            if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 86400000)
                             {
                                 var reccommendedTours = myScopedService.GetRecommendedToursByLocation((int)userNews.TouristId, 0, 0);
                                 var toursForUserRecommended = reccommendedTours.Value.Results;
@@ -134,10 +127,9 @@ namespace Explorer.Stakeholders.Core.Domain
                                                     </body>
                                                     </html>";
 
-                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody, isBodyHtml: true);
+                                    emailScopedService.SendEmailAsync(toEmail, emailSubject,emailBody, isBodyHtml: true);
                                     UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
                                     usersToUpdate.Add(news);
-                                    _logger.LogInformation($"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC {news.Id},{news.LastSendMs} CCCCCCCCCCCC {toEmail}");
                                 }
                                 catch (Exception ex) { _logger.LogInformation($"GRESKAGRESKAGRGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA u bloku {ex.Message}. Good luck next round!"); }
                             }
@@ -156,7 +148,7 @@ namespace Explorer.Stakeholders.Core.Domain
                         }
                     }
 
-                    }
+                }
                 catch (Exception ex)
                 {
                     _logger.LogInformation($"GRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA to execute PeriodicHostedService with exception message {ex.Message}. Good luck next round!");
