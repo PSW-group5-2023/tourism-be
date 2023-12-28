@@ -435,7 +435,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -16, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -17, "CompletionTime": "2023-12-25 15:04:17.950647+01"}, {"KeyPointId": -18, "CompletionTime": "2023-12-25 20:04:17.950647+01"}]'
+    '[{"KeyPointId": -16, "CompletionTime": "2023-12-25T12:00:17.950647+01"}, {"KeyPointId": -17, "CompletionTime": "2023-12-25T15:04:17.950647+01"}, {"KeyPointId": -18, "CompletionTime": "2023-12-25T20:04:17.950647+01"}]'
 ),
 (
     -5,
@@ -446,7 +446,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -19, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -20, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+    '[{"KeyPointId": -19, "CompletionTime": "2023-12-25T12:00:17.950647+01"}, {"KeyPointId": -20, "CompletionTime": "2023-12-25T15:04:17.950647+01"}]'
 ),
 (
     -6,
@@ -457,7 +457,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -24, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -25, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+    '[{"KeyPointId": -24, "CompletionTime": "2023-12-25T12:00:17.950647+01"}, {"KeyPointId": -25, "CompletionTime": "2023-12-25T15:04:17.950647+01"}]'
 ),
 (
     -7,
@@ -468,7 +468,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25T12:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25T15:04:17.950647+01"}]'
 ),
 (
     -8,
@@ -479,7 +479,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -9,
@@ -490,7 +490,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -28, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -29, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -28, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -29, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -10,
@@ -501,7 +501,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25T17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25T18:04:17.950647+01"}]'
 ),
 (
     -11,
@@ -512,7 +512,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25T17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25T18:04:17.950647+01"}]'
 ),
 (
     -12,
@@ -523,7 +523,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25T17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25T18:04:17.950647+01"}]'
 ),
 (
     -13,
@@ -534,7 +534,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25T17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25T18:04:17.950647+01"}]'
 ),
 (
     -14,
@@ -545,7 +545,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -15,
@@ -556,7 +556,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -16,
@@ -567,7 +567,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -17,
@@ -578,7 +578,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -18,
@@ -589,7 +589,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -19,
@@ -600,7 +600,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -20,
@@ -611,7 +611,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25T17:04:17.950647+01"}]'
 ),
 (
     -21,
@@ -622,7 +622,7 @@ VALUES (
     0,
     100,
     '2023-12-25 11:04:17.950647+01',
-    '[{"KeyPointId": -44, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -45, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -46, "CompletionTime": "2023-12-25 19:04:17.950647+01"}]'
+    '[{"KeyPointId": -44, "CompletionTime": "2023-12-25T13:00:17.950647+01"}, {"KeyPointId": -45, "CompletionTime": "2023-12-25T17:04:17.950647+01"}, {"KeyPointId": -46, "CompletionTime": "2023-12-25 19:04:17.950647+01"}]'
 );
 
 
