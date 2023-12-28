@@ -38,5 +38,19 @@ namespace Explorer.API.Controllers.Author.Authoring
             var result = _sessionService.GetSessionsByStatusForTourStatistics(tourId, (int)status);
             return CreateResponse(result);
         }
+
+        [HttpGet("getNumberOfStartedTours/{authorId:int}")]
+        public ActionResult<List<TourStatisticsDto>> GetNumberOfStartedTours(int authorId)
+        {
+            var result = _sessionService.GetNumberOfStartedTours(authorId);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("getNumberOfCompletedTours/{authorId:int}")]
+        public ActionResult<List<TourStatisticsDto>> GetNumberOfCompletedTours(int authorId)
+        {
+            var result = _sessionService.GetNumberOfCompletedTours(authorId);
+            return CreateResponse(result);
+        }
     }
 }
