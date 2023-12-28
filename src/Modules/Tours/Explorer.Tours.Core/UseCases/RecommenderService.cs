@@ -72,6 +72,13 @@ namespace Explorer.Tours.Core.UseCases
             return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
         }
 
+        public Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId)
+        {
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+
+            return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
+        }
+
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
         {
             var preference = _preferencesRepository.GetByUserId(userId);   
@@ -230,6 +237,13 @@ namespace Explorer.Tours.Core.UseCases
         }
 
         public Result<PagedResult<TourDto>> GetActiveToursByLocation(int page, int pageSize, int touristId)
+        {
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+
+            return GetActiveTours(MapToDomain(publishedTours.Value.Results));
+        }
+
+        public Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId)
         {
             var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
