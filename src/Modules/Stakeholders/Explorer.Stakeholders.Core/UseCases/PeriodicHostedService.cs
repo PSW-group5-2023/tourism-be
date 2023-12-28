@@ -1,5 +1,4 @@
-﻿
-using Explorer.BuildingBlocks.Infrastructure.Email;
+﻿using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
@@ -17,13 +16,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 
-namespace Explorer.Stakeholders.Core.Domain
+namespace Explorer.Stakeholders.Core.UseCases
 {
     public class PeriodicHostedService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<PeriodicHostedService> _logger;
-        private readonly TimeSpan _period = TimeSpan.FromSeconds(400);
+        private readonly TimeSpan _period = TimeSpan.FromSeconds(4);
         public PeriodicHostedService(ILogger<PeriodicHostedService> logger, IServiceScopeFactory scopeFactory)
         {
 
@@ -34,13 +33,13 @@ namespace Explorer.Stakeholders.Core.Domain
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using PeriodicTimer timer = new PeriodicTimer(_period);
-            
+
             while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
             {
                 try
                 {
                     List<TourDto> tours;
-                    List<UserNewsDto> usersToUpdate=new List<UserNewsDto>();
+                    List<UserNewsDto> usersToUpdate = new List<UserNewsDto>();
                     using (var scope = _scopeFactory.CreateScope())
                     {
                         var myScopedService = scope.ServiceProvider.GetRequiredService<IRecommenderService>();
@@ -49,10 +48,10 @@ namespace Explorer.Stakeholders.Core.Domain
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
 
                         var usersNews = userNewsService.GetPaged(0, 0).Value.Results.AsQueryable().AsNoTracking().ToList();
-                        
+
                         foreach (var userNews in usersNews)
                         {
-                            DateTime dateTime = DateTime.UtcNow; 
+                            DateTime dateTime = DateTime.UtcNow;
                             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                             long unixTime = (long)(dateTime - unixEpoch).TotalMilliseconds;
 
@@ -68,7 +67,7 @@ namespace Explorer.Stakeholders.Core.Domain
                                 var activeTours = myScopedService.GetActiveToursByLocation((int)userNews.TouristId, 0, 0);
                                 var activeToursForUser = activeTours.Value.Results;
 
-                                string toEmail=personService.Get((int)userNews.TouristId).Value.Email;
+                                string toEmail = personService.Get((int)userNews.TouristId).Value.Email;
                                 string toNameAndSurname = personService.Get((int)userNews.TouristId).Value.Name + " " + personService.Get((int)userNews.TouristId).Value.Surname;
                                 try
                                 {
@@ -127,19 +126,19 @@ namespace Explorer.Stakeholders.Core.Domain
                                                     </body>
                                                     </html>";
 
-                                    emailScopedService.SendEmailAsync(toEmail, emailSubject,emailBody, isBodyHtml: true);
+                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody, isBodyHtml: true);
                                     UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
                                     usersToUpdate.Add(news);
                                 }
                                 catch (Exception ex) { _logger.LogInformation($"GRESKAGRESKAGRGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA u bloku {ex.Message}. Good luck next round!"); }
                             }
                         }
-                        
+
                     }
                     using (var scope = _scopeFactory.CreateScope())
                     {
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
-                        
+
                         var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
                         foreach (var news in usersToUpdate.ToList())
                         {
@@ -156,6 +155,6 @@ namespace Explorer.Stakeholders.Core.Domain
             }
         }
 
-        
+
     }
 }
