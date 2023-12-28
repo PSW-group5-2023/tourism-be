@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace Explorer.Stakeholders.Core.Domain
 {
@@ -50,8 +51,6 @@ namespace Explorer.Stakeholders.Core.Domain
                         var personService = scope.ServiceProvider.GetRequiredService<IPersonService>();
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
 
-                        var rankedTours = myScopedService.GetRecommendedToursByLocation(-1,0,0);
-                        tours = rankedTours.Value.Results;
                         //_logger.LogInformation($"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {tours.Count}");
                     
                         var usersNews = userNewsService.GetPaged(0, 0).Value.Results.AsQueryable().AsNoTracking().ToList();
@@ -73,18 +72,37 @@ namespace Explorer.Stakeholders.Core.Domain
                                 var reccommendedTours = myScopedService.GetRecommendedToursByLocation((int)userNews.TouristId, 0, 0);
                                 var toursForUserRecommended = reccommendedTours.Value.Results;
 
+                                var activeTours = myScopedService.GetActiveToursByLocation((int)userNews.TouristId, 0, 0);
+                                var activeToursForUser = activeTours.Value.Results;
+
                                 string toEmail=personService.Get((int)userNews.TouristId).Value.Email;
                                 string toNameAndSurname = personService.Get((int)userNews.TouristId).Value.Name + " " + personService.Get((int)userNews.TouristId).Value.Surname;
                                 try
                                 {
                                     string emailSubject = $"TRAVELO Check out our latest updates.";
-                                    string emailBody = $"Dear {toNameAndSurname},\n\nThank you for being a valued user. We have some exciting news to share...\n\nFirst list:\n\n";
+                                    string emailBody = @"
+                                                            <html>
+                                                            <head>
+                                                                <style>
+                                                                    /* Add other inline styles for specific elements as needed */
+                                                                </style>
+                                                            </head>
+                                                            <body>
+                                                                <p>Dear " + toNameAndSurname + @",</p><br>
+                                                                <p>Thank you for being a valued user. We have some exciting news to share...</p><br>
+                                                                <h3>Recommended top 5 tours only for you!</h3>";
 
                                     int i = 0;
                                     foreach (var tour in toursForUserRecommended)
                                     {
-                                        emailBody += tour.Name;
-                                        emailBody += ",\n";
+                                        emailBody += $@"
+                                                        <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
+                                                            <div style=""flex: 1;"">
+                                                                <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
+                                                                <p>{tour.Price} RSD</p>
+                                                                <p>{tour.Description}</p>
+                                                            </div>
+                                                        </div>";
                                         i++;
                                         if (i == 5)
                                         {
@@ -92,7 +110,31 @@ namespace Explorer.Stakeholders.Core.Domain
                                         }
                                     }
 
-                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody);
+                                    emailBody += @"<h3>Look at our top 5 active tours:</h3>";
+
+                                    int j = 0;
+                                    foreach (var tour in activeToursForUser)
+                                    {
+                                        emailBody += $@"
+                                                        <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
+                                                            <div style=""flex: 1;"">
+                                                                <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
+                                                                <p>{tour.Price} RSD</p>
+                                                                <p>{tour.Description}</p>
+                                                            </div>
+                                                        </div>";
+                                        j++;
+                                        if (j == 5)
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                    emailBody += @"
+                                                    </body>
+                                                    </html>";
+
+                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody, isBodyHtml: true);
                                     UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
                                     usersToUpdate.Add(news);
                                     _logger.LogInformation($"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC {news.Id},{news.LastSendMs} CCCCCCCCCCCC {toEmail}");
