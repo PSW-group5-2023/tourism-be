@@ -19,5 +19,6 @@ namespace Explorer.Tours.Core.Domain.ServiceInterfaces
         Result<TourStatistics> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus, List<Session> sessions);
         Result<TourStatistics> GetNumberSessionsByTour(int tourId, List<Session> sessions);
         Result<TourStatistics> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId, List<Session> sessions);
+        List<int> CalculateTourCompletionPercentage(List<Session> sessions, List<long> authorsTourIds);
     }
 }

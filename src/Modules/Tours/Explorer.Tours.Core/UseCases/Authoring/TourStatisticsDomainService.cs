@@ -209,5 +209,53 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             stat.NumberOfStats = (double)number/numberOfSession * 100;
             return stat;
         }
+
+        public List<int> CalculateTourCompletionPercentage(List<Session> sessions, List<long> authorsTourIds)
+        {
+            int firstQuarterCounter = 0;
+            int secondQuarterCounter = 0;
+            int thirdQuarterCounter = 0;
+            int fourthQuarterCounter = 0;
+
+            var percentages = new List<int>();
+
+            var uniqueSessions = new List<Session>();
+
+            uniqueSessions = sessions
+                .GroupBy(s => new { s.TouristId, s.TourId })
+                .Select(group => group.OrderByDescending(s => s.DistanceCrossedPercent).First())
+                .ToList();
+
+
+            foreach (var session in uniqueSessions)
+            {
+                if (authorsTourIds.Contains(session.TourId))
+                {
+                    if (session.DistanceCrossedPercent < 25)
+                    {
+                        firstQuarterCounter++;
+                    }
+                    else if (session.DistanceCrossedPercent >= 25 && session.DistanceCrossedPercent < 50)
+                    {
+                        secondQuarterCounter++;
+                    }
+                    else if(session.DistanceCrossedPercent >= 50 && session.DistanceCrossedPercent < 75)
+                    {
+                        thirdQuarterCounter++;
+                    }
+                    else
+                    {
+                        fourthQuarterCounter++;
+                    }
+                }
+            }
+
+            percentages.Add(firstQuarterCounter);
+            percentages.Add(secondQuarterCounter);
+            percentages.Add(thirdQuarterCounter);
+            percentages.Add(fourthQuarterCounter);
+
+            return percentages;
+        }
     }
 }

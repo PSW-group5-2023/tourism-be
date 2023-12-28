@@ -27,5 +27,6 @@ namespace Explorer.Tours.API.Public.Execution
         Result<int> GetNumberOfCompletedTours(int authorId);
         Result<TourStatisticsDto> GetNumberSessionsByTour(int tourId);
         Result<TourStatisticsDto> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId);
+        Result<List<int>> GetTourCompletionPercentageStats(int authorId);
     }
 }

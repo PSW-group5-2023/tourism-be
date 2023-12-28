@@ -40,14 +40,14 @@ namespace Explorer.API.Controllers.Author.Authoring
         }
 
         [HttpGet("getNumberOfStartedTours/{authorId:int}")]
-        public ActionResult<List<TourStatisticsDto>> GetNumberOfStartedTours(int authorId)
+        public ActionResult<int> GetNumberOfStartedTours(int authorId)
         {
             var result = _sessionService.GetNumberOfStartedTours(authorId);
             return CreateResponse(result);
         }
 
         [HttpGet("getNumberOfCompletedTours/{authorId:int}")]
-        public ActionResult<List<TourStatisticsDto>> GetNumberOfCompletedTours(int authorId)
+        public ActionResult<int> GetNumberOfCompletedTours(int authorId)
         {
             var result = _sessionService.GetNumberOfCompletedTours(authorId);
             return CreateResponse(result);
@@ -67,6 +67,11 @@ namespace Explorer.API.Controllers.Author.Authoring
             return CreateResponse(result);
         }
 
-
+        [HttpGet("getTourCompletionPercentageStats/{authorId:int}")]
+        public ActionResult<List<int>> GetTourCompletionPercentageStats(int authorId)
+        {
+            var result = _sessionService.GetTourCompletionPercentageStats(authorId);
+            return CreateResponse(result);
+        }
     }
 }

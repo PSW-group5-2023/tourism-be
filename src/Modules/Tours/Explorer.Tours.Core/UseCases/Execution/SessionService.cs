@@ -188,5 +188,18 @@ namespace Explorer.Tours.Core.UseCases.Execution
 
             return _tourStatisticsDomainService.CalculateNumberOfCompletedTours(sessions, tourIds);
         }
+
+        public Result<List<int>> GetTourCompletionPercentageStats(int authorId)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var authorsTours = _tourService.GetAllByAuthorId(authorId);
+            var tourIds = new List<long>();
+            foreach (var tour in authorsTours)
+            {
+                tourIds.Add(tour.Id);
+            }
+
+            return _tourStatisticsDomainService.CalculateTourCompletionPercentage(sessions, tourIds);
+        }
     }
 }
