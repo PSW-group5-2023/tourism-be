@@ -340,9 +340,13 @@ INSERT INTO encounters."ChallengeExecutions"(
 
 INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
 VALUES (-1, -6, 190, 10),
-		  (-2, -7, 0, 1),
-		  (-3, -8, 50, 3),
-		  (-4, -9, 0, 1);
+       (-2, -7, 0, 1),
+       (-3, -8, 50, 3),
+       (-4, -9, 0, 1),
+       (-5, -11, 0, 1),
+       (-6, -12, 0, 1),
+       (-7, -13, 0, 1),
+       (-8, -14, 0, 1);
 
 INSERT INTO payments."Bundles"(
 	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
@@ -364,6 +368,18 @@ INSERT INTO payments."Wallet"(
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")
 	VALUES (-4, -9, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-5, -11, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-6, -12, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-7, -13, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-8, -14, 15);
 
 INSERT INTO tours."EquipmentTrackings"(
     "Id", "TouristId", "NeededEquipment")
@@ -372,37 +388,26 @@ VALUES (-1, -6, '{-1, -2}');
 INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
-       (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true ),
+       (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true),
        (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true),
-       (-4, -6, -9, '2023-12-25 11:04:17.950647+01', true),
-       (-5, -6, -10, '2023-12-20 14:10:17.950647+01', true),
-       (-6, -6, -11, '2023-12-22 11:09:17.950647+01', true),
-       (-7, -6, -13, '2023-12-02 12:08:17.950647+01', true),
-       (-8, -6, -15, '2023-12-11 19:07:17.950647+01', true),
-       (-9, -6, -16, '2023-12-25 14:04:17.950647+01', true),
-       (-10, -6, -17, '2023-12-25 11:04:17.950647+01', true),
-       (-11, -6, -18, '2023-12-25 14:04:17.950647+01', true),
-       (-12, -9, -12, '2023-12-26 14:10:17.950647+01', true),
-       (-13, -11, -12, '2023-12-26 11:09:17.950647+01', true),
-       (-14, -12, -12, '2023-12-26 14:04:17.950647+01', true),
-       (-15, -13, -12, '2023-12-26 18:08:17.950647+01', true),
-       (-16, -14, -12, '2023-12-26 16:04:17.950647+01', true),
-       (-17, -8, -14, '2023-12-25 19:07:17.950647+01', true),
-       (-18, -9, -14, '2023-12-25 15:04:17.950647+01', true),
-       (-19, -11, -14, '2023-12-25 12:04:17.950647+01', true),
-       (-20, -12, -14, '2023-12-25 12:04:17.950647+01', true),
-       (-21, -13, -14, '2023-12-25 19:07:17.950647+01', false),
-       (-22, -8, -11, '2023-12-22 15:04:17.950647+01', true),
-       (-23, -9, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-24, -11, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-25, -12, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-26, -8, -10, '2023-12-20 15:04:17.950647+01', true),
-       (-27, -9, -10, '2023-12-20 12:04:17.950647+01', true),
-       (-28, -11, -10, '2023-12-20 12:04:17.950647+01', true),
-       (-29, -8, -13, '2023-12-02 12:04:17.950647+01', true),
-       (-30, -9, -13, '2023-12-02 12:04:17.950647+01', true),
-       (-31, -8, -15, '2023-12-11 12:04:17.950647+01', true),
-       (-32, -11, -15, '2023-12-11 12:04:17.950647+01', false);
+       (-4, -6, -6, '2023-12-25 11:04:17.950647+01', true),
+       (-5, -12, -7, '2023-12-25 11:04:17.950647+01', true),
+       (-6, -9, -9, '2023-12-25 11:04:17.950647+01', true),
+       (-7, -8, -10, '2023-12-25 11:04:17.950647+01', true),
+       (-8, -6, -10, '2023-12-25 11:04:17.950647+01', true),
+       (-9, -6, -11, '2023-12-25 11:04:17.950647+01', true),
+       (-10, -8, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-11, -11, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-12, -12, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-13, -13, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-14, -8, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-15, -9, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-16, -11, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-17, -9, -16, '2023-12-25 11:04:17.950647+01', true),
+       (-18, -13, -16, '2023-12-25 11:04:17.950647+01', true),
+       (-19, -9, -17, '2023-12-25 11:04:17.950647+01', true),
+       (-20, -13, -17, '2023-12-25 11:04:17.950647+01', true),
+       (-21, -9, -18, '2023-12-25 11:04:17.950647+01', true);
 
 INSERT INTO tours."Sessions"(
     "Id", "TourId", "TouristId", "Location", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
@@ -412,7 +417,7 @@ VALUES (
     -9,
     '{"Latitude": 45.257794555848406, "Longitude": 19.845718145370483}',
     2,
-    100,
+    60,
     '2023-12-07 19:25:42.303+01',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T16:06:40.0842597Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T16:07:20.101299Z"}]'
 ),
@@ -423,8 +428,8 @@ VALUES (
     '{"Latitude": 45.25776057083952, "Longitude": 19.84564304351807}',
     1,
     100,
-    '2023-12-07 20:58:19.478+01',
-    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]'
+    '2023-12-07T23:58:14.9773979Z',
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T23:58:14.9773979Z"}]'
 ),
 (
     -3,
@@ -433,8 +438,188 @@ VALUES (
     '{"Latitude": 45.25783231694552, "Longitude": 19.84560012817383}',
     1,
     100,
-    '2023-12-07 21:05:04.672+01',
+    '2023-12-07T20:05:02.0991904Z',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]'
+),
+(
+    -4,
+    -6,
+    -6,
+    '{"Latitude": 45.22383648719875, "Longitude": 19.846165773318674}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -16, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -17, "CompletionTime": "2023-12-25 15:04:17.950647+01"}, {"KeyPointId": -18, "CompletionTime": "2023-12-25 20:04:17.950647+01"}]'
+),
+(
+    -5,
+    -7,
+    -12,
+    '{"Latitude": 45.22830260204978, "Longitude": 19.79891452593411}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -19, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -20, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -6,
+    -9,
+    -9,
+    '{"Latitude": 44.8186, "Longitude": 20.4671}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -24, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -25, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -7,
+    -10,
+    -8,
+    '{"Latitude": 44.0165, "Longitude": 20.9126}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -8,
+    -10,
+    -6,
+    '{"Latitude": 44.0165, "Longitude": 20.9126}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -9,
+    -11,
+    -6,
+    '{"Latitude": 43.7241, "Longitude": 20.6881}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -28, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -29, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -10,
+    -14,
+    -8,
+    '{"Latitude": 44.785478, "Longitude": 20.488494}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -11,
+    -14,
+    -11,
+    '{"Latitude": 44.785478, "Longitude": 20.488494}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -12,
+    -14,
+    -12,
+    '{"Latitude": 44.785478, "Longitude": 20.488494}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -13,
+    -14,
+    -13,
+    '{"Latitude": 44.785478, "Longitude": 20.488494}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -14,
+    -15,
+    -8,
+    '{"Latitude": 44.779923, "Longitude": 20.469455}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -15,
+    -15,
+    -9,
+    '{"Latitude": 44.779923, "Longitude": 20.469455}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -16,
+    -15,
+    -11,
+    '{"Latitude": 44.779923, "Longitude": 20.469455}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -17,
+    -16,
+    -9,
+    '{"Latitude": 44.790347, "Longitude": 20.470520}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -18,
+    -16,
+    -13,
+    '{"Latitude": 44.790347, "Longitude": 20.470520}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -19,
+    -17,
+    -9,
+    '{"Latitude": 44.808277, "Longitude": 20.470254}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -20,
+    -17,
+    -13,
+    '{"Latitude": 44.808277, "Longitude": 20.470254}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -21,
+    -18,
+    -9,
+    '{"Latitude": 44.808277, "Longitude": 20.470254}',
+    1,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -44, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -45, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -46, "CompletionTime": "2023-12-25 19:04:17.950647+01"}]'
 );
 
 
@@ -442,36 +627,21 @@ INSERT INTO tours."TourRatings"(
     "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-07 12:34:56', '2023-12-07 12:34:56', ARRAY['https://live.staticflickr.com/7909/47358208621_d866a5513e_b.jpg']),
        (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-3, -8, -12, '5', 'Bilo je odlicno!', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-4, -9, -12, '5', 'Veoma zanimljiva tura.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-5, -11, -12, '5', 'Odlicna tura!', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-6, -12, -12, '4', 'Bilo je dobro.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-7, -13, -12, '5', 'Odlicno, super smo se proveli', '2023-12-29 12:34:56', '2023-12-30 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-8, -14, -12, '3', 'Bilo je dosadno', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-9, -6, -12, '4', 'Bilo je okej', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-10, -6, -14, '2', 'Bilo je lose', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-11, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-12, -9, -14, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-13, -11, -14, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-14, -12, -14, '5', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),      
-       (-15, -8, -11, '5', 'Bilo je sjajno', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-16, -9, -11, '4', 'Bilo je dobro', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-17, -11, -11, '5', 'Odlicna organizacija', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-18, -12, -11, '5', 'Veoma zanimljiva tura', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),       
-       (-19, -8, -10, '2', 'Bilo je prilicmo lose', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-20, -9, -10, '3', 'Jako dosadno, bilo je zanimljivo', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-21, -11, -10, '1', 'Bilo je uzasno', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-22, -8, -13, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-23, -9, -13, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-24, -8, -15, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
-
-INSERT INTO tours."PositionSimulators"(
-	"Id", "Latitude", "Longitude", "TouristId")
-VALUES (-1, 44.787197, 20.457273, -6),
-	   (-2, 45.25167, 19.83694, -8),
-	   (-3, 43.72583, 20.68944, -9),
-	   (-4, 44.787197, 20.457273, -10),
-	   (-5, 44.787197, 20.457273, -11),
-	   (-6, 45.25167, 19.83694, -12),
-	   (-7, 43.72583, 20.68944, -13),
-	   (-8, 43.72583, 20.68944, -14);
+       (-3, -6, -6, '5', 'Bilo je odlicno!', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-4, -12, -7, '3', 'Bilo je dobro', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-5, -9, -9, '4', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-6, -8, -10, '4', 'Bilo je dobro', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://www.serbia.travel/files/KG.jpg']),
+       (-7, -6, -10, '2', 'Lose organizovana tura', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://www.serbia.travel/files/KG.jpg']),
+       (-8, -6, -11, '5', 'Odlicna organizacija', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']), 
+       (-9, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-10, -11, -14, '4', 'Odlicno', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-11, -12, -14, '5', 'Bilo je sjajno,veoma dobro smo se proveli', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-12, -13, -14, '5', 'Bilo je veoma zanimljivo', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-13, -8, -15, '4', 'Bilo je dobro', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-14, -9, -15, '3', 'Zanimljiva tura, losa organizacija', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-15, -11, -15, '5', 'Bilo je odlicno', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-16, -9, -16, '5', 'Bilo je sjajno,veoma dobro smo se proveli', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-17, -13, -16, '4', 'Bilo je zanimljivo', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-18, -9, -17, '2', 'Bilo je uzasno', '2023-12-26 17:34:56', '2023-12-27 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-19, -13, -17, '1', 'Bilo je jako dosadno', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-20, -9, -18, '1', 'Bilo je prilicno lose', '2023-12-25 17:34:56', '2023-12-26 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
