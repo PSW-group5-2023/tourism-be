@@ -2,6 +2,8 @@
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
+using FluentResults;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Tours.Infrastructure.Database.Repositories
@@ -73,5 +75,10 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return entity;
         }
 
+        public List<Tour> GetAllByAuthorId(int authorId)
+        {
+            var tours = _dbSet.Where(x => x.AuthorId == authorId).ToList();
+            return tours;
+        }
     }
 }
