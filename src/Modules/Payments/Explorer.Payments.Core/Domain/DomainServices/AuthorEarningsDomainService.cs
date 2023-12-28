@@ -65,7 +65,7 @@ namespace Explorer.Payments.Core.UseCases
                     }
                 }
             }
-            var allTours = _internalTourService.GetAllByAuthorId(Convert.ToInt32(authorId));
+            var allTours = _internalTourService.GetAllPagedByAuthorId(Convert.ToInt32(authorId));
             foreach (var tour in allTours.Value.Results)
             {
                 if(!dtos.Contains(dtos.Find(d=>d.TourId==tour.Id)))

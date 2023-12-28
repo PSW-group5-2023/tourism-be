@@ -13,6 +13,6 @@ namespace Explorer.Tours.API.Internal
     {
         Result<TourDto> Get(int id);
         Result<PagedResult<TourDto>> GetPagedByIds(List<int> ids, int page, int pageSize);
-        Result<PagedResult<TourDto>> GetAllByAuthorId(int authorId);
+        Result<PagedResult<TourDto>> GetAllPagedByAuthorId(int authorId);
     }
 }

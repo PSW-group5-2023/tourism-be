@@ -280,7 +280,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             var result = _tourRepository.GetPagedByAuthorId(authorId, 0, 0);
             return MapToDto(result.Results).Value;
         }
-        public Result<PagedResult<TourDto>> GetAllByAuthorId(int authorId)
+        public Result<PagedResult<TourDto>> GetAllPagedByAuthorId(int authorId)
         {
             return GetPagedByAuthorId(authorId, 0, 0);
         }
