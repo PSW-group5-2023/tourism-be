@@ -1,4 +1,5 @@
-﻿using Explorer.Payments.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
 using FluentResults;
 using Microsoft.AspNetCore.Authorization;
@@ -19,12 +20,12 @@ namespace Explorer.API.Controllers.Author
             _authorEarningsService = authorEarningsService;
         }
         [HttpGet("{authorId:int}")]
-        public ActionResult<Result<AuthorEarningsDto>> Get(int authorId)
+        public ActionResult<PagedResult<AuthorEarningsDto>> Get(int authorId)
         {
             var result = _authorEarningsService.CalculateEarningsByTours(authorId);
             return CreateResponse(result);
         }
-        [HttpGet("/total/{authorId:int}")]
+        [HttpGet("total/{authorId:int}")]
         public ActionResult<Result<AuthorEarningsDto>> GetTotalEarnings(int authorId)
         {
             var result = _authorEarningsService.CalculateTotalEarnings(authorId);

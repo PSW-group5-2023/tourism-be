@@ -88,15 +88,15 @@ namespace Explorer.Payments.Core.UseCases
             }
             return trueCoupons;
         }
-        public Result<List<AuthorEarningsDto>> CalculateEarningsByTours(long authorId)
+        public Result<PagedResult<AuthorEarningsDto>> CalculateEarningsByTours(long authorId)
         {
             
             var list= _authorEarningsDomainService.CalculateEarningsByTours(authorId,GetCoupons(authorId));
-            List<AuthorEarningsDto> authorEarningsDtos = new List<AuthorEarningsDto>();
+            PagedResult<AuthorEarningsDto> authorEarningsDtos = new PagedResult<AuthorEarningsDto>(new List<AuthorEarningsDto>(), 0);
             foreach(var l in list.Value)
             {
                 AuthorEarningsDto authorEarningsDto=new AuthorEarningsDto(l.AuthorId,l.Earning,l.TourId,l.TourName);
-                authorEarningsDtos.Add(authorEarningsDto);
+                authorEarningsDtos.Results.Add(authorEarningsDto);
             }
             return authorEarningsDtos;
         }

@@ -1,4 +1,5 @@
-﻿using Explorer.Payments.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Dtos;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Explorer.Payments.API.Public
 {
     public interface IAuthorEarningsService
     {
-        public Result<List<AuthorEarningsDto>> CalculateEarningsByTours(long authorId); 
+        public Result<PagedResult<AuthorEarningsDto>> CalculateEarningsByTours(long authorId); 
         public Result<double> CalculateTotalEarnings(long authorId);
     }
 }
