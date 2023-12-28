@@ -26,14 +26,14 @@ namespace Explorer.Tours.Core.UseCases.Execution
 
         public Result<PositionSimulatorDto> GetByTouristId(long touristId)
         {
-            try
+            var result = _positionSimulatorRepository.GetByTouristId(touristId);
+            
+            if (result.ToResult().IsFailed)
             {
-                return MapToDto(_positionSimulatorRepository.GetByTouristId(touristId));
+                return Result.Fail(result.ToResult().Errors);
             }
-            catch (KeyNotFoundException e)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
-            }
+            
+            return MapToDto(_positionSimulatorRepository.GetByTouristId(touristId));
         }
     }
 }
