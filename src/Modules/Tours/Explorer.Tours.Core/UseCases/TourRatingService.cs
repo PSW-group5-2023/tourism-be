@@ -6,12 +6,6 @@ using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Explorer.Tours.Core.UseCases
@@ -20,7 +14,7 @@ namespace Explorer.Tours.Core.UseCases
     {
         private readonly ITourRatingRepository _tourRatingRepository;
         public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository) : base(repository, mapper)
-        { 
+        {
             _tourRatingRepository = tourRatingRepository;
         }
 
@@ -81,6 +75,19 @@ namespace Explorer.Tours.Core.UseCases
             }
 
             return bestRatedToursStats;
+        }
+
+        public Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId)
+        {
+            try
+            {
+                var rating = _tourRatingRepository.GetByPersonIdAndTourId(personId, tourId);
+                return MapToDto(rating);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
         }
     }
 }

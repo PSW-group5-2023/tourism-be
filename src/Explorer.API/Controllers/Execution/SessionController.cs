@@ -64,5 +64,12 @@ namespace Explorer.API.Controllers.Execution
             var result = _sessionService.GetByTourAndTouristId(tourId, touristId);
             return CreateResponse(result);
         }
+
+        [HttpGet("getSessionsByTouristId/{touristId:long}")]
+        public ActionResult<SessionDto> GetPagedByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _sessionService.GetPagedByTouristId(touristId, page, pageSize);
+            return CreateResponse(result);
+        }
     }
 }

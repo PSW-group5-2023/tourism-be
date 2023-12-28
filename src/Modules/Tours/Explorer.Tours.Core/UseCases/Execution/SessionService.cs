@@ -180,5 +180,11 @@ namespace Explorer.Tours.Core.UseCases.Execution
             return stat;
 
         }
+
+        public Result<PagedResult<SessionDto>> GetPagedByTouristId(long touristId, int page, int pageSize)
+        {
+            var result = _sessionRepository.GetPagedByTouristId(touristId, page, pageSize);
+            return MapToDto(result);
+        }
     }
 }

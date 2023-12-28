@@ -18,5 +18,6 @@ namespace Explorer.Tours.API.Public
         Result<List<TourRatingDto>> GetByTourId(int tourId);
         Result<TourRatingDto> Update(TourRatingDto rating);
         Result<List<TourStatisticsDto>> GetBestRatedStatistics();
+        Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId);
     }
 }
