@@ -1,18 +1,25 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
+using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Public;
+using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
+using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.UseCases.Authoring;
 using FluentResults;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,14 +36,32 @@ namespace Explorer.Tours.Core.UseCases
         private readonly IPreferencesRepository _preferencesRepository;
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
+        private readonly IFollowerService _followerService;
+        private readonly ISessionService _sessionService;
+        private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
+        private readonly IPersonService _personService;
         private readonly ITourService _tourService;
 
-        public RecommenderService(IMapper mapper, ITourRepository tourRepository, IPreferencesRepository preferencesRepository, ITourRatingRepository tourRatingRepository, IInternalBoughtItemService internalBoughtItemService, ITourService tourService) : base(mapper) 
+        public RecommenderService(IMapper mapper, 
+            ITourRepository tourRepository, 
+            IPreferencesRepository preferencesRepository, 
+            ITourRatingRepository tourRatingRepository,
+            IInternalBoughtItemService internalBoughtItemService,
+            IFollowerService followerService,
+            ISessionService sessionService,
+            IEmailSendingTourCommunityRecommendationService emailSendingService,
+            IPersonService personService,
+            ITourService tourService
+            ) : base(mapper) 
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
             _tourRatingRepository = tourRatingRepository;
             _internalBoughtItemService = internalBoughtItemService;
+            _followerService = followerService;
+            _sessionService = sessionService;
+            _emailSendingService = emailSendingService;
+            _personService= personService;
             _tourService = tourService;
         }
 
@@ -95,6 +120,35 @@ namespace Explorer.Tours.Core.UseCases
             }
 
             return recommendedTours;
+        }
+
+        public Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId)
+        {                       
+            var userFromFollowing = _followerService.GetFollowings(userId).Value;
+            var users = new List<FollowerDto>();
+
+            foreach (var user in userFromFollowing)
+            {
+                var session = _sessionService.GetByTourAndTouristId(tourId, user.FollowedId).Value;
+
+                if(session != null)
+                    if (session.SessionStatus == 1)
+                    {
+                        users.Add(user);
+                    }
+            }
+
+            List<Tour> toursFromFollowigns = new List<Tour>();
+
+            foreach(var user in users)
+            {
+                foreach (var session in _sessionService.GetAllByTouristId(user.FollowedId).Value)
+                {
+                    toursFromFollowigns.Add(_tourRepository.Get(session.TourId));
+                }
+            }
+            
+            return GetRecommendedTours(userId, toursFromFollowigns);
         }
 
         public double getPreferencesTagsSimilarityIndex(Preferences preference, Tour tour)
@@ -231,6 +285,51 @@ namespace Explorer.Tours.Core.UseCases
             }
 
             return activeTours;
+        }
+
+        public Result<bool> SendEmail(int userId, string body)
+        {
+            var links=body.Split('|');
+            string linksForSend = "";
+            foreach (var link in links) 
+            {
+                linksForSend += link+"\n\t\t";
+            }
+            var email = _personService.GetEmailByUserId(userId);
+            string bodyForSend = $@"
+                Hello {_personService.GetNameById(userId).Value},
+                
+                This is list of tours we recommended you:
+
+                {linksForSend}
+               
+                Thank you for using our service.
+
+                Best regards,
+                Travelo";
+            _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend);
+            return _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend).IsCanceled.ToResult();
+        }
+
+        public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
+        {
+            var list= GetRecommendedToursFromFollowings(tourId, userId);
+            PagedResult<TourDto> filteredList = new PagedResult<TourDto>(new List<TourDto>(), 0);
+            foreach (var item in list.Value.Results)
+            {
+                var tourRatings = _tourRatingRepository.GetByTourId((int)item.Id);
+                double sumRating = 0.0;
+                foreach (var mark in tourRatings)
+                {
+                    sumRating += mark.Mark;
+                }
+                double averageRating = sumRating / tourRatings.Count;
+                if (averageRating>rating)
+                {
+                    filteredList.Results.Add(item);
+                }
+            }
+            return filteredList.ToResult();
         }
     }
 }

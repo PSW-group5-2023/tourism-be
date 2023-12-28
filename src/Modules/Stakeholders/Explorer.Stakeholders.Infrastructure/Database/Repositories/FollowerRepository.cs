@@ -34,6 +34,11 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             if (follower == null) throw new KeyNotFoundException("Not found: " + followerId + " " + followedId);
             _context.Followers.Remove(follower);
             _context.SaveChanges();
-        }        
+        }
+
+        public List<Follower> GetFollowings(int id)
+        {
+            return _context.Followers.Where(f => f.FollowerId == id).ToList();
+        }
     }
 }

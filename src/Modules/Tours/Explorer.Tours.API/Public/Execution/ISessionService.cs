@@ -15,6 +15,8 @@ namespace Explorer.Tours.API.Public.Execution
         Result<SessionDto> Create(SessionDto session);
         Result<SessionDto> Update(SessionDto session);
         Result<SessionDto> Get(long id);
+        Result<SessionDto> GetActiveByTouristId(long id);
+        Result<List<SessionDto>> GetAllByTouristId(long id);
         Result<SessionDto> GetActiveSessionByTouristId(long id);
         Result<bool> ValidForTouristComment(long id);
         Result<SessionDto> AddCompletedKeyPoint(int sessionId, int keyPointId);

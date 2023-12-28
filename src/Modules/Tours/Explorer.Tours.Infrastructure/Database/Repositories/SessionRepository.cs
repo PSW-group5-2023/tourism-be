@@ -34,9 +34,18 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return _context.Sessions.SingleOrDefault(s => s.Id == id);
         }
 
+        public Session? GetActiveByTouristId(long id)
+        {
+            return _context.Sessions.FirstOrDefault(s => s.TouristId == id && s.SessionStatus == SessionStatus.ACTIVE);
+        }
         public Session? GetActiveSessionByTouristId(long id)
         {
             return _context.Sessions.FirstOrDefault(s => s.TouristId == id && s.SessionStatus == SessionStatus.ACTIVE);
+        }
+
+        public List<Session> GetAllByTouristId(long id)
+        {
+            return _context.Sessions.Where(s => s.TouristId == id).ToList();
         }
 
         public Session Update(Session session)
