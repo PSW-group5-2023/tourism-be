@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -172,6 +173,65 @@ namespace Explorer.Tours.Core.UseCases
             double union = firstList.Union(secondList).Count();
 
             return intersection / union;
-        }     
+        }
+
+        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int userId, int page, int pageSize)
+        {
+            var tours = _tourRepository.GetPaged(page, pageSize);
+            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+
+            return GetActiveTours(publishedTours);
+        }
+
+        public Tuple<double, double> getRatingParameters(Tour tour, int totalRatings)
+        {
+            DateTime lastWeek = DateTime.Today.AddDays(-7);
+            var ratingsInLastWeek = _tourRatingRepository.GetByTourId((int)tour.Id).Where(x => x.DateOfCommenting >= lastWeek).ToList();
+            double ratingsCount = ratingsInLastWeek?.Count() ?? 0;
+            double ratingsSum = 0;
+            foreach( var r in ratingsInLastWeek)
+            {
+                ratingsSum += r.Mark;
+            }
+            double averageRating = (ratingsCount > 0) ? (ratingsSum / ratingsCount) : 0;
+            double ratingPercentage = (totalRatings > 10) ? (ratingsCount / totalRatings) : 0;
+            return new Tuple<double, double>(averageRating, ratingPercentage);
+        }
+
+        public double getBoughtParameters(Tour tour, int totalBoughts)
+        {
+            DateTime lastWeek = DateTime.Today.AddDays(-7);
+            var boughts = _internalBoughtItemService.GetByTourId(tour.Id).Value;
+            double boughtsCount = boughts?.Count() ?? 0;
+            double boughtPercentage = (totalBoughts > 10) ? (boughtsCount / totalBoughts) : 0;
+            return boughtPercentage;
+        }
+
+        public double calculateScoreForActiveTour(Tour tour, int totalBoughts, int totalRatings)
+        {
+            double normalizedAvgRating = (getRatingParameters(tour, totalRatings).Item1)/5;
+            double ratingPercentage = getRatingParameters(tour, totalRatings).Item2;
+            double boughtPercentage = getBoughtParameters(tour, totalBoughts);
+            return 0.2 * normalizedAvgRating + 0.4 * ratingPercentage + 0.4 * boughtPercentage;
+        }
+        public Result<PagedResult<TourDto>> GetActiveTours(List<Tour> tours)
+        {
+            var activeTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
+            var tourIdToTourScoreMap = new Dictionary<long, double>();
+            int totalBoughts = _internalBoughtItemService.GetAll().Value?.Count() ?? 0;
+            DateTime lastWeek = DateTime.Today.AddDays(-7);
+            int totalRankings = _tourRatingRepository.GetAll().Where(x => x.DateOfCommenting >= lastWeek)?.Count() ?? 0;
+            foreach (var t in tours)
+            {
+                tourIdToTourScoreMap[t.Id] = calculateScoreForActiveTour(t, totalBoughts, totalRankings);
+            }
+            var sortedToursByScore = tourIdToTourScoreMap.OrderByDescending(x => x.Value).ToList();
+            foreach (KeyValuePair<long, double> tour in sortedToursByScore)
+            {
+                activeTours.Results.Add(MapToDto(tours.Find(t => t.Id == tour.Key)));
+            }
+
+            return activeTours;
+        }
     }
 }
