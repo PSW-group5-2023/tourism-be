@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Tours.API.Dtos;
 
 namespace Explorer.Stakeholders.Core.Domain;
 

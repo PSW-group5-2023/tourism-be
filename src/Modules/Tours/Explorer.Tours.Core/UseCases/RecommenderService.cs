@@ -40,6 +40,7 @@ namespace Explorer.Tours.Core.UseCases
         private readonly ISessionService _sessionService;
         private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
         private readonly IPersonService _personService;
+        private readonly ITourService _tourService;
 
         public RecommenderService(IMapper mapper, 
             ITourRepository tourRepository, 
@@ -49,7 +50,8 @@ namespace Explorer.Tours.Core.UseCases
             IFollowerService followerService,
             ISessionService sessionService,
             IEmailSendingTourCommunityRecommendationService emailSendingService,
-            IPersonService personService
+            IPersonService personService,
+            ITourService tourService
             ) : base(mapper) 
         {
             _tourRepository = tourRepository;
@@ -60,14 +62,14 @@ namespace Explorer.Tours.Core.UseCases
             _sessionService = sessionService;
             _emailSendingService = emailSendingService;
             _personService= personService;
+            _tourService = tourService;
         }
 
-        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int userId, int page, int pageSize)
+        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int page, int pageSize, int touristId)
         {
-            var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetRecommendedTours(userId, publishedTours);
+            return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
@@ -227,12 +229,11 @@ namespace Explorer.Tours.Core.UseCases
             return intersection / union;
         }
 
-        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int userId, int page, int pageSize)
+        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int page, int pageSize, int touristId)
         {
-            var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetActiveTours(publishedTours);
+            return GetActiveTours(MapToDomain(publishedTours.Value.Results));
         }
 
         public Tuple<double, double> getRatingParameters(Tour tour, int totalRatings)

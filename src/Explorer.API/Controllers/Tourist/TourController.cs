@@ -1,5 +1,7 @@
 ﻿using Explorer.Blog.API.Dtos;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.Core.Domain;
+using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
@@ -50,15 +52,14 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("search/{name}/{tags}")]
         public ActionResult<PagedResult<TourDto>> Search([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] string name, [FromRoute] string[] tags)
         {
-            var result = _tourService.GetPagedForSearch(name,  tags, page, pageSize);
+            var result = _tourService.GetPagedForSearch(name, tags, page, pageSize);
             return CreateResponse(result);
         }
-
-
-        [HttpGet("recommended/{userId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
+        
+        [HttpGet("recommended/{touristId:int}")]
+        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetRecommendedToursByLocation(userId, page, pageSize);
+            var result = _recommenderService.GetRecommendedToursByLocation(page, pageSize, touristId);
             return CreateResponse(result);
         }
 
@@ -71,10 +72,10 @@ namespace Explorer.API.Controllers.Tourist
         }
 
 
-        [HttpGet("active/{userId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
+        [HttpGet("active/{touristId:int}")]
+        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetActiveToursByLocation(userId, page, pageSize);
+            var result = _recommenderService.GetActiveToursByLocation(page, pageSize, touristId);
             return CreateResponse(result);
         }
         [HttpPost("sendEmail/{userId:int}")]
