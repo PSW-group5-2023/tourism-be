@@ -5,6 +5,7 @@ DELETE FROM tours."TourRatings";
 DELETE FROM tours."TourProblems";
 DELETE FROM tours."Preferences";
 DELETE FROM tours."EquipmentTrackings";
+DELETE FROM tours."DomainEvent";
 DELETE FROM tours."Sessions";
 DELETE FROM tours."Tour";
 DELETE FROM tours."PositionSimulators";

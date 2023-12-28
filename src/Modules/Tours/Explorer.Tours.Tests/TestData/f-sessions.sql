@@ -1,5 +1,5 @@
 ﻿INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
 VALUES (
     -1,
     -1,
@@ -9,10 +9,11 @@ VALUES (
     0,
     36,
     CURRENT_TIMESTAMP,
-    '[]'
+    '[]',
+    0
 );
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
 VALUES (
     -2,
     -1,
@@ -22,10 +23,11 @@ VALUES (
     0,
     36,
     CURRENT_TIMESTAMP,
-    '[]'
+    '[]',
+    0
 );
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
 VALUES (
     -3,
     -1,
@@ -35,10 +37,11 @@ VALUES (
     0,
     36,
     CURRENT_TIMESTAMP,
-    '[]'
+    '[]',
+    0
 );
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
 VALUES (
     -4,
     -1,
@@ -48,5 +51,6 @@ VALUES (
     0,
     36,
     CURRENT_TIMESTAMP,
-    '[]'
+    '[]',
+    0
 );

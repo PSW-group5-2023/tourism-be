@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
         ABANDONED
     }
 
-    public class Session : Entity
+    public class Session : EventSourcedAggregate
     {
         public long TourId { get; private set; }
         public long TouristId { get; private set; }
@@ -62,9 +63,47 @@ namespace Explorer.Tours.Core.Domain.Sessions
             if (completeKeyPointCheck == null)
             {
                 CompletedKeyPoints.Add(completedKeyPoint);
+                Causes(new KeyPointCompleted(this.Id, DateTime.UtcNow));
             }
 
             return completedKeyPoint;
+        }
+
+        public void Create()
+        {
+            Causes(new SessionCreated(this.Id, DateTime.UtcNow));
+        }
+
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            Causes(new LocationUpdated(this.Id, latitude, longitude));
+        }
+
+        private void Causes(DomainEvent @event)
+        {
+            Changes.Add(@event);
+            Apply(@event);
+        }
+
+        public override void Apply(DomainEvent @event)
+        {
+            When((dynamic)@event);
+            Version++;
+        }
+
+        private void When(KeyPointCompleted keyPointCompleted)
+        {
+
+        }
+
+        private void When(SessionCreated sessionCreated)
+        {
+
+        }
+
+        private void When(LocationUpdated locationUpdated)
+        {
+
         }
     }
 }

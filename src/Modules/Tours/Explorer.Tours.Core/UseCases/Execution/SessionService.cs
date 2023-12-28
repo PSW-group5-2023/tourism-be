@@ -33,7 +33,11 @@ namespace Explorer.Tours.Core.UseCases.Execution
 
         public Result<SessionDto> Create(SessionDto session)
         {
-            return MapToDto(_sessionRepository.Create(MapToDomain(session)));
+            var result = _sessionRepository.Create(MapToDomain(session));
+            result.Create();
+            _sessionRepository.SaveChanges();
+
+            return MapToDto(result);
         }
 
         public Result<SessionDto> Get(long id)
