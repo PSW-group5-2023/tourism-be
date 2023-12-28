@@ -14,6 +14,7 @@ namespace Explorer.Tours.API.Dtos
         public long TouristId { get; set; }
         public long LocationId { get; set; }
         public int SessionStatus { get; set; }
+        public int Transportation {  get; set; }
         public int DistanceCrossedPercent { get; set; }
         public DateTime LastActivity { get; set; }
         public List<CompletedKeyPointDto> CompletedKeyPoints { get; set; }

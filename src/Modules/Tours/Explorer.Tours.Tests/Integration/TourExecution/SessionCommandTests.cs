@@ -75,6 +75,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         TouristId = -23,
                         LocationId = -23,
                         SessionStatus = 1,
+                        Transportation = 0,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
@@ -96,6 +97,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         TouristId = -22,
                         LocationId = -22,
                         SessionStatus = 1,
+                        Transportation = 0,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
