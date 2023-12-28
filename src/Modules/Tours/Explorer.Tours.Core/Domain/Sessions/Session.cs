@@ -69,6 +69,16 @@ namespace Explorer.Tours.Core.Domain.Sessions
             return completedKeyPoint;
         }
 
+        public void Create()
+        {
+            Causes(new SessionCreated(this.Id, DateTime.UtcNow));
+        }
+
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            Causes(new LocationUpdated(this.Id, latitude, longitude));
+        }
+
         private void Causes(DomainEvent @event)
         {
             Changes.Add(@event);
@@ -82,6 +92,16 @@ namespace Explorer.Tours.Core.Domain.Sessions
         }
 
         private void When(KeyPointCompleted keyPointCompleted)
+        {
+
+        }
+
+        private void When(SessionCreated sessionCreated)
+        {
+
+        }
+
+        private void When(LocationUpdated locationUpdated)
         {
 
         }

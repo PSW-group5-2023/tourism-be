@@ -197,7 +197,6 @@ VALUES
   (-27, 'Fruska Tour 10', 'Explore Novi Sad landmarks', 2, '{"culture", "adventure", "monuments", "hike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
   (-28, 'Fruska Tour 11', 'Explore Novi Sad landmarks', 3, '{"bike", "adventure", "old", "forest"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]');
 
-
 INSERT INTO tours."Preferences"(
 	"Id", "UserId", "DifficultyLevel", "WalkingRate", "BicycleRate", "CarRate", "BoatRate", "Tags")
 	VALUES 

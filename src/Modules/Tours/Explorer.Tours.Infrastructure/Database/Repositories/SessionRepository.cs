@@ -56,19 +56,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public Session AddCompletedKeyPoint(int sessionId, int keyPointId)
         {
-            try
-            {
-                var session = _context.Sessions.FirstOrDefault(s => s.Id == sessionId);
-                var completedKeyPoint = session.AddCompletedKeyPoint(keyPointId);
-                _context.Sessions.Update(session);
+            var session = _context.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            var completedKeyPoint = session.AddCompletedKeyPoint(keyPointId);
+            _context.Sessions.Update(session);
 
-                _context.SaveChanges();
-                return session;
-            }
-            catch (DbUpdateException e)
-            {
-                throw new KeyNotFoundException(e.Message);
-            }
+            _context.SaveChanges();
+            return session;
         }
 
         public Session? GetByTourAndTouristId(long tourId, long touristId)
@@ -87,6 +80,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             var task = _dbSet.Where(s => s.TouristId == touristId).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }
