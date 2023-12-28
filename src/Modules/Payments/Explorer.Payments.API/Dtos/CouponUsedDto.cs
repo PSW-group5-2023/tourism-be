@@ -10,7 +10,6 @@ namespace Explorer.Payments.API.Dtos
     {
         public long Id { get; set; }
         public string Code { get; set; }
-        public long UserId { get;  set; }
         public DateTime DateOfUsing { get; set; }
     }
 }

@@ -38,6 +38,7 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<ITourBoughtService, TourBoughtService>();
+            services.AddScoped<ICouponUsedService, CouponUsedService>();
             services.AddScoped<IShoppingEventService, ShoppingEventService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
         }
@@ -51,6 +52,7 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped(typeof(ICrudRepository<Sales>), typeof(CrudDatabaseRepository<Sales, PaymentsContext>));
             services.AddScoped(typeof(ICrudRepository<ShoppingEvent>), typeof(CrudDatabaseRepository<ShoppingEvent, PaymentsContext>));
             services.AddScoped(typeof(ICrudRepository<TourBought>), typeof(CrudDatabaseRepository<TourBought, PaymentsContext>));
+            services.AddScoped(typeof(ICrudRepository<CouponUsed>), typeof(CrudDatabaseRepository<CouponUsed, PaymentsContext>));
             services.AddScoped<ICouponRepository, CouponDatabaseRepository>();
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
             services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();

@@ -13,9 +13,11 @@ namespace Explorer.Payments.Core.UseCases;
 public class CouponService : BaseService<CouponDto, Coupon>, ICouponService
 {
     private readonly ICouponRepository _couponRepository;
-    public CouponService(IMapper mapper, ICouponRepository couponRepository) : base(mapper)
+    private ICouponUsedService couponUsedService;
+    public CouponService(IMapper mapper, ICouponRepository couponRepository, ICouponUsedService couponUsedService) : base(mapper)
     {
         _couponRepository = couponRepository;
+        this.couponUsedService = couponUsedService;
     }
 
     public Result<CouponDto> Create(CouponDto coupon)
@@ -37,6 +39,13 @@ public class CouponService : BaseService<CouponDto, Coupon>, ICouponService
         try
         {
             var result = _couponRepository.Update(MapToDomain(coupon));
+            CouponUsedDto newEventDto = new CouponUsedDto
+            {
+                Id = 1,
+                Code = result.Code,
+                DateOfUsing = DateTime.UtcNow
+            };
+            couponUsedService.Create(newEventDto);
             return MapToDto(result);
         }
         catch (KeyNotFoundException e)
