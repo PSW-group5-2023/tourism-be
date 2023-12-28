@@ -1,5 +1,6 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Administration;
@@ -51,6 +52,7 @@ public static class ToursStartup
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
         services.AddScoped<IRecommenderService, RecommenderService>();
+        services.AddScoped<IInternalPersonService, InternalPersonService>();
         services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
     }
 

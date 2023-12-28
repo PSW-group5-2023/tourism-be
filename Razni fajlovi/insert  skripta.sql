@@ -9,23 +9,29 @@ VALUES
 	(-7, 'sophia_brown', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false, null, null),
 	(-8, 'ethan_clark', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
 	(-9, 'ava_young', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false, null, null),
-	(-10, 'james_brown', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, null, null);
+	(-10, 'james_brown', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, null, null),
+  (-11, 'eva_davis', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
+	(-12, 'john_cooper', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
+	(-13, 'michael_fitch', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
+	(-14, 'rachel_baker', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null);
 
 
-
-INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto")
+INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto", "Latitude", "Longitude")
 VALUES 
-    (-1, -1, 'Admin', 'Admin', 'john.doe@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Carpe Diem'),
-    (-2, -2, 'Jane', 'Smith', 'jane.smith@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Live in the moment'),
-    (-3, -3, 'Author', 'Author', 'author@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Stay positive'),
-    (-4, -4, 'Olivia', 'Wilson', 'olivia.wilson@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'Spread love'),
-    (-5, -5, 'Daniel', 'Taylor', 'daniel.taylor@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Be yourself'),
-	  (-6, -6, 'Tourist', 'Tourist', 'tourist@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.', 'Chase your dreams'),
-    (-7, -7, 'Sophia', 'Brown', 'sophia.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.', 'Embrace the journey'),
-    (-8, -8, 'Ethan', 'Clark', 'ethan.clark@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Believe in yourself'),
-    (-9, -9, 'Ava', 'Young', 'ava.young@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.', 'Explore the unknown'),
-    (-10, -10, 'James', 'Brown', 'james.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.', 'Create your own destiny');
-    
+    (-1, -1, 'Admin', 'Admin', 'john.doe@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Carpe Diem', null, null),
+    (-2, -2, 'Jane', 'Smith', 'jane.smith@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Live in the moment', null, null),
+    (-3, -3, 'Author', 'Author', 'author@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Stay positive', null, null),
+    (-4, -4, 'Olivia', 'Wilson', 'olivia.wilson@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'Spread love', null, null),
+    (-5, -5, 'Daniel', 'Taylor', 'daniel.taylor@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Be yourself', null, null),
+	  (-6, -6, 'Tourist', 'Tourist', 'tourist@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.', 'Chase your dreams', 44.787197, 20.457273),
+    (-7, -7, 'Sophia', 'Brown', 'sophia.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.', 'Embrace the journey', 44.787197, 20.457273),
+    (-8, -8, 'Ethan', 'Clark', 'ethan.clark@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Believe in yourself', 45.25167, 19.83694),
+    (-9, -9, 'Ava', 'Young', 'ava.young@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.', 'Explore the unknown', 45.25167, 19.83694),
+    (-10, -10, 'James', 'Brown', 'james.brown@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.', 'Create your own destiny', null, null),
+    (-11, -11, 'Eva', 'Davis', 'eva.davis@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.', 'Adventure awaits, go find it', 45.25167, 19.83694),
+    (-12, -12, 'John', 'Cooper', 'john.cooper@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Meet new places, make new stories', 45.25167, 19.83694),
+    (-13, -13, 'Michael', 'Fitch', 'michael.fitch@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Adventure is the best way to learn', 43.72583, 20.68944),
+    (-14, -14, 'Rachel', 'Baker', 'rachel.baker@example.com', 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png', 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.', 'Every journey is a chance to grow', 44.787197, 20.457273);
 
 
 INSERT INTO blog."Blogs"(
@@ -163,11 +169,11 @@ VALUES
 INSERT INTO tours."Tour"("Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations")
 VALUES
   (-1, 'Tura 1', 'Ova tura je lepa', 0, '{"hike", "bike", "adventure"}', 0, 0, -3, '{-1, -2}', 3.484371, NULL, NULL, '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-2, 'Culinary Delights and Cultural Insights', 'Savor the flavors of a rich tapestry of cultures on our Culinary Delights and Cultural Insights tour. This gastronomic journey will lead you through bustling markets, hidden culinary gems, and renowned restaurants, where you''ll indulge in a diverse range of delectable dishes. But it''s not just about the food – immerse yourself in the local culture through hands-on cooking classes, meet passionate chefs, and explore historical sites that narrate the region''s culinary evolution. Join us for a feast for the senses that goes beyond the plate.', 1, '{"adventure", "old", "culture", "beautiful"}', 1, 100, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-2, 'Culinary Delights and Cultural Insights', 'Savor the flavors of a rich tapestry of cultures on our Culinary Delights and Cultural Insights tour. This gastronomic journey will lead you through bustling markets, hidden culinary gems, and renowned restaurants, where you''ll indulge in a diverse range of delectable dishes. But it''s not just about the food – immerse yourself in the local culture through hands-on cooking classes, meet passionate chefs, and explore historical sites that narrate the region''s culinary evolution. Join us for a feast for the senses that goes beyond the plate.', 1, '{"adventure", "old", "culture", "beautiful"}', 1, 2000, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-3, 'Tura 3', 'Ova tura je super', 3, '{"forest", "adventure"}', 2, 0, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-4, 'Mystical Adventure in Ancient Ruins', 'Uncover the secrets of the past on our Mystical Adventure in Ancient Ruins tour. Step back in time as you explore the enigmatic remnants of ancient civilizations. Roam through historic ruins, decipher ancient hieroglyphs, and marvel at architectural marvels that have withstood the test of time. Expert archaeologists will guide you through the stories etched in stone, revealing the mysteries of bygone eras. This immersive journey promises a blend of history, archaeology, and awe-inspiring landscapes, making it an unforgettable adventure for history enthusiasts and curious minds alike.', 3, '{"hike"}', 1, 50, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-4, 'Mystical Adventure in Ancient Ruins', 'Uncover the secrets of the past on our Mystical Adventure in Ancient Ruins tour. Step back in time as you explore the enigmatic remnants of ancient civilizations. Roam through historic ruins, decipher ancient hieroglyphs, and marvel at architectural marvels that have withstood the test of time. Expert archaeologists will guide you through the stories etched in stone, revealing the mysteries of bygone eras. This immersive journey promises a blend of history, archaeology, and awe-inspiring landscapes, making it an unforgettable adventure for history enthusiasts and curious minds alike.', 3, '{"hike"}', 1, 1000, -3, '{-1, -3}', 3.484371,  '2023-11-16 18:33:42.718996+01', '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-5, 'Tura za javne 1, 2', 'Ova tura je okej', 1, '{"forest", "nature"}', 1, 40, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
-  (-6, 'Enchanting Wilderness Expedition', 'Embark on a journey through nature''s untouched beauty with our Enchanting Wilderness Expedition. This tour takes you deep into the heart of lush forests, serene lakes, and breathtaking landscapes. Traverse scenic trails, witness diverse wildlife, and camp under the starlit sky. Expert guides will share their knowledge of the flora and fauna, ensuring an immersive and educational experience. Disconnect from the hustle and bustle of daily life as you connect with the enchanting wilderness on this rejuvenating adventure.', 3, '{"history", "walking"}', 1, 60, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
+  (-6, 'Enchanting Wilderness Expedition', 'Embark on a journey through nature''s untouched beauty with our Enchanting Wilderness Expedition. This tour takes you deep into the heart of lush forests, serene lakes, and breathtaking landscapes. Traverse scenic trails, witness diverse wildlife, and camp under the starlit sky. Expert guides will share their knowledge of the flora and fauna, ensuring an immersive and educational experience. Disconnect from the hustle and bustle of daily life as you connect with the enchanting wilderness on this rejuvenating adventure.', 3, '{"history", "walking"}', 1, 900, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-7, 'Tura za javne 4, 5', 'Ova tura je okej', 2, '{"forest", "hike", "bike", "adventure"}', 1, 20, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-8, 'Tura za javne 2, 3, 4', 'Ova tura je okej', 0, '{"history", "culture"}', 1, 30, -4, '{-1}', 3.484371, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 2509, "Transportation": 0}]'),
   (-9, 'Belgrade Tour 1', 'Explore Belgrade', 1, '{"forest"}', 1, 25, -3, '{-1}', 5.0, NULL, '2023-11-16 18:33:45.459049+01', '[{"TimeInSeconds": 3600, "Transportation": 1}]'),
@@ -179,7 +185,18 @@ VALUES
   (-15, 'Belgrade Tour 3', 'Explore Belgrade landmarks', 1, '{"city", "culture"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
   (-16, 'Belgrade Tour 4', 'Explore Belgrade landmarks', 2, '{"history", "city"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
   (-17, 'Belgrade Tour 5', 'Explore Belgrade landmarks', 3, '{"history", "adventure"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
-  (-18, 'Belgrade Tour 6', 'Explore Belgrade landmarks', 3, '{"city", "adventure"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]');
+  (-18, 'Belgrade Tour 6', 'Explore Belgrade landmarks', 3, '{"city", "adventure"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-19, 'Belgrade Tour 7', 'Explore Belgrade landmarks', 0, '{"bike", "culture"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-20, 'Belgrade Tour 8', 'Explore Belgrade landmarks', 0, '{"city", "culture", "bike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-21, 'Belgrade Tour 9', 'Explore Belgrade landmarks', 0, '{"history", "culture", "city"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-22, 'Belgrade Tour 10', 'Explore Belgrade landmarks', 2, '{"history", "adventure", "monuments"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-23, 'Belgrade Tour 11', 'Explore Belgrade landmarks', 3, '{"city", "adventure", "old"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-24, 'Fruska Tour 7', 'Explore Novi Sad landmarks', 0, '{"bike", "hike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-25, 'Fruska Tour 8', 'Explore Novi Sad landmarks', 1, '{"forest", "hike", "bike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-26, 'Fruska Tour 9', 'Explore Novi Sad landmarks', 1, '{"adventure", "forest", "hike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-27, 'Fruska Tour 10', 'Explore Novi Sad landmarks', 2, '{"culture", "adventure", "monuments", "hike"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]'),
+  (-28, 'Fruska Tour 11', 'Explore Novi Sad landmarks', 3, '{"bike", "adventure", "old", "forest"}', 1, 40, -4, '{-1}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]');
+
 
 INSERT INTO tours."Preferences"(
 	"Id", "UserId", "DifficultyLevel", "WalkingRate", "BicycleRate", "CarRate", "BoatRate", "Tags")
@@ -295,9 +312,13 @@ INSERT INTO encounters."ChallengeExecutions"(
 
 INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
 VALUES (-1, -6, 190, 10),
-		  (-2, -7, 0, 1),
-		  (-3, -8, 50, 3),
-		  (-4, -9, 0, 1);
+       (-2, -7, 0, 1),
+       (-3, -8, 50, 3),
+       (-4, -9, 0, 1),
+       (-5, -11, 0, 1),
+       (-6, -12, 0, 1),
+       (-7, -13, 0, 1),
+       (-8, -14, 0, 1);
 
 INSERT INTO payments."Bundles"(
 	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
@@ -319,6 +340,18 @@ INSERT INTO payments."Wallet"(
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")
 	VALUES (-4, -9, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-5, -11, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-6, -12, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-7, -13, 15);
+INSERT INTO payments."Wallet"(
+	"Id", "UserId", "Balance")
+	VALUES (-8, -14, 15);
 
 INSERT INTO tours."EquipmentTrackings"(
     "Id", "TouristId", "NeededEquipment")
@@ -327,43 +360,36 @@ VALUES (-1, -6, '{-1, -2}');
 INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
-       (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true ),
+       (-2, -6, -4, '2023-12-07 20:56:17.924633+01', true),
        (-3, -8, -4, '2023-12-07 21:04:17.950647+01', true),
-       (-4, -6, -9, '2023-12-25 11:04:17.950647+01', true),
-       (-5, -6, -10, '2023-12-20 14:10:17.950647+01', true),
-       (-6, -6, -11, '2023-12-22 11:09:17.950647+01', true),
-       (-7, -6, -13, '2023-12-02 12:08:17.950647+01', true),
-       (-8, -6, -15, '2023-12-11 19:07:17.950647+01', true),
-       (-9, -6, -16, '2023-12-25 14:04:17.950647+01', true),
-       (-10, -6, -17, '2023-12-25 11:04:17.950647+01', true),
-       (-11, -6, -18, '2023-12-25 14:04:17.950647+01', true),
-       (-12, -9, -12, '2023-12-26 14:10:17.950647+01', true),
-       (-13, -11, -12, '2023-12-26 11:09:17.950647+01', true),
-       (-14, -12, -12, '2023-12-26 14:04:17.950647+01', true),
-       (-15, -13, -12, '2023-12-26 18:08:17.950647+01', true),
-       (-16, -14, -12, '2023-12-26 16:04:17.950647+01', true),
-       (-17, -8, -14, '2023-12-25 19:07:17.950647+01', true),
-       (-18, -9, -14, '2023-12-25 15:04:17.950647+01', true),
-       (-19, -11, -14, '2023-12-25 12:04:17.950647+01', true),
-       (-20, -12, -14, '2023-12-25 12:04:17.950647+01', true),
-       (-21, -13, -14, '2023-12-25 19:07:17.950647+01', false),
-       (-22, -8, -11, '2023-12-22 15:04:17.950647+01', true),
-       (-23, -9, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-24, -11, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-25, -12, -11, '2023-12-22 12:04:17.950647+01', true),
-       (-26, -8, -10, '2023-12-20 15:04:17.950647+01', true),
-       (-27, -9, -10, '2023-12-20 12:04:17.950647+01', true),
-       (-28, -11, -10, '2023-12-20 12:04:17.950647+01', true),
-       (-29, -8, -13, '2023-12-02 12:04:17.950647+01', true),
-       (-30, -9, -13, '2023-12-02 12:04:17.950647+01', true),
-       (-31, -8, -15, '2023-12-11 12:04:17.950647+01', true),
-       (-32, -11, -15, '2023-12-11 12:04:17.950647+01', false);
+       (-4, -6, -6, '2023-12-25 11:04:17.950647+01', true),
+       (-5, -12, -7, '2023-12-25 11:04:17.950647+01', true),
+       (-6, -9, -9, '2023-12-25 11:04:17.950647+01', true),
+       (-7, -8, -10, '2023-12-25 11:04:17.950647+01', true),
+       (-8, -6, -10, '2023-12-25 11:04:17.950647+01', true),
+       (-9, -6, -11, '2023-12-25 11:04:17.950647+01', true),
+       (-10, -8, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-11, -11, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-12, -12, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-13, -13, -14, '2023-12-25 11:04:17.950647+01', true),
+       (-14, -8, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-15, -9, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-16, -11, -15, '2023-12-25 11:04:17.950647+01', true),
+       (-17, -9, -16, '2023-12-25 11:04:17.950647+01', true),
+       (-18, -13, -16, '2023-12-25 11:04:17.950647+01', true),
+       (-19, -9, -17, '2023-12-25 11:04:17.950647+01', true),
+       (-20, -13, -17, '2023-12-25 11:04:17.950647+01', true),
+       (-21, -9, -18, '2023-12-25 11:04:17.950647+01', true);
 
+       
 INSERT INTO tours."PositionSimulators"(
 	"Id", "Latitude", "Longitude", "TouristId")
-VALUES  (-1, 45.257794555848406, 19.845718145370483, -9),
-        (-2, 45.25776057083952, 19.84564304351807, -6),
-        (-3, 45.25783231694552, 19.84560012817383, -8);
+VALUES  (-1, 43.7241, 20.6881, -6),
+        (-2, 44.785478, 20.488494, -12),
+        (-3, 44.779923, 20.469455, -8),
+        (-4, 44.779923, 20.469455, -11),
+        (-5, 44.808277, 20.470254, -13),
+        (-6, 44.808277, 20.470254, -9);
 
 INSERT INTO tours."Sessions"(
     "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
@@ -386,8 +412,8 @@ VALUES (
     1,
     0,
     100,
-    '2023-12-07 20:58:19.478+01',
-    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]'
+    '2023-12-07T23:58:14.9773979Z',
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T23:58:14.9773979Z"}]'
 ),
 (
     -3,
@@ -397,8 +423,206 @@ VALUES (
     1,
     0,
     100,
-    '2023-12-07 21:05:04.672+01',
+    '2023-12-07T20:05:02.0991904Z',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]'
+),
+(
+    -4,
+    -6,
+    -6,
+    -1,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -16, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -17, "CompletionTime": "2023-12-25 15:04:17.950647+01"}, {"KeyPointId": -18, "CompletionTime": "2023-12-25 20:04:17.950647+01"}]'
+),
+(
+    -5,
+    -7,
+    -12,
+    -2,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -19, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -20, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -6,
+    -9,
+    -9,
+    -6,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -24, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -25, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -7,
+    -10,
+    -8,
+    -3,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 12:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 15:04:17.950647+01"}]'
+),
+(
+    -8,
+    -10,
+    -6,
+    -1,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -26, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -27, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -9,
+    -11,
+    -6,
+    -4,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -28, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -29, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -10,
+    -14,
+    -8,
+    -3,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -11,
+    -14,
+    -11,
+    -4,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -12,
+    -14,
+    -12,
+    -2,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -13,
+    -14,
+    -13,
+    -5,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -35, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -36, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -37, "CompletionTime": "2023-12-25 18:04:17.950647+01"}]'
+),
+(
+    -14,
+    -15,
+    -8,
+    -3,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -15,
+    -15,
+    -9,
+    -6,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -16,
+    -15,
+    -11,
+    -4,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -38, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -39, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -17,
+    -16,
+    -9,
+    -6,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -18,
+    -16,
+    -13,
+    -5,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -40, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -41, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -19,
+    -17,
+    -9,
+    -6,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -20,
+    -17,
+    -13,
+    -5,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -42, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -43, "CompletionTime": "2023-12-25 17:04:17.950647+01"}]'
+),
+(
+    -21,
+    -18,
+    -9,
+    -6,
+    1,
+    0,
+    100,
+    '2023-12-25 11:04:17.950647+01',
+    '[{"KeyPointId": -44, "CompletionTime": "2023-12-25 13:00:17.950647+01"}, {"KeyPointId": -45, "CompletionTime": "2023-12-25 17:04:17.950647+01"}, {"KeyPointId": -46, "CompletionTime": "2023-12-25 19:04:17.950647+01"}]'
 );
 
 
@@ -406,28 +630,24 @@ INSERT INTO tours."TourRatings"(
     "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-07 12:34:56', '2023-12-07 12:34:56', ARRAY['https://live.staticflickr.com/7909/47358208621_d866a5513e_b.jpg']),
        (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-3, -8, -12, '5', 'Bilo je odlicno!', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-4, -9, -12, '5', 'Veoma zanimljiva tura.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-5, -11, -12, '5', 'Odlicna tura!', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-6, -12, -12, '4', 'Bilo je dobro.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-7, -13, -12, '5', 'Odlicno, super smo se proveli', '2023-12-29 12:34:56', '2023-12-30 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-8, -14, -12, '3', 'Bilo je dosadno', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-9, -6, -12, '4', 'Bilo je okej', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
-       (-10, -6, -14, '2', 'Bilo je lose', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-11, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-12, -9, -14, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-13, -11, -14, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-14, -12, -14, '5', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),      
-       (-15, -8, -11, '5', 'Bilo je sjajno', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-16, -9, -11, '4', 'Bilo je dobro', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-17, -11, -11, '5', 'Odlicna organizacija', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
-       (-18, -12, -11, '5', 'Veoma zanimljiva tura', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),       
-       (-19, -8, -10, '2', 'Bilo je prilicmo lose', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-20, -9, -10, '3', 'Jako dosadno, bilo je zanimljivo', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-21, -11, -10, '1', 'Bilo je uzasno', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
-       (-22, -8, -13, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-23, -9, -13, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
-       (-24, -8, -15, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
+       (-3, -6, -6, '5', 'Bilo je odlicno!', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-4, -12, -7, '3', 'Bilo je dobro', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-5, -9, -9, '4', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-6, -8, -10, '4', 'Bilo je dobro', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://www.serbia.travel/files/KG.jpg']),
+       (-7, -6, -10, '2', 'Lose organizovana tura', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://www.serbia.travel/files/KG.jpg']),
+       (-8, -6, -11, '5', 'Odlicna organizacija', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']), 
+       (-9, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-10, -11, -14, '4', 'Odlicno', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-11, -12, -14, '5', 'Bilo je sjajno,veoma dobro smo se proveli', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-12, -13, -14, '5', 'Bilo je veoma zanimljivo', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-13, -8, -15, '4', 'Bilo je dobro', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-14, -9, -15, '3', 'Zanimljiva tura, losa organizacija', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-15, -11, -15, '5', 'Bilo je odlicno', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-16, -9, -16, '5', 'Bilo je sjajno,veoma dobro smo se proveli', '2023-12-25 12:34:56', '2023-12-26 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-17, -13, -16, '4', 'Bilo je zanimljivo', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-18, -9, -17, '2', 'Bilo je uzasno', '2023-12-26 17:34:56', '2023-12-27 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-19, -13, -17, '1', 'Bilo je jako dosadno', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-20, -9, -18, '1', 'Bilo je prilicno lose', '2023-12-25 17:34:56', '2023-12-26 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
 
 INSERT INTO stakeholders."UserNews" (
     "Id", "TouristId", "LastSendMs", "SendingPeriod")
