@@ -4,6 +4,8 @@ using Explorer.Payments.API.Internal;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Core.Domain.DomainEvents;
+using Explorer.Payments.Core.Domain.DomainServices;
+using Explorer.Payments.Core.Domain.DomainServicesInterface;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
 using Explorer.Payments.Core.Domain.ServiceInterfaces;
 using Explorer.Payments.Core.Mappers;
@@ -44,6 +46,9 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
             services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
 
+            services.AddScoped<IAuthorEarningsService, AuthorEarningsService>();
+            services.AddScoped<IBoughtItemDomainService, BoughtItemDomainService>();
+            services.AddScoped<IAuthorEarningsDomainService, AuthorEarningsDomainService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
@@ -59,7 +64,6 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<ICouponRepository, CouponDatabaseRepository>();
             services.AddScoped<IWalletRepository, WalletDatabaseRepository>();
             services.AddScoped<IInternalBoughtItemDatabaseRepository, InternalBoughtItemDatabaseRepository>();
-
             services.AddDbContext<PaymentsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("payments"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "payments")));

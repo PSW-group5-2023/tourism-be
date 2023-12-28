@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Explorer.Payments.API.Dtos.ListedTours;
+using Explorer.Payments.API.Dtos;
 
 namespace Explorer.Payments.Core.Mappers
 {
