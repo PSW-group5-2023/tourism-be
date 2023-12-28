@@ -366,13 +366,14 @@ VALUES  (-1, 45.257794555848406, 19.845718145370483, -9),
         (-3, 45.25783231694552, 19.84560012817383, -8);
 
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
 VALUES (
     -1,
     -4,
     -9,
     -1,
     2,
+    0,
     100,
     '2023-12-07 19:25:42.303+01',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T16:06:40.0842597Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T16:07:20.101299Z"}]'
@@ -383,6 +384,7 @@ VALUES (
     -6,
     -2,
     1,
+    0,
     100,
     '2023-12-07 20:58:19.478+01',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]'
@@ -393,6 +395,7 @@ VALUES (
     -8,
     -3,
     1,
+    0,
     100,
     '2023-12-07 21:05:04.672+01',
     '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]'
