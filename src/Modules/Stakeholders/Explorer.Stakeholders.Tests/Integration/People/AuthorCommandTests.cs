@@ -34,7 +34,9 @@ namespace Explorer.Stakeholders.Tests.Integration.People
                 Email = "turista1@gmail.com",
                 ProfilePic = new Uri("https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png", UriKind.Absolute),
                 Biography = "biography",
-                Motto = "motto"
+                Motto = "motto",
+                Latitude = 49.32141,
+                Longitude = 19.89212
             };
 
             // Act
@@ -72,7 +74,9 @@ namespace Explorer.Stakeholders.Tests.Integration.People
                 Email = "person@gmail.com",
                 ProfilePic = new Uri("https://w7.pngwing.com/pngs/223/244/png-transparent-computer-icons-avatar-user-profile-avatar-heroes-rectangle-black.png", UriKind.Absolute),
                 Biography = "biography",
-                Motto = "motto"
+                Motto = "motto",
+                Latitude = 49.32141,
+                Longitude = 19.89212
             };
 
             // Act

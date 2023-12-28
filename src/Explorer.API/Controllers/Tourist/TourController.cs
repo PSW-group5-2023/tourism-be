@@ -64,9 +64,9 @@ namespace Explorer.API.Controllers.Tourist
 
 
         [HttpGet("active/{touristId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int userId)
+        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetActiveToursByLocation(userId, page, pageSize);
+            var result = _recommenderService.GetActiveToursByLocation(page, pageSize, touristId);
             return CreateResponse(result);
         }
 

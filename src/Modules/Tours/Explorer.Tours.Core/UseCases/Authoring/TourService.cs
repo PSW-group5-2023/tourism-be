@@ -231,18 +231,21 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
             var resultTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
 
-            if (person.Value.Latitude == null && person.Value.Longitude == null) {
+            if (person.Value.Latitude == null && person.Value.Longitude == null)
+            {
                 foreach (Tour tour in publishedTours)
                 {
                     resultTours.Results.Add(MapToDto(tour));
                 }
+
                 return resultTours;
             }
 
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
-                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints, person.Value.Latitude, person.Value.Longitude, radius))
+                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints,
+                        person.Value.Latitude, person.Value.Longitude, radius))
                 {
                     filteredTours.Results.Add(MapToDto(tour));
                 }
@@ -261,7 +264,8 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             double distance;
             int earthRadius = 6371000;
             double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
-            distance = Math.Sqrt(Math.Pow((double)(keyPoint.Latitude - lat), 2) + Math.Pow((double)(keyPoint.Longitude - lon), 2));
+            distance = Math.Sqrt(Math.Pow((double)(keyPoint.Latitude - lat), 2) +
+                                 Math.Pow((double)(keyPoint.Longitude - lon), 2));
             return distance <= radiusInDegrees;
         }
 
@@ -269,6 +273,8 @@ namespace Explorer.Tours.Core.UseCases.Authoring
         {
             var result = _tourRepository.GetPagedByIds(ids, page, pageSize);
             return MapToDto(result);
+        }
+
         public List<TourDto> GetAllByAuthorId(int authorId)
         {
             var result = _tourRepository.GetAllByAuthorId(authorId);

@@ -43,6 +43,7 @@ namespace Explorer.Tours.Tests.Integration
             result.StatusCode.ShouldBe(200);
         }
 
+
         [Fact]
         public void RetrievesActiveByTouristId()
         {
@@ -57,5 +58,7 @@ namespace Explorer.Tours.Tests.Integration
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(200);
         }
+
+
     }
 }

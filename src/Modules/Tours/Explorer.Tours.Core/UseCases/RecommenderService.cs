@@ -175,12 +175,11 @@ namespace Explorer.Tours.Core.UseCases
             return intersection / union;
         }
 
-        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int userId, int page, int pageSize)
+        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int page, int pageSize, int touristId)
         {
-            var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetActiveTours(publishedTours);
+            return GetActiveTours(MapToDomain(publishedTours.Value.Results));
         }
 
         public Tuple<double, double> getRatingParameters(Tour tour, int totalRatings)

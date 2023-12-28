@@ -12,11 +12,9 @@ namespace Explorer.API.Controllers.Tourist
     public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;
-        private readonly IInternalPersonService _positionSimulatorService;
-        public PersonController(IPersonService personService, IInternalPersonService positionSimulatorService)
+        public PersonController(IPersonService personService)
         {
             _personService = personService;
-            _positionSimulatorService = positionSimulatorService;
         }
 
         [HttpGet("{id:int}")]
