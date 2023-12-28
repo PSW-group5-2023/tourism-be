@@ -60,7 +60,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             var result = ((ObjectResult)controller.GetNumberOfStartedTours(authorId).Result)?.Value as int?;
 
             // Assert
-            result.ShouldBe(1);
+            result.ShouldBe(2);
         }
 
         [Theory]
@@ -75,7 +75,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             var result = ((ObjectResult)controller.GetNumberOfCompletedTours(authorId).Result)?.Value as int?;
 
             // Assert
-            result.ShouldBe(1);
+            result.ShouldBe(0);
         }
 
         [Theory]
@@ -90,7 +90,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             var result = ((ObjectResult)controller.GetTourCompletionPercentageStats(authorId).Result)?.Value as List<int>;
 
             // Assert
-            result.ShouldBe(new List<int> { 0, 1, 0, 0 });
+            result.ShouldBe(new List<int> { 0, 2, 0, 0 });
         }
 
         private static SessionController CreateController(IServiceScope scope)

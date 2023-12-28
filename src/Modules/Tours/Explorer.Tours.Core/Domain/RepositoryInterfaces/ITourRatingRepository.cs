@@ -10,5 +10,6 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         List<TourRating> GetByTourId(int tourId);
         List<TourRating> GetAll();
+        TourRating GetByPersonIdAndTourId(long personId, long tourId);
     }
 }

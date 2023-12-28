@@ -215,8 +215,14 @@ namespace Explorer.Tours.Core.UseCases.Authoring
 
         public List<TourDto> GetAllByAuthorId(int authorId)
         {
-            var result = _tourRepository.GetAllByAuthorId(authorId);
-            return MapToDto(result).Value;
+            var result = _tourRepository.GetPagedByAuthorId(authorId, 0, 0);
+            return MapToDto(result.Results).Value;
+        }
+
+        public Result<PagedResult<TourDto>> GetPagedByIds(List<int> ids, int page, int pageSize)
+        {
+            var result = _tourRepository.GetPagedByIds(ids, page, pageSize);
+            return MapToDto(result);
         }
     }
 }

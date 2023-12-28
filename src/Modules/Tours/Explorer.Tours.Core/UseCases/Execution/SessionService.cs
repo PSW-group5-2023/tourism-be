@@ -49,9 +49,9 @@ namespace Explorer.Tours.Core.UseCases.Execution
             }
         }
 
-        public Result<SessionDto> GetByTouristId(long id)
+        public Result<SessionDto> GetActiveSessionByTouristId(long id)
         {
-            var result = _sessionRepository.GetByTouristId(id);
+            var result = _sessionRepository.GetActiveSessionByTouristId(id);
             return MapToDto(result);
         }
 
@@ -200,6 +200,12 @@ namespace Explorer.Tours.Core.UseCases.Execution
             }
 
             return _tourStatisticsDomainService.CalculateTourCompletionPercentage(sessions, tourIds);
+        }
+
+        public Result<PagedResult<SessionDto>> GetPagedByTouristId(long touristId, int page, int pageSize)
+        {
+            var result = _sessionRepository.GetPagedByTouristId(touristId, page, pageSize);
+            return MapToDto(result);
         }
     }
 }

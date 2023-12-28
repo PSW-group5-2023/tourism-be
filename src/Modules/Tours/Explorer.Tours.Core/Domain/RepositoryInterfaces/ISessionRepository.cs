@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain.Sessions;
 using FluentResults;
 using System;
@@ -14,9 +15,10 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
         Session Create(Session session);
         Session Update(Session session);
         Session Get(long id);
-        Session? GetByTouristId(long id);
+        Session? GetActiveSessionByTouristId(long id);
         Session AddCompletedKeyPoint(int sessionId, int keyPointId);
         Session? GetByTourAndTouristId(long tourId, long touristId);
         List<Session> GetAll();
+        PagedResult<Session> GetPagedByTouristId(long touristId, int page, int pageSize);
     }
 }
