@@ -20,6 +20,7 @@ using Explorer.Tours.Core.UseCases.Execution;
 using Explorer.Tours.Core.UseCases.Authoring;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Internal;
+using Explorer.Tours.Core.Domain.ServiceInterfaces;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -49,6 +50,7 @@ public static class ToursStartup
         services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
         services.AddScoped<IRecommenderService, RecommenderService>();
+        services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
