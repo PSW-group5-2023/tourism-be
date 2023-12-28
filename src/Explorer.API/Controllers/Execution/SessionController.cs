@@ -34,6 +34,7 @@ namespace Explorer.API.Controllers.Execution
         public ActionResult<SessionDto> GetAllByTouristId(long id)
         {
             var result = _sessionService.GetAllByTouristId(id);
+            return CreateResponse(result);
         }
         [HttpGet("geActiveSessiontByTouristId/{id:long}")]
         public ActionResult<SessionDto> GetActiveSessionByTouristId(long id)

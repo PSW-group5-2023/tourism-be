@@ -58,6 +58,7 @@ namespace Explorer.Tours.Core.UseCases.Execution
         public Result<List<SessionDto>> GetAllByTouristId(long id)
         {
             var result = _sessionRepository.GetAllByTouristId(id);
+            return MapToDto(result);
         }
         public Result<SessionDto> GetActiveSessionByTouristId(long id)
         {
