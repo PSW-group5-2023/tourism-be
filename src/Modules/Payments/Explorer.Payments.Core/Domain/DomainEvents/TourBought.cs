@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace Explorer.Payments.Core.Domain.DomainEvents
 {
-    public class TourBought : DomainEvent
+    public class TourBought : Entity
     {
+        public long TourId { get; private set; }
+
+        public long UserId { get; private set; }
         public DateTime DateOfBuying { get; private set; }
-        public TourBought(long Id, DateTime dateOfBuying) : base(Id)
+
+        public TourBought(long tourId, long userId, DateTime dateOfBuying)
         {
+            TourId = tourId;
+            UserId = userId;
             DateOfBuying = dateOfBuying;
         }
     }

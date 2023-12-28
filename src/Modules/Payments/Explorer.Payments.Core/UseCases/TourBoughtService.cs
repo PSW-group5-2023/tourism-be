@@ -3,6 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
+using Explorer.Payments.Core.Domain.DomainEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Payments.Core.UseCases
 {
-    public class ShoppingEventService : CrudService<ShoppingEventDto, ShoppingEvent>, IShoppingEventService
+    public class TourBoughtService : CrudService<TourBoughtDto, TourBought>, ITourBoughtService
     {
-        public ShoppingEventService(ICrudRepository<ShoppingEvent> repository, IMapper mapper) : base(repository, mapper)
+        public TourBoughtService(ICrudRepository<TourBought> repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }

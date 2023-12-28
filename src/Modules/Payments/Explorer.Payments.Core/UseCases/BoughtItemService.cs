@@ -22,11 +22,13 @@ namespace Explorer.Payments.Core.UseCases
         private readonly IMapper mapper;
         private IBoughtItemRepository shoppingCartRepository;
         private IInternalTourService internalTourUsageService;
+        private ITourBoughtService tourBoughtService;
 
-        public BoughtItemService(IMapper mapper, IBoughtItemRepository shoppingCartRepository, IInternalTourService internalTourUsageService) : base(mapper)
+        public BoughtItemService(IMapper mapper, IBoughtItemRepository shoppingCartRepository, IInternalTourService internalTourUsageService, ITourBoughtService tourBoughtService) : base(mapper)
         {
             this.shoppingCartRepository = shoppingCartRepository;
             this.internalTourUsageService = internalTourUsageService;
+            this.tourBoughtService = tourBoughtService;
             this.mapper = mapper;
         }
 
@@ -69,7 +71,18 @@ namespace Explorer.Payments.Core.UseCases
                 try
                 {
                     foreach (var item in items)
+                    {
                         shoppingCartRepository.AddToCart(MapToDomain(item));
+              /*          TourBoughtDto newEventDto = new TourBoughtDto
+                        {
+                            Id = 1,
+                            TourId = item.TourId,
+                            DateOfBuying = DateTime.UtcNow
+                           
+                        };
+                        tourBoughtService.Create(newEventDto);    */
+                    }
+
                 }
                 catch (Exception e)
                 {

@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Explorer.Payments.Core.Domain
 {
-    public class ShoppigEvent : EventSourcedAggregate
+    public class ShoppingEvent : Entity
     {
 
+        public List<DomainEvent> Changes { get; set; }
         public long? TourId { get; private set; }
         public long? CouponId { get; private set; }
 
-        public ShoppigEvent(long id, long? tourId, long? couponId)
+        public ShoppingEvent( long? tourId, long? couponId)
         {
-            Id = id;
             Changes = new List<DomainEvent>();
             TourId = tourId;
             CouponId = couponId;
@@ -30,13 +30,11 @@ namespace Explorer.Payments.Core.Domain
 
         private void When(TourBought tour)
         {
-            Id = tour.Id;
             TourId = tour.Id;
         }
 
         private void When(CouponUsed coupon)
         {
-            Id = coupon.Id;
             CouponId = coupon.Id;
         }
 

@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Payments.Core.Domain;
+using Explorer.Payments.Core.Domain.DomainEvents;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace Explorer.Payments.Infrastructure.Database
         public DbSet<Sales> Sales { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
         public DbSet<Wallet> Wallet { get; set; }
-        public DbSet<ShoppigEvent> ShoppigEvents { get; set; }
+        
+        public DbSet<CouponUsed> UsedCoupons { get; set; }
 
-        public DbSet<DomainEvent> DomainEvents { get; set; }
 
         public DbSet<PaymentRecord> PaymentRecords { get; set; }
         public PaymentsContext(DbContextOptions<PaymentsContext> options) : base(options) { }
