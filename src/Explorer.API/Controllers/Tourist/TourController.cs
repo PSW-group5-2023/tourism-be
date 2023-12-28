@@ -6,6 +6,7 @@ using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.UseCases;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
@@ -62,6 +63,14 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("recommendedByFollowing/{tourId:int}/{userId:int}")]
+        
+        public ActionResult<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId)
+        {
+            var result = _recommenderService.GetRecommendedToursFromFollowings(tourId, userId);
+            return CreateResponse(result);
+        }
+
 
         [HttpGet("active/{touristId:int}")]
         public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
@@ -69,6 +78,17 @@ namespace Explorer.API.Controllers.Tourist
             var result = _recommenderService.GetActiveToursByLocation(page, pageSize, touristId);
             return CreateResponse(result);
         }
-
+        [HttpPost("sendEmail/{userId:int}")]
+        public ActionResult<bool> SendEmail(int userId, [FromQuery] string body)
+        {
+            var result=_recommenderService.SendEmail(userId, body);    
+            return CreateResponse(result);
+        }
+        [HttpGet("filter/{tourId:int}/{userId:int}/{rating:int}")]
+        public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
+        {
+            var result = _recommenderService.FilterRecommendedTours(tourId, userId,rating);
+            return CreateResponse(result);
+        }
     }
 }

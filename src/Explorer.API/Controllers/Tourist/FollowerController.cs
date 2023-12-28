@@ -36,5 +36,12 @@ namespace Explorer.API.Controllers.Tourist.Identity
             var result = _followerService.Delete(followerId, followedId);
             return CreateResponse(result);
         }
+
+        [HttpGet("followings/{id:int}")]
+        public ActionResult<List<FollowerDto>> GetFollowings(int id)
+        {
+            var result = _followerService.GetFollowings(id);
+            return CreateResponse(result);
+        }
     }
 }
