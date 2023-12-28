@@ -208,5 +208,18 @@ namespace Explorer.Payments.Core.UseCases
             var boughtItems = shoppingCartRepository.GetAllByUserId(userId);
             return MapToDto(boughtItems);
         }
+        public Result<List<BoughtItemDto>> GetAll()
+        {
+            var list= shoppingCartRepository.GetAll().ToResult();
+            List<BoughtItemDto> boughtItems = new List<BoughtItemDto>();
+            foreach (var item in list.Value) 
+            {
+                BoughtItemDto itemDto = new BoughtItemDto();
+                itemDto.TourId= item.TourId;
+                itemDto.Id = Convert.ToInt32(item.Id);
+                boughtItems.Add(itemDto);
+            }
+            return boughtItems.ToResult();
+        }
     }
 }
