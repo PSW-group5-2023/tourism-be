@@ -21,7 +21,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public PositionSimulator GetByTouristId(long touristId)
         {
-            return _dbSet.Where(ps => ps.TouristId == touristId).FirstOrDefault();// ?? throw new KeyNotFoundException($"Tourist with id={touristId} does not have existing position");
+            return _dbSet.Where(ps => ps.TouristId == touristId).FirstOrDefault() ?? throw new KeyNotFoundException($"Tourist with id={touristId} does not have existing position");
         }
     }
 }
