@@ -61,10 +61,10 @@ namespace Explorer.Stakeholders.Core.UseCases
                             }
                             if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 86400000)
                             {
-                                var reccommendedTours = myScopedService.GetRecommendedToursByLocation((int)userNews.TouristId, 0, 0);
+                                var reccommendedTours = myScopedService.GetRecommendedToursByLocation(0, 0, (int)userNews.TouristId);
                                 var toursForUserRecommended = reccommendedTours.Value.Results;
 
-                                var activeTours = myScopedService.GetActiveToursByLocation((int)userNews.TouristId, 0, 0);
+                                var activeTours = myScopedService.GetActiveToursByLocation( 0, 0, (int)userNews.TouristId);
                                 var activeToursForUser = activeTours.Value.Results;
 
                                 string toEmail = personService.Get((int)userNews.TouristId).Value.Email;
