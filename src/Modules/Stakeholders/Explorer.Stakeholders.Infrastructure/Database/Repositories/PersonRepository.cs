@@ -86,9 +86,9 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
             var person = _dbContext.People.FirstOrDefault(x => x.Email == email);
             return person;
         }
-        public Person GetByUserId(int userId)
+        public Person GetByUserId(long id)
         {
-            var person = _dbContext.People.FirstOrDefault(x => x.UserId==userId);
+            var person = _dbContext.People.FirstOrDefault(x => x.UserId == id);
             return person;
         }
 

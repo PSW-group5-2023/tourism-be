@@ -54,5 +54,12 @@ namespace Explorer.API.Controllers.Tourist
             var result = _ratingService.Update(rating);
             return CreateResponse(result);
         }
+
+        [HttpGet("getByPersonIdAndTourId/{personId:long}/{tourId:long}")]
+        public ActionResult<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId)
+        {
+            var result = _ratingService.GetByPersonIdAndTourId(personId, tourId);
+            return CreateResponse(result);
+        }
     }
 }

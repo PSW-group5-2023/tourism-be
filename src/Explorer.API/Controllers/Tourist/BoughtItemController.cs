@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
+using Explorer.Payments.API.Dtos.ListedTours;
 using Explorer.Payments.API.Public;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
@@ -80,8 +81,12 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(_walletService.GetByUserId(userId));
         }
 
-
-
+        [HttpGet("boughtTours/{touristId:long}")]
+        public ActionResult<PagedResult<ListedTourDto>> GetPagedBoughtToursByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _shoppingCartService.GetPagedToursByTouristId(touristId, page, pageSize);
+            return CreateResponse(result);
+        }
 
     }
 }

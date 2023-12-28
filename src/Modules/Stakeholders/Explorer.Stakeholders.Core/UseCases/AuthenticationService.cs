@@ -10,6 +10,7 @@ using Explorer.Stakeholders.API.Internal;
 using System;
 using System.Data.SqlTypes;
 
+
 namespace Explorer.Stakeholders.Core.UseCases;
 
 public class AuthenticationService : IAuthenticationService
@@ -53,9 +54,15 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true));
-            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
 
+            
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
+            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
+            var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
+            user.EmailVerificationToken = emailVerificationToken;
+            user = _userRepository.Update(user);
+
+            sendVerificationEmail(person, emailVerificationToken);
             return _tokenGenerator.GenerateAccessToken(user, person.Id);
         }
         catch (ArgumentException e)
@@ -79,7 +86,7 @@ public class AuthenticationService : IAuthenticationService
             string token = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.ResetPasswordToken = token;
             user = _userRepository.Update(user);
-            return SendEmail(person, user.ResetPasswordToken);
+            return sendChangePasswordEmail(person, user.ResetPasswordToken);
         }
         catch (Exception ex)
         {
@@ -88,7 +95,7 @@ public class AuthenticationService : IAuthenticationService
 
     }
 
-    private Result<string> SendEmail(Person person, string token)
+    private Result<string> sendChangePasswordEmail(Person person, string token)
     {
         try
         {
@@ -180,4 +187,84 @@ public class AuthenticationService : IAuthenticationService
         user.RemoveChangePasswordToken();
         user = _userRepository.Update(user);
     }
+    private void activateUser(User user)
+    {
+        user.ActivateUser();
+        user.RemoveEmailVerificationToken();
+        user = _userRepository.Update(user);
+    }
+
+
+
+    private Result<string> sendVerificationEmail(Person person, string token)
+    {
+        try
+        {
+            string to = person.Email;
+            string personName = person.Name;
+            string subject = "Email Verification";
+            string body = $@"
+            Hello {personName},
+
+            Thank you for registering with our service. To verify your email address, please click on the link below:
+
+            http://localhost:4200/verify-email?token={token}
+
+            For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.
+
+            Thank you for choosing our service.
+
+            Best regards,
+            Travelo";
+
+            _emailSendingService.SendEmailAsync(to, subject, body);
+            return "Email successfully sent for verification.";
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
+
+    public Result<AuthenticationTokensDto> ActivateUser(string token)
+    {
+        try
+        {
+
+            long userId = getUserIdFromToken(token);
+            if (userId == 0)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
+            }
+            User user = _userRepository.Get(userId);
+            if (user == null)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError("User not found");
+            }
+            if (user.EmailVerificationToken == null || user.EmailVerificationToken != token)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
+            }
+            if (isTokenExpired(token))
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
+            }
+            Person person = _personeRep.GetByUserId(userId);
+            activateUser(user);
+
+
+
+            return _tokenGenerator.GenerateAccessToken(user, person.Id); ;
+
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+
+
+    }
+
+
 }

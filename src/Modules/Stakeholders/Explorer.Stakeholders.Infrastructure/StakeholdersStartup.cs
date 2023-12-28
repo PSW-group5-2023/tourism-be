@@ -1,3 +1,4 @@
+using Castle.Core.Smtp;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.BuildingBlocks.Infrastructure.Email;
@@ -48,6 +49,9 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalCommentService, InternalCommentService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IEmailSendingService, EmailSedningService>();
+        services.AddScoped<IUserNewsService, UserNewsService>();
+
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -67,6 +71,8 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalBlogRepository, InternalBlogRepository>();
         services.AddScoped<IInternalCommentRepository, InternalCommentRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddScoped(typeof(ICrudRepository<UserNews>), typeof(CrudDatabaseRepository<UserNews, StakeholdersContext>));
+        services.AddScoped<IUserNewsRepository, UserNewsRepository>();
 
 
         services.AddDbContext<StakeholdersContext>(opt =>

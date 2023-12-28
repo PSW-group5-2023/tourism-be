@@ -72,9 +72,10 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                     {
                         Id = -1,
                         TourId = -1,
-                        TouristId = -21,
-                        Location = new PositionSimulatorDto(),
+                        TouristId = -23,
+                        LocationId = -23,
                         SessionStatus = 1,
+                        Transportation = 0,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
@@ -94,8 +95,9 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
                         Id = -11,
                         TourId = -2,
                         TouristId = -22,
-                        Location = new PositionSimulatorDto(),
+                        LocationId = -22,
                         SessionStatus = 1,
+                        Transportation = 0,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.UtcNow,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()

@@ -12,4 +12,5 @@ public interface IAuthenticationService
     Result<string> ChangePassword(ChangePasswordDto changePassword);
 
     Result<string> GetUsername(long id);
+    Result<AuthenticationTokensDto> ActivateUser(string token);
 }
