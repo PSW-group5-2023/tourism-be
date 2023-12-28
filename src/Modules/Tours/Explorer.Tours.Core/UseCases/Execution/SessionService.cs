@@ -2,10 +2,13 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Dtos.Statistics;
+using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
+using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -20,10 +23,12 @@ namespace Explorer.Tours.Core.UseCases.Execution
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
-        public SessionService( IMapper mapper, ISessionRepository sessionRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(mapper)
+        private readonly ITourService _tourService;
+        public SessionService( IMapper mapper, ISessionRepository sessionRepository, ITourStatisticsDomainService tourStatisticsDomainService, ITourService tourService) : base(mapper)
         {
             _sessionRepository = sessionRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
+            _tourService = tourService;
         }
 
         public Result<SessionDto> Create(SessionDto session)
@@ -93,27 +98,17 @@ namespace Explorer.Tours.Core.UseCases.Execution
         public Result<List<TourStatisticsDto>> GetAttendanceStatistics()
         {
             var sessions = _sessionRepository.GetAll();
+
+            var domainStatistics = _tourStatisticsDomainService.CalculateAttendanceStatistics(sessions);
+
             var attendanceStatistics = new List<TourStatisticsDto>();
 
-            foreach (var session in sessions)
+            foreach(var stat in domainStatistics)
             {
-                var matchingStat = attendanceStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
-
-                
-                if (session.SessionStatus == SessionStatus.ACTIVE || session.SessionStatus == SessionStatus.COMPLETED)
-                {
-                    if (matchingStat != null)
-                    {
-                        matchingStat.NumberOfStats += 1;
-                    }
-                    else
-                    {
-                        TourStatisticsDto stat = new TourStatisticsDto();
-                        stat.TourId = session.TourId;
-                        stat.NumberOfStats = 1;
-                        attendanceStatistics.Add(stat);
-                    }
-                }
+                TourStatisticsDto statDto = new TourStatisticsDto();
+                statDto.TourId = stat.TourId;
+                statDto.NumberOfStats = stat.NumberOfStats;
+                attendanceStatistics.Add(statDto);
             }
 
             return attendanceStatistics;
@@ -122,26 +117,17 @@ namespace Explorer.Tours.Core.UseCases.Execution
         public Result<List<TourStatisticsDto>> GetAbandonedStatistics()
         {
             var sessions = _sessionRepository.GetAll();
+
+            var domainStatistics = _tourStatisticsDomainService.CalculateAbandonedStatistics(sessions);
+
             var abandonedStatistics = new List<TourStatisticsDto>();
 
-            foreach (var session in sessions)
+            foreach (var stat in domainStatistics)
             {
-                var matchingStat = abandonedStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
-
-                if(session.SessionStatus == SessionStatus.ABANDONED)
-                {
-                    if (matchingStat != null)
-                    {
-                        matchingStat.NumberOfStats += 1;
-                    }
-                    else
-                    {
-                        TourStatisticsDto stat = new TourStatisticsDto();
-                        stat.TourId = session.TourId;
-                        stat.NumberOfStats = 1;
-                        abandonedStatistics.Add(stat);
-                    }
-                }
+                TourStatisticsDto statDto = new TourStatisticsDto();
+                statDto.TourId = stat.TourId;
+                statDto.NumberOfStats = stat.NumberOfStats;
+                abandonedStatistics.Add(statDto);
             }
 
             return abandonedStatistics;
@@ -182,6 +168,32 @@ namespace Explorer.Tours.Core.UseCases.Execution
             stat.NumberOfStats = number;
             return stat;
 
+        }
+
+        public Result<int> GetNumberOfStartedTours(int authorId)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var authorsTours = _tourService.GetAllByAuthorId(authorId);
+            var tourIds = new List<long>();
+            foreach(var tour in authorsTours)
+            {
+                tourIds.Add(tour.Id);
+            }
+
+            return _tourStatisticsDomainService.CalculateNumberOfStartedTours(sessions, tourIds);
+        }
+
+        public Result<int> GetNumberOfCompletedTours(int authorId)
+        {
+            var sessions = _sessionRepository.GetAll();
+            var authorsTours = _tourService.GetAllByAuthorId(authorId);
+            var tourIds = new List<long>();
+            foreach (var tour in authorsTours)
+            {
+                tourIds.Add(tour.Id);
+            }
+
+            return _tourStatisticsDomainService.CalculateNumberOfCompletedTours(sessions, tourIds);
         }
     }
 }
