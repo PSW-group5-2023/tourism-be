@@ -1,6 +1,7 @@
 using Explorer.API.Startup;
 using Explorer.Stakeholders.Core.Domain;
-using Explorer.Stakeholders.Core.Domain.Followers;
+
+using Explorer.Stakeholders.Core.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ builder.Services.ConfigureCors(corsPolicy);
 builder.Services.ConfigureAuth();
 
 builder.Services.RegisterModules();
+builder.Services.AddSingleton<PeriodicHostedService>();
+builder.Services.AddHostedService(
+    provider => provider.GetRequiredService<PeriodicHostedService>());
+
 
 builder.Services.AddSignalR(o =>
 {

@@ -10,6 +10,7 @@ using Explorer.Stakeholders.API.Internal;
 using System;
 using System.Data.SqlTypes;
 
+
 namespace Explorer.Stakeholders.Core.UseCases;
 
 public class AuthenticationService : IAuthenticationService
@@ -53,6 +54,7 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
+
             
             var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));

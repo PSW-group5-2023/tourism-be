@@ -27,5 +27,6 @@ public class StakeholderProfile : Profile
             .ForMember(dest => dest.Notification, opt => opt.MapFrom(src => new FollowerNotification(src.Notification.Content, src.Notification.TimeOfArrival, src.Notification.Read)));
         CreateMap<Follower, FollowerDto>().IncludeAllDerived()
             .ForMember(dest => dest.Notification, opt => opt.MapFrom(src => src.Notification));
+        CreateMap<UserNewsDto, UserNews>().ReverseMap();
     }
 }
