@@ -59,7 +59,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("recommended/{touristId:int}")]
         public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetRecommendedToursByLocation(page, pageSize, touristId);
+            var result = _recommenderService.GetRecommendedToursByLocationForTourist(page, pageSize, touristId);
             return CreateResponse(result);
         }
 
@@ -75,7 +75,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("active/{touristId:int}")]
         public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
-            var result = _recommenderService.GetActiveToursByLocation(page, pageSize, touristId);
+            var result = _recommenderService.GetActiveToursByLocationForTourist(page, pageSize, touristId);
             return CreateResponse(result);
         }
         [HttpPost("sendEmail/{userId:int}")]
