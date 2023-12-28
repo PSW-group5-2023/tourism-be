@@ -9,6 +9,7 @@ using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using System.Dynamic;
 
@@ -212,5 +213,16 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             return filteredTours;
         }
 
+        public List<TourDto> GetAllByAuthorId(int authorId)
+        {
+            var result = _tourRepository.GetPagedByAuthorId(authorId, 0, 0);
+            return MapToDto(result.Results).Value;
+        }
+
+        public Result<PagedResult<TourDto>> GetPagedByIds(List<int> ids, int page, int pageSize)
+        {
+            var result = _tourRepository.GetPagedByIds(ids, page, pageSize);
+            return MapToDto(result);
+        }
     }
 }

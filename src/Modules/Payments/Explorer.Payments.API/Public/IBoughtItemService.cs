@@ -1,4 +1,5 @@
-﻿using Explorer.Payments.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Dtos.ListedTours;
 using Explorer.Payments.API.Dtos.Statistics;
 using FluentResults;
@@ -18,6 +19,7 @@ namespace Explorer.Payments.API.Public
         Result<List<ListedTourDto>> GetUnusedTours(long userId);
         Result<List<ListedTourDto>> GetUsedTours(long userId);
         Result<List<SoldTourStatisticsDto>> GetSoldToursStatistics();
+        Result<PagedResult<ListedTourDto>> GetPagedToursByTouristId(long touristId, int page, int pageSize);
         Result<List<BoughtItemDto>> GetByTourId(long tourId);
         Result<List<BoughtItemDto>> GetAll();
     }

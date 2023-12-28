@@ -51,6 +51,7 @@ public static class StakeholdersStartup
         services.AddScoped<IEmailSendingService, EmailSedningService>();
         services.AddScoped<IUserNewsService, UserNewsService>();
 
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)

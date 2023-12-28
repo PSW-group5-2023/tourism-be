@@ -23,10 +23,10 @@ namespace Explorer.API.Controllers.Execution
             return CreateResponse(result);
         }
 
-        [HttpGet("getByTouristId/{id:long}")]
-        public ActionResult<SessionDto> GetByTouristId(long id)
+        [HttpGet("geActiveSessiontByTouristId/{id:long}")]
+        public ActionResult<SessionDto> GetActiveSessionByTouristId(long id)
         {
-            var result = _sessionService.GetByTouristId(id);
+            var result = _sessionService.GetActiveSessionByTouristId(id);
             return CreateResponse(result);
         }
 
@@ -62,6 +62,13 @@ namespace Explorer.API.Controllers.Execution
         public ActionResult<SessionDto> GetByTourAndTouristId(long tourId, long touristId)
         {
             var result = _sessionService.GetByTourAndTouristId(tourId, touristId);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("getSessionsByTouristId/{touristId:long}")]
+        public ActionResult<SessionDto> GetPagedByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _sessionService.GetPagedByTouristId(touristId, page, pageSize);
             return CreateResponse(result);
         }
     }

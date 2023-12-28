@@ -11,7 +11,9 @@ namespace Explorer.Stakeholders.Infrastructure.Email
 {
     public class EmailSedningService : IEmailSendingService
     {
+
         public Task SendEmailAsync(string to, string subject, string body, bool isBodyHtml = false)
+
         {
             string mail = "travelo-adventure@outlook.com";
             string password = "traveloadventure123";
@@ -21,6 +23,7 @@ namespace Explorer.Stakeholders.Infrastructure.Email
                 EnableSsl = true,
                 Credentials = new NetworkCredential(mail, password)
             };
+
 
             var mailMessage = new MailMessage
             {
@@ -32,6 +35,7 @@ namespace Explorer.Stakeholders.Infrastructure.Email
             };
 
             return client.SendMailAsync(mailMessage);
+
         }
     }
 }

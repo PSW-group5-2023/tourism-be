@@ -1,15 +1,16 @@
-INSERT INTO stakeholders."Users"("Id", "Username", "Password", "Role", "IsActive")
+INSERT INTO stakeholders."Users"("Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken")
 VALUES 
-	(-1, 'admin', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true),
-	(-2, 'jane_smith', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true),
-	(-3, 'author', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
-	(-4, 'olivia_wilson', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
-	(-5, 'daniel_taylor', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true),
-	(-6, 'tourist', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true),
-	(-7, 'sophia_brown', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false),
-	(-8, 'ethan_clark', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true),
-	(-9, 'ava_young', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false),
-	(-10, 'james_brown', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true);
+	(-1, 'admin', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, null, null),
+	(-2, 'jane_smith', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, null, null ),
+	(-3, 'author', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, null, null),
+	(-4, 'olivia_wilson', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, null, null),
+	(-5, 'daniel_taylor', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, null, null),
+	(-6, 'tourist', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
+	(-7, 'sophia_brown', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false, null, null),
+	(-8, 'ethan_clark', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, true, null, null),
+	(-9, 'ava_young', '2Wv1uZyuKahkTYbO9Ar73theUUVRv9YN0Zn+OFgELLV+MrKWVNwdIjsMnxOp/2WzfVrKJiU4KNO+FNT5Vdzqd+3ONW4Ol0kJSDB5phZRrsg=', 2, false, null, null),
+	(-10, 'james_brown', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, null, null);
+
 
 
 INSERT INTO stakeholders."People"("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto")
@@ -358,13 +359,19 @@ VALUES (-1, -9, -4, '2023-12-07 17:06:20.601122+01', true),
        (-31, -8, -15, '2023-12-11 12:04:17.950647+01', true),
        (-32, -11, -15, '2023-12-11 12:04:17.950647+01', false);
 
+INSERT INTO tours."PositionSimulators"(
+	"Id", "Latitude", "Longitude", "TouristId")
+VALUES  (-1, 45.257794555848406, 19.845718145370483, -9),
+        (-2, 45.25776057083952, 19.84564304351807, -6),
+        (-3, 45.25783231694552, 19.84560012817383, -8);
+
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "Location", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
 VALUES (
     -1,
     -4,
     -9,
-    '{"Latitude": 45.257794555848406, "Longitude": 19.845718145370483}',
+    -1,
     2,
     100,
     '2023-12-07 19:25:42.303+01',
@@ -374,7 +381,7 @@ VALUES (
     -2,
     -4,
     -6,
-    '{"Latitude": 45.25776057083952, "Longitude": 19.84564304351807}',
+    -2,
     1,
     100,
     '2023-12-07 20:58:19.478+01',
@@ -384,7 +391,7 @@ VALUES (
     -3,
     -4,
     -8,
-    '{"Latitude": 45.25783231694552, "Longitude": 19.84560012817383}',
+    -3,
     1,
     100,
     '2023-12-07 21:05:04.672+01',

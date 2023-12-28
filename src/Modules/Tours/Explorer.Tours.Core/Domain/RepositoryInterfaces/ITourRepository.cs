@@ -5,7 +5,8 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {
     public interface ITourRepository : ICrudRepository<Tour>
     {
-        public void SaveChanges();
-        public PagedResult<Tour> GetPagedByAuthorId(int authorId, int page, int pageSize);
+        void SaveChanges();
+        PagedResult<Tour> GetPagedByAuthorId(int authorId, int page, int pageSize);
+        PagedResult<Tour> GetPagedByIds(List<int> ids, int page, int pageSize);
     }
 }
