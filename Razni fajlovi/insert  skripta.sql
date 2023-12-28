@@ -637,6 +637,7 @@ INSERT INTO tours."TourRatings"(
     "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-07 12:34:56', '2023-12-07 12:34:56', ARRAY['https://live.staticflickr.com/7909/47358208621_d866a5513e_b.jpg']),
        (-2, -8, -4, '2', 'Bilo je prilicno lose', '2023-06-07 12:34:56', '2023-11-07 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+<<<<<<< HEAD
        (-3, -6, -6, '5', 'Bilo je odlicno!', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
        (-4, -12, -7, '3', 'Bilo je dobro', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
        (-5, -9, -9, '4', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
@@ -655,3 +656,34 @@ VALUES (-1, -6, -4, '5', 'Bilo je sjajno, veoma dobro smo se proveli', '2023-10-
        (-18, -9, -17, '2', 'Bilo je uzasno', '2023-12-26 17:34:56', '2023-12-27 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
        (-19, -13, -17, '1', 'Bilo je jako dosadno', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
        (-20, -9, -18, '1', 'Bilo je prilicno lose', '2023-12-25 17:34:56', '2023-12-26 17:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
+=======
+       (-3, -8, -12, '5', 'Bilo je odlicno!', '2023-12-27 12:34:56', '2023-12-27 19:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-4, -9, -12, '5', 'Veoma zanimljiva tura.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-5, -11, -12, '5', 'Odlicna tura!', '2023-12-27 12:34:56', '2023-12-28 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-6, -12, -12, '4', 'Bilo je dobro.', '2023-12-28 12:34:56', '2023-12-29 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-7, -13, -12, '5', 'Odlicno, super smo se proveli', '2023-12-29 12:34:56', '2023-12-30 12:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-8, -14, -12, '3', 'Bilo je dosadno', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-9, -6, -12, '4', 'Bilo je okej', '2023-12-28 12:34:56', '2023-12-28 20:34:56', ARRAY['https://turizamrs.org/wp-content/uploads/2015/05/Vlasenica-Panorama-1230x790.jpg']),
+       (-10, -6, -14, '2', 'Bilo je lose', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-11, -8, -14, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-12, -9, -14, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-13, -11, -14, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-14, -12, -14, '5', 'Zanimljiva tura', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),      
+       (-15, -8, -11, '5', 'Bilo je sjajno', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-16, -9, -11, '4', 'Bilo je dobro', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-17, -11, -11, '5', 'Odlicna organizacija', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),
+       (-18, -12, -11, '5', 'Veoma zanimljiva tura', '2023-12-23 12:34:56', '2023-12-24 12:34:56', ARRAY['https://www.kraljevoturizam.rs/img/slika.jpg']),       
+       (-19, -8, -10, '2', 'Bilo je prilicmo lose', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-20, -9, -10, '3', 'Jako dosadno, bilo je zanimljivo', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-21, -11, -10, '1', 'Bilo je uzasno', '2023-12-23 12:34:56', '2023-12-25 12:34:56', ARRAY['https://hotelzenit.co.rs/wp-content/uploads/2017/06/Katedrala.jpg']),
+       (-22, -8, -13, '5', 'Odlicno!Bez zamerki', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-23, -9, -13, '4', 'Lose organizovano', '2023-12-26 12:34:56', '2023-12-27 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']),
+       (-24, -8, -15, '5', 'Bilo je odlicno', '2023-12-26 12:34:56', '2023-12-28 12:34:56', ARRAY['https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg']);
+
+INSERT INTO stakeholders."UserNews" (
+    "Id", "TouristId", "LastSendMs", "SendingPeriod")
+VALUES (-1, -6, 0, 0),
+       (-2, -7, 0, 0),
+       (-3, -8, 0, 0),
+       (-4, -9, 0, 0);
+>>>>>>> cd9fa6783aec8cb642b83d9fb23840af7fccdc51

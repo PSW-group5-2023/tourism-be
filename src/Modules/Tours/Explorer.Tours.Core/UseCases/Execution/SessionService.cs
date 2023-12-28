@@ -201,5 +201,11 @@ namespace Explorer.Tours.Core.UseCases.Execution
 
             return _tourStatisticsDomainService.CalculateTourCompletionPercentage(sessions, tourIds);
         }
+
+        public Result<PagedResult<SessionDto>> GetPagedByTouristId(long touristId, int page, int pageSize)
+        {
+            var result = _sessionRepository.GetPagedByTouristId(touristId, page, pageSize);
+            return MapToDto(result);
+        }
     }
 }

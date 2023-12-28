@@ -1,4 +1,6 @@
-﻿using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.BuildingBlocks.Infrastructure.Database;
+using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,10 +14,12 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
     public class SessionRepository : ISessionRepository
     {
         private readonly ToursContext _context;
+        private readonly DbSet<Session> _dbSet;
 
         public SessionRepository(ToursContext context)
         {
             _context = context;
+            _dbSet = _context.Set<Session>();
         }
 
         public Session Create(Session session)
@@ -76,6 +80,13 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             var query = _context.Sessions;
             return query.ToList();
+        }
+
+        public PagedResult<Session> GetPagedByTouristId(long touristId, int page, int pageSize)
+        {
+            var task = _dbSet.Where(s => s.TouristId == touristId).GetPagedById(page, pageSize);
+            task.Wait();
+            return task.Result;
         }
     }
 }

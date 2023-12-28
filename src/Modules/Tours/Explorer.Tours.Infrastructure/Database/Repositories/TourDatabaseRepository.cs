@@ -81,7 +81,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             task.Wait();
             return task.Result;
         }
-    
+
         public List<Tour> GetAllByAuthorId(int authorId)
         {
             var tours = _dbSet.Where(x => x.AuthorId == authorId).ToList();
