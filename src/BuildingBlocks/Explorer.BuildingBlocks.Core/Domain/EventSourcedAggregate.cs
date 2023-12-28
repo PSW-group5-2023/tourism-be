@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Explorer.BuildingBlocks.Core.Domain
 {
-    public class EventSourcedAggregate : Entity
+    public abstract class EventSourcedAggregate : Entity
     {
         public List<DomainEvent> Changes { get; set; }
+        public int Version { get; set; }
 
         public EventSourcedAggregate()
         {
             Changes = new List<DomainEvent>();
         }
 
+        public abstract void Apply(DomainEvent changes);
     }
 }

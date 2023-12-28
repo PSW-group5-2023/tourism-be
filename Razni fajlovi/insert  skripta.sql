@@ -366,7 +366,7 @@ VALUES  (-1, 45.257794555848406, 19.845718145370483, -9),
         (-3, 45.25783231694552, 19.84560012817383, -8);
 
 INSERT INTO tours."Sessions"(
-    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints")
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
 VALUES (
     -1,
     -4,
@@ -376,7 +376,8 @@ VALUES (
     0,
     100,
     '2023-12-07 19:25:42.303+01',
-    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T16:06:40.0842597Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T16:07:20.101299Z"}]'
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T16:06:40.0842597Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T16:07:20.101299Z"}]',
+    0
 ),
 (
     -2,
@@ -387,7 +388,8 @@ VALUES (
     0,
     100,
     '2023-12-07 20:58:19.478+01',
-    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]'
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T19:57:45.0106834Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T19:58:14.9773979Z"}]',
+    0
 ),
 (
     -3,
@@ -398,7 +400,8 @@ VALUES (
     0,
     100,
     '2023-12-07 21:05:04.672+01',
-    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]'
+    '[{"KeyPointId": -7, "CompletionTime": "2023-12-07T20:04:42.0844382Z"}, {"KeyPointId": -8, "CompletionTime": "2023-12-07T20:05:02.0991904Z"}]',
+    0
 );
 
 

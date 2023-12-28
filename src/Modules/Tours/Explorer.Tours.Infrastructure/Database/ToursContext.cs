@@ -5,6 +5,7 @@ using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
+using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
 
 namespace Explorer.Tours.Infrastructure.Database;
 
@@ -60,5 +61,11 @@ public class ToursContext : DbContext
             .HasOne<PositionSimulator>()
             .WithMany()
             .HasForeignKey(s => s.LocationId);
+
+        modelBuilder.Entity<DomainEvent>()
+                .HasDiscriminator<string>("EventType")
+                .HasValue<KeyPointCompleted>("KeyPointUpdated")
+                .HasValue<LocationUpdated>("LocationUpdated")
+                .HasValue<SessionCreated>("SessionCreated");
     }
 }
