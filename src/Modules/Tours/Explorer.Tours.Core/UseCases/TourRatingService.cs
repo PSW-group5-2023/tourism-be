@@ -5,6 +5,8 @@ using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.Core.Domain.ServiceInterfaces;
+using Explorer.Tours.Core.UseCases.Authoring;
 using FluentResults;
 
 
@@ -13,9 +15,11 @@ namespace Explorer.Tours.Core.UseCases
     public class TourRatingService : CrudService<TourRatingDto, TourRating>, ITourRatingService
     {
         private readonly ITourRatingRepository _tourRatingRepository;
-        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository) : base(repository, mapper)
-        {
+        private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
+        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(repository, mapper)
+        { 
             _tourRatingRepository = tourRatingRepository;
+            _tourStatisticsDomainService = tourStatisticsDomainService;
         }
 
         public Result<List<TourRatingDto>> GetByTourId(int tourId)
@@ -45,33 +49,15 @@ namespace Explorer.Tours.Core.UseCases
         public Result<List<TourStatisticsDto>> GetBestRatedStatistics()
         {
             var ratings = _tourRatingRepository.GetAll();
+            var domainStatistics = _tourStatisticsDomainService.CalculateBestRatedStatisticts(ratings);
             var bestRatedToursStats = new List<TourStatisticsDto>();
-            var tourIdToRatingSum = new Dictionary<long, double>();
-            var tourIdToRatingCount = new Dictionary<long, int>();
 
-            foreach (var rating in ratings)
+            foreach (var stat in domainStatistics)
             {
-                if (tourIdToRatingSum.ContainsKey(rating.TourId))
-                {
-                    tourIdToRatingSum[rating.TourId] += rating.Mark;
-                    tourIdToRatingCount[rating.TourId]++;
-                }
-                else
-                {
-                    tourIdToRatingSum[rating.TourId] = rating.Mark;
-                    tourIdToRatingCount[rating.TourId] = 1;
-                }
-            }
-
-            foreach (var tourId in tourIdToRatingSum.Keys)
-            {
-                var avgRating = tourIdToRatingSum[tourId] / tourIdToRatingCount[tourId];
-                var stat = new TourStatisticsDto();
-
-                stat.TourId = tourId;
-                stat.NumberOfStats = avgRating;
-
-                bestRatedToursStats.Add(stat);
+                TourStatisticsDto statDto = new TourStatisticsDto();
+                statDto.TourId = stat.TourId;
+                statDto.NumberOfStats = stat.NumberOfStats;
+                bestRatedToursStats.Add(statDto);
             }
 
             return bestRatedToursStats;

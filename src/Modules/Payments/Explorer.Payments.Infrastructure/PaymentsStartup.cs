@@ -4,6 +4,7 @@ using Explorer.Payments.API.Internal;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
+using Explorer.Payments.Core.Domain.ServiceInterfaces;
 using Explorer.Payments.Core.Mappers;
 using Explorer.Payments.Core.UseCases;
 using Explorer.Payments.Infrastructure.Database;
@@ -37,6 +38,8 @@ namespace Explorer.Payments.Infrastructure
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IInternalBoughtItemService, InternalBoughtItemService>();
+            services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
+
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

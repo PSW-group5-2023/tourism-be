@@ -23,5 +23,10 @@ namespace Explorer.Tours.API.Public.Execution
         Result<List<TourStatisticsDto>> GetAbandonedStatistics();
         Result<TourStatisticsDto> GetSessionsByStatusForTourStatistics(int tourId, int sessionStatus);
         Result<PagedResult<SessionDto>> GetPagedByTouristId(long touristId, int page, int pageSize);
+        Result<int> GetNumberOfStartedTours(int authorId);
+        Result<int> GetNumberOfCompletedTours(int authorId);
+        Result<TourStatisticsDto> GetNumberSessionsByTour(int tourId);
+        Result<TourStatisticsDto> GetStatisticsForCompletedKeypointOnTour(int tourId, int keyPointId);
+        Result<List<int>> GetTourCompletionPercentageStats(int authorId);
     }
 }
