@@ -655,3 +655,8 @@ VALUES (-1, -6, 0, 0),
        (-2, -7, 0, 0),
        (-3, -8, 0, 0),
        (-4, -9, 0, 0);
+
+
+INSERT INTO stakeholders."Clubs"(
+    "Id", "Name", "Description", "ClubPicture", "TouristId")
+    VALUES     (-1, 'TraveloClub', 'The best club ever!', 'https://www.travelandleisure.com/thmb/02xFc_uPDJzh3DEH85pijFDlos8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/children-traveling-KIDTRVL0719-f347c36eb8af40e5a4415ba352a93c65.jpg', -6);
