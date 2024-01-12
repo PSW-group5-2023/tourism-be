@@ -19,8 +19,9 @@ namespace Explorer.Tours.Core.Domain.Tours
         public DateTime? PublishedDate { get; private set; }
         public List<TourDuration> Durations { get; private set; }
         public List<TourKeyPoint> KeyPoints { get; private set; }
+        public Uri? Image { get; private set; }
 
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations, Uri? image = null)
         {
             Name = name;
             Description = description;
@@ -39,6 +40,7 @@ namespace Explorer.Tours.Core.Domain.Tours
             {
                 TouristTourValidation();
             }
+            Image = image ?? new Uri("https://media.istockphoto.com/id/904172104/photo/weve-made-it-all-this-way-i-am-proud.jpg?s=612x612&w=0&k=20&c=MewnsAhbeGRcMBN9_ZKhThmqPK6c8nCT8XYk5ZM_hdg=");
         }
 
         private void Validate()
