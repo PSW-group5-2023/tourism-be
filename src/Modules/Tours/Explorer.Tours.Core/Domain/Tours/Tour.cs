@@ -40,7 +40,7 @@ namespace Explorer.Tours.Core.Domain.Tours
             {
                 TouristTourValidation();
             }
-            Image = image ?? new Uri("https://media.istockphoto.com/id/904172104/photo/weve-made-it-all-this-way-i-am-proud.jpg?s=612x612&w=0&k=20&c=MewnsAhbeGRcMBN9_ZKhThmqPK6c8nCT8XYk5ZM_hdg=");
+            Image = image ?? new Uri("https://www.flimslaax.com/fileadmin/Daten/0Flims_Laax_Bilder/3-Outdoor/3-2-Wandern/3-2-1-Wanderwege/flims_laax_falera_wanderwege2.jpg");
         }
 
         private void Validate()
