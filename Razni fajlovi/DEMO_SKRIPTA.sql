@@ -38,11 +38,11 @@ INSERT INTO stakeholders."UserNews"(
 INSERT INTO payments."Wallet"(
 	"Id", "UserId", "Balance")
 	VALUES 
-    (-3, -6, 0),
-    (-4, -7, 0),
-    (-5, -8, 0),
-    (-6, -9, 0),
-    (-7, -10, 0);
+    (-3, -6, 1000),
+    (-4, -7, 920),
+    (-5, -8, 1000),
+    (-6, -9, 1000),
+    (-7, -10, 1000);
 
 INSERT INTO encounters."UserExperience"(
 	"Id", "UserId", "XP", "Level")
@@ -349,3 +349,38 @@ VALUES
 (-8, -6, '2024-01-15 14:54:06.066+01', 'Your exploration of Fruska Gora has truly piqued my interest! The images of the lush landscapes and ancient monasteries evoke a sense of tranquility and history. I had no idea about the cultural richness and diversity that the region holds. Fruska Gora has now earned a spot on my travel wishlist. Thank you for showcasing the hidden treasures of this enchanting destination!', '2024-01-15 14:54:06.066+01', -2),
 (-9, -6, '2024-01-15 14:55:18.951+01', 'Your exploration of Đerdap is nothing short of mesmerizing! The images of the Gates of Iron and the ancient Trajans Bridge are truly breathtaking. I appreciate the historical insights, and the idea of a river cruise through the gorge has me daydreaming about an unforgettable adventure. Your blog has not only highlighted the natural beauty of Đerdap but also provided a glimpse into its rich history. Im now eager to experience the magic of the Iron Gates myself. Thank you for this virtual journey!', '2024-01-15 14:55:18.951+01', -5),
 (-10, -5, '2024-01-15 14:56:43.481+01', 'Your blog about Kopaonik has completely transported me to this snowy wonderland. The skiing adventures, the cozy après-ski scene at Grand Terrace, and the promise of rejuvenating in the thermal springs - it sounds like the perfect winter retreat. The images of the sunset over Kopaonik have me daydreaming about experiencing that magical moment in person. Thanks for sharing this winter adventure!', '2024-01-15 14:56:43.481+01', -3);
+
+
+INSERT INTO tours."PositionSimulators"(
+    "Id", "Latitude", "Longitude", "TouristId")
+VALUES 
+(-1, 45.244648392133605, 19.847638305710497, -7),
+(-2, 45.252836305689165, 19.834531363762274, -8),
+(-3, 44.81499760569959, 20.472119344730604, -9),
+(-4, 44.78354083744795, 20.463281132842052, -10),
+(-5, 45.24564550745057, 19.849849522062556, -6);
+
+
+INSERT INTO tours."Tour"(
+    "Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image")
+VALUES 
+(-1, 'Walking tour through Novi Sad', 'Discover the cool vibes of Novi Sad on this awesome tour. Check out the badass Petrovaradin Fortress and soak in the history. Wander around the charming Old Town streets with its fancy old buildings. Hit up the buzzing markets for some local grub and crafts. Your guides will spill the tea on the city''s past and present, making this tour a mix of history, culture, and tasty treats for an epic time in Novi Sad.', 0, '{history,culture}', 1, 80, -3, '{}', 1.814866, NULL, '2024-01-16 13:30:09.295298+01', '[{"TimeInSeconds": 3600, "Transportation": 0}]', 'https://bookaweb.s3.eu-central-1.amazonaws.com/media/73794/novi-sad-destinacija-feature.jpg'),
+(-2, 'Walking tour through Belgrade', 'Take a stroll through the heart of Belgrade, where the old meets the new seamlessly. Explore the badass Kalemegdan Fortress, perched at the meeting point of the Sava and Danube rivers, giving you killer views of the city. Saunter down the lively Knez Mihailova Street, packed with cool shops, cafes, and historic spots. Dive into the citys vibe as you uncover its dope mix of architecture and hidden gems. Let the city itself spill the tea on its past, making this walk a perfect combo of history, culture, and the real Belgrade spirit.', 1, '{history,nature,culture}', 1, 100, -3, '{}', 4.134201, NULL, '2024-01-16 14:40:26.724641+01', '[{"TimeInSeconds": 9000, "Transportation": 0}]', 'https://i.pinimg.com/originals/57/9f/62/579f6212a8f280fdf62c85b7db0f44f2.jpg');
+
+INSERT INTO tours."TourKeyPoints"(
+    "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+VALUES 
+(-1, 'Name of Mary Church', 'The Name of Mary Church is a Roman Catholic parish church in Novi Sad, Serbia, dedicated to the feast of the Holy Name of Mary. It is the largest church in Novi Sad, and is located in the city centre on the Trg Slobode.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_%287344449164%29.jpg/800px-Serbia-0268_-_Name_of_Mary_Parish_Church_%287344449164%29.jpg', 45.255287162807655, 19.84538555145264, -1, 'This is the third tallest church in Bačka, after the Church of Saint Virgin Mary in Bačka Topola and the Church of Saint Stephan in Sombor, dominating the city center of Novi Sad.', 0, NULL, 'TourKeyPoint', NULL, NULL),
+(-2, 'Dunavski Park', 'Danube Park or Dunavski Park is an urban park in the downtown of Novi Sad, the capital of the Vojvodina Province, Serbia. Formed in 1895, it is protected as the natural monument and is one of the symbols of the city.', 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Свјетлопис_дијела_Дунавског_парка%2C_Нови_Сад.jpg', 45.25606129446143, 19.85036373138428, -1, 'The name of the park, Dunavski park, means the Danube park. However, though near the river, the park was named after the Dunavska ulica ("Danube Street"), which encircles it on the north.', 1, NULL, 'TourKeyPoint', NULL, NULL),
+(-3, 'Petrovaradin Fortress', 'Petrovaradin Fortress, nicknamed "Gibraltar on/of the Danube", is a fortress in the town of Petrovaradin, itself part of the City of Novi Sad, Serbia. It is located on the right bank of the Danube river. The cornerstone of the present-day southern part of the fortress was laid on 18 October 1692 by Charles Eugène de Croÿ. Petrovaradin Fortress has many tunnels as well as 16 kilometres of uncollapsed underground countermine system. In 1991 Petrovaradin Fortress was added to Spatial Cultural-Historical Units of Great Importance list of the Republic of Serbia.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Petrovaradin_Fortress_%28Péterváradi_vár%2C_Peterwardein%29.JPG/1920px-Petrovaradin_Fortress_%28Péterváradi_vár%2C_Peterwardein%29.JPG', 45.25310443234475, 19.861232042312626, -1, 'EXIT festival is an annual summer music festival that has been held at the fortress since its inception in 2001. Since then, it has grown from the biggest festival in South-Eastern Europe, to one of the biggest in Europe.', 2, NULL, 'TourKeyPoint', NULL, NULL),
+(-4, 'Church of Saint Sava', 'The Church of Saint Sava is a Serbian Orthodox church which sits on the Vračar plateau in Belgrade, Serbia. It was planned as the bishopric seat and main cathedral of the Serbian Orthodox Church. The church is dedicated to Saint Sava, the founder of the Serbian Orthodox Church and an important figure in medieval Serbia. It is built on the presumed location of St. Sava''s grave. His coffin had been moved from Mileševa Monastery to Belgrade. The Church of Saint Sava stands with commanding dimensions, featuring a length of 91 meters, a width of 81 meters, and reaching an impressive height of 78.3 meters from ground to cross.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hram_svetog_save_beograd_0005.jpg/1280px-Hram_svetog_save_beograd_0005.jpg', 44.79819031426611, 20.46911716461182, -2, 'As the largest Orthodox church in the Balkans, it holds a capacity of 7,000, and globally, it claims the title of the second-largest Orthodox church in the world.', 0, NULL, 'TourKeyPoint' , NULL, NULL),
+(-5, 'House of the National Assembly of the Republic of Serbia', 'The House of the National Assembly of the Republic of Serbia is the seat of the National Assembly of Serbia. The building is on Nikola Pašić Square in downtown Belgrade, and is a landmark and tourist attraction.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/ParlamentBelgrad.jpg/1920px-ParlamentBelgrad.jpg', 44.811473656435886, 20.465276241302494, -2, 'Secret about House of the National Assembly of the Republic of Serbia', 1, NULL, 'TourKeyPoint', NULL, NULL),
+(-6, 'Knez Mihailova Street', 'Knez Mihailova Street is the main pedestrian and shopping zone in Belgrade, and is protected by law as one of the oldest and most valuable landmarks of the city. Named after Mihailo Obrenović III, Prince of Serbia, it features a number of buildings and mansions built during the late 1870s.', 'https://noviapartmani.com/public/upload/blog/2016/06/vodic-kroz-beograd-knez-mihailova-vodic-beograd-apartmani-_blog_default.jpg', 44.817821176382594, 20.45688629150391, -2, 'One kilometer long Knez Mihailova Street was protected in 1964 as the spatial cultural-historical unit, the first cultural monument of that type in Belgrade.', 2, NULL, 'TourKeyPoint', NULL, NULL),
+(-7, 'Kalemegdan Park', 'The Kalemegdan Park, or simply Kalemegdan is the largest park and the most important historical monument in Belgrade. It is located on a 125-metre-high cliff, at the junction of the River Sava and the Danube. Kalemegdan Park, split in two as the Great and Little Parks, was developed in the area that once was the town field within the Belgrade Fortress. Today residents often erroneously refer to the entire fortress as the Kalemegdan Fortress or just Kalemegdan.', 'https://wevotravel.com/wp-content/uploads/2023/01/kalemegdan.jpg', 44.82241013510195, 20.450019836425785, -2, 'The biggest mystery of Belgrade is hidden on Kalemegdan. The Belgrade Fortress covers two thousand years of history that, unfortunately, because of everything that lies beneath that place, will not be fully explored. Everything that during the two millennia was the last cry of technique in military terms was on the Calemegdan Cape, from the Romans to the Serbs.', 3, NULL, 'TourKeyPoint', NULL, NULL);
+
+
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES 
+    (1, -7, -1, '2024-01-16 15:16:21.042606+01'::timestamp with time zone, false);
