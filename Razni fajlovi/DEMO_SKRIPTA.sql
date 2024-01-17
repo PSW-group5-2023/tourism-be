@@ -490,3 +490,16 @@ VALUES
     (-9, -9, -6, '2024-01-17 16:06:27.399863+01', false),
     (-10, -10, -3, '2024-01-17 16:07:06.430064+01', false),
     (-11, -10, -6, '2024-01-17 16:07:06.439224+01', false);
+
+
+
+INSERT INTO encounters."Challenges"(
+    "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "KeyPointId", "Image", "LatitudeImage", "LongitudeImage", "Range", "RequiredAttendance")
+VALUES (-1, -3, 'Enjoy the Challenge by calling as many people as possible to join.', 'Community Connection Rally', 1, 0, 45.249055, 19.850548, 190, null, null, null, null, 50, 2),
+    (-2, -4, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Visual Quest Adventure', 1, 1, 45.252909, 19.855888, 30, null, 'https://fajlovi.bos4.tours/uploads/2020/10/images/tour_217/Petrovaradinska%20tvrdjava%20sat.jpg', 45.253355, 19.861284, 50, null),
+    (-3, -3, 'To complete the challenge, you need to shout out loud.', 'Challenge 3', 1, 2, 45.255387, 19.845547, 20, null, null, null, null, 50, null),
+    (-4, -3, 'You need to do 10 push-ups to complete the challenge.', 'Challenge 4', 1, 2, 45.244873, 19.841853, 10, null, null, null, null, 50, null),
+    (-5, -4, 'Gathering Waves Challenge', 'Snapshot Scavenger Hunt', 1, 1, 45.249647, 19.825326, 10, null, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, 50, null),
+    (-6, -5, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Gathering Waves Challenge', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2),
+	(-7, -1, 'To complete this challenge, do a backflip.', 'Challenge for acrobat', 1, 2, 45.25190843660657, 19.83714580535889, 100, NULL, NULL, NULL, NULL, 50, NULL),
+    (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, 30, NULL);
