@@ -461,7 +461,7 @@ INSERT INTO tours."TourKeyPoints"(
 
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
-	VALUES (-19, 'Sculpture Garden Oasis', 'Enter the Sculpture Garden Oasis, a serene space where sculptures and installations harmonize with nature. This outdoor gallery provides a tranquil setting to appreciate three-dimensional art in a curated, natural environment.', 'https://s3.envato.com/files/462533057/IMG_4570-Edit.jpeg', 45.23700325991871, 19.83993530273438, -6, 'Some of the sculptures in the garden are interactive and change appearance based on the time of day, weather conditions, or the movements of ', 2, null, 'TourKeyPoint', null, null);
+	VALUES (-19, 'Sculpture Garden Oasis', 'Enter the Sculpture Garden Oasis, a serene space where sculptures and installations harmonize with nature. This outdoor gallery provides a tranquil setting to appreciate three-dimensional art in a curated, natural environment.', 'https://s3.envato.com/files/462533057/IMG_4570-Edit.jpeg', 45.23700325991871, 19.83993530273438, -6, 'Some of the sculptures in the garden are interactive and change appearance based on the time of day, weather conditions, or the movements of ', 1, null, 'TourKeyPoint', null, null);
 
 
 INSERT INTO payments."BoughtItems"(
