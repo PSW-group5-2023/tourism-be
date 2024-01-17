@@ -537,7 +537,7 @@ INSERT INTO tours."TourKeyPoints"(
 
 INSERT INTO tours."Sessions"(
 	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
-	VALUES (-1, -5, -6, -5, 0, 0, 102, '2024-01-17 19:03:43.891+01', '[
+	VALUES (-1, -5, -6, -5, 1, 0, 102, '2024-01-17 19:03:43.891+01', '[
   {
     "KeyPointId": -14,
     "CompletionTime": "2024-01-17T18:03:44.0236251Z"
@@ -589,7 +589,7 @@ INSERT INTO tours."Sessions"(
 
 INSERT INTO tours."Sessions"(
 	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
-	VALUES (-5, -1, -7, -1, 0, 0, 28, '2024-01-17 19:32:35.9+01', '[
+	VALUES (-5, -1, -7, -1, 2, 0, 28, '2024-01-17 19:32:35.9+01', '[
   {
     "KeyPointId": -1,
     "CompletionTime": "2024-01-17T18:32:35.9454988Z"
@@ -647,6 +647,49 @@ INSERT INTO tours."Sessions"(
   }
 ]', 0);
 
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-9, -3, -10, -4, 2, 1, 88, '2024-01-17 19:54:30.012+01', '[
+  {
+    "KeyPointId": -8,
+    "CompletionTime": "2024-01-17T18:54:30.0542654Z"
+  },
+  {
+    "KeyPointId": -9,
+    "CompletionTime": "2024-01-17T18:54:37.0640236Z"
+  },
+  {
+    "KeyPointId": -10,
+    "CompletionTime": "2024-01-17T18:54:46.2983258Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-10, -6, -10, -4, 1, 2, 95, '2024-01-17 19:57:48.674+01', '[
+  {
+    "KeyPointId": -17,
+    "CompletionTime": "2024-01-17T18:57:48.7079422Z"
+  },
+  {
+    "KeyPointId": -19,
+    "CompletionTime": "2024-01-17T18:57:55.2852271Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-11, -3, -10, -4, 2, 1, 61, '2024-01-17 20:01:32.351+01', '[
+  {
+    "KeyPointId": -8,
+    "CompletionTime": "2024-01-17T19:01:32.4069372Z"
+  },
+  {
+    "KeyPointId": -9,
+    "CompletionTime": "2024-01-17T19:01:35.5172181Z"
+  }
+]', 0);
+
 INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES 
@@ -696,3 +739,13 @@ INSERT INTO tours."TourProblems"(
 VALUES 
     (-1, -9, -6, 2, 1, 'Dodatni troskovi su naplaceni, a nisu bili navedeni prilikom rezervacije.', '2024-01-17 20:00:00'::timestamp, false, '[]', null),
     (-2, -8, -4, 4, 1, 'Vodic je kasnio.', '2023-01-17 15:00:00'::timestamp, false, '[]', null);
+
+INSERT INTO tours."TourRatings"(
+	"Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+	VALUES  (-1, -10, -6, 4, 'Absolutely amazing tour experience! The guides were knowledgeable, friendly, and made the entire journey enjoyable. The itinerary was well-planned, covering all the must-see attractions. The accommodations were top-notch, and the included meals were delicious. The group activities fostered a sense of camaraderie among fellow travelers. I highly recommend this tour for anyone seeking a memorable and immersive travel adventure. Cant wait to join another tour with this company in the future!', '2024-01-17 20:07:26.7+01', '2024-01-17 20:07:26.7+01', '{https://nypost.com/wp-content/uploads/sites/2/2017/12/nyc-streets.jpg?quality=75&strip=all}'),
+			(-2, -10, -3, 5, 'Embarking on the ''Walk in Wild'' tour was an unforgettable adventure through nature''s wonders. The guides were not just experts but true enthusiasts, sharing their passion for the wilderness at every step. From scenic trails to hidden gems, each day offered a new discovery. The wildlife encounters were breathtaking, making this journey a perfect blend of excitement and serenity. The camp accommodations immersed us in the heart of nature without sacrificing comfort. If you''re seeking a transformative experience surrounded by the beauty of the wild, ''Walk in Wild'' is the tour for you. A truly remarkable and rejuvenating expedition!', '2024-01-17 20:08:21.375+01', '2024-01-17 20:08:21.375+01', '{https://cdn.britannica.com/87/138787-050-33727493/Belovezhskaya-Forest-Poland.jpg}'),
+			(-3, -9, -5, 5, 'Embarking on the ''Food Route'' tour was a gastronomic delight from start to finish! Each stop along the way brought a new culinary adventure, tantalizing my taste buds with a diverse array of flavors and cuisines. The knowledgeable guides not only led us to hidden culinary gems but also shared fascinating insights into the local food culture. From street food markets to gourmet restaurants, every meal was a masterpiece. The carefully curated itinerary allowed us to savor both traditional and innovative dishes, creating a memorable journey for any food enthusiast. ''Food Route'' is a feast for the senses, offering a delectable exploration of the world''s culinary treasures.', '2024-01-17 20:12:32.323+01', '2024-01-17 20:12:32.323+01', '{https://cdnsecureimage.hotelkeys.it/202131511514647.jpeg}'),
+			(-4, -8, -4, 3, 'The ''History Route'' tour was an enlightening adventure through time! Expert guides brought historical landmarks to life with fascinating narratives. From ancient tales to pivotal moments, this tour provided a captivating journey through the pages of history. A highly recommended experience for history buffs!', '2024-01-17 20:13:55.862+01', '2024-01-17 20:13:55.862+01', '{https://www.historic-uk.com/wp-content/uploads/2020/10/historic-uk-banner-scaled.jpg}'),
+			(-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
+			(-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://withlocals-com-res.cloudinary.com/image/upload/w_360,h_203,c_fill,g_auto,q_auto,dpr_3.0,f_auto/IMG_8473_aavitb}'),
+			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}');
