@@ -503,37 +503,37 @@ INSERT INTO tours."Tour"(
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES
-     (-30, 'Ledinci', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2021-08/15-1panorama%20ledinci%20mesna%20zajednica.jpg', 45.184834, 19.804383, -10, ' ', 1, null, 'TourKeyPoint', null, null),
-     (-31, 'Ledinacko jezero', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://static.mondo.rs/Picture/1174346/jpeg/Ledinacko-jezero-6-.jpg?ts=2022-08-05T08:16:02',  45.165829, 19.805942, -10, ' ', 2, null, 'TourKeyPoint', null, null),
-     (-32, 'Kraljeva stolica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://planine.net/wp-content/uploads/2020/05/IMG_20200523_111201-1024x768.jpg',  45.157033, 19.810422, -10, ' ', 3, null, 'TourKeyPoint', null, null),
-     (-33, 'Planinarski dom Iriski venac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Iri%C5%A1ki_venac%2C_Planinarski_dom_Vojvodina_002.jpg',  45.150496, 19.836962, -10, ' ', 4, null, 'TourKeyPoint', null, null);
+     (-30, 'Ledinci', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2021-08/15-1panorama%20ledinci%20mesna%20zajednica.jpg', 45.184834, 19.804383, -10, ' ', 0, null, 'TourKeyPoint', null, null),
+     (-31, 'Ledinacko jezero', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://static.mondo.rs/Picture/1174346/jpeg/Ledinacko-jezero-6-.jpg?ts=2022-08-05T08:16:02',  45.165829, 19.805942, -10, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-32, 'Kraljeva stolica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://planine.net/wp-content/uploads/2020/05/IMG_20200523_111201-1024x768.jpg',  45.157033, 19.810422, -10, ' ', 2, null, 'TourKeyPoint', null, null),
+     (-33, 'Planinarski dom Iriski venac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Iri%C5%A1ki_venac%2C_Planinarski_dom_Vojvodina_002.jpg',  45.150496, 19.836962, -10, ' ', 3, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES
-     (-34, 'Gorski smesko', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2022/06/gorski-smesko-6.jpg', 45.183885, 19.822954, -11, ' ', 1, null, 'TourKeyPoint', null, null),
-     (-35, 'Orlovo bojiste', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.mojnovisad.com/files/news/8/6/1/5861/5861-0-orlovo-bojiste5.jpg',  45.180546, 19.830671, -11, ' ', 2, null, 'TourKeyPoint', null, null);
+     (-34, 'Gorski smesko', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2022/06/gorski-smesko-6.jpg', 45.183885, 19.822954, -11, ' ', 0, null, 'TourKeyPoint', null, null),
+     (-35, 'Orlovo bojiste', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.mojnovisad.com/files/news/8/6/1/5861/5861-0-orlovo-bojiste5.jpg',  45.180546, 19.830671, -11, ' ', 1, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES
-     (-36, 'Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2021/07/lafarz-izvor-lafarge.rs_-e1625237928782.jpg', 45.205714, 19.721455, -12, ' ', 1, null, 'TourKeyPoint', null, null),
-     (-37, 'Manastir Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://turizaminfo.com/wp-content/uploads/2020/12/beocin-2.jpg',  45.176438, 19.721971, -12, ' ', 2, null, 'TourKeyPoint', null, null),
-     (-38, 'Dumbovacki vodopad', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://andrijanacojic.com/wp-content/uploads/2021/05/IMG_7377-scaled.jpg', 45.167307, 19.749811, -12, ' ', 3, null, 'TourKeyPoint', null, null),
-     (-39, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',  45.158855, 19.780774, -12, ' ', 4, null, 'TourKeyPoint', null, null);
+     (-36, 'Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2021/07/lafarz-izvor-lafarge.rs_-e1625237928782.jpg', 45.205714, 19.721455, -12, ' ', 0, null, 'TourKeyPoint', null, null),
+     (-37, 'Manastir Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://turizaminfo.com/wp-content/uploads/2020/12/beocin-2.jpg',  45.176438, 19.721971, -12, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-38, 'Dumbovacki vodopad', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://andrijanacojic.com/wp-content/uploads/2021/05/IMG_7377-scaled.jpg', 45.167307, 19.749811, -12, ' ', 2, null, 'TourKeyPoint', null, null),
+     (-39, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',  45.158855, 19.780774, -12, ' ', 3, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES
-     (-40, 'Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Stra%C5%BEilovo.JPG/1200px-Stra%C5%BEilovo.JPG',45.169030, 19.917235, -13, ' ', 1, null, 'TourKeyPoint', null, null),
-     (-41, 'Grob Branka Radicevica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2017-08/spomenik%20b%20radicevic.jpg',  45.166700, 19.913735, -13, ' ', 2, null, 'TourKeyPoint', null, null),
-     (-42, 'Planinarski dom Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fruskac.net/sites/default/files/styles/locations/public/gallery/tourism/planinarski-dom-strazilovo-1.jpg?itok=Uf0kC7hm', 45.172525, 19.912712, -13, ' ', 3, null, 'TourKeyPoint', null, null);
+     (-40, 'Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Stra%C5%BEilovo.JPG/1200px-Stra%C5%BEilovo.JPG',45.169030, 19.917235, -13, ' ', 0, null, 'TourKeyPoint', null, null),
+     (-41, 'Grob Branka Radicevica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2017-08/spomenik%20b%20radicevic.jpg',  45.166700, 19.913735, -13, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-42, 'Planinarski dom Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fruskac.net/sites/default/files/styles/locations/public/gallery/tourism/planinarski-dom-strazilovo-1.jpg?itok=Uf0kC7hm', 45.172525, 19.912712, -13, ' ', 2, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES
-     (-43, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',45.157941,19.780674, -14, ' ', 1, null, 'TourKeyPoint', null, null),
-     (-44, 'Manastir Vrdnik', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/f/f9/2006_Vrdnik_010.jpg',   45.128367, 19.784399, -14, ' ', 2, null, 'TourKeyPoint', null, null);
+     (-43, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',45.157941,19.780674, -14, ' ', 0, null, 'TourKeyPoint', null, null),
+     (-44, 'Manastir Vrdnik', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/f/f9/2006_Vrdnik_010.jpg',   45.128367, 19.784399, -14, ' ', 1, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."Sessions"(
 	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
@@ -737,8 +737,8 @@ INSERT INTO payments."Bundles"(
 INSERT INTO tours."TourProblems"(
     "Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
 VALUES 
-    (-1, -9, -6, 2, 1, 'Dodatni troskovi su naplaceni, a nisu bili navedeni prilikom rezervacije.', '2024-01-17 20:00:00'::timestamp, false, '[]', null),
-    (-2, -8, -4, 4, 1, 'Vodic je kasnio.', '2023-01-17 15:00:00'::timestamp, false, '[]', null);
+    (-1, -9, -6, 2, 1, 'The additional costs were charged and were not mentioned during the reservation.', '2024-01-17 20:00:00'::timestamp, false, '[]', null),
+    (-2, -8, -4, 4, 1, 'The guide was late.', '2023-01-17 15:00:00'::timestamp, false, '[]', null);
 
 INSERT INTO tours."TourRatings"(
 	"Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
@@ -749,3 +749,51 @@ INSERT INTO tours."TourRatings"(
 			(-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
 			(-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://cdn.getyourguide.com/img/tour/621a3d641a639.jpeg/146.jpg}'),
 			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}');
+
+
+INSERT INTO payments."BoughtItems"("Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES 
+(-16, -6, -14, '2024-01-18 00:04:51.791701+01', false),
+(-17, -6, -13, '2024-01-18 00:04:51.907971+01', false),
+(-18, -9, -12, '2024-01-18 00:05:14.436241+01', false),
+(-19, -9, -11, '2024-01-18 00:05:14.442778+01', false),
+(-20, -8, -10, '2024-01-18 00:05:46.284377+01', false),
+(-21, -10, -11, '2024-01-18 00:06:16.697071+01', false),
+(-22, -10, -12, '2024-01-18 00:06:16.703341+01', false),
+(-23, -6, -11, '2024-01-18 00:17:56.02642+01', false),
+(-24, -6, -10, '2024-01-18 00:17:56.034445+01', false);
+
+
+INSERT INTO tours."Sessions"(
+  "Id", "TourId", "TouristId", "LocationId", "SessionStatus", 
+  "Transportation", "DistanceCrossedPercent", "LastActivity", 
+  "CompletedKeyPoints", "Version"
+)
+VALUES 
+  (-12, -11, -9, -3, 2, 1, 0, TIMESTAMP '2024-01-18 00:14:16.042+01', 
+  '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:14:16.0897291Z"}]', 0),
+  
+  (-13, -11, -10, -4, 2, 1, 0,'2024-01-18 00:13:02.374+01', 
+  '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:13:02.4222454Z"}]', 0),
+  
+  (-14, -10, -6, -5, 1, 1, 67, '2024-01-18 00:18:30.016+01', 
+  '[{"KeyPointId": -30, "CompletionTime": "2024-01-17T23:18:30.0588124Z"}, {"KeyPointId": -31, "CompletionTime": "2024-01-17T23:18:33.6210081Z"}, {"KeyPointId": -32, "CompletionTime": "2024-01-17T23:18:38.4003235Z"}, {"KeyPointId": -33, "CompletionTime": "2024-01-17T23:18:44.6117019Z"}]', 0),
+  
+  (-15, -13, -6, -5, 1, 1, 9, '2024-01-18 00:11:27.466+01', 
+  '[{"KeyPointId": -40, "CompletionTime": "2024-01-17T23:11:27.5178726Z"}, {"KeyPointId": -41, "CompletionTime": "2024-01-17T23:11:32.2172086Z"}, {"KeyPointId": -42, "CompletionTime": "2024-01-17T23:11:38.2183785Z"}]', 0),
+  
+  (-16, -11, -10, -4, 2, 1, 0, '2024-01-18 00:13:09.866+01', 
+  '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:13:09.9106961Z"}]', 0),
+  
+  (-17, -12, -10, -4, 1, 1, 49, '2024-01-18 00:09:30.081+01', 
+  '[{"KeyPointId": -36, "CompletionTime": "2024-01-17T23:09:30.4713441Z"}, {"KeyPointId": -37, "CompletionTime": "2024-01-17T23:09:36.034688Z"}, {"KeyPointId": -38, "CompletionTime": "2024-01-17T23:09:49.1088273Z"}, {"KeyPointId": -39, "CompletionTime": "2024-01-17T23:09:56.2476772Z"}]', 0),
+  
+  (-18, -11, -10, -4, 1, 1, 0, '2024-01-18 00:21:30.802+01', 
+  '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:21:30.8426821Z"}, {"KeyPointId": -35, "CompletionTime": "2024-01-17T23:21:34.1911099Z"}]', 0),
+  
+  (-19, -10, -8, -2, 1, 1, 67, '2024-01-18 00:20:13.625+01', 
+  '[{"KeyPointId": -30, "CompletionTime": "2024-01-17T23:20:13.6796301Z"}, {"KeyPointId": -31, "CompletionTime": "2024-01-17T23:20:20.1858399Z"}, {"KeyPointId": -32, "CompletionTime": "2024-01-17T23:20:26.3856429Z"}, {"KeyPointId": -33, "CompletionTime": "2024-01-17T23:20:32.8155167Z"}]', 0),
+  
+  (-20, -11, -10, -4, 2, 1, 0,'2024-01-18 00:10:27.171+01', 
+  '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:10:27.207126Z"}]', 0);
+
