@@ -502,6 +502,92 @@ INSERT INTO tours."Sessions"(
   }
 ]', 0);
 
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-3, -5, -7, -1, 2, 0, 0, '2024-01-17 19:25:17.151+01', '[
+  {
+    "KeyPointId": -14,
+    "CompletionTime": "2024-01-17T18:25:17.1857651Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-4, -5, -7, -1, 1, 0, 101, '2024-01-17 19:25:48.165+01', '[
+  {
+    "KeyPointId": -14,
+    "CompletionTime": "2024-01-17T18:25:48.1862512Z"
+  },
+  {
+    "KeyPointId": -15,
+    "CompletionTime": "2024-01-17T18:25:53.14517Z"
+  },
+  {
+    "KeyPointId": -16,
+    "CompletionTime": "2024-01-17T18:26:01.6114309Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-5, -1, -7, -1, 0, 0, 28, '2024-01-17 19:32:35.9+01', '[
+  {
+    "KeyPointId": -1,
+    "CompletionTime": "2024-01-17T18:32:35.9454988Z"
+  },
+  {
+    "KeyPointId": -2,
+    "CompletionTime": "2024-01-17T18:32:47.1198623Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-6, -3, -8, -2, 2, 1, 88, '2024-01-17 19:41:37.167+01', '[
+  {
+    "KeyPointId": -8,
+    "CompletionTime": "2024-01-17T18:41:37.1970368Z"
+  },
+  {
+    "KeyPointId": -9,
+    "CompletionTime": "2024-01-17T18:41:47.8990699Z"
+  },
+  {
+    "KeyPointId": -10,
+    "CompletionTime": "2024-01-17T18:41:52.671981Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-7, -4, -8, -2, 1, 0, 57, '2024-01-17 19:46:04.2+01', '[
+  {
+    "KeyPointId": -12,
+    "CompletionTime": "2024-01-17T18:46:04.2228241Z"
+  },
+  {
+    "KeyPointId": -13,
+    "CompletionTime": "2024-01-17T18:46:07.6963036Z"
+  }
+]', 0);
+
+INSERT INTO tours."Sessions"(
+	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+	VALUES (-8, -5, -9, -3, 1, 0, 100, '2024-01-17 19:49:01.198+01', '[
+  {
+    "KeyPointId": -14,
+    "CompletionTime": "2024-01-17T18:49:01.22481Z"
+  },
+  {
+    "KeyPointId": -15,
+    "CompletionTime": "2024-01-17T18:49:03.7244447Z"
+  },
+  {
+    "KeyPointId": -16,
+    "CompletionTime": "2024-01-17T18:49:13.7181131Z"
+  }
+]', 0);
+
 INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES 
@@ -516,3 +602,11 @@ VALUES
     (-9, -9, -6, '2024-01-17 16:06:27.399863+01', false),
     (-10, -10, -3, '2024-01-17 16:07:06.430064+01', false),
     (-11, -10, -6, '2024-01-17 16:07:06.439224+01', false);
+
+INSERT INTO payments."BoughtItems"(
+	"Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+	VALUES 
+    (-12, -6, -6, '2024-01-17 14:22:36.635888+01', false),
+    (-13, -6, -5, '2024-01-17 14:22:36.646599+01', false),
+    (-14, -6, -4, '2024-01-17 14:22:36.648848+01', false),
+    (-15, -6, -3, '2024-01-17 14:22:36.651226+01', false);
