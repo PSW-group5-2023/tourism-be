@@ -378,7 +378,7 @@ VALUES
 (-4, 'Church of Saint Sava', 'The Church of Saint Sava is a Serbian Orthodox church which sits on the Vračar plateau in Belgrade, Serbia. It was planned as the bishopric seat and main cathedral of the Serbian Orthodox Church. The church is dedicated to Saint Sava, the founder of the Serbian Orthodox Church and an important figure in medieval Serbia. It is built on the presumed location of St. Sava''s grave. His coffin had been moved from Mileševa Monastery to Belgrade. The Church of Saint Sava stands with commanding dimensions, featuring a length of 91 meters, a width of 81 meters, and reaching an impressive height of 78.3 meters from ground to cross.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hram_svetog_save_beograd_0005.jpg/1280px-Hram_svetog_save_beograd_0005.jpg', 44.79819031426611, 20.46911716461182, -2, 'As the largest Orthodox church in the Balkans, it holds a capacity of 7,000, and globally, it claims the title of the second-largest Orthodox church in the world.', 0, NULL, 'TourKeyPoint' , NULL, NULL),
 (-5, 'House of the National Assembly of the Republic of Serbia', 'The House of the National Assembly of the Republic of Serbia is the seat of the National Assembly of Serbia. The building is on Nikola Pašić Square in downtown Belgrade, and is a landmark and tourist attraction.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/ParlamentBelgrad.jpg/1920px-ParlamentBelgrad.jpg', 44.811473656435886, 20.465276241302494, -2, 'Secret about House of the National Assembly of the Republic of Serbia', 1, NULL, 'TourKeyPoint', NULL, NULL),
 (-6, 'Knez Mihailova Street', 'Knez Mihailova Street is the main pedestrian and shopping zone in Belgrade, and is protected by law as one of the oldest and most valuable landmarks of the city. Named after Mihailo Obrenović III, Prince of Serbia, it features a number of buildings and mansions built during the late 1870s.', 'https://noviapartmani.com/public/upload/blog/2016/06/vodic-kroz-beograd-knez-mihailova-vodic-beograd-apartmani-_blog_default.jpg', 44.817821176382594, 20.45688629150391, -2, 'One kilometer long Knez Mihailova Street was protected in 1964 as the spatial cultural-historical unit, the first cultural monument of that type in Belgrade.', 2, NULL, 'TourKeyPoint', NULL, NULL),
-(-7, 'Kalemegdan Park', 'The Kalemegdan Park, or simply Kalemegdan is the largest park and the most important historical monument in Belgrade. It is located on a 125-metre-high cliff, at the junction of the River Sava and the Danube. Kalemegdan Park, split in two as the Great and Little Parks, was developed in the area that once was the town field within the Belgrade Fortress. Today residents often erroneously refer to the entire fortress as the Kalemegdan Fortress or just Kalemegdan.', 'https://wevotravel.com/wp-content/uploads/2023/01/kalemegdan.jpg', 44.82241013510195, 20.450019836425785, -2, 'The biggest mystery of Belgrade is hidden on Kalemegdan. The Belgrade Fortress covers two thousand years of history that, unfortunately, because of everything that lies beneath that place, will not be fully explored. Everything that during the two millennia was the last cry of technique in military terms was on the Calemegdan Cape, from the Romans to the Serbs.', 3, NULL, 'TourKeyPoint', NULL, NULL),
+(-7, 'Kalemegdan Park', 'The Kalemegdan Park, or simply Kalemegdan is the largest park and the most important historical monument in Belgrade. It is located on a 125-metre-high cliff, at the junction of the River Sava and the Danube. Kalemegdan Park, split in two as the Great and Little Parks, was developed in the area that once was the town field within the Belgrade Fortress. Today residents often erroneously refer to the entire fortress as the Kalemegdan Fortress or just Kalemegdan.', 'https://www.srbijapodlupom.com/wp-content/uploads/2021/03/160710593_145857260664276_2242450187315652358_n.jpg', 44.82241013510195, 20.450019836425785, -2, 'The biggest mystery of Belgrade is hidden on Kalemegdan. The Belgrade Fortress covers two thousand years of history that, unfortunately, because of everything that lies beneath that place, will not be fully explored. Everything that during the two millennia was the last cry of technique in military terms was on the Calemegdan Cape, from the Romans to the Serbs.', 3, NULL, 'TourKeyPoint', NULL, NULL),
 (-20, 'Javna 1', 'Lepa kt', 'https://www.snow-forecast.com/system/images/36932/large/Crystal-Mountain.jpg?1619614348', 45.232164904903826, 19.794790780707856, NULL, '', NULL,  NULL, 'PublicTourKeyPoints', 0, -4),
 (-21, 'Javna 3', 'Najlepsa kt', 'https://wallpapers.com/images/featured/snow-mountain-ydg6x966wun8nkjs.jpg', 45.24628421561786, 19.84560012817383, NULL, '', NULL, NULL, 'PublicTourKeyPoints', 0, -4),
 (-22, 'Javna 4', 'nova javna kt', 'https://cdn.britannica.com/97/158797-050-ABECB32F/North-Cascades-National-Park-Lake-Ann-park.jpg', 45.22383648719875, 19.846165773318674, NULL, '', NULL, NULL, 'PublicTourKeyPoints', 0, -4),
@@ -424,7 +424,7 @@ INSERT INTO tours."Tour"(
     "TimeInSeconds": 9000,
     "Transportation": 2
   }
-]', 'https://d3f387xtu5rn4u.cloudfront.net/Easter2023/Article/eyJrZXkiOiJFbnRyZUJsYW5jMjAyMy9BcnRpY2xlLzNfbmV3LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMH19LCJidWNrZXQiOiJnYWxsZXJ5bmluZW1hbmlsYSJ9');
+]', 'https://cdn.britannica.com/51/194651-050-747F0C18/Interior-National-Gallery-of-Art-Washington-DC.jpg');
 
 
 INSERT INTO tours."TourKeyPoints"(
@@ -475,6 +475,65 @@ INSERT INTO tours."TourKeyPoints"(
 	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
 	VALUES (-19, 'Sculpture Garden Oasis', 'Enter the Sculpture Garden Oasis, a serene space where sculptures and installations harmonize with nature. This outdoor gallery provides a tranquil setting to appreciate three-dimensional art in a curated, natural environment.', 'https://s3.envato.com/files/462533057/IMG_4570-Edit.jpeg', 45.23700325991871, 19.83993530273438, -6, 'Some of the sculptures in the garden are interactive and change appearance based on the time of day, weather conditions, or the movements of ', 1, null, 'TourKeyPoint', null, null);
 
+INSERT INTO tours."Tour"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
+  (-10, 'Ledinacko jezero tour', 'Discover the serene beauty of Ledinacko Jezero, nestled in the picturesque Fruska Gora National Park. This enchanting tour promises a perfect blend of nature, tranquility, and cultural exploration.', 2, '{"bike", "hike"}', 1, 40, -5, '{}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]', 'https://cdn.discordapp.com/attachments/1165673303898345664/1197250587100717146/IMG_8660.jpg?ex=65ba957f&is=65a8207f&hm=2777393ea8d5587ddc6c3eba6b9f67be4986f0e6c87b8fd823a618a9f8b4e69a&');
+
+INSERT INTO tours."Tour"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
+  (-11, 'Light walk on Popovica', 'Take a leisurely light walk from Cafe Gorski Smesko to Orlovo Bojiste on Popovica mountain. Enjoy scenic trails, lush landscapes, and panoramic views. Revel in the tranquility, capturing the beauty of the surroundings. Conclude your walk with a peaceful return to Cafe Gorski Smesko, savoring the mountain atmosphere.', 0, '{"forest", "hike", "bike"}', 1, 20, -5, '{}', 5.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://media.discordapp.net/attachments/1165673303898345664/1197251414750134352/DSC_3797.jpg?ex=65ba9645&is=65a82145&hm=82b4e84459710652f7bcd3a452384b65edd37dac9021c78e4c6c9ec9449bcc61&=&format=webp&width=984&height=655');
+
+INSERT INTO tours."Tour"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
+  (-12, 'Waterfall tour on Fruska', 'Embark on a picturesque walk from Beocin Monastery to Dumbovacki Vodopad in the heart of Fruska Gora. Meander through serene trails surrounded by lush greenery, absorbing the tranquility of the national park. As you approach Dumbovacki Vodopad, the sound of cascading water will guide you to this charming waterfall. Take in the natural beauty, capturing moments of serenity. After your exploration, enjoy a peaceful return to Beocin Monastery, enriched by the beauty of Fruska Gora landscapes.', 1, '{"adventure", "forest", "hike"}', 1, 70, -3, '{}', 22.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://images-ext-2.discordapp.net/external/PCQnEM8R0R8CZIrc7IjXk6UK-KmNdfCDsjhmpMYTwq8/https/andrijanacojic.com/wp-content/uploads/2021/05/IMG_7377-scaled.jpg?format=webp&width=874&height=655');
+
+INSERT INTO tours."Tour"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
+  (-13, 'Tour of Strazilovo', '
+Embark on a poignant journey from Strazilovo to the grave of Branko Radicevic, a renowned Serbian poet. The tour leads you through the serene landscapes, allowing moments of reflection on Radicevic literary contributions. As you reach the poet final resting place, absorb the cultural significance and pay homage to his legacy. The tour seamlessly blends nature and history, offering a profound connection to the poetic spirit of Strazilovo and the enduring influence of Branko Radicevic.', 2, '{"culture", "adventure", "monuments"}', 1, 50, -3, '{}', 25.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://images-ext-1.discordapp.net/external/pBdA3RGS0EFXvK0KLxJolvpOAw8l8G3DzKet1PIdD6E/https/karlovci.org.rs/wp-content/uploads/2022/05/strazilovo-2.jpg?format=webp&width=1021&height=655');
+
+INSERT INTO tours."Tour"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
+  (-14, 'Explore beauty of Vrdnik monastery', 'Discover the cultural and spiritual richness of Vrdnik Monastery with a captivating tour. Nestled in a serene setting, this historic monastery welcomes you with its centuries-old architecture and tranquil ambiance. Explore the sacred halls adorned with religious art and immerse yourself in the monastery spiritual atmosphere. As you stroll through the peaceful grounds, soak in the history and cultural significance that Vrdnik Monastery offers. A visit here promises a harmonious blend of heritage, architecture, and a tranquil retreat into the spiritual past.', 2, '{"culture", "walk", "forest"}', 1, 55, -4, '{}', 15.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://images-ext-1.discordapp.net/external/qhkSnV3kV8wOvuee9jf01EVHhAMHpb2RhQP4icKycGM/https/live.staticflickr.com/7040/27545703230_b91ca80114_b.jpg?format=webp&width=1033&height=655');
+
+
+
+
+
+INSERT INTO tours."TourKeyPoints"(
+	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+	VALUES
+     (-30, 'Ledinci', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2021-08/15-1panorama%20ledinci%20mesna%20zajednica.jpg', 45.184834, 19.804383, -10, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-31, 'Ledinacko jezero', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://static.mondo.rs/Picture/1174346/jpeg/Ledinacko-jezero-6-.jpg?ts=2022-08-05T08:16:02',  45.165829, 19.805942, -10, ' ', 2, null, 'TourKeyPoint', null, null),
+     (-32, 'Kraljeva stolica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://planine.net/wp-content/uploads/2020/05/IMG_20200523_111201-1024x768.jpg',  45.157033, 19.810422, -10, ' ', 3, null, 'TourKeyPoint', null, null),
+     (-33, 'Planinarski dom Iriski venac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Iri%C5%A1ki_venac%2C_Planinarski_dom_Vojvodina_002.jpg',  45.150496, 19.836962, -10, ' ', 4, null, 'TourKeyPoint', null, null);
+
+INSERT INTO tours."TourKeyPoints"(
+	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+	VALUES
+     (-34, 'Gorski smesko', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2022/06/gorski-smesko-6.jpg', 45.183885, 19.822954, -11, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-35, 'Orlovo bojiste', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.mojnovisad.com/files/news/8/6/1/5861/5861-0-orlovo-bojiste5.jpg',  45.180546, 19.830671, -11, ' ', 2, null, 'TourKeyPoint', null, null);
+
+INSERT INTO tours."TourKeyPoints"(
+	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+	VALUES
+     (-36, 'Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://luftika.rs/media/2021/07/lafarz-izvor-lafarge.rs_-e1625237928782.jpg', 45.205714, 19.721455, -12, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-37, 'Manastir Beocin', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://turizaminfo.com/wp-content/uploads/2020/12/beocin-2.jpg',  45.176438, 19.721971, -12, ' ', 2, null, 'TourKeyPoint', null, null),
+     (-38, 'Dumbovacki vodopad', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://andrijanacojic.com/wp-content/uploads/2021/05/IMG_7377-scaled.jpg', 45.167307, 19.749811, -12, ' ', 3, null, 'TourKeyPoint', null, null),
+     (-39, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',  45.158855, 19.780774, -12, ' ', 4, null, 'TourKeyPoint', null, null);
+
+INSERT INTO tours."TourKeyPoints"(
+	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+	VALUES
+     (-40, 'Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Stra%C5%BEilovo.JPG/1200px-Stra%C5%BEilovo.JPG',45.169030, 19.917235, -13, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-41, 'Grob Branka Radicevica', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://www.dnevnik.rs/sites/default/files/2017-08/spomenik%20b%20radicevic.jpg',  45.166700, 19.913735, -13, ' ', 2, null, 'TourKeyPoint', null, null),
+     (-42, 'Planinarski dom Strazilovo', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fruskac.net/sites/default/files/styles/locations/public/gallery/tourism/planinarski-dom-strazilovo-1.jpg?itok=Uf0kC7hm', 45.172525, 19.912712, -13, ' ', 3, null, 'TourKeyPoint', null, null);
+
+INSERT INTO tours."TourKeyPoints"(
+	"Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "PublicPointId", "Discriminator", "Status", "CreatorId")
+	VALUES
+     (-43, 'Planinarski dom Zmajevac', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://fastly.4sqi.net/img/general/600x600/462351721_xyUvWRCTBx3YwsYXFEaKCmNyH5gMpPI1umJ6VmJlM9o.jpg',45.157941,19.780674, -14, ' ', 1, null, 'TourKeyPoint', null, null),
+     (-44, 'Manastir Vrdnik', 'Old town Ledinci in beautiful forest of Fruska Gora', 'https://upload.wikimedia.org/wikipedia/commons/f/f9/2006_Vrdnik_010.jpg',   45.128367, 19.784399, -14, ' ', 2, null, 'TourKeyPoint', null, null);
 
 INSERT INTO tours."Sessions"(
 	"Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
@@ -614,7 +673,8 @@ VALUES (-1, -3, 'Enjoy the Challenge by calling as many people as possible to jo
     (-5, -4, 'Gathering Waves Challenge', 'Snapshot Scavenger Hunt', 1, 1, 45.249647, 19.825326, 10, null, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, 50, null),
     (-6, -5, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Gathering Waves Challenge', 1, 0, 45.264473, 19.825806, 10, null, null, null, null, 50, 2),
 	(-7, -1, 'To complete this challenge, do a backflip.', 'Challenge for acrobat', 1, 2, 45.25190843660657, 19.83714580535889, 100, NULL, NULL, NULL, NULL, 50, NULL),
-    (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, 30, NULL);
+    (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, 30, NULL),
+     (-9, -2, 'Ubedi publiku da ti da lep aplauz ', 'Demo izazov', 1, 2, 45.247477347792135, 19.853885173788512, 50, null, null, null, null, 50, null);
 INSERT INTO payments."BoughtItems"(
 	"Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 	VALUES 
@@ -622,3 +682,17 @@ INSERT INTO payments."BoughtItems"(
     (-13, -6, -5, '2024-01-17 14:22:36.646599+01', false),
     (-14, -6, -4, '2024-01-17 14:22:36.648848+01', false),
     (-15, -6, -3, '2024-01-17 14:22:36.651226+01', false);
+
+INSERT INTO payments."Bundles"(
+	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
+	VALUES (-1,'Novi Sad Explorer Bundle', 250, -3, '{-1,-3}', 1);
+	
+INSERT INTO payments."Bundles"(
+	"Id", "Name", "Price", "AuthorId", "ToursId", "BundleState")
+	VALUES (-2,'Aritistic Voyage Bundle', 200, -4, '{-5,-6}', 1);
+
+INSERT INTO tours."TourProblems"(
+    "Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
+VALUES 
+    (-1, -9, -6, 2, 1, 'Dodatni troskovi su naplaceni, a nisu bili navedeni prilikom rezervacije.', '2024-01-17 20:00:00'::timestamp, false, '[]', null),
+    (-2, -8, -4, 4, 1, 'Vodic je kasnio.', '2023-01-17 15:00:00'::timestamp, false, '[]', null);
