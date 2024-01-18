@@ -406,7 +406,7 @@ INSERT INTO tours."Tour"(
     "TimeInSeconds": 3600,
     "Transportation": 0
   }
-]', 'data:image/jpeg;base64,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');
+]', 'https://www.gradnja.rs/wp-content/uploads/2019/04/golubacka-tvdjava-02.jpg');
 
 INSERT INTO tours."Tour"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image")
@@ -477,7 +477,7 @@ INSERT INTO tours."TourKeyPoints"(
 
 INSERT INTO tours."Tour"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
-  (-10, 'Ledinacko jezero tour', 'Discover the serene beauty of Ledinacko Jezero, nestled in the picturesque Fruska Gora National Park. This enchanting tour promises a perfect blend of nature, tranquility, and cultural exploration.', 2, '{"bike", "hike"}', 1, 40, -5, '{}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]', 'https://cdn.discordapp.com/attachments/1165673303898345664/1197250587100717146/IMG_8660.jpg?ex=65ba957f&is=65a8207f&hm=2777393ea8d5587ddc6c3eba6b9f67be4986f0e6c87b8fd823a618a9f8b4e69a&');
+  (-10, 'Ledinacko jezero tour', 'Discover the serene beauty of Ledinacko Jezero, nestled in the picturesque Fruska Gora National Park. This enchanting tour promises a perfect blend of nature, tranquility, and cultural exploration.', 2, '{"bike", "hike"}', 1, 40, -3, '{}', 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]', 'https://cdn.discordapp.com/attachments/1165673303898345664/1197250587100717146/IMG_8660.jpg?ex=65ba957f&is=65a8207f&hm=2777393ea8d5587ddc6c3eba6b9f67be4986f0e6c87b8fd823a618a9f8b4e69a&');
 
 INSERT INTO tours."Tour"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
@@ -490,7 +490,7 @@ INSERT INTO tours."Tour"(
 INSERT INTO tours."Tour"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
   (-13, 'Tour of Strazilovo', '
-Embark on a poignant journey from Strazilovo to the grave of Branko Radicevic, a renowned Serbian poet. The tour leads you through the serene landscapes, allowing moments of reflection on Radicevic literary contributions. As you reach the poet final resting place, absorb the cultural significance and pay homage to his legacy. The tour seamlessly blends nature and history, offering a profound connection to the poetic spirit of Strazilovo and the enduring influence of Branko Radicevic.', 2, '{"culture", "adventure", "monuments"}', 1, 50, -3, '{}', 25.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://images-ext-1.discordapp.net/external/pBdA3RGS0EFXvK0KLxJolvpOAw8l8G3DzKet1PIdD6E/https/karlovci.org.rs/wp-content/uploads/2022/05/strazilovo-2.jpg?format=webp&width=1021&height=655');
+Embark on a poignant journey from Strazilovo to the grave of Branko Radicevic, a renowned Serbian poet. The tour leads you through the serene landscapes, allowing moments of reflection on Radicevic literary contributions. As you reach the poet final resting place, absorb the cultural significance and pay homage to his legacy. The tour seamlessly blends nature and history, offering a profound connection to the poetic spirit of Strazilovo and the enduring influence of Branko Radicevic.', 2, '{"culture", "adventure", "monuments"}', 1, 50, -5, '{}', 25.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','https://images-ext-1.discordapp.net/external/pBdA3RGS0EFXvK0KLxJolvpOAw8l8G3DzKet1PIdD6E/https/karlovci.org.rs/wp-content/uploads/2022/05/strazilovo-2.jpg?format=webp&width=1021&height=655');
 
 INSERT INTO tours."Tour"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "Equipment", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Image") VALUES
@@ -859,4 +859,99 @@ INSERT INTO payments."BoughtItems"(
     "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 VALUES (
     -25, -10, -13, '2024-01-18 08:46:52.396351+01', false
+);
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES (
+    -26, -9, -13, '2024-01-18 09:03:04.743076+01', false
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -26, -13, -9, -3, 2, 1, 5,
+    '2024-01-18 09:05:59.538+01',
+    '[{"KeyPointId": -40, "CompletionTime": "2024-01-18T08:05:59.6944858Z"}, {"KeyPointId": -41, "CompletionTime": "2024-01-18T08:06:05.4796957Z"}]', 0
+);
+
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus", "Transportation", "DistanceCrossedPercent", "LastActivity", "CompletedKeyPoints", "Version")
+VALUES 
+    (-27, -13, -10, -4, 1, 1, 9, '2024-01-18 09:15:50.833+01', 
+    '[{"KeyPointId": -40, "CompletionTime": "2024-01-18T08:15:51.3465413Z"},
+      {"KeyPointId": -41, "CompletionTime": "2024-01-18T08:15:56.7426679Z"},
+      {"KeyPointId": -42, "CompletionTime": "2024-01-18T08:16:21.3973183Z"}]', 0),
+    (-28, -4, -9, -3, 1, 0, 57,  '2024-01-18 09:27:31.175+01', 
+    '[{"KeyPointId": -12, "CompletionTime": "2024-01-18T08:27:31.2248803Z"},
+      {"KeyPointId": -13, "CompletionTime": "2024-01-18T08:27:43.1287138Z"}]', 0);
+
+INSERT INTO tours."TourRatings"(
+    "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+VALUES 
+    (-8, -10, -12, 5, 'This was really magical tour, I enjoyed every moment of it!!! <3', 
+    '2024-01-18 09:21:42.26+01', '2024-01-18 09:21:42.26+01', 
+    '{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5afZTp10UvqHEevWXLO4qEb5qH6laB9lp7YoMD0IdFJCxTcGOjYalv1mUbTHr96-C9zg&usqp=CAU"}'),
+    
+    (-9, -9, -12, 5, 'It was great hiking with these people on these beautiful paths!', 
+    '2024-01-18 09:26:58.332+01',  '2024-01-18 09:26:58.332+01', 
+    '{"https://cdn.discordapp.com/attachments/1165673303898345664/1197456518749102110/20230410_150807.jpg?ex=65bb5549&is=65a8e049&hm=7226a837e7098bd43dad3dad8d6a9865b366eacfa9d196385049d28bb745c92e&"}'),
+
+    (-10, -9, -4, 3, 'Meh, it was too ordinary for me', 
+     '2024-01-18 09:28:47.695+01',  '2024-01-18 09:28:47.695+01', 
+    '{"https://www.gradnja.rs/wp-content/uploads/2019/04/golubacka-tvdjava-06.jpg"}'),
+
+    (-11, -8, -10, 5, 'It was really good weather that day, so the lake was in its full shine', 
+     '2024-01-18 09:30:32.032+01', '2024-01-18 09:30:32.032+01', 
+    '{"https://nova.rs/wp-content/uploads/2022/08/07/1659871432-1-1200x800.jpg"}'),
+
+    (-12, -8, -2, 2, 'It was really bad tour, all streets were just crowded and we could not see anything', 
+    '2024-01-18 09:33:15.666+01',  '2024-01-18 09:33:15.666+01', 
+    '{"https://thehill.com/wp-content/uploads/sites/2/2023/06/648e08fa8f2698.92719294-e1687042741437.jpeg?strip=1"}'),
+
+    (-13, -8, -3, 4, 'It was too hard for me, so I could not enjoy nature that much', 
+    '2024-01-18 09:34:32.924+01', '2024-01-18 09:34:32.924+01', 
+    '{"https://www.fao.org/images/newsroomlibraries/breafing-notes/36949400340_030e4ae5f9_oab4ccd35-fd6a-4230-bd2e-f0113f50357d.jpg?sfvrsn=426ca1c_3"}');
+
+INSERT INTO tours."TourRatings"(
+    "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+VALUES 
+    (-14, -6, -10, 5, 'This hike was really hard for me, but in the end it was beautiful, the view was magical.', 
+     '2024-01-18 09:47:29.993+01',  '2024-01-18 09:47:29.993+01', 
+    '{"https://cdn.discordapp.com/attachments/1165673303898345664/1197457130228305981/IMG_6620.jpg?ex=65bb55db&is=65a8e0db&hm=8088ed25240c693b393c097dc10db68911a78fef5ceba3d2de3f56a9eb5cc18b&"}');
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES (
+    -27, -7, -12, '2024-01-18 09:58:57.541208+01', false
+);
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES (
+    -28, -7, -10, '2024-01-18 09:58:57.639816+01', false
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -29, -10, -7, -1, 2, 1, 32,
+    '2024-01-18 09:59:24.532+01',
+    '[{"KeyPointId": -30, "CompletionTime": "2024-01-18T08:59:24.7950504Z"}, {"KeyPointId": -31, "CompletionTime": "2024-01-18T08:59:28.5772755Z"}]', 0
+);
+
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -30, -12, -7, -1, 2, 1, 0,
+    '2024-01-18 09:59:47.064+01',
+    '[{"KeyPointId": -36, "CompletionTime": "2024-01-18T08:59:47.104412Z"}]', 0
 );
