@@ -770,7 +770,7 @@ INSERT INTO tours."Sessions"(
   "CompletedKeyPoints", "Version"
 )
 VALUES 
-  (-12, -11, -9, -3, 2, 1, 0, TIMESTAMP '2024-01-18 00:14:16.042+01', 
+  (-12, -11, -9, -3, 2, 1, 0, '2024-01-18 00:14:16.042+01', 
   '[{"KeyPointId": -34, "CompletionTime": "2024-01-17T23:14:16.0897291Z"}]', 0),
   
   (-13, -11, -10, -4, 2, 1, 0,'2024-01-18 00:13:02.374+01', 
@@ -804,3 +804,59 @@ INSERT INTO tours."TourKeyPoints"(
 (-45, 'Prison Veternik', 'The District Prison Novi Sad is one of the largest prisons in Serbia, accommodating not only detainees under investigation in the Municipal and District Courts but also individuals serving short prison sentences. On average, the facility houses around 450 inmates, including both men and women.', 'https://ocdn.eu/images/pulscms/NDk7MDA_/2b5a5e05a4e9cb5967c3a6a61ed1018e.jpg', 45.303545, 19.817226, NULL, 'Enjoy your imprisonment.', NULL,  NULL, 'PublicTourKeyPoints', 0, -4),
 (-46, 'Big Centar', 'At the BIG shopping center in Novi Sad, you can expect fantastic shopping, excellent gastronomic offerings, as well as entertainment and relaxation facilities. Visit us and discover a new shopping experience!', 'https://www.big-cee.com/wp-content/uploads/2022/10/BIG_NOVI-SAD_1-1-1.png.webp', 45.275805, 19.827572, NULL, 'Enjoy your shopping.', NULL, NULL, 'PublicTourKeyPoints', 0, -4);
 
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -21, -12, -9, -3, 1, 1, 49,
+    '2024-01-18 08:18:29.863+01',
+    '[{"KeyPointId": -36, "CompletionTime": "2024-01-18T07:18:29.8970381Z"}, {"KeyPointId": -37, "CompletionTime": "2024-01-18T07:18:34.0981066Z"}, {"KeyPointId": -38, "CompletionTime": "2024-01-18T07:18:40.6919854Z"}, {"KeyPointId": -39, "CompletionTime": "2024-01-18T07:18:46.9705048Z"}]', 0
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -22, -12, -10, -4, 1, 1, 49,
+    '2024-01-18 08:20:42.179+01',
+    '[{"KeyPointId": -36, "CompletionTime": "2024-01-18T07:20:42.2116596Z"}, {"KeyPointId": -37, "CompletionTime": "2024-01-18T07:20:45.5753277Z"}, {"KeyPointId": -38, "CompletionTime": "2024-01-18T07:20:49.4968582Z"}, {"KeyPointId": -39, "CompletionTime": "2024-01-18T07:20:53.9203913Z"}]', 0
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -23, -12, -10, -4, 1, 1, 49,
+    '2024-01-18 08:21:07.161+01',
+    '[{"KeyPointId": -36, "CompletionTime": "2024-01-18T07:21:07.2021906Z"}, {"KeyPointId": -37, "CompletionTime": "2024-01-18T07:21:11.0784902Z"}, {"KeyPointId": -38, "CompletionTime": "2024-01-18T07:21:15.7382972Z"}, {"KeyPointId": -39, "CompletionTime": "2024-01-18T07:21:22.7031225Z"}]', 0
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -24, -2, -8, -2, 2, 0, 47,
+    '2024-01-18 08:37:54.553+01',
+    '[{"KeyPointId": -4, "CompletionTime": "2024-01-18T07:37:54.7662099Z"}, {"KeyPointId": -5, "CompletionTime": "2024-01-18T07:37:58.3507836Z"}]', 0
+);
+
+INSERT INTO tours."Sessions"(
+    "Id", "TourId", "TouristId", "LocationId", "SessionStatus",
+    "Transportation", "DistanceCrossedPercent", "LastActivity",
+    "CompletedKeyPoints", "Version")
+VALUES (
+    -25, -2, -8, -2, 2, 0, 75,
+    '2024-01-18 08:38:56.065+01',
+    '[{"KeyPointId": -4, "CompletionTime": "2024-01-18T07:38:56.1073954Z"}, {"KeyPointId": -5, "CompletionTime": "2024-01-18T07:39:00.7970785Z"}, {"KeyPointId": -6, "CompletionTime": "2024-01-18T07:39:04.2065632Z"}]', 0
+);
+
+INSERT INTO payments."BoughtItems"(
+    "Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
+VALUES (
+    -25, -10, -13, '2024-01-18 08:46:52.396351+01', false
+);
