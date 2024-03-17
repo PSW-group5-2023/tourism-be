@@ -5,6 +5,7 @@ using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
+using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
 
 namespace Explorer.Tours.Infrastructure.Database;
 
@@ -18,6 +19,7 @@ public class ToursContext : DbContext
     public DbSet<TourProblem> TourProblems { get; set; }
     public DbSet<Preferences> Preferences { get; set; }
     public DbSet<Session> Sessions { get; set; }
+    public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
     public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
@@ -30,9 +32,11 @@ public class ToursContext : DbContext
         modelBuilder.HasDefaultSchema("tours");
         modelBuilder.Entity<TourProblem>().Property(item => item.Messages).HasColumnType("jsonb");
 
-        modelBuilder.Entity<Session>().Property(item => item.Location).HasColumnType("jsonb");
-
         modelBuilder.Entity<Session>().Property(item => item.CompletedKeyPoints).HasColumnType("jsonb");
+
+        modelBuilder.Entity<PositionSimulator>()
+            .HasIndex(ps => ps.TouristId)
+            .IsUnique();
 
         ConfigureTour(modelBuilder);
     }
@@ -52,5 +56,16 @@ public class ToursContext : DbContext
             .HasOne<Tour>()
             .WithMany()
             .HasForeignKey(s => s.TourId);
+
+        modelBuilder.Entity<Session>()
+            .HasOne<PositionSimulator>()
+            .WithMany()
+            .HasForeignKey(s => s.LocationId);
+
+        modelBuilder.Entity<DomainEvent>()
+                .HasDiscriminator<string>("EventType")
+                .HasValue<KeyPointCompleted>("KeyPointUpdated")
+                .HasValue<LocationUpdated>("LocationUpdated")
+                .HasValue<SessionCreated>("SessionCreated");
     }
 }

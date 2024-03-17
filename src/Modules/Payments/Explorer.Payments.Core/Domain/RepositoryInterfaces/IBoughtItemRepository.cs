@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Explorer.Payments.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
 {
@@ -14,5 +15,6 @@ namespace Explorer.Payments.Core.Domain.RepositoryInterfaces
         void GetItemToUpdate(long userId, long tourId);
         List<BoughtItem> GetAll();
         List<BoughtItem> GetAllByUserId(long userId);
+        List<BoughtItem> GetByTourId(long tourId);
     }
 }

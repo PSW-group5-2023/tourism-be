@@ -80,5 +80,22 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
             return query.ToList();
         }
+
+        public Person GetByEmail(string email)
+        {
+            var person = _dbContext.People.FirstOrDefault(x => x.Email == email);
+            return person;
+        }
+        public Person GetByUserId(long id)
+        {
+            var person = _dbContext.People.FirstOrDefault(x => x.UserId == id);
+            return person;
+        }
+
+        public string GetNameById(int id)
+        {
+            var name = _dbContext.People.FirstOrDefault(x => x.UserId == id).Name+" "+ _dbContext.People.FirstOrDefault(x => x.UserId == id).Surname;
+            return name;
+        }
     }
 }

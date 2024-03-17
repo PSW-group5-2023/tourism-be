@@ -48,6 +48,51 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.ShouldNotBeNull();
         }
 
+        [Theory]
+        [InlineData(-1)]
+        public void Get_number_of_started_tours(int authorId)
+        {
+            // Arange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetNumberOfStartedTours(authorId).Result)?.Value as int?;
+
+            // Assert
+            result.ShouldBe(2);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        public void Get_number_of_completed_tours(int authorId)
+        {
+            // Arange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetNumberOfCompletedTours(authorId).Result)?.Value as int?;
+
+            // Assert
+            result.ShouldBe(0);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        public void Get_tour_completion_percentage_stats(int authorId)
+        {
+            // Arange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetTourCompletionPercentageStats(authorId).Result)?.Value as List<int>;
+
+            // Assert
+            result.ShouldBe(new List<int> { 0, 2, 0, 0 });
+        }
+
         private static SessionController CreateController(IServiceScope scope)
         {
             return new SessionController(scope.ServiceProvider.GetRequiredService<ISessionService>())

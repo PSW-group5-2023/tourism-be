@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,24 @@ namespace Explorer.Tours.Core.Domain.Sessions
         ABANDONED
     }
 
-    public class Session : Entity
+    public class Session : EventSourcedAggregate
     {
         public long TourId { get; private set; }
         public long TouristId { get; private set; }
-        public PositionSimulator Location { get; private set; }
+        public long LocationId { get; private set; }
         public SessionStatus SessionStatus { get; private set; }
+        public int Transportation { get; private set; }
         public int DistanceCrossedPercent { get; private set; }
         public DateTime LastActivity { get; private set; }
         public List<CompletedKeyPoint> CompletedKeyPoints { get; private set; }
 
-        public Session(long tourId, long touristId, PositionSimulator location, SessionStatus sessionStatus, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
+        public Session(long tourId, long touristId, long locationId, SessionStatus sessionStatus, int transportation, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
         {
             TourId = tourId;
             TouristId = touristId;
-            Location = location;
+            LocationId = locationId;
             SessionStatus = sessionStatus;
+            Transportation = transportation;
             DistanceCrossedPercent = distanceCrossedPercent;
             LastActivity = lastActivity;
             CompletedKeyPoints = completedKeyPoints;
@@ -60,9 +63,47 @@ namespace Explorer.Tours.Core.Domain.Sessions
             if (completeKeyPointCheck == null)
             {
                 CompletedKeyPoints.Add(completedKeyPoint);
+                Causes(new KeyPointCompleted(this.Id, DateTime.UtcNow));
             }
 
             return completedKeyPoint;
+        }
+
+        public void Create()
+        {
+            Causes(new SessionCreated(this.Id, DateTime.UtcNow));
+        }
+
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            Causes(new LocationUpdated(this.Id, latitude, longitude));
+        }
+
+        private void Causes(DomainEvent @event)
+        {
+            Changes.Add(@event);
+            Apply(@event);
+        }
+
+        public override void Apply(DomainEvent @event)
+        {
+            When((dynamic)@event);
+            Version++;
+        }
+
+        private void When(KeyPointCompleted keyPointCompleted)
+        {
+
+        }
+
+        private void When(SessionCreated sessionCreated)
+        {
+
+        }
+
+        private void When(LocationUpdated locationUpdated)
+        {
+
         }
     }
 }
