@@ -202,7 +202,6 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             return campaignEquipmentList.ToArray();
         }
 
-
         public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
         {
             var tours = _tourRepository.GetPaged(page, pageSize);

@@ -20,8 +20,8 @@ public class ToursProfile : Profile
         CreateMap<TourKeyPointDto, TourKeyPoint>().ReverseMap();
         CreateMap<TourRatingDto, TourRating>().ReverseMap();
         CreateMap<FacilityDto, Facility>().ReverseMap();
-       // CreateMap<TourProblemDto, TourProblem>().ReverseMap();
         CreateMap<TourProblemMessageDto, TourProblemMessage>().ReverseMap();
+
         CreateMap<TourProblemDto, TourProblem>()
             .IncludeAllDerived()
             .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((dto) => new TourProblemMessage(dto.SenderId,dto.RecipientId, dto.CreationTime, dto.Description,dto.IsRead))));
@@ -29,15 +29,13 @@ public class ToursProfile : Profile
             .IncludeAllDerived()
             .ForMember(dest => dest.Messages, opt => opt.MapFrom(src => src.Messages.Select((message) => new TourProblemMessageDto { SenderId = message.SenderId, RecipientId = message.RecipientId, CreationTime = message.CreationTime, Description = message.Description,IsRead = message.IsRead })));
 
-
-       
         CreateMap<PositionSimulatorDto, PositionSimulator>().ReverseMap();
         CreateMap<PreferencesDto, Preferences>().ReverseMap();
         CreateMap<CompletedKeyPointDto, CompletedKeyPoint>().ReverseMap();
+
         CreateMap<SessionDto, Session>().ReverseMap();
         CreateMap<SessionDto, Session>().IncludeAllDerived()
             .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
-
 
         CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
         CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
