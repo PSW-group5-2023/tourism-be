@@ -12,7 +12,6 @@ using Explorer.Tours.API.Dtos.TouristTour;
 using Explorer.Blog.API.Public;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Authoring;
-using Explorer.Tours.API.Public.TouristTour;
 using Explorer.Tours.Infrastructure.Database;
 using Shouldly;
 using Explorer.Tours.Core.Domain.Tours;
