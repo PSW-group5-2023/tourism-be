@@ -6,7 +6,7 @@ using Explorer.Payments.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
-using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Public.Execution;

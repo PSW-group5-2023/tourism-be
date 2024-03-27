@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Explorer.Tours.API.Public;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring
 {

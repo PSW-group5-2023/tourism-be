@@ -2,7 +2,6 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
-using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.API.Public.Authoring;
@@ -16,6 +15,7 @@ using Microsoft.AspNetCore.SignalR;
 using System.Dynamic;
 using System.Linq;
 using System.Xml.Linq;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.Tours.Core.UseCases.Authoring
 {

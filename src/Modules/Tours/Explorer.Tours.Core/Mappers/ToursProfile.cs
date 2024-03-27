@@ -7,6 +7,12 @@ using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using System.ComponentModel.DataAnnotations;
 using Explorer.Tours.API.Dtos.Statistics;
+using Explorer.Tours.API.Dtos.Equipment;
+using Explorer.Tours.API.Dtos.Facility;
+using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Rating;
+using Explorer.Tours.API.Dtos.Execution;
+using Explorer.Tours.API.Dtos.Problem;
 
 namespace Explorer.Tours.Core.Mappers;
 

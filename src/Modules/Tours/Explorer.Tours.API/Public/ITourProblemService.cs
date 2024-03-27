@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Problem;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using System;

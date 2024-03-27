@@ -1,6 +1,7 @@
 ﻿using Explorer.API.Controllers.Administrator;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Problem;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Microsoft.AspNetCore.Mvc;

@@ -1,5 +1,5 @@
 ﻿using Explorer.API.Controllers.Execution;
-using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;

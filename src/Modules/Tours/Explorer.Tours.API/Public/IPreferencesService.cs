@@ -1,4 +1,4 @@
-﻿using Explorer.Tours.API.Dtos;
+﻿using Explorer.Tours.API.Dtos.Tour;
 using FluentResults;
 using System;
 using System.Collections.Generic;

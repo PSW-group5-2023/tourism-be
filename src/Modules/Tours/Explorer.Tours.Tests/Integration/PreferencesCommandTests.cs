@@ -1,11 +1,11 @@
 ﻿using Explorer.API.Controllers.Tourist;
-using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Explorer.Stakeholders.Core.Domain;
 using Shouldly;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.Tours.Tests.Integration
 {

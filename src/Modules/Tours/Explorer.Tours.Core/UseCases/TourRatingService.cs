@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;

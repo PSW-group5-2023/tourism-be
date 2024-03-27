@@ -2,6 +2,7 @@
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Problem;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.UseCases;
 using Microsoft.AspNetCore.Authorization;

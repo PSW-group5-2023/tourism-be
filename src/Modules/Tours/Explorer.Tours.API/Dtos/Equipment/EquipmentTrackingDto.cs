@@ -1,4 +1,4 @@
-﻿namespace Explorer.Tours.API.Dtos;
+﻿namespace Explorer.Tours.API.Dtos.Equipment;
 
 public class EquipmentTrackingDto
 {

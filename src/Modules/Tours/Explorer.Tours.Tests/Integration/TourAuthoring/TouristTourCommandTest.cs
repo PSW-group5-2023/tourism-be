@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using Explorer.API.Controllers.Tourist;
 using Explorer.Tours.API.Dtos.TouristTour;
 using Explorer.Blog.API.Public;
-using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.Infrastructure.Database;
 using Shouldly;
 using Explorer.Tours.Core.Domain.Tours;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring
 {
