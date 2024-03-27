@@ -11,7 +11,7 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Tours;
 
-namespace Explorer.Tours.Core.UseCases
+namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class PublicTourKeyPointService : CrudService<PublicTourKeyPointDto, PublicTourKeyPoints>, IPublicTourKeyPointService
     {
@@ -21,11 +21,11 @@ namespace Explorer.Tours.Core.UseCases
             _tourKeyPointsRepository = tourKeyPointsRepository;
         }
 
-        public Result<PublicTourKeyPointDto> ChangeStatus(int id, String status)
+        public Result<PublicTourKeyPointDto> ChangeStatus(int id, string status)
         {
-           PublicTourKeyPoints keyPoint = (PublicTourKeyPoints)_tourKeyPointsRepository.GetById(id);
-           switch (status)
-           {
+            PublicTourKeyPoints keyPoint = (PublicTourKeyPoints)_tourKeyPointsRepository.GetById(id);
+            switch (status)
+            {
                 case "Approved":
                     keyPoint.ChangeStatus(PublicTourKeyPoints.PublicTourKeyPointStatus.Approved);
                     break;
@@ -34,12 +34,12 @@ namespace Explorer.Tours.Core.UseCases
                     break;
                 default:
                     throw new ArgumentException("Invalid status", nameof(status));
-                
+
             }
-           _tourKeyPointsRepository.Update(keyPoint);
+            _tourKeyPointsRepository.Update(keyPoint);
 
 
-           return CreateDto(keyPoint);
+            return CreateDto(keyPoint);
         }
 
         private PublicTourKeyPointDto CreateDto(PublicTourKeyPoints keyPoint)
@@ -56,7 +56,7 @@ namespace Explorer.Tours.Core.UseCases
                 Status = keyPoint.Status.ToString(),
             };
         }
-        public Result<List<PublicTourKeyPointDto>> GetByStatus(String status)
+        public Result<List<PublicTourKeyPointDto>> GetByStatus(string status)
         {
             List<PublicTourKeyPointDto> tourKeyPointDtos = new List<PublicTourKeyPointDto>();
             Enum.TryParse(status, out PublicTourKeyPoints.PublicTourKeyPointStatus parsedStatus);

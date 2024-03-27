@@ -7,12 +7,13 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 
 
-namespace Explorer.Tours.Core.UseCases;
+namespace Explorer.Tours.Core.UseCases.Tours;
 public class PreferencesService : CrudService<PreferencesDto, Preferences>, IPreferencesService
 {
     private readonly IPreferencesRepository _preferencesRepository;
     private readonly IMapper _mapper;
-    public PreferencesService(ICrudRepository<Preferences> repository, IPreferencesRepository preferencesRepository, IMapper mapper) : base(repository, mapper) {
+    public PreferencesService(ICrudRepository<Preferences> repository, IPreferencesRepository preferencesRepository, IMapper mapper) : base(repository, mapper)
+    {
         _preferencesRepository = preferencesRepository;
         _mapper = mapper;
     }

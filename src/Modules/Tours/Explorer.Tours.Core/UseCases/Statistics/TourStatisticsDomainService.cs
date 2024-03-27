@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Explorer.Tours.Core.UseCases.Authoring
+namespace Explorer.Tours.Core.UseCases.Statistics
 {
     public class TourStatisticsDomainService : ITourStatisticsDomainService
     {
@@ -130,9 +130,9 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             var uniqueSessions = new List<Session>();
             foreach (var session in sessions)
             {
-                if(authorsTourIds.Contains(session.TourId))
+                if (authorsTourIds.Contains(session.TourId))
                 {
-                    if(uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null)
+                    if (uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null)
                     {
                         numberOfStartedTours += 1;
                         uniqueSessions.Add(session);
@@ -207,7 +207,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
                     number++;
                 }
             }
-            stat.NumberOfStats = (double)number/numberOfSession * 100;
+            stat.NumberOfStats = (double)number / numberOfSession * 100;
             return stat;
         }
 
@@ -240,7 +240,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
                     {
                         secondQuarterCounter++;
                     }
-                    else if(session.DistanceCrossedPercent >= 50 && session.DistanceCrossedPercent < 75)
+                    else if (session.DistanceCrossedPercent >= 50 && session.DistanceCrossedPercent < 75)
                     {
                         thirdQuarterCounter++;
                     }

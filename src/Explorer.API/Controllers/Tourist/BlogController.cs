@@ -3,7 +3,6 @@ using Explorer.Blog.API.Public;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.Core.UseCases.Administration;
 using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

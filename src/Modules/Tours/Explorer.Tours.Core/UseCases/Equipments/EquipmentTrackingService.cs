@@ -8,13 +8,14 @@ using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using System.Reflection.Metadata;
 
-namespace Explorer.Tours.Core.UseCases;
+namespace Explorer.Tours.Core.UseCases.Equipments;
 
 public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, EquipmentTracking>, IEquipmentTrackingService
 {
     private readonly IEquipmentTrackingRepository _equipmentTrackingRepository;
     private readonly IMapper _mapper;
-    public EquipmentTrackingService(ICrudRepository<EquipmentTracking> repository, IMapper mapper, IEquipmentTrackingRepository equipmentTrackingRepository) : base(mapper) { 
+    public EquipmentTrackingService(ICrudRepository<EquipmentTracking> repository, IMapper mapper, IEquipmentTrackingRepository equipmentTrackingRepository) : base(mapper)
+    {
         _equipmentTrackingRepository = equipmentTrackingRepository;
         _mapper = mapper;
     }
@@ -22,8 +23,8 @@ public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, Equipm
     {
         EquipmentTracking entity = _equipmentTrackingRepository.GetByTouristId(touristId);
         return MapToDto(entity);
-    } 
-    
+    }
+
     public Result<EquipmentTrackingDto> Update(EquipmentTrackingDto dto)
     {
         try

@@ -6,18 +6,17 @@ using Explorer.Tours.API.Public.Rating;
 using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
-using Explorer.Tours.Core.UseCases.Authoring;
 using FluentResults;
 
 
-namespace Explorer.Tours.Core.UseCases
+namespace Explorer.Tours.Core.UseCases.Rating
 {
     public class TourRatingService : CrudService<TourRatingDto, TourRating>, ITourRatingService
     {
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
         public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(repository, mapper)
-        { 
+        {
             _tourRatingRepository = tourRatingRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
         }
@@ -34,7 +33,7 @@ namespace Explorer.Tours.Core.UseCases
                     Id = (int)tourRaing.Id,
                     PersonId = (int)tourRaing.PersonId,
                     TourId = (int)tourRaing.TourId,
-                    Mark = (int)tourRaing.Mark,
+                    Mark = tourRaing.Mark,
                     Comment = tourRaing.Comment,
                     DateOfVisit = tourRaing.DateOfVisit,
                     DateOfCommenting = tourRaing.DateOfCommenting,

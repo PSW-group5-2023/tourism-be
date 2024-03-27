@@ -15,7 +15,7 @@ using Explorer.Tours.API.Public.Problem;
 using Explorer.Tours.Core.Domain.Problem;
 
 
-namespace Explorer.Tours.Core.UseCases
+namespace Explorer.Tours.Core.UseCases.Problem
 {
     public class TourProblemService : CrudService<TourProblemDto, TourProblem>, ITourProblemService
     {
@@ -64,7 +64,7 @@ namespace Explorer.Tours.Core.UseCases
                 r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
                 foreach (var m in r.Messages)
                 {
-                    if(m.SenderId != 0)
+                    if (m.SenderId != 0)
                         m.SenderName = _userNamesService.GetName(m.SenderId).Username;
                 }
             }
@@ -86,21 +86,21 @@ namespace Explorer.Tours.Core.UseCases
                     }
                 }
             }
-             return unreadMessages;
-           
+            return unreadMessages;
+
         }
         public Result<TourProblemDto> GiveDeadline(DateTime deadline, long tourProblemId)
         {
             var tourProblem = _tourProblemRepository.GiveDeadline(deadline, tourProblemId);
             TourProblemDto dto = new TourProblemDto();
-            dto.Deadline=deadline;
+            dto.Deadline = deadline;
             return dto;
         }
 
         public Result<TourProblemDto> PunishAuthor(string authorUsername, long tourId, long tourProblemId)
         {
-            var tourProblem=_tourProblemRepository.PunishAuthor(authorUsername, tourId, tourProblemId);
-            TourProblemDto tpdto= new TourProblemDto();
+            var tourProblem = _tourProblemRepository.PunishAuthor(authorUsername, tourId, tourProblemId);
+            TourProblemDto tpdto = new TourProblemDto();
             tpdto.IsSolved = true;
             return tpdto;
         }

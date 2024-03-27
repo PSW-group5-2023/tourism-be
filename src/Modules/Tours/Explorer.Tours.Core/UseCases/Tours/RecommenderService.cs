@@ -12,7 +12,6 @@ using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Tours;
-using Explorer.Tours.Core.UseCases.Authoring;
 using FluentResults;
 using System;
 using System.Collections;
@@ -25,7 +24,7 @@ using System.Transactions;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Explorer.Tours.Core.UseCases
+namespace Explorer.Tours.Core.UseCases.Tours
 {
 
     public class RecommenderService : BaseService<TourDto, Tour>, IRecommenderService
@@ -40,9 +39,9 @@ namespace Explorer.Tours.Core.UseCases
         private readonly IPersonService _personService;
         private readonly ITourService _tourService;
 
-        public RecommenderService(IMapper mapper, 
-            ITourRepository tourRepository, 
-            IPreferencesRepository preferencesRepository, 
+        public RecommenderService(IMapper mapper,
+            ITourRepository tourRepository,
+            IPreferencesRepository preferencesRepository,
             ITourRatingRepository tourRatingRepository,
             IInternalBoughtItemService internalBoughtItemService,
             IFollowerService followerService,
@@ -50,7 +49,7 @@ namespace Explorer.Tours.Core.UseCases
             IEmailSendingTourCommunityRecommendationService emailSendingService,
             IPersonService personService,
             ITourService tourService
-            ) : base(mapper) 
+            ) : base(mapper)
         {
             _tourRepository = tourRepository;
             _preferencesRepository = preferencesRepository;
@@ -59,7 +58,7 @@ namespace Explorer.Tours.Core.UseCases
             _followerService = followerService;
             _sessionService = sessionService;
             _emailSendingService = emailSendingService;
-            _personService= personService;
+            _personService = personService;
             _tourService = tourService;
         }
 
@@ -79,7 +78,7 @@ namespace Explorer.Tours.Core.UseCases
 
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
         {
-            var preference = _preferencesRepository.GetByUserId(userId);   
+            var preference = _preferencesRepository.GetByUserId(userId);
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
 
             var usedTours = new List<Tour>();
@@ -89,12 +88,12 @@ namespace Explorer.Tours.Core.UseCases
             var toursToRecommend = new List<Tour>();
             foreach (var item in usedBoughtItems.Value)
             {
-                if(usedTours.Count <= 10)
+                if (usedTours.Count <= 10)
                 {
                     usedTours.Add(_tourRepository.Get(item.TourId));
                 }
 
-                if(tours.Any(t => t.Id == item.TourId))
+                if (tours.Any(t => t.Id == item.TourId))
                 {
                     tours.Remove(_tourRepository.Get(item.TourId));
                 }
@@ -119,7 +118,7 @@ namespace Explorer.Tours.Core.UseCases
 
             var sortedToursByIndexes = tourIndexes.OrderByDescending(x => x.Value);
 
-            foreach(KeyValuePair<long, double> tour in sortedToursByIndexes)
+            foreach (KeyValuePair<long, double> tour in sortedToursByIndexes)
             {
                 recommendedTours.Results.Add(MapToDto(tours.Find(t => t.Id == tour.Key)));
             }
@@ -128,7 +127,7 @@ namespace Explorer.Tours.Core.UseCases
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId)
-        {                       
+        {
             var userFromFollowing = _followerService.GetFollowings(userId).Value;
             var users = new List<FollowerDto>();
 
@@ -136,7 +135,7 @@ namespace Explorer.Tours.Core.UseCases
             {
                 var session = _sessionService.GetByTourAndTouristId(tourId, user.FollowedId).Value;
 
-                if(session != null)
+                if (session != null)
                     if (session.SessionStatus == 1)
                     {
                         users.Add(user);
@@ -145,14 +144,14 @@ namespace Explorer.Tours.Core.UseCases
 
             List<Tour> toursFromFollowigns = new List<Tour>();
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 foreach (var session in _sessionService.GetAllByTouristId(user.FollowedId).Value)
                 {
                     toursFromFollowigns.Add(_tourRepository.Get(session.TourId));
                 }
             }
-            
+
             return GetRecommendedTours(userId, toursFromFollowigns);
         }
 
@@ -179,7 +178,7 @@ namespace Explorer.Tours.Core.UseCases
 
             // because 0 should represent the worst index and 1 should represent the best ( difficultyLevel is vice versa )
             double inverseDifficultyError = 1 - difficultyError;
-            
+
 
             return inverseDifficultyError;
         }
@@ -207,7 +206,7 @@ namespace Explorer.Tours.Core.UseCases
             var tourRatings = _tourRatingRepository.GetByTourId((int)tour.Id);
 
             double ratingIndex = 0.0;
-            if(tourRatings.Count >= 5)
+            if (tourRatings.Count >= 5)
             {
                 double sumRating = 0.0;
                 foreach (var rating in tourRatings)
@@ -215,8 +214,8 @@ namespace Explorer.Tours.Core.UseCases
                     sumRating += rating.Mark;
                 }
                 double averageRating = sumRating / tourRatings.Count;
-                
-                if(averageRating > 4.0)
+
+                if (averageRating > 4.0)
                 {
                     ratingIndex = averageRating - 4.0;
                 }
@@ -254,12 +253,12 @@ namespace Explorer.Tours.Core.UseCases
             var ratingsInLastWeek = _tourRatingRepository.GetByTourId((int)tour.Id).Where(x => x.DateOfCommenting >= lastWeek).ToList();
             double ratingsCount = ratingsInLastWeek?.Count() ?? 0;
             double ratingsSum = 0;
-            foreach( var r in ratingsInLastWeek)
+            foreach (var r in ratingsInLastWeek)
             {
                 ratingsSum += r.Mark;
             }
-            double averageRating = (ratingsCount > 0) ? (ratingsSum / ratingsCount) : 0;
-            double ratingPercentage = (totalRatings > 10) ? (ratingsCount / totalRatings) : 0;
+            double averageRating = ratingsCount > 0 ? ratingsSum / ratingsCount : 0;
+            double ratingPercentage = totalRatings > 10 ? ratingsCount / totalRatings : 0;
             return new Tuple<double, double>(averageRating, ratingPercentage);
         }
 
@@ -268,13 +267,13 @@ namespace Explorer.Tours.Core.UseCases
             DateTime lastWeek = DateTime.Today.AddDays(-7);
             var boughts = _internalBoughtItemService.GetByTourId(tour.Id).Value;
             double boughtsCount = boughts?.Count() ?? 0;
-            double boughtPercentage = (totalBoughts > 10) ? (boughtsCount / totalBoughts) : 0;
+            double boughtPercentage = totalBoughts > 10 ? boughtsCount / totalBoughts : 0;
             return boughtPercentage;
         }
 
         public double calculateScoreForActiveTour(Tour tour, int totalBoughts, int totalRatings)
         {
-            double normalizedAvgRating = (getRatingParameters(tour, totalRatings).Item1)/5;
+            double normalizedAvgRating = getRatingParameters(tour, totalRatings).Item1 / 5;
             double ratingPercentage = getRatingParameters(tour, totalRatings).Item2;
             double boughtPercentage = getBoughtParameters(tour, totalBoughts);
             return 0.2 * normalizedAvgRating + 0.4 * ratingPercentage + 0.4 * boughtPercentage;
@@ -301,11 +300,11 @@ namespace Explorer.Tours.Core.UseCases
 
         public Result<bool> SendEmail(int userId, string body)
         {
-            var links=body.Split('|');
+            var links = body.Split('|');
             string linksForSend = "";
-            foreach (var link in links) 
+            foreach (var link in links)
             {
-                linksForSend += link+"\n\t\t";
+                linksForSend += link + "\n\t\t";
             }
             var email = _personService.GetEmailByUserId(userId);
             string bodyForSend = $@"
@@ -325,18 +324,18 @@ namespace Explorer.Tours.Core.UseCases
 
         public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
-            var list= GetRecommendedToursFromFollowings(tourId, userId);
+            var list = GetRecommendedToursFromFollowings(tourId, userId);
             PagedResult<TourDto> filteredList = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var item in list.Value.Results)
             {
-                var tourRatings = _tourRatingRepository.GetByTourId((int)item.Id);
+                var tourRatings = _tourRatingRepository.GetByTourId(item.Id);
                 double sumRating = 0.0;
                 foreach (var mark in tourRatings)
                 {
                     sumRating += mark.Mark;
                 }
                 double averageRating = sumRating / tourRatings.Count;
-                if (averageRating>rating)
+                if (averageRating > rating)
                 {
                     filteredList.Results.Add(item);
                 }

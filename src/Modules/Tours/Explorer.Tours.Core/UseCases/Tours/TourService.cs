@@ -16,7 +16,7 @@ using System.Xml.Linq;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 
-namespace Explorer.Tours.Core.UseCases.Authoring
+namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
@@ -227,7 +227,7 @@ namespace Explorer.Tours.Core.UseCases.Authoring
             double radius = 40000;
             var person = _internalPersonService.Get(touristId);
             var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == Domain.Tours.TourStatus.Published).ToList();
+            var publishedTours = tours.Results.Where(tour => tour.Status == TourStatus.Published).ToList();
             var resultTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
 
             if (person.Value.Latitude == null && person.Value.Longitude == null)

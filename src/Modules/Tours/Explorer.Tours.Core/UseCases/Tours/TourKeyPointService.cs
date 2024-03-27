@@ -11,7 +11,7 @@ using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 
-namespace Explorer.Tours.Core.UseCases
+namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class TourKeyPointService : CrudService<TourKeyPointDto, TourKeyPoint>, ITourKeyPointService
     {
@@ -49,23 +49,23 @@ namespace Explorer.Tours.Core.UseCases
         public Result<List<TourKeyPointDto>> GetByTourId(long tourId)
         {
             List<TourKeyPointDto> tourKeyPointDtos = new List<TourKeyPointDto>();
-           var tourKeyPoints = _tourKeyPointsRepository.GetByTourId(tourId);
-           foreach (var tourKeyPoint in tourKeyPoints)
-           {
-               TourKeyPointDto tourKeyPointDto = new TourKeyPointDto
-               {
-                   Id = (int)tourKeyPoint.Id,
-                   Name = tourKeyPoint.Name,
-                   Description = tourKeyPoint.Description,
-                   Image = tourKeyPoint.Image,
-                   Latitude = tourKeyPoint.Latitude,
-                   Longitude = tourKeyPoint.Longitude,
-                   TourId = tourKeyPoint.TourId
-               };
+            var tourKeyPoints = _tourKeyPointsRepository.GetByTourId(tourId);
+            foreach (var tourKeyPoint in tourKeyPoints)
+            {
+                TourKeyPointDto tourKeyPointDto = new TourKeyPointDto
+                {
+                    Id = (int)tourKeyPoint.Id,
+                    Name = tourKeyPoint.Name,
+                    Description = tourKeyPoint.Description,
+                    Image = tourKeyPoint.Image,
+                    Latitude = tourKeyPoint.Latitude,
+                    Longitude = tourKeyPoint.Longitude,
+                    TourId = tourKeyPoint.TourId
+                };
                 tourKeyPointDtos.Add(tourKeyPointDto);
-           }
+            }
 
-           return tourKeyPointDtos;
+            return tourKeyPointDtos;
         }
 
     }
