@@ -2,7 +2,7 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Facility;
 using Explorer.Tours.API.Public.Facility;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Facilities;
 
 namespace Explorer.Tours.Core.UseCases.Administration
 {

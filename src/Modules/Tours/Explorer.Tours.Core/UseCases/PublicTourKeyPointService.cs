@@ -1,5 +1,4 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,7 @@ using FluentResults;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Core.UseCases
 {

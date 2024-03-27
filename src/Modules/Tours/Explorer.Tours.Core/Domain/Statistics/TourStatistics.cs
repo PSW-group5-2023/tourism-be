@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Tours.Core.Domain.Statistics
 {
     public class TourStatistics : ValueObject
     {
@@ -16,7 +16,7 @@ namespace Explorer.Tours.Core.Domain
         public TourStatistics(long tourId, double numberOfStats)
         {
             TourId = tourId;
-            NumberOfStats=numberOfStats;
+            NumberOfStats = numberOfStats;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

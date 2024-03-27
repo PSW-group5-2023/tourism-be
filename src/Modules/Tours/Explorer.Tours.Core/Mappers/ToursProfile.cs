@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Explorer.Blog.Core.Domain;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +11,10 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Dtos.Problem;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.Core.Domain.Problem;
+using Explorer.Tours.Core.Domain.Rating;
+using Explorer.Tours.Core.Domain.Facilities;
 
 namespace Explorer.Tours.Core.Mappers;
 

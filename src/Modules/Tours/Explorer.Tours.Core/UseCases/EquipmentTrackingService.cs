@@ -3,7 +3,7 @@ using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Public.Equipment;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using System.Reflection.Metadata;

@@ -3,7 +3,6 @@ using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Mappers;
 using Explorer.Tours.Core.UseCases;
@@ -27,6 +26,10 @@ using Explorer.Tours.API.Public.Facility;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.API.Public.Problem;
 using Explorer.Tours.API.Public.Rating;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.Core.Domain.Problem;
+using Explorer.Tours.Core.Domain.Rating;
+using Explorer.Tours.Core.Domain.Facilities;
 
 namespace Explorer.Tours.Infrastructure;
 

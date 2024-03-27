@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Explorer.Tours.Core.Domain
+namespace Explorer.Tours.Core.Domain.Rating
 {
     public class TourRating : Entity
     {
@@ -16,7 +16,7 @@ namespace Explorer.Tours.Core.Domain
         public long TourId { get; init; }
         public int Mark { get; private set; }
         public string Comment { get; private set; }
-        public DateTime  DateOfVisit { get; private set; }
+        public DateTime DateOfVisit { get; private set; }
         public DateTime DateOfCommenting { get; private set; }
         public List<Uri> Images { get; private set; }
 

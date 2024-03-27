@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Explorer.Blog.Core.Domain
+namespace Explorer.Tours.Core.Domain.Problem
 {
     public class TourProblemMessage : ValueObject
     {
@@ -19,7 +19,7 @@ namespace Explorer.Blog.Core.Domain
 
 
         [JsonConstructor]
-        public TourProblemMessage(long senderId,long recipientId, DateTime creationTime, string description,bool isRead)
+        public TourProblemMessage(long senderId, long recipientId, DateTime creationTime, string description, bool isRead)
         {
             SenderId = senderId;
             RecipientId = recipientId;

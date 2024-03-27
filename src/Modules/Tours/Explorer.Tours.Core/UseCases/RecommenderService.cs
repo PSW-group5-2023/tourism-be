@@ -9,7 +9,6 @@ using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Tours;

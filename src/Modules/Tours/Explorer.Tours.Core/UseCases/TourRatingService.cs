@@ -3,7 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Rating;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.UseCases.Authoring;

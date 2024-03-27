@@ -1,6 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;

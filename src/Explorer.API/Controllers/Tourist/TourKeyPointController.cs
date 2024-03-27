@@ -6,7 +6,7 @@ using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static Explorer.Tours.Core.Domain.PublicTourKeyPoints;
+using static Explorer.Tours.Core.Domain.Tours.PublicTourKeyPoints;
 
 namespace Explorer.API.Controllers.Tourist
 {

@@ -1,5 +1,4 @@
-﻿using Explorer.Blog.Core.Domain;
-using Explorer.BuildingBlocks.Core.Domain;
+﻿using Explorer.BuildingBlocks.Core.Domain;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -8,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Explorer.Tours.Core.Domain
-{ 
+namespace Explorer.Tours.Core.Domain.Problem
+{
     public enum TourProblemPriority
     {
         LOW = 0,
@@ -18,7 +17,7 @@ namespace Explorer.Tours.Core.Domain
     }
     public enum TourProblemCategory
     {
-        BOOKING =0,
+        BOOKING = 0,
         ITINERARY,
         PAYMENT,
         TRANSPORTATION,
@@ -33,12 +32,12 @@ namespace Explorer.Tours.Core.Domain
         public TourProblemPriority Priority { get; init; }
         public string Description { get; init; }
         public DateTime Time { get; init; }
-        public Boolean IsSolved { get; private set; }      
+        public bool IsSolved { get; private set; }
         public List<TourProblemMessage> Messages { get; init; }
         public DateTime? Deadline { get; private set; }
 
 
-        public TourProblem(long touristId,long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved, List<TourProblemMessage> messages)
+        public TourProblem(long touristId, long tourId, TourProblemCategory category, TourProblemPriority priority, string description, DateTime time, bool isSolved, List<TourProblemMessage> messages)
         {
             TouristId = touristId;
             TourId = tourId;
@@ -50,7 +49,7 @@ namespace Explorer.Tours.Core.Domain
             IsSolved = isSolved;
             Messages = messages;
         }
-        public TourProblemMessage CreateMessage(long senderId,long recipientId, DateTime time, string description,bool isRead)
+        public TourProblemMessage CreateMessage(long senderId, long recipientId, DateTime time, string description, bool isRead)
         {
             TourProblemMessage message = new TourProblemMessage(senderId, recipientId, time, description, isRead);
             Messages.Add(message);
@@ -66,13 +65,13 @@ namespace Explorer.Tours.Core.Domain
         public void GiveDeadline(DateTime deadline)
         {
             if (deadline > DateTime.Now)
-                this.Deadline = deadline;
+                Deadline = deadline;
             else
                 throw new ArgumentException("Invalid date!");
         }
         public void CloseProblem()
         {
-            this.IsSolved = true;
+            IsSolved = true;
         }
     }
 }

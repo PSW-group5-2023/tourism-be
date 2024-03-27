@@ -2,7 +2,7 @@ using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Public.Equipment;
-using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Equipment;
 
 namespace Explorer.Tours.Core.UseCases.Administration;
 
