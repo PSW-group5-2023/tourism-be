@@ -5,7 +5,6 @@ using Explorer.Payments.API.Public;
 using Explorer.Payments.Core.Domain;
 using Explorer.Payments.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Internal;
-using Explorer.Tours.API.Public.Administration;
 using FluentResults;
 
 namespace Explorer.Payments.Core.UseCases;

@@ -1,5 +1,5 @@
 ﻿using Explorer.API.Controllers.Author.Authoring;
-using Explorer.Tours.API.Public.Authoring;
+using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;

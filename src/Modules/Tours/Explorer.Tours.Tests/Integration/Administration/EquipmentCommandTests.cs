@@ -1,11 +1,11 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Infrastructure.Database;
 using Explorer.BuildingBlocks.Tests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
+using Explorer.Tours.API.Dtos.Equipment;
+using Explorer.Tours.API.Public.Equipment;
 
 
 namespace Explorer.Tours.Tests.Integration.Administration;

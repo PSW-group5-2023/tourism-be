@@ -1,11 +1,14 @@
 ﻿using Explorer.Blog.Core.Domain;
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Stakeholders.Core.Domain;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.Core.Domain.Problem;
+using Explorer.Tours.Core.Domain.Rating;
+using Explorer.Tours.Core.Domain.Facilities;
 
 namespace Explorer.Tours.Infrastructure.Database;
 

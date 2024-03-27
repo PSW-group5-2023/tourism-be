@@ -1,5 +1,5 @@
 ﻿using Explorer.Tours.API.Dtos.Statistics;
-using Explorer.Tours.API.Public;
+using Explorer.Tours.API.Public.Rating;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

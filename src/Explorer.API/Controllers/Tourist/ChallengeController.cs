@@ -3,7 +3,7 @@ using Explorer.Encounters.API.Public;
 using Explorer.Encounters.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.API.Controllers.Tourist
 {

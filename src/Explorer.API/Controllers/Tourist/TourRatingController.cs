@@ -1,9 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
-using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.API.Dtos.Rating;
+using Explorer.Tours.API.Public.Rating;
 using Explorer.Tours.Core.UseCases;
-using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

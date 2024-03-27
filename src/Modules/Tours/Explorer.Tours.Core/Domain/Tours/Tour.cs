@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Tours.Core.Domain.Tours
 {
-
     public class Tour : Entity
     {
         public string Name { get; private set; }

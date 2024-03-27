@@ -1,4 +1,4 @@
-﻿using Explorer.Tours.Core.Domain;
+﻿using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;

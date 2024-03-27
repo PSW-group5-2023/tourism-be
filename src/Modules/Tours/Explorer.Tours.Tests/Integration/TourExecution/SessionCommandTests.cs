@@ -2,7 +2,7 @@
 using Explorer.Blog.API.Dtos;
 using Explorer.Blog.API.Public;
 using Explorer.Blog.Infrastructure.Database;
-using Explorer.Tours.API.Dtos;
+using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Sessions;

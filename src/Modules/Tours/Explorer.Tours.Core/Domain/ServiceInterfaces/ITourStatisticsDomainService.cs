@@ -1,4 +1,6 @@
-﻿using Explorer.Tours.Core.Domain.Sessions;
+﻿using Explorer.Tours.Core.Domain.Rating;
+using Explorer.Tours.Core.Domain.Sessions;
+using Explorer.Tours.Core.Domain.Statistics;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using System;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Explorer.Tours.API.Dtos.Tour;
 
 namespace Explorer.Tours.API.Dtos.TouristTour
 {
