@@ -3,7 +3,6 @@ using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Public;
-using Explorer.Tours.API.Public.Administration;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Mappers;
@@ -19,11 +18,15 @@ using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.UseCases.Execution;
 using Explorer.Tours.Core.UseCases.Authoring;
-using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Internal;
 using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Tours.Infrastructure.Email;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
+using Explorer.Tours.API.Public.Equipment;
+using Explorer.Tours.API.Public.Facility;
+using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.API.Public.Problem;
+using Explorer.Tours.API.Public.Rating;
 
 namespace Explorer.Tours.Infrastructure;
 

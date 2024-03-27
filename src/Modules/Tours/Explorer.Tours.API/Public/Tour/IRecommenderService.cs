@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.API.Public
+namespace Explorer.Tours.API.Public.Tour
 {
     public interface IRecommenderService
     {

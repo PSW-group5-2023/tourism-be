@@ -2,7 +2,7 @@
 using Explorer.Tours.API.Dtos.Equipment;
 using FluentResults;
 
-namespace Explorer.Tours.API.Public;
+namespace Explorer.Tours.API.Public.Equipment;
 
 public interface IEquipmentTrackingService
 {

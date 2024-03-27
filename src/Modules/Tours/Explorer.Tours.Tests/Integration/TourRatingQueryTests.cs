@@ -2,8 +2,7 @@
 using Explorer.API.Controllers.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Rating;
-using Explorer.Tours.API.Public;
-using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.API.Public.Rating;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;

@@ -2,7 +2,7 @@
 using Explorer.Tours.API.Dtos.Facility;
 using FluentResults;
 
-namespace Explorer.Tours.API.Public.Administration
+namespace Explorer.Tours.API.Public.Facility
 {
     public interface IFacilityService
     {

@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.API.Public
+namespace Explorer.Tours.API.Public.Tour
 {
     public interface IPublicTourKeyPointService
     {
         Result<PagedResult<PublicTourKeyPointDto>> GetPaged(int page, int pageSize);
         Result<PublicTourKeyPointDto> Get(int id);
         Result<PublicTourKeyPointDto> Create(PublicTourKeyPointDto tourKeyPoint);
-        Result<PublicTourKeyPointDto> ChangeStatus(int id, String status);
-        Result<List<PublicTourKeyPointDto>> GetByStatus(String status);
+        Result<PublicTourKeyPointDto> ChangeStatus(int id, string status);
+        Result<List<PublicTourKeyPointDto>> GetByStatus(string status);
         Result Delete(int id);
     }
 }

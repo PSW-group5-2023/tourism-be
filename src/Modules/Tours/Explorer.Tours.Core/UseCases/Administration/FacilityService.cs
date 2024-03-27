@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Facility;
-using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.API.Public.Facility;
 using Explorer.Tours.Core.Domain;
 
 namespace Explorer.Tours.Core.UseCases.Administration

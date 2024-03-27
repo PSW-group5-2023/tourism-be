@@ -2,8 +2,8 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Dtos.Statistics;
-using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Public.Execution;
+using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;

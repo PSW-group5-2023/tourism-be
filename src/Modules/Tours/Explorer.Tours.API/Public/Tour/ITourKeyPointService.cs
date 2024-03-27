@@ -7,7 +7,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
 using FluentResults;
 
-namespace Explorer.Tours.API.Public
+namespace Explorer.Tours.API.Public.Tour
 {
     public interface ITourKeyPointService
     {

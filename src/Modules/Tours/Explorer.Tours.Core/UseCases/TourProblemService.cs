@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using Explorer.Stakeholders.API.Internal;
-using Explorer.Tours.API.Public.Authoring;
 using Explorer.Tours.API.Dtos.Problem;
+using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.API.Public.Problem;
 
 
 namespace Explorer.Tours.Core.UseCases

@@ -2,7 +2,6 @@
 using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
-using Explorer.Tours.API.Public;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Public.Tour;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {

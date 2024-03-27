@@ -1,7 +1,7 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Equipment;
-using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.API.Public.Equipment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;

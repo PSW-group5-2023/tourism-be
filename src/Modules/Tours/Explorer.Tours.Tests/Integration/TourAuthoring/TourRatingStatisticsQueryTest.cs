@@ -1,6 +1,6 @@
 ﻿using Explorer.API.Controllers.Author.Authoring;
 using Explorer.Tours.API.Dtos.Statistics;
-using Explorer.Tours.API.Public;
+using Explorer.Tours.API.Public.Rating;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;

@@ -4,7 +4,7 @@ using FluentResults;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Xml.Linq;
 
-namespace Explorer.Tours.API.Public.Authoring
+namespace Explorer.Tours.API.Public.Tour
 {
     public interface ITourService
     {
