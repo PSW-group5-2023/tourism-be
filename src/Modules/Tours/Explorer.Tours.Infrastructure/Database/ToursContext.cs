@@ -1,6 +1,4 @@
-﻿using Explorer.Blog.Core.Domain;
-using Explorer.BuildingBlocks.Core.Domain;
-using Explorer.Stakeholders.Core.Domain;
+﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;

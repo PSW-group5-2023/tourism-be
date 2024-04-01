@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.BuildingBlocks.Infrastructure.Email
+
+namespace Explorer.Tours.API.Public.Email
 {
     public interface IEmailSendingTourCommunityRecommendationService
     {

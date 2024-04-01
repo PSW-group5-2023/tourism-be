@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
-using System.ComponentModel.DataAnnotations;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Dtos.Facility;
