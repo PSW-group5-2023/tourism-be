@@ -1,9 +1,6 @@
-﻿using Explorer.BuildingBlocks.Infrastructure.Email;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
+using Explorer.Tours.API.Public.Email;
 
 namespace Explorer.Tours.Infrastructure.Email
 {

@@ -1,13 +1,7 @@
 ﻿using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Statistics;
-using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.Domain.ServiceInterfaces
 {

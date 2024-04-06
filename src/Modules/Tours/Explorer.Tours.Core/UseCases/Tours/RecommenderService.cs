@@ -1,28 +1,16 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.BuildingBlocks.Infrastructure.Email;
-using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Public.Email;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
-using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using static System.Formats.Asn1.AsnWriter;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {

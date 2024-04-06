@@ -3,16 +3,9 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Internal;
 using Explorer.Tours.API.Internal;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.SignalR;
-using System.Dynamic;
-using System.Linq;
-using System.Xml.Linq;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 

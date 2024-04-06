@@ -1,16 +1,8 @@
-﻿using Explorer.Tours.API.Dtos.Statistics;
-using Explorer.Tours.Core.Domain.Rating;
+﻿using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Statistics;
-using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Explorer.Tours.Core.UseCases.Statistics
 {

@@ -1,7 +1,6 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Stakeholders.API.Public;
-using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Mappers;
@@ -9,13 +8,10 @@ using Explorer.Tours.Infrastructure.Database;
 using Explorer.Tours.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Explorer.Stakeholders.Core.UseCases;
 using Explorer.Tours.Core.Domain.Tours;
-using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Core.UseCases.Execution;
 using Explorer.Tours.API.Internal;
-using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Tours.Infrastructure.Email;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.API.Public.Equipment;
@@ -33,6 +29,7 @@ using Explorer.Tours.Core.UseCases.Statistics;
 using Explorer.Tours.Core.UseCases.Equipments;
 using Explorer.Tours.Core.UseCases.Facilities;
 using Explorer.Tours.Core.UseCases.Tours;
+using Explorer.Tours.API.Public.Email;
 
 namespace Explorer.Tours.Infrastructure;
 
