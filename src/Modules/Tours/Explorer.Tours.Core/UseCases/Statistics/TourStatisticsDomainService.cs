@@ -208,6 +208,10 @@ namespace Explorer.Tours.Core.UseCases.Statistics
                 }
             }
             stat.NumberOfStats = (double)number / numberOfSession * 100;
+            if (stat.NumberOfStats.Equals(double.NaN))
+            {
+                stat.NumberOfStats = 0;
+            }
             return stat;
         }
 
