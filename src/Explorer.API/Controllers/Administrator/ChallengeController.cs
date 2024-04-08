@@ -1,10 +1,8 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Encounters.API.Public;
 using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Explorer.Tours.API.Dtos;
-using Explorer.Encounters.Core.UseCases;
 
 namespace Explorer.API.Controllers.Administrator
 {
