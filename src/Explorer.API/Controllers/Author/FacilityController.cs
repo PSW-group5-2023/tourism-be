@@ -1,13 +1,12 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public.Administration;
-using Explorer.Tours.Core.UseCases.Administration;
+using Explorer.Tours.API.Dtos.Facility;
+using Explorer.Tours.API.Public.Facility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Author
 {
-    
+
     [Authorize(Policy = "authorPolicy")]
     [Route("api/author/facilities")]
     public class FacilityController : BaseApiController

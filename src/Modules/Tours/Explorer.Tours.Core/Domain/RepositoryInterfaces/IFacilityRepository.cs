@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Explorer.Tours.Core.Domain.Facilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

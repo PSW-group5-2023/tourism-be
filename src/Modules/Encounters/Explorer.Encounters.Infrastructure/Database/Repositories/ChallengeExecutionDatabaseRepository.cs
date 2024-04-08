@@ -2,7 +2,6 @@
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Encounters.Infrastructure.Database.Repositories
@@ -115,7 +114,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             List<long> ids = new List<long>();
             foreach (var task in tasks.Result.Results)
             {
-                if(task.ChallengeId==challengeId)
+                if (task.ChallengeId == challengeId)
                     ids.Add(task.TouristId);
             }
             return ids;

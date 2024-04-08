@@ -1,13 +1,11 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
-using Explorer.Tours.API.Public.Administration;
+using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.UseCases;
-using Explorer.Tours.Core.UseCases.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static Explorer.Tours.Core.Domain.PublicTourKeyPoints;
+using static Explorer.Tours.Core.Domain.Tours.PublicTourKeyPoints;
 
 namespace Explorer.API.Controllers.Tourist
 {
