@@ -8,6 +8,8 @@ using Explorer.Encounters.Core.Mappers;
 using Explorer.Encounters.Core.UseCases;
 using Explorer.Encounters.Infrastructure.Database;
 using Explorer.Encounters.Infrastructure.Database.Repositories;
+using Explorer.Tours.API.Internal;
+using Explorer.Tours.Core.UseCases.Tours;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -37,6 +39,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped<IUserXP, UserXPService>();
             services.AddScoped<IEncounterService, EncounterService>();
             services.AddScoped<IEncounterExecutionService, EncounterExecutionService>();
+            services.AddScoped<IInternalKeyPointService, InternalKeyPointService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
