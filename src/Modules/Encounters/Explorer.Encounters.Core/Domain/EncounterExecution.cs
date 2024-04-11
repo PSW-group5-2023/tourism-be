@@ -18,9 +18,9 @@ namespace Explorer.Encounters.Core.Domain
             CompletionTime = completionTime;
         }
 
-        private void Complete()
+        public void Complete()
         {
-            CompletionTime = DateTime.Now;
+            CompletionTime = DateTime.UtcNow;
         }
     }
 }

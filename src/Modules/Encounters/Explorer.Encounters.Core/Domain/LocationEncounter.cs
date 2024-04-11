@@ -6,11 +6,12 @@
         public double LocationLatitude { get; init; }
         public double LocationLongitude { get; init; }
 
-        public LocationEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, Uri image, double locationLatitude, double locationLongitude) : base(creatorId, description, name, status, type, latitude, longitude, keyPointId)
+        public LocationEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, Uri image, double locationLatitude, double locationLongitude) : base(creatorId, description, name, status, type, latitude, longitude, keyPointId, experiencePoints)
         {
             Image = image;
             LocationLatitude = locationLatitude;
             LocationLongitude = locationLongitude;
+            Validate();
         }
 
         protected override void Validate()
