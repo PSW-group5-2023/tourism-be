@@ -44,5 +44,19 @@ namespace Explorer.API.Controllers.Administrator
             var result = _encounterService.Delete(id);
             return CreateResponse(result);
         }
+
+        [HttpPut("activate/{id:int}")]
+        public ActionResult<EncounterDto> Activate(int id)
+        {
+            var result = _encounterService.ApproveTouristMadeEncounter(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("archive/{id:int}")]
+        public ActionResult<EncounterDto> Archive(int id)
+        {
+            var result = _encounterService.ArchiveTouristMadeEncounter(id);
+            return CreateResponse(result);
+        }
     }
 }

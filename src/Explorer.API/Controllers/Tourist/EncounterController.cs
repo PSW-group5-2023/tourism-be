@@ -13,18 +13,20 @@ namespace Explorer.API.Controllers.Tourist
     {
         private readonly IEncounterService _encounterService;
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly IEncounterExecutionService _executionService;
 
-        public EncounterController(IEncounterService encounterService, ITokenGenerator tokenGenerator)
+        public EncounterController(IEncounterService encounterService, ITokenGenerator tokenGenerator, IEncounterExecutionService executionService)
         {
             _encounterService = encounterService;
             _tokenGenerator = tokenGenerator;
+            _executionService = executionService;
         }
 
         [HttpGet("public")]
         public ActionResult<PagedResult<EncounterDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
         {
             var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
-            var result = _encounterService.GetPublicPaged(userId, page, pageSize);
+            var result = _encounterService.GetPublicPagedForTourist(userId, page, pageSize);
             return CreateResponse(result);
         }
 
@@ -57,6 +59,20 @@ namespace Explorer.API.Controllers.Tourist
         {
             var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
             var result = _encounterService.GetPagedByKeyPointIdsForTourist(keyPointIds, 0, 0, userId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("complete/{touristId:int}/{encounterId:int}")]
+        public ActionResult<EncounterExecutionDto> Complete(int touristId, int encounterId)
+        {
+            var result = _encounterService.Complete(touristId, encounterId);
+            return CreateResponse(result);
+        }
+
+        [HttpPost("execute")]
+        public ActionResult<EncounterExecutionDto> CreateEncounterExecutionSession([FromBody] EncounterExecutionDto encounterExecutionDto)
+        {
+            var result = _executionService.Create(encounterExecutionDto);
             return CreateResponse(result);
         }
     }
