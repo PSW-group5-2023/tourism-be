@@ -10,13 +10,14 @@ namespace Explorer.Encounters.API.Public
         Result<EncounterDto> Create(EncounterDto encounterDto);
         Result<EncounterDto> Update(EncounterDto encounterDto);
         Result Delete(int id);
-        Result<EncounterDto> Get(int id);
+        Result<EncounterDto> Get(long id);
         Result<PagedResult<EncounterDto>> GetPagedByKeyPointIdsForTourist(List<long> keyPointIds, int page, int pageSize, long touristId);
         Result<EncounterDto> CreateForTourist(EncounterDto encounterDto, long touristId);
         Result<EncounterDto> UpdateForTourist(EncounterDto encounterDto, long touristId);
         Result<EncounterDto> DeleteForTourist(long id, long touristId);
         Result<PagedResult<EncounterDto>> GetPublicPagedForTourist(long touristId, int page, int pageSize);
-
-        Result<PagedResult<EncounterDto>> GetPublicPagedForTourist(long touristId, int page, int pageSize);
+        Result<EncounterDto> ApproveTouristMadeEncounter(long createdEncounterId);
+        Result<EncounterDto> ArchiveTouristMadeEncounter(long archivedEncounterId);
+        Result<EncounterExecutionDto> Complete(long touristId, long encounterId);
     }
 }

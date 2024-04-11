@@ -9,13 +9,13 @@ namespace Explorer.Encounters.API.Public
         /*Result<PagedResult<EncounterExecutionDto>> GetPaged(int page, int pageSize);*/
         Result<EncounterExecutionDto> Create(EncounterExecutionDto encounterExecutionDto);
         Result<EncounterExecutionDto> Update(EncounterExecutionDto encounterExecutionDto);
-        Result Delete(int id);
-        Result<EncounterExecutionDto> Get(int id);
+        //Result Delete(int id);
+        //Result<EncounterExecutionDto> Get(long id);
 
-        Result<EncounterExecutionDto> Complete(long touristId, long challengeId);
+        //Result<EncounterExecutionDto> Complete(long touristId, long encounterId);
 
         /*Result<PagedResult<EncounterExecutionDto>> GetPagedByKeyPointIds(List<int> keyPointIds, int page, int pageSize);*/
-
+        Result<EncounterExecutionDto> SetCompletionTime(long touristId, long encounterId);
         Result<EncounterExecutionDto> GetByTouristIdAndEnctounterId(long touristId, long encounterId);
         /*Result<List<long>> GetUserIds(long challengeId);*/
     }

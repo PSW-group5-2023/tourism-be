@@ -14,11 +14,13 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IEncounterRepository _encounterRepository;
         private readonly IUserExperienceService _userExperienceService;
         private readonly IEncounterExecutionService _encounterExecutionService;
+        private readonly IMapper _mapper;
         public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService) : base(encounterRepository, mapper)
         {
             _encounterRepository = encounterRepository;
             _userExperienceService = userExperienceService;
             _encounterExecutionService = encounterExecutionService;
+            _mapper = mapper;
         }
 
         public Result<EncounterDto> CreateForTourist(EncounterDto encounterDto, long touristId)
@@ -27,7 +29,24 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 var userXp = _userExperienceService.GetByUserId(touristId);
                 if (userXp.IsFailed || userXp.Value.Level < 10) throw new ArgumentException($"User needs level 10 to create an encounter. Current level: {userXp.ValueOrDefault.Level}");
-                var result = _encounterRepository.Create(MapToDomain(encounterDto));
+                encounterDto.Status = 0; // DRAFT status, dto cuva integer.
+                if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
+
+                Encounter temp;
+                if (encounterDto.Type == 0)
+                {
+                    temp = _mapper.Map<SocialEncounter>(encounterDto);
+                }
+                else if (encounterDto.Type == 1)
+                {
+                    temp = _mapper.Map<LocationEncounter>(encounterDto);
+                }
+                else
+                {
+                    temp = _mapper.Map<Encounter>(encounterDto);
+                }
+
+                var result = _encounterRepository.Create(temp);
                 return MapToDto(result);
             }
             catch (ArgumentException e)
@@ -49,6 +68,11 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
+        }
+
+        public Result<EncounterDto> Get(long id)
+        {
+            return MapToDto(_encounterRepository.Get(id));
         }
 
         public Result<PagedResult<EncounterDto>> GetPagedByKeyPointIdsForTourist(List<long> keyPointIds, int page, int pageSize, long touristId)
@@ -95,6 +119,66 @@ namespace Explorer.Encounters.Core.UseCases
             catch (DbUpdateException e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterDto> ApproveTouristMadeEncounter(long createdEncounterId)
+        {
+            try
+            {
+                Encounter encounter = _encounterRepository.Get(createdEncounterId);
+
+                if (encounter == null)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError("Encounter not found");
+                }
+
+                encounter.Activate();
+                _encounterRepository.SaveChanges();
+
+                return MapToDto(encounter);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterDto> ArchiveTouristMadeEncounter(long archivedEncounterId)
+        {
+            try
+            {
+                Encounter encounter = _encounterRepository.Get(archivedEncounterId);
+
+                if (encounter == null)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError("Encounter not found");
+                }
+
+                encounter.Archive();
+                _encounterRepository.SaveChanges();
+
+                return MapToDto(encounter);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterExecutionDto> Complete(long touristId, long encounterId)
+        {
+            try
+            {
+                EncounterExecutionDto encounterExecutionDto = _encounterExecutionService.SetCompletionTime(touristId, encounterId).Value;
+
+                _userExperienceService.AddXP(_userExperienceService.GetByUserId(encounterExecutionDto.TouristId).Value.Id, _encounterRepository.Get(encounterId).ExperiencePoints);
+
+                return encounterExecutionDto;
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
     }

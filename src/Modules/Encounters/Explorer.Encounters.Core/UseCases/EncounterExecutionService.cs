@@ -16,15 +16,29 @@ namespace Explorer.Encounters.Core.UseCases
     public class EncounterExecutionService : CrudService<EncounterExecutionDto, EncounterExecution>, IEncounterExecutionService
     {
         private readonly IEncounterExecutionRepository _encounterExecutionRepository;
-        public EncounterExecutionService(IEncounterExecutionRepository repository, IMapper mapper) : base(repository, mapper)
+
+        public EncounterExecutionService(IEncounterExecutionRepository repository,  IMapper mapper) : base(repository, mapper)
         {
             _encounterExecutionRepository = repository;
         }
 
-        public Result<EncounterExecutionDto> Complete(long touristId, long challengeId)
+
+        public Result<EncounterExecutionDto> SetCompletionTime(long touristId, long encounterId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EncounterExecution encounterExecution = _encounterExecutionRepository.GetByTouristIdAndEncounterId(touristId, encounterId);
+                encounterExecution.Complete();
+                _encounterExecutionRepository.SaveChanges();
+
+                return MapToDto(encounterExecution);
+            }
+            catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
         }
+
 
         public Result<EncounterExecutionDto> GetByTouristIdAndEnctounterId(long touristId, long encounterId)
         {
