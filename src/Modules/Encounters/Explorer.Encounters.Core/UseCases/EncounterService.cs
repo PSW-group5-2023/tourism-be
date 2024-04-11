@@ -4,6 +4,9 @@ using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Internal;
+using Explorer.Tours.Core.UseCases.Tours;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +18,58 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IUserExperienceService _userExperienceService;
         private readonly IEncounterExecutionService _encounterExecutionService;
         private readonly IMapper _mapper;
-        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService) : base(encounterRepository, mapper)
+        private readonly IInternalKeyPointService _internalKeyPointService;
+
+        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalKeyPointService internalKeyPointService) : base(encounterRepository, mapper)
         {
             _encounterRepository = encounterRepository;
             _userExperienceService = userExperienceService;
             _encounterExecutionService = encounterExecutionService;
             _mapper = mapper;
+            _internalKeyPointService = internalKeyPointService;
+        }
+
+
+        public override Result<EncounterDto> Create(EncounterDto encounterDto)
+        {
+            try
+            {
+                encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
+                
+                if(encounterDto.KeyPointId != null)
+                {
+                    if(!CheckKeypointAuthor(encounterDto.CreatorId, (long)encounterDto.KeyPointId)) throw new ArgumentException("This author is not the author of selected KeyPoint.");
+                    TourKeyPointDto tourKeyPointDto = _internalKeyPointService.Get((long)encounterDto.KeyPointId).Value;
+                    encounterDto.Longitude = tourKeyPointDto.Longitude;
+                    encounterDto.Latitude = tourKeyPointDto.Latitude;
+                }
+
+                Encounter temp;
+                if (encounterDto.Type == 0)
+                {
+                    temp = _mapper.Map<SocialEncounter>(encounterDto);
+                }
+                else if (encounterDto.Type == 1)
+                {
+                    temp = _mapper.Map<LocationEncounter>(encounterDto);
+                }
+                else
+                {
+                    temp = _mapper.Map<Encounter>(encounterDto);
+                }
+
+                var result = _encounterRepository.Create(temp);
+                return MapToDto(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
+        private bool CheckKeypointAuthor(long authorId, long keypointId)
+        {
+            return _internalKeyPointService.CheckIfUserIsAuthor(authorId, keypointId).Value;
         }
 
         public Result<EncounterDto> CreateForTourist(EncounterDto encounterDto, long touristId)
