@@ -282,6 +282,11 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             return GetPagedByAuthorId(authorId, 0, 0);
         }
+
+        public Result<TourDto> GetById(long id)
+        {
+            return MapToDto(_tourRepository.Get(id));
+        }
     }
 
 }

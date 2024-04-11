@@ -15,7 +15,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
         TourKeyPoint GetById(int id);
         TourKeyPoint Update(TourKeyPoint keyPoint);
         List<TourKeyPoint> GetAllByPublicId(long publicId);
-
+        TourKeyPoint Get(long id);
         List<PublicTourKeyPoints> GetByStatus(PublicTourKeyPoints.PublicTourKeyPointStatus status);
     }
 }

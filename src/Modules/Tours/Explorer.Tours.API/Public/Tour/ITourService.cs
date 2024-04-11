@@ -13,6 +13,7 @@ namespace Explorer.Tours.API.Public.Tour
         Result<TourDto> Update(TourDto tour);
         Result Delete(int id);
         Result<TourDto> Get(int id);
+        Result<TourDto> GetById(long id);
         Result<TourDto> Publish(int id, int userId);
         Result<TourDto> Archive(int id, int userId);
         Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize);
