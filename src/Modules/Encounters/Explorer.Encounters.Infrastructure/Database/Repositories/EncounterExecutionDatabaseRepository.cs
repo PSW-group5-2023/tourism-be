@@ -18,5 +18,10 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             var encounterExecution = _dbSet.FirstOrDefault(ee => ee.TouristId == touristId && ee.EncounterId == encounterId);
             return encounterExecution ?? throw new KeyNotFoundException("Encounter execution doesn't exist");
         }
+
+        public void SaveChanges()
+        {
+            DbContext.SaveChanges();
+        }
     }
 }

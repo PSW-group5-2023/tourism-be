@@ -32,5 +32,10 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             task.Wait();
             return task.Result;
         }
+
+        public void SaveChanges()
+        {
+            DbContext.SaveChanges();
+        }
     }
 }

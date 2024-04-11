@@ -10,7 +10,7 @@ namespace Explorer.Encounters.API.Dtos
     {
         public long Id { get; set; }
         public long TouristId { get; set; }
-        public long ChallengeId { get; set; }
+        public long EncounterId { get; set; }
         public DateTime ActivationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
     }
