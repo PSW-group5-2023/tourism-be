@@ -23,10 +23,10 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("public")]
-        public ActionResult<PagedResult<EncounterDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<PagedResult<EncounterDto>> GetAllPublic()
         {
             var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
-            var result = _encounterService.GetPublicPagedForTourist(userId, page, pageSize);
+            var result = _encounterService.GetPublicPagedForTourist(userId, 0, 0);
             return CreateResponse(result);
         }
 
@@ -50,11 +50,11 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult Delete(int id)
         {
             var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
-            var result = _encounterService.DeleteForTourist(id, userId);
+            var result = _encounterService.DeleteIfCreator(id, userId);
             return CreateResponse(result);
         }
 
-        [HttpGet("KeyPoints")]
+        [HttpGet("keypoints")]
         public ActionResult GetAllByKeyPointIds([FromQuery] List<long> keyPointIds)
         {
             var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
@@ -73,6 +73,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<EncounterExecutionDto> CreateEncounterExecutionSession([FromBody] EncounterExecutionDto encounterExecutionDto)
         {
             var result = _executionService.Create(encounterExecutionDto);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:long}")]
+        public ActionResult<EncounterDto> Get(long id)
+        {
+            var result = _encounterService.Get(id);
             return CreateResponse(result);
         }
     }

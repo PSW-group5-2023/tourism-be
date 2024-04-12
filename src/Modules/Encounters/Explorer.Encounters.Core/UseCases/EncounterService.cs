@@ -6,7 +6,6 @@ using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Internal;
-using Explorer.Tours.Core.UseCases.Tours;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,35 +29,16 @@ namespace Explorer.Encounters.Core.UseCases
         }
 
 
-        public override Result<EncounterDto> Create(EncounterDto encounterDto)
+        public Result<EncounterDto> CreateForAdministrator(EncounterDto encounterDto, long administratorId)
         {
             try
             {
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
+                encounterDto.CreatorId = administratorId;
                 
-                if(encounterDto.KeyPointId != null)
-                {
-                    if(!CheckKeypointAuthor(encounterDto.CreatorId, (long)encounterDto.KeyPointId)) throw new ArgumentException("This author is not the author of selected KeyPoint.");
-                    TourKeyPointDto tourKeyPointDto = _internalKeyPointService.Get((long)encounterDto.KeyPointId).Value;
-                    encounterDto.Longitude = tourKeyPointDto.Longitude;
-                    encounterDto.Latitude = tourKeyPointDto.Latitude;
-                }
+                if(encounterDto.KeyPointId != null) throw new ArgumentException("Administrator can only create public encounters.");
 
-                Encounter temp;
-                if (encounterDto.Type == 0)
-                {
-                    temp = _mapper.Map<SocialEncounter>(encounterDto);
-                }
-                else if (encounterDto.Type == 1)
-                {
-                    temp = _mapper.Map<LocationEncounter>(encounterDto);
-                }
-                else
-                {
-                    temp = _mapper.Map<Encounter>(encounterDto);
-                }
-
-                var result = _encounterRepository.Create(temp);
+                var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
             catch (ArgumentException e)
@@ -67,7 +47,7 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        private bool CheckKeypointAuthor(long authorId, long keypointId)
+        private bool IsAuthorOfKeyPoint(long authorId, long keypointId)
         {
             return _internalKeyPointService.CheckIfUserIsAuthor(authorId, keypointId).Value;
         }
@@ -79,23 +59,10 @@ namespace Explorer.Encounters.Core.UseCases
                 var userXp = _userExperienceService.GetByUserId(touristId);
                 if (userXp.IsFailed || userXp.Value.Level < 10) throw new ArgumentException($"User needs level 10 to create an encounter. Current level: {userXp.ValueOrDefault.Level}");
                 encounterDto.Status = 0; // DRAFT status, dto cuva integer.
+                encounterDto.CreatorId = touristId;
                 if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
 
-                Encounter temp;
-                if (encounterDto.Type == 0)
-                {
-                    temp = _mapper.Map<SocialEncounter>(encounterDto);
-                }
-                else if (encounterDto.Type == 1)
-                {
-                    temp = _mapper.Map<LocationEncounter>(encounterDto);
-                }
-                else
-                {
-                    temp = _mapper.Map<Encounter>(encounterDto);
-                }
-
-                var result = _encounterRepository.Create(temp);
+                var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
             catch (ArgumentException e)
@@ -104,18 +71,22 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        public Result<EncounterDto> DeleteForTourist(long id, long touristId)
+        public Result<EncounterDto> DeleteIfCreator(long id, long creatorId)
         {
             try
             {
                 var encounter = _encounterRepository.Get(id);
-                if (touristId != encounter.CreatorId) throw new ArgumentException("User isn't the owner of the encounter");
+                if (creatorId != encounter.CreatorId) throw new ArgumentException("User isn't the owner of the encounter");
                 _encounterRepository.Delete(id);
                 return Result.Ok();
             }
             catch (KeyNotFoundException e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
         }
 
@@ -133,7 +104,7 @@ namespace Explorer.Encounters.Core.UseCases
                 return encounterExecution.IsFailed || encounterExecution.Value.CompletionTime is null;
             });
             var filteredResults = new PagedResult<Encounter>(filteredList.ToList(), filteredList.Count());
-            return MapToDto(result);
+            return MapToDto(filteredResults);
         }
 
         public Result<PagedResult<EncounterDto>> GetPublicPagedForTourist(long touristId, int page, int pageSize)
@@ -145,7 +116,7 @@ namespace Explorer.Encounters.Core.UseCases
                 return encounterExecution.IsFailed || encounterExecution.Value.CompletionTime is null;
             });
             var filteredResults = new PagedResult<Encounter>(filteredList.ToList(), filteredList.Count());
-            return MapToDto(result);
+            return MapToDto(filteredResults);
         }
 
         public Result<EncounterDto> UpdateForTourist(EncounterDto encounterDto, long touristId)
@@ -154,7 +125,9 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 var encounter = _encounterRepository.Get(encounterDto.Id);
                 if (touristId != encounter.CreatorId) throw new ArgumentException("User isn't the owner of the encounter");
-                var result = _encounterRepository.Update(MapToDomain(encounterDto));
+                if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
+                encounterDto.Status = (int)EncounterStatus.Draft; // After update tourist made encounter needs to be approved again
+                var result = _encounterRepository.Update(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
             catch (KeyNotFoundException e)
@@ -229,6 +202,103 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
+        }
+
+        public Result<EncounterDto> CreateForAuthor(EncounterDto encounterDto, long authorId)
+        {
+            try
+            {
+                encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
+                encounterDto.CreatorId = authorId;
+
+                if (encounterDto.KeyPointId == null) throw new ArgumentException("Author can only create an encounter for a KeyPoint.");
+                if (!IsAuthorOfKeyPoint(encounterDto.CreatorId, (long)encounterDto.KeyPointId)) throw new ArgumentException("This author is not the author of selected KeyPoint.");
+                encounterDto = SetEncounterLocationByKeyPoint(encounterDto);
+
+                var result = _encounterRepository.Create(MapToEncounter(encounterDto));
+                return MapToDto(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
+        private EncounterDto SetEncounterLocationByKeyPoint(EncounterDto encounterDto)
+        {
+            TourKeyPointDto tourKeyPointDto = _internalKeyPointService.Get((long)encounterDto.KeyPointId).Value;
+            encounterDto.Longitude = tourKeyPointDto.Longitude;
+            encounterDto.Latitude = tourKeyPointDto.Latitude;
+            return encounterDto;
+        }
+
+        private Encounter MapToEncounter(EncounterDto encounterDto)
+        {
+            if (encounterDto.Type == 0)
+            {
+                return _mapper.Map<SocialEncounter>(encounterDto);
+            }
+            else if (encounterDto.Type == 1)
+            {
+                return _mapper.Map<LocationEncounter>(encounterDto);
+            }
+            else
+            {
+                return _mapper.Map<Encounter>(encounterDto);
+            }
+        }
+
+        public Result<EncounterDto> UpdateForAuthor(EncounterDto encounterDto, long authorId)
+        {
+            try
+            {
+                var encounter = _encounterRepository.Get(encounterDto.Id);
+                if (authorId != encounter.CreatorId) throw new ArgumentException("Author isn't the owner of the encounter");
+                if (encounterDto.KeyPointId == null) throw new ArgumentException("Author cannot remove an encounter from a KeyPoint.");
+                if (encounterDto.KeyPointId != encounter.KeyPointId) encounterDto = SetEncounterLocationByKeyPoint(encounterDto);
+                var result = _encounterRepository.Update(MapToEncounter(encounterDto));
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (DbUpdateException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterDto> UpdateForAdministrator(EncounterDto encounterDto, long administratorId)
+        {
+            try
+            {
+                if (encounterDto.KeyPointId != null) throw new ArgumentException("Administrator is not allowed to add encounter to a keypoint.");
+                var result = _encounterRepository.Update(MapToEncounter(encounterDto));
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (DbUpdateException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<PagedResult<EncounterDto>> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize)
+        {
+            var result = _encounterRepository.GetPagedByKeyPointIds(keyPointIds, page, pageSize);
+            return MapToDto(result);
         }
     }
 }

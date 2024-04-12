@@ -13,8 +13,9 @@ namespace Explorer.Encounters.Core.Domain
         public double Longitude { get; init; }
         public int ExperiencePoints { get; init; }
         public long? KeyPointId { get; init; }
+        public bool IsMandatory { get; init; }
 
-        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints)
+        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, bool isMandatory)
         {
             CreatorId = creatorId;
             Description = description;
@@ -26,6 +27,7 @@ namespace Explorer.Encounters.Core.Domain
             KeyPointId = keyPointId;
             ExperiencePoints = experiencePoints;
             Validate();
+            IsMandatory = isMandatory;
         }
 
         private void Validate()
