@@ -39,12 +39,7 @@ namespace Explorer.Encounters.Core.UseCases
         public Result<UserExperienceDto> GetByUserId(long userId)
         {
             var userExperience = _userExperienceRepository.GetByUserId(userId);
-            UserExperienceDto dto = new UserExperienceDto();
-            dto.UserId = userExperience.UserId;
-            dto.XP = userExperience.XP;
-            dto.Id = userExperience.Id;
-            dto.Level = userExperience.Level;
-            return dto;
+            return MapToDto(userExperience);
         }
     }
 }

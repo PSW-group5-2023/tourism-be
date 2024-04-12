@@ -50,7 +50,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped(typeof(ICrudRepository<UserExperience>), typeof(CrudDatabaseRepository<UserExperience, EncountersContext>));
             services.AddScoped(typeof(IChallengeExecutionRepository),
                 typeof(ChallengeExecutionDatabaseRepository));
-            services.AddScoped(typeof(IUserExperienceRepository), typeof(UserExperienceRepository));
+            services.AddScoped(typeof(IUserExperienceRepository), typeof(UserExperienceDatabaseRepository));
             services.AddScoped(typeof(IEncounterRepository), typeof(EncounterDatabaseRepository));
             services.AddScoped(typeof(IEncounterExecutionRepository), typeof(EncounterExecutionDatabaseRepository));
 

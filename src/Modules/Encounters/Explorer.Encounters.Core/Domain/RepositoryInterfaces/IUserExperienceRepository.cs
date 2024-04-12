@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
 
 namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
 {
-    public interface IUserExperienceRepository
+    public interface IUserExperienceRepository : ICrudRepository<UserExperience>
     {
         UserExperience GetByUserId(long userId);
-        UserExperience Create(UserExperience userExperience);
     }
 }

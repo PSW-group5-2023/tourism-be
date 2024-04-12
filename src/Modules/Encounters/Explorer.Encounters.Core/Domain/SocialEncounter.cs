@@ -9,12 +9,6 @@
         {
             RangeInMeters = rangeInMeters;
             RequiredAttendance = requiredAttendance;
-            Validate();
-        }
-
-        protected override void Validate()
-        {
-            base.Validate();
             if (RangeInMeters < 1) throw new ArgumentException($"Invalid {nameof(RangeInMeters)}");
             if (RequiredAttendance < 1) throw new ArgumentException($"Invalid {nameof(RequiredAttendance)}");
         }

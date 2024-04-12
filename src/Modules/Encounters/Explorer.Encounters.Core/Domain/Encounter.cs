@@ -25,13 +25,10 @@ namespace Explorer.Encounters.Core.Domain
             Longitude = longitude;
             KeyPointId = keyPointId;
             ExperiencePoints = experiencePoints;
-            if(Type == EncounterType.Misc)
-            {
-                Validate();
-            }
+            Validate();
         }
 
-        protected virtual void Validate()
+        private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException($"Invalid {nameof(Description)}");
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException($"Invalid {nameof(Name)}");

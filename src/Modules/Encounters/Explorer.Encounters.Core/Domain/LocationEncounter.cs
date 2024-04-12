@@ -11,12 +11,6 @@
             Image = image;
             LocationLatitude = locationLatitude;
             LocationLongitude = locationLongitude;
-            Validate();
-        }
-
-        protected override void Validate()
-        {
-            base.Validate();
             if (LocationLatitude is > 90 or < -90) throw new ArgumentException($"Invalid {nameof(LocationLatitude)}");
             if (LocationLongitude is > 180 or < -180) throw new ArgumentException($"Invalid {nameof(LocationLongitude)}");
         }
