@@ -1,7 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
-using Explorer.Stakeholders.Core.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +11,10 @@ namespace Explorer.API.Controllers.Administrator
     public class EncounterController : BaseApiController
     {
         private readonly IEncounterService _encounterService;
-        private readonly ITokenGenerator _tokenGenerator;
 
-        public EncounterController(IEncounterService encounterService, ITokenGenerator tokenGenerator)
+        public EncounterController(IEncounterService encounterService)
         {
             _encounterService = encounterService;
-            _tokenGenerator = tokenGenerator;
         }
 
         [HttpGet]
@@ -30,16 +27,16 @@ namespace Explorer.API.Controllers.Administrator
         [HttpPost]
         public ActionResult<EncounterDto> Create([FromBody] EncounterDto encounterDto)
         {
-            var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
-            var result = _encounterService.CreateForAdministrator(encounterDto, userId);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _encounterService.CreateForAdministrator(encounterDto, long.Parse(userId.Value));
             return CreateResponse(result);
         }
 
         [HttpPut("{id:int}")]
         public ActionResult<EncounterDto> Update([FromBody] EncounterDto encounterDto)
         {
-            var userId = _tokenGenerator.GetUserIdFromToken(Request.Headers["Authorization"][0].Substring("Bearer ".Length).Trim());
-            var result = _encounterService.UpdateForAdministrator(encounterDto, userId);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _encounterService.UpdateForAdministrator(encounterDto, long.Parse(userId.Value));
             return CreateResponse(result);
         }
 
