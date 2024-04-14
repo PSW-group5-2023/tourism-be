@@ -12,9 +12,10 @@ namespace Explorer.Tours.Infrastructure.Database;
 
 public class ToursContext : DbContext
 {
-    public DbSet<Tour> Tour { get; set; }
+    public DbSet<Tour> Tours { get; set; }
     public DbSet<Equipment> Equipment { get; set; }
-    public DbSet<TourKeyPoint> TourKeyPoints { get; set; }
+    public DbSet<Checkpoint> Checkpoints { get; set; }
+    public DbSet<PublicCheckpoint> PublicCheckpoints { get; set; }
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<TourRating> TourRatings { get; set; }
     public DbSet<TourProblem> TourProblems { get; set; }
@@ -22,7 +23,6 @@ public class ToursContext : DbContext
     public DbSet<Session> Sessions { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
-    public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
 
 
@@ -44,14 +44,11 @@ public class ToursContext : DbContext
 
     private static void ConfigureTour(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Tour>()
-            .Property(t => t.Durations)
-            .HasColumnType("jsonb");
 
         modelBuilder.Entity<Tour>()
-            .HasMany(t => t.KeyPoints)
+            .HasMany(t => t.Checkpoints)
             .WithOne()
-            .HasForeignKey(kp => kp.TourId);
+            .HasForeignKey(cp => cp.TourId);
 
         modelBuilder.Entity<Session>()
             .HasOne<Tour>()

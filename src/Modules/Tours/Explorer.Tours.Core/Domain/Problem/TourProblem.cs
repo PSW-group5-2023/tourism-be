@@ -2,21 +2,6 @@
 
 namespace Explorer.Tours.Core.Domain.Problem
 {
-    public enum TourProblemPriority
-    {
-        LOW = 0,
-        MEDIUM,
-        HIGH
-    }
-    public enum TourProblemCategory
-    {
-        BOOKING = 0,
-        ITINERARY,
-        PAYMENT,
-        TRANSPORTATION,
-        GUIDE_SERVICES,
-        OTHER
-    }
     public class TourProblem : Entity
     {
         public long TouristId { get; init; }
@@ -66,5 +51,21 @@ namespace Explorer.Tours.Core.Domain.Problem
         {
             IsSolved = true;
         }
+    }
+
+    public enum TourProblemPriority
+    {
+        LOW = 0,
+        MEDIUM,
+        HIGH
+    }
+    public enum TourProblemCategory
+    {
+        BOOKING = 0,
+        ITINERARY,
+        PAYMENT,
+        TRANSPORTATION,
+        GUIDE_SERVICES,
+        OTHER
     }
 }

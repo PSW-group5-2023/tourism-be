@@ -8,11 +8,11 @@ using FluentResults;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
-    public class TourKeyPointService : CrudService<TourKeyPointDto, TourKeyPoint>, ITourKeyPointService
+    public class TourKeyPointService : CrudService<TourKeyPointDto, Checkpoint>, ITourKeyPointService
     {
         private readonly ITourKeyPointsRepository _tourKeyPointsRepository;
 
-        public TourKeyPointService(ICrudRepository<TourKeyPoint> repository, IMapper mapper, ITourKeyPointsRepository tourKeyPointsRepository) : base(repository, mapper)
+        public TourKeyPointService(ICrudRepository<Checkpoint> repository, IMapper mapper, ITourKeyPointsRepository tourKeyPointsRepository) : base(repository, mapper)
         {
             _tourKeyPointsRepository = tourKeyPointsRepository;
         }

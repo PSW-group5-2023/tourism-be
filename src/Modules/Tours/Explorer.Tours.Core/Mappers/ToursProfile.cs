@@ -22,8 +22,7 @@ public class ToursProfile : Profile
     {
         CreateMap<EquipmentDto, Equipment>().ReverseMap();
         CreateMap<TourDto, Tour>().ReverseMap();
-        CreateMap<TourDurationDto, TourDuration>().ReverseMap();
-        CreateMap<TourKeyPointDto, TourKeyPoint>().ReverseMap();
+        CreateMap<TourKeyPointDto, Checkpoint>().ReverseMap();
         CreateMap<TourRatingDto, TourRating>().ReverseMap();
         CreateMap<FacilityDto, Facility>().ReverseMap();
         CreateMap<TourProblemMessageDto, TourProblemMessage>().ReverseMap();
@@ -44,7 +43,7 @@ public class ToursProfile : Profile
             .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
 
         CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
-        CreateMap<PublicTourKeyPointDto, PublicTourKeyPoints>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        CreateMap<PublicTourKeyPointDto, PublicCheckpoint>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<TourStatisticsDto, TourStatisticsDto>().ReverseMap();
     }

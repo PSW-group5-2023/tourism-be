@@ -35,21 +35,21 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             var tour = _dbSet
                 .Where(t => t.Id == id)
-                .Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour))
+                .Include(t => t.Checkpoints.OrderBy(kp => kp.PositionInTour))
                 .FirstOrDefault();
             return tour ?? throw new KeyNotFoundException("Not found: " + id);
         }
 
         public PagedResult<Tour> GetPagedByAuthorId(int authorId, int page, int pageSize)
         {
-            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).Where(t => t.AuthorId == authorId).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(t => t.Checkpoints.OrderBy(kp => kp.PositionInTour)).Where(t => t.AuthorId == authorId).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }
 
         public PagedResult<Tour> GetPaged(int page, int pageSize)
         {
-            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(t => t.Checkpoints.OrderBy(kp => kp.PositionInTour)).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }
@@ -75,7 +75,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public PagedResult<Tour> GetPagedByIds(List<int> ids, int page, int pageSize)
         {
-            var task = _dbSet.Include(t => t.KeyPoints.OrderBy(kp => kp.PositionInTour)).Where(t => ids.Contains((int)t.Id)).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(t => t.Checkpoints.OrderBy(kp => kp.PositionInTour)).Where(t => ids.Contains((int)t.Id)).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }

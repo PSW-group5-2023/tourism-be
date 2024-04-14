@@ -236,7 +236,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
-                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints,
+                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.Checkpoints,
                         person.Value.Latitude, person.Value.Longitude, radius))
                 {
                     filteredTours.Results.Add(MapToDto(tour));
@@ -246,12 +246,12 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return filteredTours;
         }
 
-        public bool CheckIfAnyKeyPointInRange(List<TourKeyPoint> keyPoints, double? lat, double? lon, double radius)
+        public bool CheckIfAnyKeyPointInRange(List<Checkpoint> keyPoints, double? lat, double? lon, double radius)
         {
             return keyPoints.Any(keyPoint => IsInRange(keyPoint, lat, lon, radius));
         }
 
-        public bool IsInRange(TourKeyPoint keyPoint, double? lat, double? lon, double radius)
+        public bool IsInRange(Checkpoint keyPoint, double? lat, double? lon, double radius)
         {
             double distance;
             int earthRadius = 6371000;
