@@ -14,16 +14,16 @@ namespace Explorer.Tours.Core.UseCases.Tours
     public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
         private readonly ITourRepository _tourRepository;
-        private readonly ITourKeyPointService _keyPointService;
+        private readonly ICheckpointService _checkpointService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IInternalPersonService _internalPersonService;
 
-        public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService,
+        public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService,
             IInternalBoughtItemService internalBoughtItemService,
             IInternalPersonService internalPersonService) : base(repository, mapper)
         {
             _tourRepository = repository;
-            _keyPointService = tourKeyPointService;
+            _checkpointService = checkpointService;
             _internalBoughtItemService = internalBoughtItemService;
             _internalPersonService = internalPersonService;
         }
@@ -102,8 +102,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
             TourDifficulty difficultyTemp = GetCampaignDifficulty(difficulty, counter);
 
-            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment,
-                distanceInKm, archivedDate, publishedDate, durations);
+            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId,
+                distanceInKm, archivedDate, publishedDate, equipment,  durations);
 
             var createdCampaign = Create(MapToDto(campaign));
 
@@ -125,18 +125,18 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public void CreateDuplicateKeypoints(List<TourDto> tours, int campaignId)
         {
-            List<TourKeyPointDto> keypoints = new List<TourKeyPointDto>();
+            List<CheckpointDto> checkpoints = new List<CheckpointDto>();
             int positionInCampaign = 1;
             foreach (var tour in tours)
             {
-                keypoints = _keyPointService.GetByTourId(tour.Id).Value;
-                keypoints = keypoints.OrderBy(kp => kp.PositionInTour).ToList();
-                foreach (var keypoint in keypoints)
+                checkpoints = _checkpointService.GetByTourId(tour.Id).Value;
+                checkpoints = checkpoints.OrderBy(kp => kp.PositionInTour).ToList();
+                foreach (var checkpoint in checkpoints)
                 {
-                    keypoint.PositionInTour = positionInCampaign;
-                    keypoint.TourId = campaignId;
-                    keypoint.Id = 0;
-                    _keyPointService.Create(keypoint);
+                    checkpoint.PositionInTour = positionInCampaign;
+                    checkpoint.TourId = campaignId;
+                    checkpoint.Id = 0;
+                    _checkpointService.Create(checkpoint);
                     positionInCampaign++;
                 }
             }
@@ -246,18 +246,18 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return filteredTours;
         }
 
-        public bool CheckIfAnyKeyPointInRange(List<Checkpoint> keyPoints, double? lat, double? lon, double radius)
+        public bool CheckIfAnyKeyPointInRange(List<Checkpoint> checkpoints, double? lat, double? lon, double radius)
         {
-            return keyPoints.Any(keyPoint => IsInRange(keyPoint, lat, lon, radius));
+            return checkpoints.Any(checkpoint => IsInRange(checkpoint, lat, lon, radius));
         }
 
-        public bool IsInRange(Checkpoint keyPoint, double? lat, double? lon, double radius)
+        public bool IsInRange(Checkpoint checkpoint, double? lat, double? lon, double radius)
         {
             double distance;
             int earthRadius = 6371000;
             double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
-            distance = Math.Sqrt(Math.Pow((double)(keyPoint.Latitude - lat), 2) +
-                                 Math.Pow((double)(keyPoint.Longitude - lon), 2));
+            distance = Math.Sqrt(Math.Pow((double)(checkpoint.Latitude - lat), 2) +
+                                 Math.Pow((double)(checkpoint.Longitude - lon), 2));
             return distance <= radiusInDegrees;
         }
 

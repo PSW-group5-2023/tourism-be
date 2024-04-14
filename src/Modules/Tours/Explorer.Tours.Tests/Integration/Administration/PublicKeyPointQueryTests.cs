@@ -30,7 +30,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<TourKeyPointDto>;
+            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<CheckpointDto>;
 
             //Assert
             result.ShouldNotBe(null);
@@ -46,7 +46,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetAllPublic(0, 0).Result)?.Value as PagedResult<PublicTourKeyPointDto>;
+            var result = ((ObjectResult)controller.GetAllPublic(0, 0).Result)?.Value as PagedResult<PublicCheckpointDto>;
 
             //Assert
             result.ShouldNotBe(null);
@@ -114,7 +114,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
 
         private static Explorer.API.Controllers.Administrator.Administration.TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

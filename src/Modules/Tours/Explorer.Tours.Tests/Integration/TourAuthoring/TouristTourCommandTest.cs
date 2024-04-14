@@ -56,9 +56,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Transportation = 0
                     }
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3329,
                         Latitude = 0,
@@ -68,7 +68,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke",
                         PositionInTour = 1,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3330,
                         Latitude = 0,
@@ -78,7 +78,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke 2",
                         PositionInTour = 2,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3331,
                         Latitude = 0,
@@ -106,9 +106,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 Durations = new List<TourDurationDto>
                 {
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3340,
                         Latitude = 0,
@@ -134,9 +134,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 DistanceInKm = 70,
                 Status = 3,
                 Durations = new List<TourDurationDto>(),
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3350,
                         Latitude = 0,
@@ -207,9 +207,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Transportation = 0
                     }
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3329,
                         Latitude = 0,
@@ -219,7 +219,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke",
                         PositionInTour = 1,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3330,
                         Latitude = 0,
@@ -229,7 +229,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke 2",
                         PositionInTour = 2,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3331,
                         Latitude = 0,
@@ -261,9 +261,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Transportation = 0
                     }
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3329,
                         Latitude = 0,
@@ -273,7 +273,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke",
                         PositionInTour = 1,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3330,
                         Latitude = 0,
@@ -283,7 +283,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke 2",
                         PositionInTour = 2,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3331,
                         Latitude = 0,
@@ -310,9 +310,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 Durations = new List<TourDurationDto>
                 {
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3329,
                         Latitude = 0,
@@ -322,7 +322,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke",
                         PositionInTour = 1,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3330,
                         Latitude = 0,
@@ -332,7 +332,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke 2",
                         PositionInTour = 2,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3331,
                         Latitude = 0,
@@ -364,9 +364,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Transportation = 0
                     }
                 },
-                KeyPoints = new List<TourKeyPointDto>
+                Checkpoints = new List<CheckpointDto>
                 {
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3329,
                         Latitude = 0,
@@ -376,7 +376,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke",
                         PositionInTour = 1,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3330,
                         Latitude = 0,
@@ -386,7 +386,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Name = "Ime tacke 2",
                         PositionInTour = 2,
                     },
-                    new TourKeyPointDto
+                    new CheckpointDto
                     {
                         Id = -3331,
                         Latitude = 0,

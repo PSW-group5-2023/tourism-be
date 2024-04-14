@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Explorer.API.Controllers.Administrator.Administration
+namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "administratorPolicy")]
-    [Route("api/administration/tourKeyPoint")]
-    public class TourKeyPointController : BaseApiController
+    [Authorize(Policy = "touristPolicy")]
+    [Route("api/tourist/tourKeyPoint")]
+    public class CheckpointController : BaseApiController
     {
         private readonly ICheckpointService _checkpointService;
         private readonly IPublicCheckpointService _publicCheckpointService;
 
-        public TourKeyPointController(ICheckpointService checkpointService, IPublicCheckpointService publicCheckpointService)
+        public CheckpointController(ICheckpointService checkpointService, IPublicCheckpointService publicCheckpointService)
         {
             _checkpointService = checkpointService;
             _publicCheckpointService = publicCheckpointService;
@@ -42,33 +42,11 @@ namespace Explorer.API.Controllers.Administrator.Administration
             return CreateResponse(result);
         }
 
-        [HttpPut("{id:int}")]
-        public ActionResult<CheckpointDto> Update([FromBody] CheckpointDto tourKeyPoint)
-        {
-            var result = _checkpointService.Update(tourKeyPoint);
-            return CreateResponse(result);
-        }
-
         [HttpGet("public")]
-        public ActionResult<PagedResult<PublicCheckpointDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<List<PublicCheckpointDto>> GetAllPublic()
         {
-            var result = _publicCheckpointService.GetPaged(page, pageSize);
+            var result = _publicCheckpointService.GetByStatus("Approved");
             return CreateResponse(result);
         }
-
-        [HttpPut("public/{tourId}/{status}")]
-        public ActionResult<PublicCheckpointDto> ChangeStatus(int tourId, string status)
-        {
-            var result = _publicCheckpointService.ChangeStatus(tourId, status);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("public/{status}")]
-        public ActionResult<List<PublicCheckpointDto>> GetByStatus(string status)
-        {
-            var result = _publicCheckpointService.GetByStatus(status);
-            return CreateResponse(result);
-        }
-
     }
 }

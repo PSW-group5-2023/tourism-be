@@ -15,7 +15,7 @@
         public DateTime? ArchivedDate { get; set; }
         public DateTime? PublishedDate { get; set; }
         public List<TourDurationDto> Durations { get; set; }
-        public List<TourKeyPointDto> KeyPoints { get; set; }
+        public List<CheckpointDto> Checkpoints { get; set; }
         public Uri? Image { get; set; }
     }
 }

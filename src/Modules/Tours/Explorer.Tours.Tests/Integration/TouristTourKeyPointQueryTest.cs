@@ -21,9 +21,9 @@ namespace Explorer.Tours.Tests.Integration
         public TouristTourKeyPointQueryTest(ToursTestFactory factory) : base(factory)
         {
         }
-        private static Explorer.API.Controllers.Tourist.TourKeyPointController CreateController(IServiceScope scope)
+        private static Explorer.API.Controllers.Tourist.CheckpointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Tourist.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Tourist.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

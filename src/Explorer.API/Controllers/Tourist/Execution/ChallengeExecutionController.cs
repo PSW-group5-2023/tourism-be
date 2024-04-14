@@ -50,7 +50,7 @@ namespace Explorer.API.Controllers.Tourist.Execution
         [HttpPost("tour")]
         public ActionResult GetPagedByTour([FromQuery] int page, [FromQuery] int pageSize, [FromBody] TourDto tour)
         {
-            var result = _challengeExecutionService.GetPagedByKeyPointIds(tour.KeyPoints.Select(kp => kp.Id).ToList(), page, pageSize);
+            var result = _challengeExecutionService.GetPagedByKeyPointIds(tour.Checkpoints.Select(kp => kp.Id).ToList(), page, pageSize);
             return CreateResponse(result);
         }
 

@@ -3,7 +3,6 @@
 public abstract class Entity
 {
     public long Id { get; protected set; }
-        public List<Equipment> Equipment { get; init; }
 
     public override bool Equals(object? obj)
     {

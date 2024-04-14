@@ -19,9 +19,10 @@ namespace Explorer.Tours.Core.Domain.Tours
         public DateTime? PublishedDate { get; private set; }
         public List<Checkpoint> Checkpoints { get; init; }
         public List<TourDuration> Durations { get; init; }
+        public int[] Equipment { get; init; }
         public Uri? Image { get; init; }
 
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, Uri? image)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, int[] equipment, List<TourDuration> durations, Uri? image = null)
         {
             Name = name;
             Description = description;
@@ -33,9 +34,10 @@ namespace Explorer.Tours.Core.Domain.Tours
             DistanceInKm = distanceInKm;
             ArchivedDate = archivedDate;
             PublishedDate = publishedDate;
-            Durations = new List<TourDuration>();
+            Durations = durations;
             Checkpoints = new List<Checkpoint>();
-            Image = image;
+            Equipment = equipment;
+            Image = image ?? new Uri("https://www.flimslaax.com/fileadmin/Daten/0Flims_Laax_Bilder/3-Outdoor/3-2-Wandern/3-2-1-Wanderwege/flims_laax_falera_wanderwege2.jpg");
         }
 
         private void Validate()
