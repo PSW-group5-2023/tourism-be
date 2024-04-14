@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Infrastructure.Database;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,13 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
         public EncounterExecutionDatabaseRepository(EncountersContext dbContext) : base(dbContext)
         {
             _dbSet = dbContext.Set<EncounterExecution>();
+        }
+
+        public PagedResult<EncounterExecution> GetAllActiveByEncounterId(long encounterId)
+        {
+            var task = _dbSet.Where(ee => ee.EncounterId == encounterId && ee.CompletionTime == null).GetPagedById(0, 0);
+            task.Wait();
+            return task.Result;
         }
 
         public EncounterExecution GetByTouristIdAndEncounterId(long touristId, long encounterId)

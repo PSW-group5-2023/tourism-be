@@ -6,5 +6,6 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
     {
         void SaveChanges();
         EncounterExecution GetByTouristIdAndEncounterId(long touristId, long encounterId);
+        PagedResult<EncounterExecution> GetAllActiveByEncounterId(long encounterId);
     }
 }

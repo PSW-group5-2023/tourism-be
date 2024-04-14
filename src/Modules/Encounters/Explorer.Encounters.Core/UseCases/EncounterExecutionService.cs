@@ -52,5 +52,18 @@ namespace Explorer.Encounters.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<PagedResult<EncounterExecutionDto>> GetAllActiveByEncounterId(long encounterId)
+        {
+            try
+            {
+                var result = _encounterExecutionRepository.GetAllActiveByEncounterId(encounterId);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }

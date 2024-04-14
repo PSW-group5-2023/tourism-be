@@ -35,8 +35,8 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
                 encounterDto.CreatorId = administratorId;
-                
-                if(encounterDto.KeyPointId != null) throw new ArgumentException("Administrator can only create public encounters.");
+
+                if (encounterDto.KeyPointId != null) throw new ArgumentException("Administrator can only create public encounters.");
 
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
@@ -299,6 +299,40 @@ namespace Explorer.Encounters.Core.UseCases
         {
             var result = _encounterRepository.GetPagedByKeyPointIds(keyPointIds, page, pageSize);
             return MapToDto(result);
+        }
+
+        public Result<SocialEncounterStatus> UpdateLocation(double latitude, double longitude, long encounterId, long touristId)
+        {
+            var encounter = _encounterRepository.Get(encounterId);
+            if (encounter.Type != EncounterType.Social) return Result.Fail(FailureCode.InvalidArgument).WithError("Cannot track location for non-social encounters.");
+            var socialEncounter = (SocialEncounter)encounter;
+
+            var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
+            if (encounterExecution.IsFailed) return Result.Fail(FailureCode.Internal).WithError("Encounter was not properly started");
+            encounterExecution.Value.IsInRange = socialEncounter.IsInRange(latitude, longitude);
+            _encounterExecutionService.Update(encounterExecution.Value);
+
+            var activeExecutions = _encounterExecutionService.GetAllActiveByEncounterId(encounterId).Value.Results;
+            var touristsInRange = activeExecutions.Where(ee => ee.IsInRange).Count();
+            if (touristsInRange >= socialEncounter.RequiredAttendance)
+            {
+                var tourists = new List<long>();
+                foreach (var execution in activeExecutions)
+                {
+                    _encounterExecutionService.SetCompletionTime(execution.TouristId, execution.EncounterId);
+                    tourists.Add(execution.TouristId);
+                }
+                return Result.Ok(new SocialEncounterStatus(true, tourists));
+            }
+            return Result.Ok(new SocialEncounterStatus(false, activeExecutions.Select(ae => ae.TouristId).ToList()));
+        }
+
+        public Result AbandonEncounter(long encounterId, long touristId)
+        {
+            var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
+            if (encounterExecution.IsFailed) return Result.Fail(FailureCode.Internal).WithError("Encounter is not started");
+            _encounterExecutionService.Delete((int)encounterExecution.Value.Id);
+            return Result.Ok();
         }
     }
 }
