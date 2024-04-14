@@ -61,3 +61,11 @@ VALUES (-15, 'Tacka', 'Tacka 2 je prva tacka', 'http://tacka2.com/', -24.22, -12
 INSERT INTO tours."TourKeyPoints"(
     "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Discriminator", "Status", "CreatorId", "Secret", "PositionInTour", "PublicPointId")
 VALUES (-16, 'Tacka 16 public, sad private', 'Tacka 3 je prva tacka', 'http://tacka3.com/', -64.22, 82.3, -3, 'TourKeyPoint', null, null, 'Secret 1', 3, -5);
+
+INSERT INTO tours."TourKeyPoints"(
+    "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Discriminator", "Status", "CreatorId", "Secret", "PositionInTour", "PublicPointId")
+VALUES (-17, 'Tacka dada, sad private', 'tacka', 'http://tacka3.com/', -64.22, 82.3, -15, 'TourKeyPoint', null, null, 'Secret 1', 1, null);
+
+INSERT INTO tours."TourKeyPoints"(
+    "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Discriminator", "Status", "CreatorId", "Secret", "PositionInTour", "PublicPointId")
+VALUES (-18, 'Tacka 16 public, sad private', 'Tacka 3 je prva tacka', 'http://tacka3.com/', -64.22, 82.3, -15, 'TourKeyPoint', null, null, 'Secret 1', 2, null);
