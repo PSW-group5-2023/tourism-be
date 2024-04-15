@@ -50,8 +50,8 @@ namespace Explorer.Tours.Tests.Integration
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(2);
-            result.TotalCount.ShouldBe(2);
+            result.Results.Count.ShouldBe(4);
+            result.TotalCount.ShouldBe(4);
         }
 
         [Fact]
@@ -113,7 +113,9 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
                 Latitude = 7,
-                /*TourId = -2*/
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             // Act
@@ -131,7 +133,7 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             // Act
-            var result = ((ObjectResult)controller.ChangeStatus(-5, "Approved").Result);
+            var result = ((ObjectResult)controller.ChangeStatus(-3, "Denied").Result);
 
             // Assert
             result.ShouldNotBe(null);
@@ -189,7 +191,7 @@ namespace Explorer.Tours.Tests.Integration
         }
         private static Explorer.API.Controllers.Author.CheckpointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
+            return new Explorer.API.Controllers.Author.CheckpointController(scope.ServiceProvider.GetRequiredService<ICheckpointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

@@ -10,7 +10,7 @@ namespace Explorer.Tours.Core.Domain.Tours
         public double Latitude { get; init; }
         public double Longitude { get; init; }
         public long TourId { get; init; }
-        public string Secret { get; init; }
+        public string? Secret { get; init; }
         public int PositionInTour { get; init; }
 
         public Checkpoint(string name, string description, Uri image, double latitude, double longitude, int positionInTour, long tourId, string secret)

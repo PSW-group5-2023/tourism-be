@@ -35,9 +35,9 @@ namespace Explorer.Tours.Tests.Integration.Administration
             result.Status.ShouldBe("Approved");
 
             // Assert - Database
-            var storedEntity = (PublicTourKeyPoints)dbContext.TourKeyPoints.FirstOrDefault(i => i.Id == -4);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Id == -4);
             storedEntity.ShouldNotBeNull();
-            storedEntity.Status.ShouldBe(PublicTourKeyPoints.PublicTourKeyPointStatus.Approved);
+            storedEntity.Status.ShouldBe(PublicCheckpointStatus.Approved);
         }
 
 
@@ -89,7 +89,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
 
         private static Explorer.API.Controllers.Administrator.Administration.TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
+            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ICheckpointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

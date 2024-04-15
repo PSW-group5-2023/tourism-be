@@ -176,7 +176,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             // Assert - Database
             if (result.StatusCode != 400)
             {
-                var storedEntity = dbContext.Tour.FirstOrDefault(t => t.Id == tourDto.Id);
+                var storedEntity = dbContext.Tours.FirstOrDefault(t => t.Id == tourDto.Id);
                 storedEntity.ShouldNotBeNull();
             }
 

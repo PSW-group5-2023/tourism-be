@@ -32,7 +32,9 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
                 Latitude = -32.6,
-                TourId = -2
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             // Act
@@ -63,6 +65,7 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
                 Latitude = -32.6,
+                Secret = "asd",
                 Status = "Pending",
             };
 
@@ -75,7 +78,7 @@ namespace Explorer.Tours.Tests.Integration
             result.Name.ShouldBe(newEntity.Name);
 
             // Assert - Database
-            var storedEntity = dbContext.Checkpoints.FirstOrDefault(i => i.Name == newEntity.Name);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Name == newEntity.Name);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
@@ -132,8 +135,9 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
                 Latitude = -24.22,
-                TourId = -2
-
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             //Act

@@ -15,6 +15,6 @@ namespace Explorer.Tours.API.Dtos.Tour
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Status { get; set; }
-        public string Secret {  get; set; }
+        public string? Secret {  get; set; }
     }
 }

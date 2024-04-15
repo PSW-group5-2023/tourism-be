@@ -46,5 +46,6 @@ public class ToursProfile : Profile
         CreateMap<PublicCheckpointDto, PublicCheckpoint>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<TourStatisticsDto, TourStatisticsDto>().ReverseMap();
+        CreateMap<TourDuration, TourDurationDto>().ReverseMap();
     }
 }

@@ -63,7 +63,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
 
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Name == newEntity.Name);
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Name == newEntity.Name);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
             storedEntity.Name.ShouldBe(result.Name);
@@ -118,10 +118,10 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.ArchivedDate.ShouldBe(updatedEntity.ArchivedDate);
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Status == TourStatus.Archived && i.Name == "Tura 1");
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Status == TourStatus.Archived && i.Name == "Tura 1");
             storedEntity.ShouldNotBeNull();
             ((int)storedEntity.Status).ShouldBe(updatedEntity.Status);
-            var oldEntity = dbContext.Tour.FirstOrDefault(i => i.Status == TourStatus.Published && i.Name == "Tura 1");
+            var oldEntity = dbContext.Tours.FirstOrDefault(i => i.Status == TourStatus.Published && i.Name == "Tura 1");
             oldEntity.ShouldBeNull();
         }
 
@@ -192,7 +192,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
 
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Name == campaignDto.Name);
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Name == campaignDto.Name);
             storedEntity.ShouldNotBeNull();
             //storedEntity.Id.ShouldBe(result.Id);
             storedEntity.Name.ShouldBe(result.Name);

@@ -39,7 +39,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.StatusCode.ShouldBe(expectedResponseCode);
 
             //Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(t => t.Id == tourId);
+            var storedEntity = dbContext.Tours.FirstOrDefault(t => t.Id == tourId);
             storedEntity.ShouldNotBeNull();
             storedEntity.Status.ShouldBe(expectedStatus);
         }

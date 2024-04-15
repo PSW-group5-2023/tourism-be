@@ -102,8 +102,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
             TourDifficulty difficultyTemp = GetCampaignDifficulty(difficulty, counter);
 
-            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId,
-                distanceInKm, archivedDate, publishedDate, equipment,  durations);
+            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment,
+                distanceInKm, archivedDate, publishedDate, durations);
 
             var createdCampaign = Create(MapToDto(campaign));
 

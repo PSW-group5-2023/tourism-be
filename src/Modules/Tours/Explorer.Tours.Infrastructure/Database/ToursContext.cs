@@ -44,6 +44,9 @@ public class ToursContext : DbContext
 
     private static void ConfigureTour(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Tour>()
+            .Property(t => t.Durations)
+            .HasColumnType("jsonb");
 
         modelBuilder.Entity<Tour>()
             .HasMany(t => t.Checkpoints)

@@ -14,7 +14,7 @@ namespace Explorer.Tours.Core.Domain.Tours
         public Uri Image { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public string Secret { get; init; }
+        public string? Secret { get; init; }
         public PublicCheckpointStatus Status { get; private set; }
 
         public PublicCheckpoint(string name, string description, Uri image, double latitude, double longitude, string secret, PublicCheckpointStatus status)
