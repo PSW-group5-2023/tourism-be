@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using System.Text.Json.Serialization;
 
 namespace Explorer.Tours.Core.Domain.Statistics
 {
@@ -7,6 +8,7 @@ namespace Explorer.Tours.Core.Domain.Statistics
         public long TourId { get; set; }
         public double NumberOfStats { get; set; }
 
+        [JsonConstructor]
         public TourStatistics(long tourId, double numberOfStats)
         {
             TourId = tourId;

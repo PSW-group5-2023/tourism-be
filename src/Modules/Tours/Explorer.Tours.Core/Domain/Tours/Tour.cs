@@ -48,11 +48,19 @@ namespace Explorer.Tours.Core.Domain.Tours
         {
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
-            if (Price < 0) throw new ArgumentException("Invalid Price");
+            if (int.TryParse(Difficulty.ToString(), out _)) throw new ArgumentException("Invalid tour difficulty.");
             if (Tags.IsNullOrEmpty()) throw new ArgumentException("Not enough Tags");
+            if (Status != TourStatus.Draft) throw new ArgumentException("Tour is not in draft mode, so it cant be published");
+            if (Price < 0) throw new ArgumentException("Invalid Price");
+            if (DistanceInKm < 0) throw new ArgumentException("Invalid distance");
             if (Checkpoints.Count < 2) throw new ArgumentException("Not enough Key Points");
-            if (Durations.IsNullOrEmpty()) throw new ArgumentException("Not enough Durations");
-            if (Status == TourStatus.Published) throw new ArgumentException("Tour is already published");
+            if (Durations.IsNullOrEmpty()) throw new ArgumentException("Invalid durations");
+
+            foreach(var duration in Durations)
+            {
+                if (duration.TimeInSeconds < 0) throw new ArgumentException("Invalid duration TimeInSeconds in Durations");
+                if(int.TryParse(duration.Transportation.ToString(), out _)) throw new ArgumentException("Invalid duration Transportation in Durations");
+            }
         }
 
         private void TouristTourValidation()

@@ -14,6 +14,7 @@ namespace Explorer.Tours.Core.Domain.Tours
             TimeInSeconds = timeInSeconds;
             Transportation = transportation;
         }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return TimeInSeconds;
