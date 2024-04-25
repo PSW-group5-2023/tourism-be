@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.Core.Domain;
+using Explorer.BuildingBlocks.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,9 @@ namespace Explorer.Achievements.Core.Mappers
 {
     public class AchievementsProfile : Profile
     {
-        public AchievementsProfile() { }
+        public AchievementsProfile() 
+        {
+            CreateMap<AchievementDto, Achievement>().ReverseMap();
+        }
     }
 }

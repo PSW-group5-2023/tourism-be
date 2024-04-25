@@ -10,9 +10,4 @@
     <ProjectReference Include="..\Explorer.Achievements.API\Explorer.Achievements.API.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="UseCases\" />
-  </ItemGroup>
-
 </Project>
