@@ -1,9 +1,6 @@
 ﻿using Explorer.Achievements.API.Dtos;
 using Explorer.Achievements.API.Public;
-using Explorer.Tours.API.Dtos.Equipment;
-using Explorer.Tours.API.Dtos.Execution;
-using Explorer.Tours.API.Public.Equipment;
-using Explorer.Tours.Core.UseCases.Equipments;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +29,13 @@ namespace Explorer.API.Controllers.Author
         public ActionResult<AchievementDto> Get(int id)
         {
             var result = _achievementService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet]
+        public ActionResult<PagedResult<AchievementDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _achievementService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
 

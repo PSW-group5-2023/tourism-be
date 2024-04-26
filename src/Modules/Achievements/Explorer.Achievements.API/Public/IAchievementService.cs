@@ -1,4 +1,5 @@
 ﻿using Explorer.Achievements.API.Dtos;
+using Explorer.BuildingBlocks.Core.UseCases;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace Explorer.Achievements.API.Public
         Result<AchievementDto> Create(AchievementDto achievement);
         Result Delete(int id);
         Result<AchievementDto> Get(int id);
+        Result<PagedResult<AchievementDto>> GetPaged(int page, int pageSize);
     }
 }
