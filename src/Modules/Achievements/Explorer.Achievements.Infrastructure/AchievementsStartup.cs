@@ -29,11 +29,13 @@ namespace Explorer.Achievements.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IAchievementService, AchievementService>();
+            services.AddScoped<IInventoryService, InventoryService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped(typeof(ICrudRepository<Achievement>), typeof(CrudDatabaseRepository<Achievement, AchievementsContext>));
+            services.AddScoped(typeof(ICrudRepository<Inventory>), typeof(CrudDatabaseRepository<Inventory, AchievementsContext>));
             services.AddDbContext<AchievementsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("achievements"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "achievements")));

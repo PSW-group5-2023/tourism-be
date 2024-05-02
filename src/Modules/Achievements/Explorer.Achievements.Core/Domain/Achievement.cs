@@ -35,7 +35,7 @@ namespace Explorer.Achievements.Core.Domain
         {
             Common,
             Rare,
-            Unique,
+            Epic,
             Legendary
 
         }

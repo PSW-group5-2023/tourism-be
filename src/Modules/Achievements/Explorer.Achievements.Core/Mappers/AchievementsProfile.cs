@@ -15,6 +15,7 @@ namespace Explorer.Achievements.Core.Mappers
         public AchievementsProfile() 
         {
             CreateMap<AchievementDto, Achievement>().ReverseMap();
+            CreateMap<InventoryDto, Inventory>().ReverseMap();
         }
     }
 }

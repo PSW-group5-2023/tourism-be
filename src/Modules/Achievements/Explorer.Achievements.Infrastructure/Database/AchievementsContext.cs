@@ -11,6 +11,7 @@ namespace Explorer.Achievements.Infrastructure.Database
     public class AchievementsContext : DbContext
     {
         public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
 
 
         public AchievementsContext(DbContextOptions<AchievementsContext> options) : base(options) { }
