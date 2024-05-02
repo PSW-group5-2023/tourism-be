@@ -14,13 +14,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Achievements.Tests.Integration
+namespace Explorer.Achievements.Tests.Integration.Achievements
 {
     [Collection("Sequential")]
     public class AchievementCommandTests : BaseAchievementsIntegrationTest
     {
         public AchievementCommandTests(AchievementsTestFactory factory) : base(factory) { }
-        
+
         [Fact]
         public void Creates()
         {
@@ -59,7 +59,7 @@ namespace Explorer.Achievements.Tests.Integration
             var controller = CreateController(scope);
             var updatedEntity = new AchievementDto
             {
-                Id = 101,              
+                Id = 101,
                 Icon = new Uri("https://example.com/icon1.png"),
             };
 

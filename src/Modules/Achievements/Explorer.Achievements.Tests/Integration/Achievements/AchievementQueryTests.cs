@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Achievements.Tests.Integration
+namespace Explorer.Achievements.Tests.Integration.Achievements
 {
     [Collection("Sequential")]
     public class AchievementQueryTests : BaseAchievementsIntegrationTest
