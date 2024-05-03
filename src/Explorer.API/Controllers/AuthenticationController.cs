@@ -1,4 +1,6 @@
-﻿using Explorer.Encounters.API.Dtos;
+﻿using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Public;
+using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.API.Public;
 using Explorer.Payments.API.Dtos;
@@ -15,12 +17,14 @@ public class AuthenticationController : BaseApiController
     private readonly IAuthenticationService _authenticationService;
     private readonly IWalletService _walletService;
     private readonly IUserExperienceService _userExperienceService;
+    private readonly IInventoryService  _inventoryService;
 
-    public AuthenticationController(IAuthenticationService authenticationService, IWalletService walletService, IUserExperienceService userExperienceService)
+    public AuthenticationController(IAuthenticationService authenticationService, IWalletService walletService, IUserExperienceService userExperienceService, IInventoryService inventoryService)
     {
         _authenticationService = authenticationService;
         _walletService = walletService;
         _userExperienceService = userExperienceService;
+        _inventoryService = inventoryService;
     }
 
     [HttpPost]
@@ -30,8 +34,13 @@ public class AuthenticationController : BaseApiController
 
         WalletDto wallet = new WalletDto(result.Value.Id, 0);
         _walletService.Create(wallet);
+
         UserExperienceDto userExperience = new UserExperienceDto(result.Value.Id, 0, 1);
         _userExperienceService.Create(userExperience);
+
+        InventoryDto inventory = new InventoryDto(result.Value.Id,new List<int>());
+        _inventoryService.Create(inventory);
+
         return CreateResponse(result);
     }
 

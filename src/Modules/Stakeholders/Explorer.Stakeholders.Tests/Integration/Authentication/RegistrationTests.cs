@@ -10,6 +10,7 @@ using Explorer.Stakeholders.API.Public;
 using Explorer.Payments.API.Public;
 using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.API.Public;
+using Explorer.Achievements.API.Public;
 
 namespace Explorer.Stakeholders.Tests.Integration.Authentication;
 
@@ -58,6 +59,6 @@ public class RegistrationTests : BaseStakeholdersIntegrationTest
 
     private static AuthenticationController CreateController(IServiceScope scope)
     {
-        return new AuthenticationController(scope.ServiceProvider.GetRequiredService<IAuthenticationService>(), scope.ServiceProvider.GetRequiredService<IWalletService>(), scope.ServiceProvider.GetRequiredService<IUserExperienceService>());
+        return new AuthenticationController(scope.ServiceProvider.GetRequiredService<IAuthenticationService>(), scope.ServiceProvider.GetRequiredService<IWalletService>(), scope.ServiceProvider.GetRequiredService<IUserExperienceService>(), scope.ServiceProvider.GetRequiredService<IInventoryService>());
     }
 }
