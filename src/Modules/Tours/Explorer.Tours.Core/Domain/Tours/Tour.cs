@@ -14,15 +14,15 @@ namespace Explorer.Tours.Core.Domain.Tours
         public TourStatus Status { get; private set; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
-        public int[] Equipment { get; init; }
+        public List<Equipment.Equipment> Equipment { get; init; }
         public double DistanceInKm { get; init; }
         public DateTime? ArchivedDate { get; private set; }
         public DateTime? PublishedDate { get; private set; }
         public List<TourDuration> Durations { get; private set; }
         public List<Checkpoint> Checkpoints { get; private set; }
-        public Uri? Image { get; private set; }
+        public List<Uri>? Images { get; private set; }
 
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations, Uri? image = null)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations)
         {
             Name = name;
             Description = description;
@@ -31,17 +31,17 @@ namespace Explorer.Tours.Core.Domain.Tours
             Status = status;
             Price = price;
             AuthorId = authorId;
-            Equipment = equipment;
             DistanceInKm = distanceInKm;
             ArchivedDate = archivedDate;
             PublishedDate = publishedDate;
             Durations = durations;
+            Equipment = new List<Equipment.Equipment>();
             Checkpoints = new List<Checkpoint>();
             if (Status == TourStatus.TouristMade)
             {
                 TouristTourValidation();
             }
-            Image = image ?? new Uri("https://www.flimslaax.com/fileadmin/Daten/0Flims_Laax_Bilder/3-Outdoor/3-2-Wandern/3-2-1-Wanderwege/flims_laax_falera_wanderwege2.jpg");
+            Images = new List<Uri>();
         }
 
         private void Validate()

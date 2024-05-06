@@ -8,6 +8,8 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.API.Dtos.Equipment;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
@@ -83,7 +85,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             List<string> tags = new List<string>();
             TourStatus status = TourStatus.Draft;
             double price = 0;
-            int[] equipment = { };
+            List<EquipmentDto> equipment = new List<EquipmentDto>();
             double distanceInKm = 0;
             DateTime? archivedDate = null;
             DateTime? publishedDate = null;
@@ -96,13 +98,13 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 distanceInKm += tour.DistanceInKm;
                 difficulty += tour.Difficulty;
                 tags = CombineCampaignTags(tags, tour.Tags);
-                equipment = CombineCampaignEquipment(equipment, tour.Equipment);
+                if (tour.Equipment != null) equipment = CombineCampaignEquipment(equipment, tour.Equipment);
                 counter++;
             }
 
             TourDifficulty difficultyTemp = GetCampaignDifficulty(difficulty, counter);
 
-            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment,
+            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId,
                 distanceInKm, archivedDate, publishedDate, durations);
 
             var createdCampaign = Create(MapToDto(campaign));
@@ -179,9 +181,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
         }
 
-        public int[] CombineCampaignEquipment(int[] campaignEquipment, int[] tourEquipment)
+        public List<EquipmentDto> CombineCampaignEquipment(List<EquipmentDto> campaignEquipment, List<EquipmentDto> tourEquipment)
         {
-            List<int> campaignEquipmentList = new List<int>(campaignEquipment);
+            List<EquipmentDto> campaignEquipmentList = new List<EquipmentDto>(campaignEquipment);
 
             foreach (var equipmentId in tourEquipment)
             {
@@ -191,7 +193,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 }
             }
 
-            return campaignEquipmentList.ToArray();
+            return campaignEquipmentList;
         }
 
         public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
