@@ -201,6 +201,41 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             storedEntity.PublishedDate.ShouldBe(result.PublishedDate);
         }
 
+        [Fact]
+        public void Deletes()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateAuthorController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            // Act
+            var result = (OkResult)controller.Delete(-14);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
+
+            // Assert - Database
+            var storedCourse = dbContext.Tours.FirstOrDefault(i => i.Id == -14);
+            storedCourse.ShouldBeNull();
+        }
+
+        [Fact]
+        public void DeleteFailsInvalidId()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateAuthorController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.Delete(-1000);
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
+        }
+
         private static Explorer.API.Controllers.Author.Authoring.TourController CreateAuthorController(IServiceScope scope)
         {
             return new Explorer.API.Controllers.Author.Authoring.TourController(scope.ServiceProvider.GetRequiredService<ITourService>())

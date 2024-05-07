@@ -70,6 +70,21 @@ namespace Explorer.Tours.Tests.Integration
         }
 
         [Fact]
+        public void RetrievesByTourId()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            //Act
+            var result = (ObjectResult)controller.GetByTourId(-3).Result;
+
+            //Assert
+            result.ShouldNotBe(null);
+            result.StatusCode.ShouldBe(200);
+        }
+
+        [Fact]
         public void RetrievesByStatus()
         {
             //Arrange
