@@ -160,7 +160,7 @@ namespace Explorer.Tours.Tests.Integration
             oldEntity.ShouldBeNull();
         }
 
-       /* [Fact]
+        [Fact]
         public void UpdatePublicStatus()
         {
             //Arrange
@@ -177,10 +177,10 @@ namespace Explorer.Tours.Tests.Integration
             result.Status.ShouldBe("Approved");
 
             // Assert - Database
-            var storedEntity = (PublicCheckpoint)dbContext.Checkpoints.FirstOrDefault(i => i.Id == -4);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Id == -4);
             storedEntity.ShouldNotBeNull();
-            storedEntity.Status.ShouldBe(PublicCheckpoint.PublicTourKeyPointStatus.Approved);
-        }*/
+            storedEntity.Status.ShouldBe(PublicCheckpointStatus.Approved);
+        }
 
 
         [Fact]
