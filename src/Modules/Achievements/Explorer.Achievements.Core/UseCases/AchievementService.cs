@@ -2,7 +2,9 @@
 using Explorer.Achievements.API.Dtos;
 using Explorer.Achievements.API.Public;
 using Explorer.Achievements.Core.Domain;
+using Explorer.Achievements.Core.Domain.RepositoryInterfaces;
 using Explorer.BuildingBlocks.Core.UseCases;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +15,17 @@ namespace Explorer.Achievements.Core.UseCases
 {
     public class AchievementService : CrudService<AchievementDto, Achievement>, IAchievementService
     {
-        public AchievementService(ICrudRepository<Achievement> crudRepository, IMapper mapper) : base(crudRepository, mapper)
+        public IAchievementRepository _achievementRepository;
+        public AchievementService(ICrudRepository<Achievement> crudRepository, IMapper mapper, IAchievementRepository achievementRepository) : base(crudRepository, mapper)
         {
+            _achievementRepository = achievementRepository;
+        }
+
+        public Result<AchievementDto> GetAchievementByKeyopintId(int keypointId)
+        {
+            var result = _achievementRepository.GetAchievementByKeypointId(keypointId);
+
+            return MapToDto(result);
         }
     }
 }
