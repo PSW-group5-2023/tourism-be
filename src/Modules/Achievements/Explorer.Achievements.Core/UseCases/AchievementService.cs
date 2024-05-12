@@ -20,12 +20,5 @@ namespace Explorer.Achievements.Core.UseCases
         {
             _achievementRepository = achievementRepository;
         }
-
-        public Result<AchievementDto> GetAchievementByKeyopintId(int keypointId)
-        {
-            var result = _achievementRepository.GetAchievementByKeypointId(keypointId);
-
-            return MapToDto(result);
-        }
     }
 }

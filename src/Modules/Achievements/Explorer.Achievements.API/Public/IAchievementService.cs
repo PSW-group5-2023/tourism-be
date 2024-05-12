@@ -15,7 +15,5 @@ namespace Explorer.Achievements.API.Public
         Result Delete(int id);
         Result<AchievementDto> Get(int id);
         Result<PagedResult<AchievementDto>> GetPaged(int page, int pageSize);
-
-        Result<AchievementDto> GetAchievementByKeyopintId(int keypointId);
     }
 }

@@ -8,6 +8,5 @@ namespace Explorer.Achievements.Core.Domain.RepositoryInterfaces
 {
     public interface IAchievementRepository
     {
-        Achievement GetAchievementByKeypointId(int keypointId);
     }
 }

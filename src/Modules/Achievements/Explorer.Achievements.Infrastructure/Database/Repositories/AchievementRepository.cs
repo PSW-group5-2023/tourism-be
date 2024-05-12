@@ -19,11 +19,5 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<Achievement>();
         }
-
-        public Achievement GetAchievementByKeypointId(int keypointId)
-        {
-            var achievement = _dbSet.Where(achievement => achievement.KeypointId == keypointId).FirstOrDefault();
-            return achievement;
-        }
     }
 }

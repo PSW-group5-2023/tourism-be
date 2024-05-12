@@ -45,12 +45,5 @@ namespace Explorer.API.Controllers.Author
             var result = _achievementService.Delete(id);
             return CreateResponse(result);
         }
-
-        [HttpGet("byKeypointId/{keypointId:int}")]
-        public ActionResult<AchievementDto> GetAchievementByKeyopintId(int keypointId)
-        {
-            var result = _achievementService.GetAchievementByKeyopintId(keypointId);
-            return CreateResponse(result);
-        }
     }
 }
