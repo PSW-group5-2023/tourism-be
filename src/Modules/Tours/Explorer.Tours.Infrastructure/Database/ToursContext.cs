@@ -35,10 +35,6 @@ public class ToursContext : DbContext
 
         modelBuilder.Entity<Session>().Property(item => item.CompletedKeyPoints).HasColumnType("jsonb");
 
-        modelBuilder.Entity<PositionSimulator>()
-            .HasIndex(ps => ps.TouristId)
-            .IsUnique();
-
         ConfigureTour(modelBuilder);
     }
 

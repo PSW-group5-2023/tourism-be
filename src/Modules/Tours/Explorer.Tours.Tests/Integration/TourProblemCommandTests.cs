@@ -161,7 +161,12 @@ public class TourProblemCommandTests : BaseToursIntegrationTest
             TouristUsername = "tourist",
             AuthorUsername = "author",
             IsSolved = true,
-            Messages = new List<TourProblemMessageDto> { new TourProblemMessageDto { } },
+            Messages = new List<TourProblemMessageDto> { new TourProblemMessageDto { 
+                SenderId = 0, 
+                RecipientId = 0, 
+                CreationTime = DateTime.Now.ToUniversalTime(), 
+                Description = "opis", 
+                IsRead = false } },
             Deadline = DateTime.Now.ToUniversalTime()
         };
 

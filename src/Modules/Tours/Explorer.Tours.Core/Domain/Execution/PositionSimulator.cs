@@ -11,7 +11,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
         {
             Latitude = latitude;
             Longitude = longitude;
-            //TouristId = touristId;
+
             Validate();
         }
 

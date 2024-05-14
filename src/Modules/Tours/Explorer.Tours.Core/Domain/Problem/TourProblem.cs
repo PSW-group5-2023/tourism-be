@@ -23,9 +23,10 @@ namespace Explorer.Tours.Core.Domain.Problem
             Priority = priority;
             Description = description;
             Time = time;
-            Validate();
             IsSolved = isSolved;
             Messages = messages;
+
+            Validate();
         }
         public TourProblemMessage CreateMessage(long senderId, long recipientId, DateTime time, string description, bool isRead)
         {
@@ -35,10 +36,22 @@ namespace Explorer.Tours.Core.Domain.Problem
         }
         public void Validate()
         {
-            if (string.IsNullOrWhiteSpace(Category.ToString())) throw new ArgumentException("Invalid Category.");
-            if (string.IsNullOrWhiteSpace(Priority.ToString())) throw new ArgumentException("Invalid Priority.");
+            if (int.TryParse(Category.ToString(), out _)) throw new ArgumentException("Invalid Category.");
+            if (int.TryParse(Priority.ToString(), out _))throw new ArgumentException("Invalid Priority.");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description.");
-            if (string.IsNullOrWhiteSpace(Time.ToString())) throw new ArgumentException("Invalid Time.");
+            if (string.IsNullOrWhiteSpace(Time.ToString()) || GetMilliseconds(Time) > GetMilliseconds(DateTime.UtcNow)) throw new ArgumentException("Invalid Time.");
+
+            foreach(var message in Messages)
+            {
+                if (GetMilliseconds(message.CreationTime) > GetMilliseconds(DateTime.UtcNow)) throw new ArgumentException("Invalid message CreationTime in Messages");
+                if (String.IsNullOrWhiteSpace(message.Description)) throw new ArgumentException("Invalid message Description in Messages");
+            }
+        }
+
+        private long GetMilliseconds(DateTime date)
+        {
+            long milliseconds = date.Ticks / TimeSpan.TicksPerMillisecond;
+            return milliseconds;
         }
         public void GiveDeadline(DateTime deadline)
         {

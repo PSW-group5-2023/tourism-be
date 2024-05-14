@@ -27,7 +27,6 @@ namespace Explorer.Tours.Core.Domain.Tours
 
         public void Validate()
         {
-            if (UserId == 0) throw new ArgumentException("Invalid UserId");
             if (DifficultyLevel < 1 || DifficultyLevel > 5) throw new ArgumentException("Invalid difficulty level");
             if (WalkingRate < 0 || WalkingRate > 3) throw new ArgumentException("Invalid walking rate");
             if (BicycleRate < 0 || BicycleRate > 3) throw new ArgumentException("Invalid bicycle rate");
