@@ -8,22 +8,24 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.API.Dtos.Equipment;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
         private readonly ITourRepository _tourRepository;
-        private readonly ITourKeyPointService _keyPointService;
+        private readonly ICheckpointService _checkpointService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IInternalPersonService _internalPersonService;
 
-        public TourService(ITourRepository repository, IMapper mapper, ITourKeyPointService tourKeyPointService,
+        public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService,
             IInternalBoughtItemService internalBoughtItemService,
             IInternalPersonService internalPersonService) : base(repository, mapper)
         {
             _tourRepository = repository;
-            _keyPointService = tourKeyPointService;
+            _checkpointService = checkpointService;
             _internalBoughtItemService = internalBoughtItemService;
             _internalPersonService = internalPersonService;
         }
@@ -83,7 +85,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             List<string> tags = new List<string>();
             TourStatus status = TourStatus.Draft;
             double price = 0;
-            int[] equipment = { };
+            List<EquipmentDto> equipment = new List<EquipmentDto>();
             double distanceInKm = 0;
             DateTime? archivedDate = null;
             DateTime? publishedDate = null;
@@ -96,13 +98,13 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 distanceInKm += tour.DistanceInKm;
                 difficulty += tour.Difficulty;
                 tags = CombineCampaignTags(tags, tour.Tags);
-                equipment = CombineCampaignEquipment(equipment, tour.Equipment);
+                if (tour.Equipment != null) equipment = CombineCampaignEquipment(equipment, tour.Equipment);
                 counter++;
             }
 
             TourDifficulty difficultyTemp = GetCampaignDifficulty(difficulty, counter);
 
-            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId, equipment,
+            Tour campaign = new Tour(name, description, difficultyTemp, tags, status, price, touristId,
                 distanceInKm, archivedDate, publishedDate, durations);
 
             var createdCampaign = Create(MapToDto(campaign));
@@ -125,18 +127,18 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public void CreateDuplicateKeypoints(List<TourDto> tours, int campaignId)
         {
-            List<TourKeyPointDto> keypoints = new List<TourKeyPointDto>();
+            List<CheckpointDto> checkpoints = new List<CheckpointDto>();
             int positionInCampaign = 1;
             foreach (var tour in tours)
             {
-                keypoints = _keyPointService.GetByTourId(tour.Id).Value;
-                keypoints = keypoints.OrderBy(kp => kp.PositionInTour).ToList();
-                foreach (var keypoint in keypoints)
+                checkpoints = _checkpointService.GetByTourId(tour.Id).Value;
+                checkpoints = checkpoints.OrderBy(kp => kp.PositionInTour).ToList();
+                foreach (var checkpoint in checkpoints)
                 {
-                    keypoint.PositionInTour = positionInCampaign;
-                    keypoint.TourId = campaignId;
-                    keypoint.Id = 0;
-                    _keyPointService.Create(keypoint);
+                    checkpoint.PositionInTour = positionInCampaign;
+                    checkpoint.TourId = campaignId;
+                    checkpoint.Id = 0;
+                    _checkpointService.Create(checkpoint);
                     positionInCampaign++;
                 }
             }
@@ -179,9 +181,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
         }
 
-        public int[] CombineCampaignEquipment(int[] campaignEquipment, int[] tourEquipment)
+        public List<EquipmentDto> CombineCampaignEquipment(List<EquipmentDto> campaignEquipment, List<EquipmentDto> tourEquipment)
         {
-            List<int> campaignEquipmentList = new List<int>(campaignEquipment);
+            List<EquipmentDto> campaignEquipmentList = new List<EquipmentDto>(campaignEquipment);
 
             foreach (var equipmentId in tourEquipment)
             {
@@ -191,7 +193,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 }
             }
 
-            return campaignEquipmentList.ToArray();
+            return campaignEquipmentList;
         }
 
         public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
@@ -236,7 +238,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var tour in tours.Results)
             {
-                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.KeyPoints,
+                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.Checkpoints,
                         person.Value.Latitude, person.Value.Longitude, radius))
                 {
                     filteredTours.Results.Add(MapToDto(tour));
@@ -246,18 +248,18 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return filteredTours;
         }
 
-        public bool CheckIfAnyKeyPointInRange(List<TourKeyPoint> keyPoints, double? lat, double? lon, double radius)
+        public bool CheckIfAnyKeyPointInRange(List<Checkpoint> checkpoints, double? lat, double? lon, double radius)
         {
-            return keyPoints.Any(keyPoint => IsInRange(keyPoint, lat, lon, radius));
+            return checkpoints.Any(checkpoint => IsInRange(checkpoint, lat, lon, radius));
         }
 
-        public bool IsInRange(TourKeyPoint keyPoint, double? lat, double? lon, double radius)
+        public bool IsInRange(Checkpoint checkpoint, double? lat, double? lon, double radius)
         {
             double distance;
             int earthRadius = 6371000;
             double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
-            distance = Math.Sqrt(Math.Pow((double)(keyPoint.Latitude - lat), 2) +
-                                 Math.Pow((double)(keyPoint.Longitude - lon), 2));
+            distance = Math.Sqrt(Math.Pow((double)(checkpoint.Latitude - lat), 2) +
+                                 Math.Pow((double)(checkpoint.Longitude - lon), 2));
             return distance <= radiusInDegrees;
         }
 

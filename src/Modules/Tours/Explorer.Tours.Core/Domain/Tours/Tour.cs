@@ -1,4 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using Explorer.Tours.Core.Domain;
+using Explorer.Tours.Core.Domain.Equipment;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Tours.Core.Domain.Tours
@@ -12,15 +14,15 @@ namespace Explorer.Tours.Core.Domain.Tours
         public TourStatus Status { get; private set; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
-        public int[] Equipment { get; init; }
+        public List<Equipment.Equipment> Equipment { get; init; }
         public double DistanceInKm { get; init; }
         public DateTime? ArchivedDate { get; private set; }
         public DateTime? PublishedDate { get; private set; }
         public List<TourDuration> Durations { get; private set; }
-        public List<TourKeyPoint> KeyPoints { get; private set; }
-        public Uri? Image { get; private set; }
+        public List<Checkpoint> Checkpoints { get; private set; }
+        public List<Uri>? Images { get; private set; }
 
-        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, int[] equipment, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations, Uri? image = null)
+        public Tour(string name, string description, TourDifficulty difficulty, List<string> tags, TourStatus status, double price, int authorId, double distanceInKm, DateTime? archivedDate, DateTime? publishedDate, List<TourDuration> durations)
         {
             Name = name;
             Description = description;
@@ -29,28 +31,36 @@ namespace Explorer.Tours.Core.Domain.Tours
             Status = status;
             Price = price;
             AuthorId = authorId;
-            Equipment = equipment;
             DistanceInKm = distanceInKm;
             ArchivedDate = archivedDate;
             PublishedDate = publishedDate;
             Durations = durations;
-            KeyPoints = new List<TourKeyPoint>();
+            Equipment = new List<Equipment.Equipment>();
+            Checkpoints = new List<Checkpoint>();
             if (Status == TourStatus.TouristMade)
             {
                 TouristTourValidation();
             }
-            Image = image ?? new Uri("https://www.flimslaax.com/fileadmin/Daten/0Flims_Laax_Bilder/3-Outdoor/3-2-Wandern/3-2-1-Wanderwege/flims_laax_falera_wanderwege2.jpg");
+            Images = new List<Uri>();
         }
 
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
-            if (Price < 0) throw new ArgumentException("Invalid Price");
+            if (int.TryParse(Difficulty.ToString(), out _)) throw new ArgumentException("Invalid tour difficulty.");
             if (Tags.IsNullOrEmpty()) throw new ArgumentException("Not enough Tags");
-            if (KeyPoints.Count < 2) throw new ArgumentException("Not enough Key Points");
-            if (Durations.IsNullOrEmpty()) throw new ArgumentException("Not enough Durations");
-            if (Status == TourStatus.Published) throw new ArgumentException("Tour is already published");
+            if (Status != TourStatus.Draft) throw new ArgumentException("Tour is not in draft mode, so it cant be published");
+            if (Price < 0) throw new ArgumentException("Invalid Price");
+            if (DistanceInKm < 0) throw new ArgumentException("Invalid distance");
+            if (Checkpoints.Count < 2) throw new ArgumentException("Not enough Key Points");
+            if (Durations.IsNullOrEmpty()) throw new ArgumentException("Invalid durations");
+
+            foreach(var duration in Durations)
+            {
+                if (duration.TimeInSeconds < 0) throw new ArgumentException("Invalid duration TimeInSeconds in Durations");
+                if(int.TryParse(duration.Transportation.ToString(), out _)) throw new ArgumentException("Invalid duration Transportation in Durations");
+            }
         }
 
         private void TouristTourValidation()
@@ -86,7 +96,7 @@ namespace Explorer.Tours.Core.Domain.Tours
         public void UpdateTouristTour(Tour tour)
         {
             Name = tour.Name;
-            KeyPoints = tour.KeyPoints;
+            Checkpoints = tour.Checkpoints;
             Durations = tour.Durations;
         }
     }

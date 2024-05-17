@@ -16,7 +16,7 @@ namespace Explorer.Payments.Core.Mappers
         {
             CreateMap<TourDto, ListedTourDto>().ReverseMap();
             CreateMap<TourDurationDto, ListedTourDurationDto>().ReverseMap();
-            CreateMap<TourKeyPointDto, ListedTourKeyPointDto>().ReverseMap();
+            CreateMap<CheckpointDto, ListedTourKeyPointDto>().ReverseMap();
         }
     }
 }

@@ -6,18 +6,18 @@ namespace Explorer.API.Controllers.Tourist
 {
     [Authorize(Policy = "touristPolicy")]
     [Route("api/tourist/tourKeyPoint")]
-    public class TouristTourKeyPointController : BaseApiController
+    public class TouristCheckpointController : BaseApiController
     {
-        private readonly ITourKeyPointService _tourKeyPointService;
+        private readonly ICheckpointService _checkpointService;
 
-        public TouristTourKeyPointController(ITourKeyPointService tourKeyPointService)
+        public TouristCheckpointController(ICheckpointService checkpointService)
         {
-            _tourKeyPointService = tourKeyPointService;
+            _checkpointService = checkpointService;
         }
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
-            var result = _tourKeyPointService.Delete(id);
+            var result = _checkpointService.Delete(id);
             return CreateResponse(result);
 
         }

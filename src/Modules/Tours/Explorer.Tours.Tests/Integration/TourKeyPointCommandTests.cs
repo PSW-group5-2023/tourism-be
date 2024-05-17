@@ -25,18 +25,20 @@ namespace Explorer.Tours.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
-            var newEntity = new TourKeyPointDto
+            var newEntity = new CheckpointDto
             {
                 Name = "New key point",
                 Description = "Newest key point.",
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
                 Latitude = -32.6,
-                TourId = -2
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             // Act
-            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as TourKeyPointDto;
+            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as CheckpointDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -44,7 +46,7 @@ namespace Explorer.Tours.Tests.Integration
             result.Name.ShouldBe(newEntity.Name);
 
             // Assert - Database
-            var storedEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == newEntity.Name);
+            var storedEntity = dbContext.Checkpoints.FirstOrDefault(i => i.Name == newEntity.Name);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
@@ -56,21 +58,19 @@ namespace Explorer.Tours.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
-            var newEntity = new PublicTourKeyPointDto
+            var newEntity = new PublicCheckpointDto
             {
                 Name = "New public key point",
                 Description = "Newest key point.",
                 Image = new Uri("http://keypoint.com/"),
                 Longitude = 51.33,
                 Latitude = -32.6,
+                Secret = "asd",
                 Status = "Pending",
-                CreatorId = 112,
-                TourId = -2,
-                PositionInTour = null,
             };
 
             // Act
-            var result = ((ObjectResult)controller.CreatePublic(newEntity).Result)?.Value as PublicTourKeyPointDto;
+            var result = ((ObjectResult)controller.CreatePublic(newEntity).Result)?.Value as PublicCheckpointDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -78,7 +78,7 @@ namespace Explorer.Tours.Tests.Integration
             result.Name.ShouldBe(newEntity.Name);
 
             // Assert - Database
-            var storedEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == newEntity.Name);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Name == newEntity.Name);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
         }
@@ -89,7 +89,7 @@ namespace Explorer.Tours.Tests.Integration
             //Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var newEntity = new TourKeyPointDto()
+            var newEntity = new CheckpointDto()
             {
                 Name = "Test"
             };
@@ -107,7 +107,7 @@ namespace Explorer.Tours.Tests.Integration
             //Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var newEntity = new PublicTourKeyPointDto()
+            var newEntity = new PublicCheckpointDto()
             {
                 Name = "Test"
             };
@@ -127,7 +127,7 @@ namespace Explorer.Tours.Tests.Integration
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
-            var updatedEntity = new TourKeyPointDto
+            var updatedEntity = new CheckpointDto
             {
                 Id = -1, 
                 Name = "Test",
@@ -135,12 +135,13 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://tacka1.com/"),
                 Longitude = -12.3,
                 Latitude = -24.22,
-                TourId = -2
-
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             //Act
-            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as TourKeyPointDto;
+            var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as CheckpointDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -152,10 +153,10 @@ namespace Explorer.Tours.Tests.Integration
             result.Longitude.ShouldBe(updatedEntity.Longitude);
 
             // Assert - Database
-            var storedEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == "Test");
+            var storedEntity = dbContext.Checkpoints.FirstOrDefault(i => i.Name == "Test");
             storedEntity.ShouldNotBeNull();
             storedEntity.Description.ShouldBe(updatedEntity.Description);
-            var oldEntity = dbContext.TourKeyPoints.FirstOrDefault(i => i.Name == "Tacka 1");
+            var oldEntity = dbContext.Checkpoints.FirstOrDefault(i => i.Name == "Tacka 1");
             oldEntity.ShouldBeNull();
         }
 
@@ -168,7 +169,7 @@ namespace Explorer.Tours.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             //Act
-            var result = ((ObjectResult)controller.ChangeStatus(-4, "Approved").Result)?.Value as PublicTourKeyPointDto;
+            var result = ((ObjectResult)controller.ChangeStatus(-4, "Approved").Result)?.Value as PublicCheckpointDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -176,9 +177,9 @@ namespace Explorer.Tours.Tests.Integration
             result.Status.ShouldBe("Approved");
 
             // Assert - Database
-            var storedEntity = (PublicTourKeyPoints)dbContext.TourKeyPoints.FirstOrDefault(i => i.Id == -4);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Id == -4);
             storedEntity.ShouldNotBeNull();
-            storedEntity.Status.ShouldBe(PublicTourKeyPoints.PublicTourKeyPointStatus.Approved);
+            storedEntity.Status.ShouldBe(PublicCheckpointStatus.Approved);
         }
 
 
@@ -187,7 +188,7 @@ namespace Explorer.Tours.Tests.Integration
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new TourKeyPointDto
+            var updatedEntity = new CheckpointDto
             {
                 Id = -2, 
                 Name = ""
@@ -208,7 +209,7 @@ namespace Explorer.Tours.Tests.Integration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new TourKeyPointDto
+            var updatedEntity = new CheckpointDto
             {
                 Id = -1000,
                 Name = "Test",
@@ -242,7 +243,7 @@ namespace Explorer.Tours.Tests.Integration
             result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            var storedCourse = dbContext.TourKeyPoints.FirstOrDefault(i => i.Id == -3);
+            var storedCourse = dbContext.Checkpoints.FirstOrDefault(i => i.Id == -3);
             storedCourse.ShouldBeNull();
         }
         public void DeleteFailsInvalidId()
@@ -259,9 +260,9 @@ namespace Explorer.Tours.Tests.Integration
             result.StatusCode.ShouldBe(404);
         }
 
-        private static Explorer.API.Controllers.Author.TourKeyPointController CreateController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.CheckpointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Author.CheckpointController(scope.ServiceProvider.GetRequiredService<ICheckpointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
