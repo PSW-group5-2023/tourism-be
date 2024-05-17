@@ -14,6 +14,7 @@ namespace Explorer.Achievements.Core.Domain
         public string Description { get; init; }
         public Uri Icon { get; init; }
         public RarityCategories Rarity { get; init; }
+        public List<int> CraftingRecipe {  get; init; }
 
         public Achievement(string name, string description, Uri icon, RarityCategories rarity)
         {
@@ -21,6 +22,7 @@ namespace Explorer.Achievements.Core.Domain
             Description = description;
             Icon = icon;
             Rarity = rarity;
+            CraftingRecipe = new List<int>();
             Validate();
         }
 
