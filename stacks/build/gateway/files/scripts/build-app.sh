@@ -1,5 +1,6 @@
 TOURISM_API_URL=$1
 TOURISM_WSS_URL=$2
+set -e
 cd app || exit
 export API_HOST=${TOURISM_API_URL}
 export WSS_HOST=${TOURISM_WSS_URL}

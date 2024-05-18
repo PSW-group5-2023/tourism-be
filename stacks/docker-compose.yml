@@ -29,7 +29,7 @@ services:
       - application
       - database
     ports:
-      - "9000:80"
+      - "80:80"
     environment:
       #STAGE: ${EXPLORER_STAGE}
       DATABASE_HOST: ${EXPLORER_DATABASE_HOST}
