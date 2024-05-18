@@ -14,6 +14,10 @@ public static class CorsConfiguration
                     builder.WithOrigins(ParseCorsOrigins())
                         .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "access_token")
                         .WithMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
+                    // builder.WithOrigins("http://localhost:8080")
+                    //.AllowAnyHeader()
+                    //.AllowAnyMethod()
+                    //.AllowCredentials();
                 });
         });
         return services;
@@ -21,7 +25,7 @@ public static class CorsConfiguration
 
     private static string[] ParseCorsOrigins()
     {
-        var corsOrigins = new[] { "http://localhost:4200" };
+        var corsOrigins = new[] { "http://localhost:8080" };
         var corsOriginsPath = Environment.GetEnvironmentVariable("EXPLORER_CORS_ORIGINS");
         if (File.Exists(corsOriginsPath))
         {

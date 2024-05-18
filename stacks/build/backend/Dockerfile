@@ -8,8 +8,17 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:${SDK_VERSION} as build
 ENV PROJECT=Explorer.API
+ARG SRC_URL=https://github.com/PSW-group5-2023/tourism-be/archive/refs/heads/feat/deployment.tar.gz
+ARG GITHUB_TOKEN=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
 WORKDIR /src
-COPY . .
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends curl tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir ../downloads && cd ../downloads \
+    && curl -L -H "Authorization: token ${GITHUB_TOKEN}" ${SRC_URL} | tar -xz \
+    && mv $(ls -d -- */|head -n 1) app && mv app/* /src
 WORKDIR /src/src
 RUN dotnet restore "${PROJECT}/${PROJECT}.csproj"
 RUN dotnet build "${PROJECT}/${PROJECT}.csproj" -c Release
