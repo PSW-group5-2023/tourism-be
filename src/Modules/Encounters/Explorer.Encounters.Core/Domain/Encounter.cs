@@ -26,8 +26,8 @@ namespace Explorer.Encounters.Core.Domain
             Longitude = longitude;
             KeyPointId = keyPointId;
             ExperiencePoints = experiencePoints;
-            Validate();
             IsMandatory = isMandatory;
+            Validate();
         }
 
         private void Validate()

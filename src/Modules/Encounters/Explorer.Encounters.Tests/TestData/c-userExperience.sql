@@ -1,5 +1,5 @@
 INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
-VALUES (-1, -21, 0, 1);
+VALUES (-1, -21, 200, 10);
 INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")
 VALUES (-2, -22, 10, 1);
 INSERT INTO encounters."UserExperience"("Id", "UserId", "XP", "Level")

@@ -1,9 +1,6 @@
-﻿using Explorer.API.Controllers;
-using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
-using Explorer.Stakeholders.Core.UseCases;
-using Explorer.Tours.API.Dtos.Tour;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -23,7 +20,7 @@ namespace Explorer.Encounters.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateAdministratorController(scope);
+            var controller = CreateAdministratorController(scope, "-1");
 
             // Act
             var result = ((ObjectResult)controller.GetPaged(0, 0).Result)?.Value as PagedResult<EncounterDto>;
@@ -39,7 +36,7 @@ namespace Explorer.Encounters.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateAdministratorController(scope);
+            var controller = CreateAdministratorController(scope, "-1");
 
             // Act
             var result = ((ObjectResult)controller.Get(-1).Result)?.Value as EncounterDto;
@@ -53,7 +50,7 @@ namespace Explorer.Encounters.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateTouristController(scope);
+            var controller = CreateTouristController(scope, "-21");
 
             // Act
             var result = ((ObjectResult)controller.GetAllPublic().Result)?.Value as PagedResult<EncounterDto>;
@@ -69,7 +66,7 @@ namespace Explorer.Encounters.Tests.Integration
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateTouristController(scope);
+            var controller = CreateTouristController(scope, "-21");
 
             // Act
             var result = ((ObjectResult)controller.GetAllByKeyPointIds(new List<long> { -1, -2 }).Result)?.Value as PagedResult<EncounterDto>;
@@ -80,27 +77,27 @@ namespace Explorer.Encounters.Tests.Integration
             result.TotalCount.ShouldBe(2);
         }
 
-        private static Explorer.API.Controllers.Administrator.EncounterController CreateAdministratorController(IServiceScope scope)
+        private static Explorer.API.Controllers.Administrator.EncounterController CreateAdministratorController(IServiceScope scope, string userId)
         {
             return new Explorer.API.Controllers.Administrator.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
             {
-                ControllerContext = BuildEncounterContext("-1")
+                ControllerContext = BuildEncounterContext(userId)
             };
         }
 
-        private static Explorer.API.Controllers.Author.EncounterController CreateAuthorController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.EncounterController CreateAuthorController(IServiceScope scope, string userId)
         {
             return new Explorer.API.Controllers.Author.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
             {
-                ControllerContext = BuildEncounterContext("-11")
+                ControllerContext = BuildEncounterContext(userId)
             };
         }
 
-        private static Explorer.API.Controllers.Tourist.EncounterController CreateTouristController(IServiceScope scope)
+        private static Explorer.API.Controllers.Tourist.EncounterController CreateTouristController(IServiceScope scope, string userId)
         {
-            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>(), scope.ServiceProvider.GetRequiredService<IEncounterExecutionService>())
+            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
             {
-                ControllerContext = BuildEncounterContext("-21")
+                ControllerContext = BuildEncounterContext(userId)
             };
         }
     }

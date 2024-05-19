@@ -15,6 +15,12 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             _dbSet = dbContext.Set<Encounter>();
         }
 
+        public Encounter GetNoTracking(long id)
+        {
+            var entity = _dbSet.AsNoTracking().FirstOrDefault(e => e.Id == id);
+            return entity ?? throw new KeyNotFoundException("Not found: " + id);
+        }
+
         public PagedResult<Encounter> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize)
         {
             var task = _dbSet

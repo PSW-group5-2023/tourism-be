@@ -123,9 +123,10 @@ namespace Explorer.Encounters.Core.UseCases
         {
             try
             {
-                var encounter = _encounterRepository.Get(encounterDto.Id);
+                var encounter = _encounterRepository.GetNoTracking(encounterDto.Id);
                 if (touristId != encounter.CreatorId) throw new ArgumentException("User isn't the owner of the encounter");
                 if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
+                encounterDto.CreatorId = encounter.CreatorId;
                 encounterDto.Status = (int)EncounterStatus.Draft; // After update tourist made encounter needs to be approved again
                 var result = _encounterRepository.Update(MapToEncounter(encounterDto));
                 return MapToDto(result);
@@ -252,7 +253,7 @@ namespace Explorer.Encounters.Core.UseCases
         {
             try
             {
-                var encounter = _encounterRepository.Get(encounterDto.Id);
+                var encounter = _encounterRepository.GetNoTracking(encounterDto.Id);
                 if (authorId != encounter.CreatorId) throw new ArgumentException("Author isn't the owner of the encounter");
                 if (encounterDto.KeyPointId == null) throw new ArgumentException("Author cannot remove an encounter from a KeyPoint.");
                 if (encounterDto.KeyPointId != encounter.KeyPointId) encounterDto = SetEncounterLocationByKeyPoint(encounterDto);

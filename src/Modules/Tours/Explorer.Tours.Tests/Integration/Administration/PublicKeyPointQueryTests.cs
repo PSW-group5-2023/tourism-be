@@ -34,8 +34,8 @@ namespace Explorer.Tours.Tests.Integration.Administration
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(16);
-            result.TotalCount.ShouldBe(16);
+            result.Results.Count.ShouldBe(19);
+            result.TotalCount.ShouldBe(19);
         }
 
         [Fact]

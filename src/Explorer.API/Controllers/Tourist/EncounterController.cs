@@ -11,12 +11,10 @@ namespace Explorer.API.Controllers.Tourist
     public class EncounterController : BaseApiController
     {
         private readonly IEncounterService _encounterService;
-        private readonly IEncounterExecutionService _executionService;
 
-        public EncounterController(IEncounterService encounterService, IEncounterExecutionService executionService)
+        public EncounterController(IEncounterService encounterService)
         {
             _encounterService = encounterService;
-            _executionService = executionService;
         }
 
         [HttpGet("public")]
@@ -59,10 +57,11 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpPut("complete/{touristId:int}/{encounterId:int}")]
-        public ActionResult<EncounterExecutionDto> Complete(int touristId, int encounterId)
+        [HttpPut("complete/{encounterId:int}")]
+        public ActionResult<EncounterExecutionDto> Complete(int encounterId)
         {
-            var result = _encounterService.Complete(touristId, encounterId);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _encounterService.Complete(long.Parse(userId.Value), encounterId);
             return CreateResponse(result);
         }
 
