@@ -33,8 +33,6 @@ namespace Explorer.Encounters.Infrastructure
 
         private static void SetupCore(IServiceCollection services)
         {
-            services.AddScoped<IChallengeService, ChallengeService>();
-            services.AddScoped<IChallengeExecutionService, ChallengeExecutionService>();
             services.AddScoped<IUserExperienceService, UserExperienceService>();
             services.AddScoped<IUserXP, UserXPService>();
             services.AddScoped<IEncounterService, EncounterService>();
@@ -44,12 +42,7 @@ namespace Explorer.Encounters.Infrastructure
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
-            services.AddScoped(typeof(IChallengeRepository), typeof(ChallengeDatabaseRepository));
-            services.AddScoped(typeof(ICrudRepository<ChallengeExecution>),
-                typeof(CrudDatabaseRepository<ChallengeExecution, EncountersContext>));
             services.AddScoped(typeof(ICrudRepository<UserExperience>), typeof(CrudDatabaseRepository<UserExperience, EncountersContext>));
-            services.AddScoped(typeof(IChallengeExecutionRepository),
-                typeof(ChallengeExecutionDatabaseRepository));
             services.AddScoped(typeof(IUserExperienceRepository), typeof(UserExperienceDatabaseRepository));
             services.AddScoped(typeof(IEncounterRepository), typeof(EncounterDatabaseRepository));
             services.AddScoped(typeof(IEncounterExecutionRepository), typeof(EncounterExecutionDatabaseRepository));

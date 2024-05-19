@@ -5,8 +5,6 @@ namespace Explorer.Encounters.Infrastructure.Database
 {
     public class EncountersContext : DbContext
     {
-        public DbSet<Challenge> Challenges { get; set; }
-        public DbSet<ChallengeExecution> ChallengeExecutions { get; set; }
         public DbSet<UserExperience> UserExperience { get; set; }
 
         public DbSet<Encounter> Encounters { get; set; }
@@ -19,10 +17,6 @@ namespace Explorer.Encounters.Infrastructure.Database
         {
             modelBuilder.HasDefaultSchema("encounters");
 
-            modelBuilder.Entity<ChallengeExecution>()
-                .HasOne(item => item.Challenge)
-                .WithMany()
-                .HasForeignKey("ChallengeId");
             ConfigureEncounters(modelBuilder);
             ConfigureEncounterExecutions(modelBuilder);
             ConfigureUserExperience(modelBuilder);
