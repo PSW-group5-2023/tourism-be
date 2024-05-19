@@ -49,11 +49,11 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpGet("keypoints")]
-        public ActionResult<PagedResult<EncounterDto>> GetAllByKeyPointIds([FromQuery] List<long> keyPointIds)
+        [HttpGet("checkpoints")]
+        public ActionResult<PagedResult<EncounterDto>> GetAllByCheckpointIds([FromQuery] List<long> checkpointIds)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
-            var result = _encounterService.GetPagedByKeyPointIdsForTourist(keyPointIds, 0, 0, long.Parse(userId.Value));
+            var result = _encounterService.GetPagedByCheckpointIdsForTourist(checkpointIds, 0, 0, long.Parse(userId.Value));
             return CreateResponse(result);
         }
 

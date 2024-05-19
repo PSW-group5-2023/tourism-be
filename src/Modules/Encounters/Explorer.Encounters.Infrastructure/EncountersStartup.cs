@@ -37,7 +37,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped<IUserXP, UserXPService>();
             services.AddScoped<IEncounterService, EncounterService>();
             services.AddScoped<IEncounterExecutionService, EncounterExecutionService>();
-            services.AddScoped<IInternalKeyPointService, InternalKeyPointService>();
+            services.AddScoped<IInternalCheckpointService, InternalCheckpointService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

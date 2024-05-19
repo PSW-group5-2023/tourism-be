@@ -38,7 +38,7 @@ namespace Explorer.Encounters.Tests.Integration
             resultObject.Latitude.ShouldBe(encounterDto.Latitude);
             resultObject.Status.ShouldBe(0);
             resultObject.CreatorId.ShouldBe(-21);
-            resultObject.KeyPointId.ShouldBeNull();
+            resultObject.CheckpointId.ShouldBeNull();
 
             // Assert - Database
             var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == resultObject.Id);
@@ -306,7 +306,7 @@ namespace Explorer.Encounters.Tests.Integration
                 RangeInMeters = 50,
                 Status = 2,
                 CreatorId = 1,
-                KeyPointId = 2,
+                CheckpointId = 2,
             };
 
             // Act
@@ -375,7 +375,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Update_fails_added_keypoint_for_tourist()
+        public void Update_fails_added_checkpoint_for_tourist()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -386,7 +386,7 @@ namespace Explorer.Encounters.Tests.Integration
                 Id = -9,
                 Name = "Update",
                 Description = "update test",
-                KeyPointId = 1,
+                CheckpointId = 1,
             };
 
             // Act
@@ -511,7 +511,7 @@ namespace Explorer.Encounters.Tests.Integration
                 Longitude = 50,
                 Type = 2,
                 ExperiencePoints = 10,
-                KeyPointId = -17,
+                CheckpointId = -17,
             };
 
             // Act
@@ -527,7 +527,7 @@ namespace Explorer.Encounters.Tests.Integration
             result.Latitude.ShouldBe(24.22);
             result.Status.ShouldBe(1);
             result.CreatorId.ShouldBe(-11);
-            result.KeyPointId.ShouldBe(-17);
+            result.CheckpointId.ShouldBe(-17);
 
             // Assert - Database
             var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == result.Id);
@@ -536,7 +536,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Create_fails_not_keypoint_owner_for_author()
+        public void Create_fails_not_checkpoint_owner_for_author()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -551,7 +551,7 @@ namespace Explorer.Encounters.Tests.Integration
                 Longitude = 50,
                 Type = 2,
                 ExperiencePoints = 10,
-                KeyPointId = -17,
+                CheckpointId = -17,
             };
 
             // Act
@@ -564,7 +564,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Create_fails_no_keypoint_set_for_author()
+        public void Create_fails_no_checkpoint_set_for_author()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -603,7 +603,7 @@ namespace Explorer.Encounters.Tests.Integration
                 Name = "Update",
                 Description = "update test",
                 ExperiencePoints = 10,
-                KeyPointId = -17,
+                CheckpointId = -17,
                 Status = 1,
                 Type = 2,
             };
@@ -659,7 +659,7 @@ namespace Explorer.Encounters.Tests.Integration
             result.Latitude.ShouldBe(50);
             result.Status.ShouldBe(1);
             result.CreatorId.ShouldBe(-1);
-            result.KeyPointId.ShouldBeNull();
+            result.CheckpointId.ShouldBeNull();
 
             // Assert - Database
             var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == result.Id);
@@ -668,7 +668,7 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Create_fails_keypoint_set_for_administrator()
+        public void Create_fails_checkpoint_set_for_administrator()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -683,7 +683,7 @@ namespace Explorer.Encounters.Tests.Integration
                 Longitude = 50,
                 Type = 2,
                 ExperiencePoints = 10,
-                KeyPointId = -17,
+                CheckpointId = -17,
             };
 
             // Act

@@ -9,8 +9,8 @@ namespace Explorer.Encounters.API.Public
         Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize);
         Result Delete(int id);
         Result<EncounterDto> Get(long id);
-        Result<PagedResult<EncounterDto>> GetPagedByKeyPointIdsForTourist(List<long> keyPointIds, int page, int pageSize, long touristId);
-        Result<PagedResult<EncounterDto>> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize);
+        Result<PagedResult<EncounterDto>> GetPagedByCheckpointIdsForTourist(List<long> checkpointIds, int page, int pageSize, long touristId);
+        Result<PagedResult<EncounterDto>> GetPagedByCheckpointIds(List<long> checkpointIds, int page, int pageSize);
         Result<EncounterDto> CreateForTourist(EncounterDto encounterDto, long touristId);
         Result<EncounterDto> UpdateForTourist(EncounterDto encounterDto, long touristId);
         Result<EncounterDto> DeleteIfCreator(long id, long creatorId);

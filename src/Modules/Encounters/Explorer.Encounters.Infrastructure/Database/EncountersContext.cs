@@ -49,8 +49,8 @@ namespace Explorer.Encounters.Infrastructure.Database
                 .WithOne();
 
             modelBuilder.Entity<Encounter>()
-                .HasIndex(e => e.KeyPointId)
-                .HasFilter("\"KeyPointId\" is not null");
+                .HasIndex(e => e.CheckpointId)
+                .HasFilter("\"CheckpointId\" is not null");
         }
     }
 }

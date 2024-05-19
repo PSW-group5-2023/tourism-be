@@ -1,11 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.Domain.Sessions
 {
@@ -43,8 +37,22 @@ namespace Explorer.Tours.Core.Domain.Sessions
 
         private void Validate()
         {
+            if (int.TryParse(SessionStatus.ToString(), out _)) throw new ArgumentException("Invalid SessionStatus");
+            if (Transportation < 0 || Transportation > 2) throw new ArgumentException("Invalid transportation");
            // if (DistanceCrossed <= 0) throw new ArgumentException("Invalid length");
-            if (!DateTime.TryParse(LastActivity.ToString(), out _)) throw new ArgumentException("Invalid date and time");
+            if (!DateTime.TryParse(LastActivity.ToString(), out _) 
+                || (GetMilliseconds(LastActivity) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid LastActivity");
+            
+            foreach(var keyPoint in CompletedKeyPoints)
+            {
+                if (GetMilliseconds(keyPoint.CompletionTime) > GetMilliseconds(DateTime.UtcNow)) throw new ArgumentException("Invalid keyPoint CompletionTime in CompletedKeyPoints");
+            }
+        }
+
+        private long GetMilliseconds(DateTime date)
+        {
+            long milliseconds = date.Ticks / TimeSpan.TicksPerMillisecond;
+            return milliseconds;
         }
 
         public bool ValidForTouristComment()

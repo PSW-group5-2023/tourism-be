@@ -20,7 +20,7 @@ namespace Explorer.Encounters.Core.Mappers
                 (EncounterType)dto.Type,
                 dto.Latitude,
                 dto.Longitude,
-                dto.KeyPointId,
+                dto.CheckpointId,
                 dto.ExperiencePoints,
                 dto.IsMandatory,
                 dto.RangeInMeters ?? 0,

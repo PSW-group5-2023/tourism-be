@@ -12,7 +12,7 @@ namespace Explorer.Encounters.Core.Domain
         public double Latitude { get; init; }
         public double Longitude { get; init; }
         public int ExperiencePoints { get; init; }
-        public long? KeyPointId { get; init; }
+        public long? CheckpointId { get; init; }
         public bool IsMandatory { get; init; }
 
         public Encounter()
@@ -20,7 +20,7 @@ namespace Explorer.Encounters.Core.Domain
              
         }
 
-        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, bool isMandatory)
+        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? checkpointId, int experiencePoints, bool isMandatory)
         {
             CreatorId = creatorId;
             Description = description;
@@ -29,7 +29,7 @@ namespace Explorer.Encounters.Core.Domain
             Type = type;
             Latitude = latitude;
             Longitude = longitude;
-            KeyPointId = keyPointId;
+            CheckpointId = checkpointId;
             ExperiencePoints = experiencePoints;
             IsMandatory = isMandatory;
             Validate();

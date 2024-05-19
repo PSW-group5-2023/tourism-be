@@ -16,7 +16,7 @@
         public double? LocationLatitude { get; set; }
         public double? LocationLongitude { get; set; }
         public double? RangeInMeters { get; set; }
-        public long? KeyPointId { get; set; }
+        public long? CheckpointId { get; set; }
         public int? RequiredAttendance { get; set; }
     }
 }

@@ -62,14 +62,14 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
-        public void Retrieves_all_by_keypoints_for_tourist()
+        public void Retrieves_all_by_checkpoints_for_tourist()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateTouristController(scope, "-21");
 
             // Act
-            var result = ((ObjectResult)controller.GetAllByKeyPointIds(new List<long> { -1, -2 }).Result)?.Value as PagedResult<EncounterDto>;
+            var result = ((ObjectResult)controller.GetAllByCheckpointIds(new List<long> { -1, -2 }).Result)?.Value as PagedResult<EncounterDto>;
 
             // Assert
             result.ShouldNotBeNull();

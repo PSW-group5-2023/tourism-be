@@ -5,7 +5,7 @@
         public double RangeInMeters { get; init; }
         public int RequiredAttendance { get; init; }
 
-        public SocialEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, bool isMandatory, double rangeInMeters, int requiredAttendance) : base(creatorId, description, name, status, type, latitude, longitude, keyPointId, experiencePoints, isMandatory)
+        public SocialEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? checkpointId, int experiencePoints, bool isMandatory, double rangeInMeters, int requiredAttendance) : base(creatorId, description, name, status, type, latitude, longitude, checkpointId, experiencePoints, isMandatory)
         {
             RangeInMeters = rangeInMeters;
             RequiredAttendance = requiredAttendance;

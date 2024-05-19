@@ -4,18 +4,10 @@ using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
-using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
-using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Tours.Core.UseCases.Execution
 {

@@ -9,4 +9,4 @@ VALUES
 INSERT INTO tours."TourProblems"(
 	"Id", "TouristId", "TourId", "Category", "Priority", "Description", "Time", "IsSolved", "Messages", "Deadline")
 VALUES 
-	(-3, -22, -13, 0, 4, 'Bilo je problema sa organizacijom', CURRENT_TIMESTAMP, false, '[]', null);
+	(-3, -22, -13, 0, 0, 'Bilo je problema sa organizacijom', CURRENT_TIMESTAMP, false, '[]', null);

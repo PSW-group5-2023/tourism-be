@@ -40,10 +40,10 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpGet("keypoints")]
-        public ActionResult<PagedResult<EncounterDto>> GetAllByKeyPointIds([FromQuery] List<long> keyPointIds)
+        [HttpGet("checkpoints")]
+        public ActionResult<PagedResult<EncounterDto>> GetAllByCheckpointIds([FromQuery] List<long> checkpointIds)
         {
-            var result = _encounterService.GetPagedByKeyPointIds(keyPointIds, 0, 0);
+            var result = _encounterService.GetPagedByCheckpointIds(checkpointIds, 0, 0);
             return CreateResponse(result);
         }
 

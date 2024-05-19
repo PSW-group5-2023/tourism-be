@@ -3,7 +3,6 @@ using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Explorer.Encounters.Infrastructure.Database.Repositories
 {
@@ -21,10 +20,10 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             return entity ?? throw new KeyNotFoundException("Not found: " + id);
         }
 
-        public PagedResult<Encounter> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize)
+        public PagedResult<Encounter> GetPagedByCheckpointIds(List<long> checkpointIds, int page, int pageSize)
         {
             var task = _dbSet
-                .Where(ee => ee.KeyPointId.HasValue && keyPointIds.Contains(ee.KeyPointId.Value))
+                .Where(ee => ee.CheckpointId.HasValue && checkpointIds.Contains(ee.CheckpointId.Value))
                 .GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
@@ -33,7 +32,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
         public PagedResult<Encounter> GetPublicPaged(int page, int pageSize)
         {
             var task = _dbSet
-                .Where(ee => ee.KeyPointId == null)
+                .Where(ee => ee.CheckpointId == null)
                 .GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;

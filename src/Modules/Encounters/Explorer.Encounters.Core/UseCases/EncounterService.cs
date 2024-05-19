@@ -17,15 +17,15 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IUserExperienceService _userExperienceService;
         private readonly IEncounterExecutionService _encounterExecutionService;
         private readonly IMapper _mapper;
-        private readonly IInternalKeyPointService _internalKeyPointService;
+        private readonly IInternalCheckpointService _internalCheckpointService;
 
-        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalKeyPointService internalKeyPointService) : base(encounterRepository, mapper)
+        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalCheckpointService internalCheckpointService) : base(encounterRepository, mapper)
         {
             _encounterRepository = encounterRepository;
             _userExperienceService = userExperienceService;
             _encounterExecutionService = encounterExecutionService;
             _mapper = mapper;
-            _internalKeyPointService = internalKeyPointService;
+            _internalCheckpointService = internalCheckpointService;
         }
 
 
@@ -36,7 +36,7 @@ namespace Explorer.Encounters.Core.UseCases
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
                 encounterDto.CreatorId = administratorId;
 
-                if (encounterDto.KeyPointId != null) throw new ArgumentException("Administrator can only create public encounters.");
+                if (encounterDto.CheckpointId != null) throw new ArgumentException("Administrator can only create public encounters.");
 
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
@@ -47,9 +47,9 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        private bool IsAuthorOfKeyPoint(long authorId, long keypointId)
+        private bool IsAuthorOfCheckpoint(long authorId, long checkpointId)
         {
-            return _internalKeyPointService.CheckIfUserIsAuthor(authorId, keypointId).Value;
+            return _internalCheckpointService.CheckIfUserIsAuthor(authorId, checkpointId).Value;
         }
 
         public Result<EncounterDto> CreateForTourist(EncounterDto encounterDto, long touristId)
@@ -60,7 +60,7 @@ namespace Explorer.Encounters.Core.UseCases
                 if (userXp.IsFailed || userXp.Value.Level < 10) throw new ArgumentException($"User needs level 10 to create an encounter. Current level: {userXp.ValueOrDefault.Level}");
                 encounterDto.Status = 0; // DRAFT status, dto cuva integer.
                 encounterDto.CreatorId = touristId;
-                if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
+                if (encounterDto.CheckpointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a checkpoint.");
 
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
@@ -95,9 +95,9 @@ namespace Explorer.Encounters.Core.UseCases
             return MapToDto(_encounterRepository.Get(id));
         }
 
-        public Result<PagedResult<EncounterDto>> GetPagedByKeyPointIdsForTourist(List<long> keyPointIds, int page, int pageSize, long touristId)
+        public Result<PagedResult<EncounterDto>> GetPagedByCheckpointIdsForTourist(List<long> checkpointIds, int page, int pageSize, long touristId)
         {
-            var result = _encounterRepository.GetPagedByKeyPointIds(keyPointIds, page, pageSize);
+            var result = _encounterRepository.GetPagedByCheckpointIds(checkpointIds, page, pageSize);
             var filteredList = result.Results.Where(e =>
             {
                 var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, e.Id);
@@ -125,7 +125,7 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 var encounter = _encounterRepository.GetNoTracking(encounterDto.Id);
                 if (touristId != encounter.CreatorId) throw new ArgumentException("User isn't the owner of the encounter");
-                if (encounterDto.KeyPointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a keypoint.");
+                if (encounterDto.CheckpointId != null) throw new ArgumentException("Tourist is not allowed to add encounter to a checkpoint.");
                 encounterDto.CreatorId = encounter.CreatorId;
                 encounterDto.Status = (int)EncounterStatus.Draft; // After update tourist made encounter needs to be approved again
                 var result = _encounterRepository.Update(MapToEncounter(encounterDto));
@@ -212,9 +212,9 @@ namespace Explorer.Encounters.Core.UseCases
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
                 encounterDto.CreatorId = authorId;
 
-                if (encounterDto.KeyPointId == null) throw new ArgumentException("Author can only create an encounter for a KeyPoint.");
-                if (!IsAuthorOfKeyPoint(encounterDto.CreatorId, (long)encounterDto.KeyPointId)) throw new ArgumentException("This author is not the author of selected KeyPoint.");
-                encounterDto = SetEncounterLocationByKeyPoint(encounterDto);
+                if (encounterDto.CheckpointId == null) throw new ArgumentException("Author can only create an encounter for a checkpoint.");
+                if (!IsAuthorOfCheckpoint(encounterDto.CreatorId, (long)encounterDto.CheckpointId)) throw new ArgumentException("This author is not the author of selected checkpoint.");
+                encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
 
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
@@ -225,11 +225,11 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        private EncounterDto SetEncounterLocationByKeyPoint(EncounterDto encounterDto)
+        private EncounterDto SetEncounterLocationByCheckpoint(EncounterDto encounterDto)
         {
-            TourKeyPointDto tourKeyPointDto = _internalKeyPointService.Get((long)encounterDto.KeyPointId).Value;
-            encounterDto.Longitude = tourKeyPointDto.Longitude;
-            encounterDto.Latitude = tourKeyPointDto.Latitude;
+            CheckpointDto checkpointDto = _internalCheckpointService.Get((long)encounterDto.CheckpointId).Value;
+            encounterDto.Longitude = checkpointDto.Longitude;
+            encounterDto.Latitude = checkpointDto.Latitude;
             return encounterDto;
         }
 
@@ -255,8 +255,8 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 var encounter = _encounterRepository.GetNoTracking(encounterDto.Id);
                 if (authorId != encounter.CreatorId) throw new ArgumentException("Author isn't the owner of the encounter");
-                if (encounterDto.KeyPointId == null) throw new ArgumentException("Author cannot remove an encounter from a KeyPoint.");
-                if (encounterDto.KeyPointId != encounter.KeyPointId) encounterDto = SetEncounterLocationByKeyPoint(encounterDto);
+                if (encounterDto.CheckpointId == null) throw new ArgumentException("Author cannot remove an encounter from a checkpoint.");
+                if (encounterDto.CheckpointId != encounter.CheckpointId) encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
                 var result = _encounterRepository.Update(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
@@ -278,7 +278,7 @@ namespace Explorer.Encounters.Core.UseCases
         {
             try
             {
-                if (encounterDto.KeyPointId != null) throw new ArgumentException("Administrator is not allowed to add encounter to a keypoint.");
+                if (encounterDto.CheckpointId != null) throw new ArgumentException("Administrator is not allowed to add encounter to a checkpoint.");
                 var result = _encounterRepository.Update(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
@@ -296,9 +296,9 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        public Result<PagedResult<EncounterDto>> GetPagedByKeyPointIds(List<long> keyPointIds, int page, int pageSize)
+        public Result<PagedResult<EncounterDto>> GetPagedByCheckpointIds(List<long> checkpointIds, int page, int pageSize)
         {
-            var result = _encounterRepository.GetPagedByKeyPointIds(keyPointIds, page, pageSize);
+            var result = _encounterRepository.GetPagedByCheckpointIds(checkpointIds, page, pageSize);
             return MapToDto(result);
         }
 

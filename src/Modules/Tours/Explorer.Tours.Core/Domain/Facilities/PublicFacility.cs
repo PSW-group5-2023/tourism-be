@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Explorer.Tours.Core.Domain.Facilities
+﻿namespace Explorer.Tours.Core.Domain.Facilities
 {
     public class PublicFacility : Facility
     {
@@ -18,6 +12,12 @@ namespace Explorer.Tours.Core.Domain.Facilities
             Status = status;
             CreatorId = creatorId;
 
+            Validate();
+        }
+
+        private void Validate()
+        {
+            if (int.TryParse(Status.ToString(), out _)) throw new ArgumentException("Invalid Status");
         }
 
         public void ChangeStatus(PublicFacilityStatus status)

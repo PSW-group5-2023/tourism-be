@@ -6,7 +6,7 @@
         public double LocationLatitude { get; init; }
         public double LocationLongitude { get; init; }
 
-        public LocationEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, bool isMandatory, Uri image, double locationLatitude, double locationLongitude) : base(creatorId, description, name, status, type, latitude, longitude, keyPointId, experiencePoints, isMandatory)
+        public LocationEncounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? checkpointId, int experiencePoints, bool isMandatory, Uri image, double locationLatitude, double locationLongitude) : base(creatorId, description, name, status, type, latitude, longitude, checkpointId, experiencePoints, isMandatory)
         {
             Image = image;
             LocationLatitude = locationLatitude;
