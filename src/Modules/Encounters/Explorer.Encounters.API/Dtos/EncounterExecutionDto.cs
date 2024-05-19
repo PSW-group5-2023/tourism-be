@@ -13,6 +13,6 @@ namespace Explorer.Encounters.API.Dtos
         public long EncounterId { get; set; }
         public DateTime ActivationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
-        public bool IsInRange { get; set; }
+        public bool InRange { get; set; }
     }
 }

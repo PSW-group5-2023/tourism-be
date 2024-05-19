@@ -2,13 +2,7 @@
 {
     public class SocialEncounterStatus
     {
-        public bool IsCompleted { get; set; }
-        public List<long> Tourists { get; set; }
-
-        public SocialEncounterStatus(bool isCompleted, List<long> tourists)
-        {
-            IsCompleted = isCompleted;
-            Tourists = tourists;
-        }
+        public bool Completed { get; set; }
+        public int NumberOfTourists { get; set; }
     }
 }

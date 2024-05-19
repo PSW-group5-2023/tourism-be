@@ -24,5 +24,6 @@ namespace Explorer.Encounters.API.Public
         Result<EncounterDto> UpdateForAdministrator(EncounterDto encounterDto, long administratorId);
         Result<SocialEncounterStatus> UpdateLocation(double latitude, double longitude, long encounterId, long touristId);
         Result AbandonEncounter(long encounterId, long touristId);
+        Result<EncounterExecutionDto> StartEncounter(long encounterId, long touristId);
     }
 }

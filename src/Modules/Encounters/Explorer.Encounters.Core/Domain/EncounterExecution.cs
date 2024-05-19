@@ -8,16 +8,16 @@ namespace Explorer.Encounters.Core.Domain
         public long EncounterId { get; init; }
         public DateTime ActivationTime { get; init; }
         public DateTime? CompletionTime { get; private set; }
-        public bool IsInRange { get; init; }
+        public bool InRange { get; set; }
 
 
-        public EncounterExecution(long touristId, long encounterId, DateTime activationTime, DateTime? completionTime, bool isInRange)
+        public EncounterExecution(long touristId, long encounterId, DateTime activationTime, DateTime? completionTime, bool inRange)
         {
             TouristId = touristId;
             EncounterId = encounterId;
             ActivationTime = activationTime;
             CompletionTime = completionTime;
-            IsInRange = isInRange;
+            InRange = inRange;
         }
 
         public void Complete()

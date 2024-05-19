@@ -66,10 +66,11 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpPost("execute")]
-        public ActionResult<EncounterExecutionDto> CreateEncounterExecutionSession([FromBody] EncounterExecutionDto encounterExecutionDto)
+        [HttpPost("start/{encounterId:long}")]
+        public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
-            var result = _executionService.Create(encounterExecutionDto);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _encounterService.StartEncounter(encounterId, long.Parse(userId.Value));
             return CreateResponse(result);
         }
 

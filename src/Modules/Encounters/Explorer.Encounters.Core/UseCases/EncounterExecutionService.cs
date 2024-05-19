@@ -5,11 +5,6 @@ using Explorer.Encounters.API.Public;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
 using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Core.UseCases
 {
@@ -17,7 +12,7 @@ namespace Explorer.Encounters.Core.UseCases
     {
         private readonly IEncounterExecutionRepository _encounterExecutionRepository;
 
-        public EncounterExecutionService(IEncounterExecutionRepository repository,  IMapper mapper) : base(repository, mapper)
+        public EncounterExecutionService(IEncounterExecutionRepository repository, IMapper mapper) : base(repository, mapper)
         {
             _encounterExecutionRepository = repository;
         }
@@ -33,7 +28,7 @@ namespace Explorer.Encounters.Core.UseCases
 
                 return MapToDto(encounterExecution);
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
             }
@@ -59,6 +54,21 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 var result = _encounterExecutionRepository.GetAllActiveByEncounterId(encounterId);
                 return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterExecutionDto> SetInRange(long encounterId, long touristId, bool inRange)
+        {
+            try
+            {
+                var encounterExecution = _encounterExecutionRepository.GetByTouristIdAndEncounterId(touristId, encounterId);
+                encounterExecution.InRange = inRange;
+                _encounterExecutionRepository.SaveChanges();
+                return MapToDto(encounterExecution);
             }
             catch (KeyNotFoundException e)
             {

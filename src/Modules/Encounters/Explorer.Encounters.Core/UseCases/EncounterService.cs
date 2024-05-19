@@ -301,30 +301,33 @@ namespace Explorer.Encounters.Core.UseCases
             return MapToDto(result);
         }
 
+        // Updates the location for a tourist on a social encounter and checks how many tourists are in range. If enough, completes the encounter for every tourist
         public Result<SocialEncounterStatus> UpdateLocation(double latitude, double longitude, long encounterId, long touristId)
         {
+            // Fetches the encounter and checks type before explicitly casting
             var encounter = _encounterRepository.Get(encounterId);
             if (encounter.Type != EncounterType.Social) return Result.Fail(FailureCode.InvalidArgument).WithError("Cannot track location for non-social encounters.");
             var socialEncounter = (SocialEncounter)encounter;
 
-            var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
-            if (encounterExecution.IsFailed) return Result.Fail(FailureCode.Internal).WithError("Encounter was not properly started");
-            encounterExecution.Value.IsInRange = socialEncounter.IsInRange(latitude, longitude);
-            _encounterExecutionService.Update(encounterExecution.Value);
+            // Updates the status of encounter execution
+            _encounterExecutionService.SetInRange(encounterId, touristId, socialEncounter.IsInRange(latitude, longitude));
 
+            // Completes for all if criteria is met
             var activeExecutions = _encounterExecutionService.GetAllActiveByEncounterId(encounterId).Value.Results;
-            var touristsInRange = activeExecutions.Where(ee => ee.IsInRange).Count();
+            var touristsInRange = activeExecutions.Where(ee => ee.InRange).Count();
             if (touristsInRange >= socialEncounter.RequiredAttendance)
             {
-                var tourists = new List<long>();
                 foreach (var execution in activeExecutions)
                 {
-                    _encounterExecutionService.SetCompletionTime(execution.TouristId, execution.EncounterId);
-                    tourists.Add(execution.TouristId);
+                    Complete(execution.TouristId, execution.EncounterId);
                 }
-                return Result.Ok(new SocialEncounterStatus(true, tourists));
             }
-            return Result.Ok(new SocialEncounterStatus(false, activeExecutions.Select(ae => ae.TouristId).ToList()));
+
+            return Result.Ok(new SocialEncounterStatus()
+            {
+                NumberOfTourists = touristsInRange,
+                Completed = touristsInRange >= socialEncounter.RequiredAttendance,
+            });
         }
 
         public Result AbandonEncounter(long encounterId, long touristId)
@@ -333,6 +336,20 @@ namespace Explorer.Encounters.Core.UseCases
             if (encounterExecution.IsFailed) return Result.Fail(FailureCode.Internal).WithError("Encounter is not started");
             _encounterExecutionService.Delete((int)encounterExecution.Value.Id);
             return Result.Ok();
+        }
+
+        public Result<EncounterExecutionDto> StartEncounter(long encounterId, long touristId)
+        {
+            var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
+            if (encounterExecution.IsSuccess) return Result.Fail(FailureCode.Internal).WithError("Encounter already started");
+            return _encounterExecutionService.Create(new EncounterExecutionDto()
+            {
+                TouristId = touristId,
+                EncounterId = encounterId,
+                ActivationTime = DateTime.UtcNow,
+                CompletionTime = null,
+                InRange = false,
+            });
         }
     }
 }

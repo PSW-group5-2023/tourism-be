@@ -30,8 +30,7 @@ public class AuthenticationController : BaseApiController
 
         WalletDto wallet = new WalletDto(result.Value.Id, 0);
         _walletService.Create(wallet);
-        UserExperienceDto userExperience = new UserExperienceDto(result.Value.Id, 0, 1);
-        _userExperienceService.Create(userExperience);
+        _userExperienceService.Create(result.Value.Id);
         return CreateResponse(result);
     }
 
