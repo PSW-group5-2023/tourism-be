@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  explorer:
+    image: explorer:${EXPLORER_VERSION-latest}
+    networks:
+      - application
+      - database
+    ports:
+      - "9000:80"
+    environment:
+      DATABASE_HOST: database #${EXPLORER_DATABASE_HOST}
+      DATABASE_PORT: ${EXPLORER_DATABASE_PORT}
+      DATABASE_SCHEMA_FILE: /run/secrets/database-schema
+      DATABASE_USERNAME_FILE: /run/secrets/database-username
+      DATABASE_PASSWORD_FILE: /run/secrets/database-password
+      EXPLORER_CORS_ORIGINS: /run/secrets/cors
+    secrets:
+      - source: database-schema
+        target: database-schema
+      - source: database-username
+        target: database-username
+      - source: database-password
+        target: database-password
+      - source: cors
+        target: cors  
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  database-password:
+    name: explorer_database_password_${STAGE-dev}
+    external: true
+  database-username:
+    name: explorer_database_username_${STAGE-dev}
+    external: true
+  database-schema:
+    name: explorer_database_schema_${STAGE-dev}
+    external: true
+  cors:
+    name: explorer_cors_${STAGE}
+    external: true
+
+networks:
+  application:
+    name: application_network_${STAGE-dev}
+    driver: overlay
+    attachable: true
+  database:
+    name: persistance_network_${STAGE-dev}
+    driver: overlay 
+    external: true

@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  gateway:
+    image: tourism/gateway:${GATEWAY_VERSION-latest}
+    networks:
+      - public
+      - application
+    ports:
+      - "${GATEWAY_PUBLISHED_PORT-8080}:8080"
+    depends_on:
+      - explorer
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  application:
+    name: application_network
+    driver: overlay
+    external: true
+  public:
+    name: public_network
+    driver: overlay 
+    attachable: true
