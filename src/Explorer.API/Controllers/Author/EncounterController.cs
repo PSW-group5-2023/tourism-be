@@ -1,4 +1,5 @@
-﻿using Explorer.Encounters.API.Dtos;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpGet("keypoints")]
-        public ActionResult GetAllByKeyPointIds([FromQuery] List<long> keyPointIds)
+        public ActionResult<PagedResult<EncounterDto>> GetAllByKeyPointIds([FromQuery] List<long> keyPointIds)
         {
             var result = _encounterService.GetPagedByKeyPointIds(keyPointIds, 0, 0);
             return CreateResponse(result);

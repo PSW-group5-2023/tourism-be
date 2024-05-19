@@ -220,7 +220,7 @@ namespace Explorer.Encounters.Tests.Integration
                     400
                 },
                 new object[]
-                {
+        {
                     new EncounterDto()
                     {
                         Description = "Na očaravajućem ostrvu Santorini, turista može se suočiti s izazovom istraživanja skrivenih staza i slikovitih sokaka, otkrivajući autentične grčke trenutke izvan uobičajenih turističkih ruta.",
@@ -717,7 +717,7 @@ namespace Explorer.Encounters.Tests.Integration
 
             // Act
             var result = ((ObjectResult)controller.Update(updatedEntity).Result)?.Value as EncounterDto;
-
+            
             // Assert - Response
             result.ShouldNotBeNull();
             result.Id.ShouldBe(-7);
@@ -749,13 +749,13 @@ namespace Explorer.Encounters.Tests.Integration
             // Arrange - Reponse
             result.ShouldNotBeNull();
             result.Status.ShouldBe(1);
-
+            
             // Arrange - Database
             var storedEntity = dbContext.Encounters.FirstOrDefault(e => e.Id == -3);
             storedEntity.ShouldNotBeNull();
             ((int)storedEntity.Status).ShouldBe(1);
         }
-
+            
         [Fact]
         public void Archives()
         {

@@ -15,6 +15,11 @@ namespace Explorer.Encounters.Core.Domain
         public long? KeyPointId { get; init; }
         public bool IsMandatory { get; init; }
 
+        public Encounter()
+        {
+             
+        }
+
         public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? keyPointId, int experiencePoints, bool isMandatory)
         {
             CreatorId = creatorId;
