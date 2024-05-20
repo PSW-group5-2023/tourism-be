@@ -46,7 +46,7 @@ set -- "${POSITIONAL[@]}"
 
 export STAGE=${STAGE:-dev}
 STACK_NAME="explorer_public_${STAGE}"
-COMPOSE_FILE=${COMPOSE_FILE:-../public.yml}
+COMPOSE_FILE=${COMPOSE_FILE:-../public2.yml}
 ENVIRONMENT_TEMPLATE_FILE=${ENVIRONMENT_TEMPLATE_FILE:-../env.conf.template}
 ENVIRONMENT_FILE=./env.${STAGE}.conf
 DOCKER_CONFIG_HASH=${DOCKER_CONFIG_HASH:-explorer/docker-config-hash:latest}
@@ -57,12 +57,15 @@ echo "ENVIRONMENT TEMPLATE FILE | ${ENVIRONMENT_TEMPLATE_FILE}"
 echo "STACK NAME                | ${STACK_NAME}"
 echo "COMPOSE FILE              | ${COMPOSE_FILE}"
 
-docker create --name config-hash "${DOCKER_CONFIG_HASH}"
-docker cp ../ config-hash:
-docker start config-hash
-docker cp config-hash:/tmp/"${ENVIRONMENT_FILE}" .
-docker rm config-hash
-docker-compose --env-file "${ENVIRONMENT_FILE}" \
-               --file "${COMPOSE_FILE}" config \
-               | docker stack deploy --prune -c - "${STACK_NAME}"
+# docker create --name config-hash "${DOCKER_CONFIG_HASH}"
+# docker cp ../ config-hash:
+# docker start config-hash
+# docker cp config-hash:/tmp/"${ENVIRONMENT_FILE}" .
+# docker rm config-hash
+# docker-compose --env-file "${ENVIRONMENT_FILE}" \
+#                --file "${COMPOSE_FILE}" config \
+#                | docker stack deploy --prune -c - "${STACK_NAME}"
+
+docker stack deploy -c "${COMPOSE_FILE}" "${STACK_NAME}"
+
 rm "${ENVIRONMENT_FILE}"

@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   gateway:
-    image: explorer/tourism-ui-web:${GATEWAY_VERSION-latest}
+    image: explorer/gateway:${GATEWAY_VERSION-latest}
     networks:
       - public
       - application
@@ -52,10 +52,10 @@ configs:
 
 networks:
   public:
-    name: explorer_public_${STAGE-dev}
+    name: public_network_${STAGE-dev}
     driver: overlay
     attachable: true
   application:
-    name: explorer_application_${STAGE-dev}
+    name: application_network_${STAGE-dev}
     driver: overlay
     external: true

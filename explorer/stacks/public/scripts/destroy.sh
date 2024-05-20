@@ -22,3 +22,5 @@ STAGE=${STAGE:-dev}
 STACK_NAME="explorer_public_${STAGE}"
 
 docker stack rm "${STACK_NAME}"
+
+docker network rm public_network_${STAGE-dev}
