@@ -29,5 +29,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _dbContext.SaveChanges();
             return checkpoint;
         }
+
+        public Checkpoint Get(long id)
+        {
+            var checkpoint = _dbContext.Checkpoints.FirstOrDefault(c => c.Id == id);
+            return checkpoint;
+        }
     }
 }

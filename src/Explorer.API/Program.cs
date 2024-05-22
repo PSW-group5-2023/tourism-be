@@ -1,3 +1,4 @@
+using Explorer.API.Hubs;
 using Explorer.API.Startup;
 using Explorer.Stakeholders.Core.Domain;
 
@@ -42,6 +43,7 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapHub<PublicSiteHub>("hub");
+app.MapHub<EncounterExecutionHub>("api/tourist/encounter/execution");
 app.MapControllers();
 
 app.Run();

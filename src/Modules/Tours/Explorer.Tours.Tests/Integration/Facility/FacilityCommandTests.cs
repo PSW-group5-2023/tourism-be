@@ -8,6 +8,7 @@ using Shouldly;
 
 namespace Explorer.Tours.Tests.Integration.Facility
 {
+    [Collection("Sequential")]
     public class FacilityCommandTests : BaseToursIntegrationTest
     {
         public FacilityCommandTests(ToursTestFactory factory) : base(factory) { }
