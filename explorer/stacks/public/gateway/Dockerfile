@@ -4,8 +4,9 @@ FROM node:20.13.1-alpine3.19 AS base
 WORKDIR /src
 COPY ./files/scripts/install-dependencies.sh .
 ARG FRONTEND_APP_SRC_URL=https://github.com/PSW-group5-2023/tourism-fe/archive/refs/heads/deployment.tar.gz
+ARG GITHUB_REPO_TOKEN
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN ./install-dependencies.sh ${FRONTEND_APP_SRC_URL}
+RUN ./install-dependencies.sh ${FRONTEND_APP_SRC_URL} ${GITHUB_REPO_TOKEN}
 COPY ./files/front/environment.ts.template ./app
 COPY ./files/scripts/build-app.sh .
 
