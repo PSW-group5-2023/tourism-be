@@ -30,6 +30,7 @@ services:
       - database
     ports:
       - "80:80"
+      - "443:443"
     environment:
       #STAGE: ${EXPLORER_STAGE}
       DATABASE_HOST: ${EXPLORER_DATABASE_HOST}
