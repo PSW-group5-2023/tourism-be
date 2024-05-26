@@ -11,6 +11,7 @@ namespace Explorer.Encounters.Infrastructure.Database
         public DbSet<SocialEncounter> SocialEncounters { get; set; }
         public DbSet<LocationEncounter> LocationEncounters { get; set; }
         public DbSet<EncounterExecution> EncounterExecutions { get; set; }
+        public DbSet<Question> Question { get; set; }
         public EncountersContext(DbContextOptions<EncountersContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +21,14 @@ namespace Explorer.Encounters.Infrastructure.Database
             ConfigureEncounters(modelBuilder);
             ConfigureEncounterExecutions(modelBuilder);
             ConfigureUserExperience(modelBuilder);
+            ConfigureQuestions(modelBuilder);
+        }
+
+        private void ConfigureQuestions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Question>()
+            .Property(t => t.Answers)
+            .HasColumnType("jsonb");
         }
 
         private void ConfigureUserExperience(ModelBuilder modelBuilder)
@@ -42,7 +51,8 @@ namespace Explorer.Encounters.Infrastructure.Database
                             .HasDiscriminator(e => e.Type)
                             .HasValue<Encounter>(EncounterType.Misc)
                             .HasValue<SocialEncounter>(EncounterType.Social)
-                            .HasValue<LocationEncounter>(EncounterType.Location);
+                            .HasValue<LocationEncounter>(EncounterType.Location)
+                            .HasValue<QuizEncounter>(EncounterType.Quiz);
 
             modelBuilder.Entity<Encounter>()
                 .HasMany<EncounterExecution>()
@@ -51,6 +61,12 @@ namespace Explorer.Encounters.Infrastructure.Database
             modelBuilder.Entity<Encounter>()
                 .HasIndex(e => e.CheckpointId)
                 .HasFilter("\"CheckpointId\" is not null");
+
+            modelBuilder.Entity<QuizEncounter>()
+                .HasMany(qe => qe.Questions)
+                .WithOne()
+                .HasForeignKey("EncounterId")
+                .IsRequired();
         }
     }
 }

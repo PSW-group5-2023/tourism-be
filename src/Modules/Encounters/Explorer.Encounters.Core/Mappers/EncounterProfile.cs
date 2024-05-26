@@ -27,6 +27,9 @@ namespace Explorer.Encounters.Core.Mappers
                 dto.RequiredAttendance ?? 0))
             .ReverseMap();
             CreateMap<EncounterExecutionDto, EncounterExecution>().ReverseMap();
+            CreateMap<EncounterDto, QuizEncounter>().ReverseMap();
+            CreateMap<QuestionDto, Question>().ReverseMap();
+            CreateMap<AnswerDto, Answer>().ReverseMap();
         }
     }
 }

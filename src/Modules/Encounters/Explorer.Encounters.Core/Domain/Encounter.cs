@@ -66,6 +66,7 @@ namespace Explorer.Encounters.Core.Domain
     {
         Social,
         Location,
-        Misc
+        Misc,
+        Quiz
     }
 }

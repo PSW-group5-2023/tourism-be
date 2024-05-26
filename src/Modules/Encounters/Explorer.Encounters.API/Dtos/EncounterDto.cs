@@ -18,5 +18,6 @@
         public double? RangeInMeters { get; set; }
         public long? CheckpointId { get; set; }
         public int? RequiredAttendance { get; set; }
+        public ICollection<QuestionDto> Questions { get; set; }
     }
 }
