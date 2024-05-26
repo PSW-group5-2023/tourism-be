@@ -27,7 +27,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             //Act
-            var result = ((ObjectResult)controller.ChangeStatus(-4, "Approved").Result)?.Value as PublicTourKeyPointDto;
+            var result = ((ObjectResult)controller.ChangeStatus(-4, "Approved").Result)?.Value as PublicCheckpointDto;
 
             // Assert - Response
             result.ShouldNotBeNull();
@@ -35,9 +35,9 @@ namespace Explorer.Tours.Tests.Integration.Administration
             result.Status.ShouldBe("Approved");
 
             // Assert - Database
-            var storedEntity = (PublicTourKeyPoints)dbContext.TourKeyPoints.FirstOrDefault(i => i.Id == -4);
+            var storedEntity = dbContext.PublicCheckpoints.FirstOrDefault(i => i.Id == -4);
             storedEntity.ShouldNotBeNull();
-            storedEntity.Status.ShouldBe(PublicTourKeyPoints.PublicTourKeyPointStatus.Approved);
+            storedEntity.Status.ShouldBe(PublicCheckpointStatus.Approved);
         }
 
 
@@ -46,7 +46,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new TourKeyPointDto
+            var updatedEntity = new CheckpointDto
             {
                 Id = -2,
                 Name = ""
@@ -67,7 +67,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new TourKeyPointDto
+            var updatedEntity = new CheckpointDto
             {
                 Id = -1000,
                 Name = "Test",
@@ -89,7 +89,7 @@ namespace Explorer.Tours.Tests.Integration.Administration
 
         private static Explorer.API.Controllers.Administrator.Administration.TourKeyPointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Administrator.Administration.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ICheckpointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };

@@ -10,12 +10,12 @@
         public int Status { get; set; }
         public double Price { get; set; }
         public int AuthorId { get; set; }
-        public int[] Equipment { get; set; }
+        public List<Equipment.EquipmentDto> Equipment { get; set; }
         public double DistanceInKm { get; set; }
         public DateTime? ArchivedDate { get; set; }
         public DateTime? PublishedDate { get; set; }
         public List<TourDurationDto> Durations { get; set; }
-        public List<TourKeyPointDto> KeyPoints { get; set; }
-        public Uri? Image { get; set; }
+        public List<CheckpointDto> Checkpoints { get; set; }
+        public List<Uri>? Images { get; set; }
     }
 }

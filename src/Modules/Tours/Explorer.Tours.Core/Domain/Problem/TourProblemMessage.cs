@@ -1,4 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
+using System;
 using System.Text.Json.Serialization;
 
 namespace Explorer.Tours.Core.Domain.Problem
@@ -22,6 +23,7 @@ namespace Explorer.Tours.Core.Domain.Problem
             Description = description;
             IsRead = isRead;
         }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return SenderId;

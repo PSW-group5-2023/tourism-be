@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.API.Dtos.Equipment;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring
 {
@@ -39,7 +41,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 Status = 1,
                 Price = 0,
                 AuthorId = -1,
-                Equipment = new int[] { -1, -3 },
                 DistanceInKm = 2.5,
                 ArchivedDate = null
             };
@@ -57,13 +58,12 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.Status.ShouldBe(newEntity.Status);
             result.Price.ShouldBe(newEntity.Price);
             result.AuthorId.ShouldBe(newEntity.AuthorId);
-            result.Equipment.ShouldBe(newEntity.Equipment);
             result.DistanceInKm.ShouldBe(newEntity.DistanceInKm);
             result.ArchivedDate.ShouldBe(newEntity.ArchivedDate);
 
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Name == newEntity.Name);
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Name == newEntity.Name);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
             storedEntity.Name.ShouldBe(result.Name);
@@ -73,7 +73,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             ((int)storedEntity.Status).ShouldBe(result.Status);
             storedEntity.Price.ShouldBe(result.Price);
             storedEntity.AuthorId.ShouldBe(result.AuthorId);
-            storedEntity.Equipment.ShouldBe(result.Equipment);
             storedEntity.DistanceInKm.ShouldBe(result.DistanceInKm);
             storedEntity.ArchivedDate.ShouldBe(result.ArchivedDate);
         }
@@ -95,7 +94,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                 Status = 2,
                 Price = 0,
                 AuthorId = -1,
-                Equipment = new int[] { -1, -2 },
                 DistanceInKm = 2.5,
                 ArchivedDate = null
             };
@@ -113,15 +111,14 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.Status.ShouldBe(updatedEntity.Status);
             result.Price.ShouldBe(updatedEntity.Price);
             result.AuthorId.ShouldBe(updatedEntity.AuthorId);
-            result.Equipment.ShouldBe(updatedEntity.Equipment);
             result.DistanceInKm.ShouldBe(updatedEntity.DistanceInKm);
             result.ArchivedDate.ShouldBe(updatedEntity.ArchivedDate);
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Status == TourStatus.Archived && i.Name == "Tura 1");
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Status == TourStatus.Archived && i.Name == "Tura 1");
             storedEntity.ShouldNotBeNull();
             ((int)storedEntity.Status).ShouldBe(updatedEntity.Status);
-            var oldEntity = dbContext.Tour.FirstOrDefault(i => i.Status == TourStatus.Published && i.Name == "Tura 1");
+            var oldEntity = dbContext.Tours.FirstOrDefault(i => i.Status == TourStatus.Published && i.Name == "Tura 1");
             oldEntity.ShouldBeNull();
         }
 
@@ -145,7 +142,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Status = 0,
                         Price = 0,
                         AuthorId = -1,
-                        Equipment = new int[] { -1, -3 },
                         DistanceInKm = 2.5,
                         ArchivedDate = null,
                         PublishedDate = null,
@@ -160,7 +156,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
                         Status = 0,
                         Price = -1,
                         AuthorId = -1,
-                        Equipment = new int[] { -1, -3 },
                         DistanceInKm = 2.5,
                         ArchivedDate = null,
                         PublishedDate = null,
@@ -185,14 +180,13 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             result.Status.ShouldBe(0);
             result.Price.ShouldBe(0);
             result.AuthorId.ShouldBe(campaignDto.TouristId);
-            result.Equipment.ShouldBe(new int[] { -1, -3 });
             result.DistanceInKm.ShouldBe(5.0);
             result.ArchivedDate.ShouldBe(null);
             result.PublishedDate.ShouldBe(null);
 
 
             // Assert - Database
-            var storedEntity = dbContext.Tour.FirstOrDefault(i => i.Name == campaignDto.Name);
+            var storedEntity = dbContext.Tours.FirstOrDefault(i => i.Name == campaignDto.Name);
             storedEntity.ShouldNotBeNull();
             //storedEntity.Id.ShouldBe(result.Id);
             storedEntity.Name.ShouldBe(result.Name);
@@ -202,10 +196,44 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring
             ((int)storedEntity.Status).ShouldBe(result.Status);
             storedEntity.Price.ShouldBe(result.Price);
             storedEntity.AuthorId.ShouldBe(result.AuthorId);
-            storedEntity.Equipment.ShouldBe(result.Equipment);
             storedEntity.DistanceInKm.ShouldBe(result.DistanceInKm);
             storedEntity.ArchivedDate.ShouldBe(result.ArchivedDate);
             storedEntity.PublishedDate.ShouldBe(result.PublishedDate);
+        }
+
+        [Fact]
+        public void Deletes()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateAuthorController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            // Act
+            var result = (OkResult)controller.Delete(-14);
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(200);
+
+            // Assert - Database
+            var storedCourse = dbContext.Tours.FirstOrDefault(i => i.Id == -14);
+            storedCourse.ShouldBeNull();
+        }
+
+        [Fact]
+        public void DeleteFailsInvalidId()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateAuthorController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.Delete(-1000);
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
         }
 
         private static Explorer.API.Controllers.Author.Authoring.TourController CreateAuthorController(IServiceScope scope)

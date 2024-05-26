@@ -1,4 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Tests;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Explorer.Encounters.Tests
 {
@@ -7,5 +10,19 @@ namespace Explorer.Encounters.Tests
         public BaseEncountersIntegrationTest(EncountersTestFactory factory) : base(factory)
         {
         }
+
+        protected static ControllerContext BuildEncounterContext(string id)
+    {
+        return new ControllerContext()
+        {
+            HttpContext = new DefaultHttpContext()
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                {
+                    new Claim("id", id)
+                }))
+            }
+        };
+    }
     }
 }

@@ -26,12 +26,17 @@ namespace Explorer.Tours.Core.Domain.Rating
 
         private void Validate()
         {
-            if (string.IsNullOrWhiteSpace(Mark.ToString()) || Mark < 1 || Mark > 5) throw new ArgumentException("Invalid Mark");
+            if (Mark < 1 || Mark > 5) throw new ArgumentException("Invalid Mark");
             if (string.IsNullOrWhiteSpace(Comment)) throw new ArgumentException("Invalid Comment");
-            if (string.IsNullOrWhiteSpace(DateOfVisit.ToString())) throw new ArgumentException("Invalid DateOfVisit");
-            if (string.IsNullOrWhiteSpace(DateOfCommenting.ToString())) throw new ArgumentException("Invalid DateOfCommenting");
+            if (string.IsNullOrWhiteSpace(DateOfVisit.ToString()) || (GetMilliseconds(DateOfVisit) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid DateOfVisit");
+            if (string.IsNullOrWhiteSpace(DateOfCommenting.ToString()) || (GetMilliseconds(DateOfCommenting) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid DateOfCommenting");
             //if (Images.Count == 0) throw new ArgumentException("Invalid Images");
-            if (PersonId == 0) throw new ArgumentException("Invalid PersonId");
+        }
+
+        private long GetMilliseconds(DateTime date)
+        {
+            long milliseconds = date.Ticks / TimeSpan.TicksPerMillisecond;
+            return milliseconds;
         }
     }
 }

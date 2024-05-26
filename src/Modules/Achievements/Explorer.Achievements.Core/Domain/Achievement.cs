@@ -15,14 +15,16 @@ namespace Explorer.Achievements.Core.Domain
         public Uri Icon { get; init; }
         public RarityCategories Rarity { get; init; }
         public List<int> CraftingRecipe {  get; init; }
+        public long AuthorId { get; init; }
 
-        public Achievement(string name, string description, Uri icon, RarityCategories rarity)
+        public Achievement(string name, string description, Uri icon, RarityCategories rarity, long authorId)
         {
             Name = name;
             Description = description;
             Icon = icon;
             Rarity = rarity;
             CraftingRecipe = new List<int>();
+            AuthorId = authorId;
             Validate();
         }
 

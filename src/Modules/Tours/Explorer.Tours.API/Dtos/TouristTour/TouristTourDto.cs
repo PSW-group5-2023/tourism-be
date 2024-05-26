@@ -14,6 +14,6 @@ namespace Explorer.Tours.API.Dtos.TouristTour
         public string Description { get; set; }
         public int AuthorId { get; set; }
         public double DistanceInKm { get; set; }
-        public List<TourKeyPointDto> KeyPoints { get; set; }
+        public List<CheckpointDto> KeyPoints { get; set; }
     }
 }
