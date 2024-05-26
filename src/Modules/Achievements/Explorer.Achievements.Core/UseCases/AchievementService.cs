@@ -20,5 +20,15 @@ namespace Explorer.Achievements.Core.UseCases
         {
             _achievementRepository = achievementRepository;
         }
+
+        public Result<List<AchievementDto>> GetAllBaseAchievements()
+        {
+            return MapToDto(_achievementRepository.GetAllBaseAchievements());
+        }
+
+        public Result<List<AchievementDto>> GetAllComplexAchievements()
+        {
+            return MapToDto(_achievementRepository.GetAllComplexAchievements());
+        }
     }
 }

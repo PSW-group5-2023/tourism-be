@@ -45,5 +45,19 @@ namespace Explorer.API.Controllers.Author
             var result = _achievementService.Delete(id);
             return CreateResponse(result);
         }
+
+        [HttpGet("baseAchievemnts")]
+        public ActionResult<PagedResult<AchievementDto>> GetAllBaseAchievements()
+        {
+            var result = _achievementService.GetAllBaseAchievements();
+            return CreateResponse(result);
+        }
+
+        [HttpGet("complexAchievemnts")]
+        public ActionResult<PagedResult<AchievementDto>> GetAllComplexAchievements()
+        {
+            var result = _achievementService.GetAllComplexAchievements();
+            return CreateResponse(result);
+        }
     }
 }
