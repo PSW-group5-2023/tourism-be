@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
@@ -21,7 +16,7 @@ namespace Explorer.Encounters.Core.UseCases
             _userExperienceRepository = userExperienceRepository;
         }
 
-        public Result<UserExperienceDto> AddXP(long id,int xp)
+        public Result<UserExperienceDto> AddXP(long id, int xp)
         {
             var userExperience = CrudRepository.Get(id);
             userExperience.AddXP(xp);
@@ -36,15 +31,28 @@ namespace Explorer.Encounters.Core.UseCases
 
         }
 
+        public Result<UserExperienceDto> Create(long userId)
+        {
+            try
+            {
+                var result = _userExperienceRepository.Create(MapToDomain(new UserExperienceDto()
+                {
+                    UserId = userId,
+                    Level = 1,
+                    XP = 0,
+                }));
+                return MapToDto(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
         public Result<UserExperienceDto> GetByUserId(long userId)
         {
             var userExperience = _userExperienceRepository.GetByUserId(userId);
-            UserExperienceDto dto = new UserExperienceDto();
-            dto.UserId = userExperience.UserId;
-            dto.XP = userExperience.XP;
-            dto.Id = userExperience.Id;
-            dto.Level = userExperience.Level;
-            return dto;
+            return MapToDto(userExperience);
         }
     }
 }

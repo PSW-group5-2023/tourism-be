@@ -12,6 +12,12 @@
             Status = status;
             CreatorId = creatorId;
 
+            Validate();
+        }
+
+        private void Validate()
+        {
+            if (int.TryParse(Status.ToString(), out _)) throw new ArgumentException("Invalid Status");
         }
 
         public void ChangeStatus(PublicFacilityStatus status)

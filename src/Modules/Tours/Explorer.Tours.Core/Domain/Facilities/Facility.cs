@@ -19,6 +19,7 @@ namespace Explorer.Tours.Core.Domain.Facilities
             Category = category;
             Latitude = latitude;
             Longitude = longitude;
+
             Validate();
         }
 
@@ -26,6 +27,7 @@ namespace Explorer.Tours.Core.Domain.Facilities
         {
             if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid name");
             if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid description");
+            if (int.TryParse(Category.ToString(), out _)) throw new ArgumentException("Invalid category");
             if (Latitude > 90 || Latitude < -90) throw new ArgumentException("Invalid latitude value");
             if (Longitude > 180 || Latitude < -180) throw new ArgumentException("Invalid longitude value");
         }

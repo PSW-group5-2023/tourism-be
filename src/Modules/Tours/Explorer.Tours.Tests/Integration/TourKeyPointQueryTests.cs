@@ -30,12 +30,12 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<TourKeyPointDto>;
+            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<CheckpointDto>;
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(16);
-            result.TotalCount.ShouldBe(16);
+            result.Results.Count.ShouldBe(19);
+            result.TotalCount.ShouldBe(19);
         }
 
         [Fact]
@@ -46,12 +46,12 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             //Act
-            var result = ((ObjectResult)controller.GetAllPublic(0, 0).Result)?.Value as PagedResult<PublicTourKeyPointDto>;
+            var result = ((ObjectResult)controller.GetAllPublic(0, 0).Result)?.Value as PagedResult<PublicCheckpointDto>;
 
             //Assert
             result.ShouldNotBe(null);
-            result.Results.Count.ShouldBe(2);
-            result.TotalCount.ShouldBe(2);
+            result.Results.Count.ShouldBe(4);
+            result.TotalCount.ShouldBe(4);
         }
 
         [Fact]
@@ -63,6 +63,21 @@ namespace Explorer.Tours.Tests.Integration
 
             //Act
             var result = ((ObjectResult)controller.Get(-1).Result);
+
+            //Assert
+            result.ShouldNotBe(null);
+            result.StatusCode.ShouldBe(200);
+        }
+
+        [Fact]
+        public void RetrievesByTourId()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            //Act
+            var result = (ObjectResult)controller.GetByTourId(-3).Result;
 
             //Assert
             result.ShouldNotBe(null);
@@ -105,7 +120,7 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
+            var updatedData = new CheckpointDto
             {
                 Id = -3,
                 Name = "Updated Name",
@@ -113,7 +128,9 @@ namespace Explorer.Tours.Tests.Integration
                 Image = new Uri("http://newUri.com"),
                 Longitude = 22.5,
                 Latitude = 7,
-                /*TourId = -2*/
+                TourId = -2,
+                Secret = "asd",
+                PositionInTour = 1
             };
 
             // Act
@@ -131,7 +148,7 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             // Act
-            var result = ((ObjectResult)controller.ChangeStatus(-5, "Approved").Result);
+            var result = ((ObjectResult)controller.ChangeStatus(-3, "Denied").Result);
 
             // Assert
             result.ShouldNotBe(null);
@@ -145,7 +162,7 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
+            var updatedData = new CheckpointDto
             {
                 Id = -3000,
                 Name = "Updated Name",
@@ -170,7 +187,7 @@ namespace Explorer.Tours.Tests.Integration
             var controller = CreateController(scope);
 
             // Create a DTO with updated data
-            var updatedData = new TourKeyPointDto
+            var updatedData = new CheckpointDto
             {
                 Id = -3,
                 Name = "",
@@ -187,9 +204,9 @@ namespace Explorer.Tours.Tests.Integration
             // Assert
             result.StatusCode.ShouldBe(400);
         }
-        private static Explorer.API.Controllers.Author.TourKeyPointController CreateController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.CheckpointController CreateController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Author.TourKeyPointController(scope.ServiceProvider.GetRequiredService<ITourKeyPointService>(), scope.ServiceProvider.GetRequiredService<IPublicTourKeyPointService>())
+            return new Explorer.API.Controllers.Author.CheckpointController(scope.ServiceProvider.GetRequiredService<ICheckpointService>(), scope.ServiceProvider.GetRequiredService<IPublicCheckpointService>())
             {
                 ControllerContext = BuildContext("-1")
             };
