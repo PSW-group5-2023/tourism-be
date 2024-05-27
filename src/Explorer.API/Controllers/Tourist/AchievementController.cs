@@ -16,14 +16,14 @@ namespace Explorer.API.Controllers.Tourist
             _achievementService = achievementService;
         }
         [HttpGet("baseAchievemnts")]
-        public ActionResult<PagedResult<AchievementDto>> GetAllBaseAchievements()
+        public ActionResult<List<AchievementDto>> GetAllBaseAchievements()
         {
             var result = _achievementService.GetAllBaseAchievements();
             return CreateResponse(result);
         }
 
         [HttpGet("complexAchievemnts")]
-        public ActionResult<PagedResult<AchievementDto>> GetAllComplexAchievements()
+        public ActionResult<List<AchievementDto>> GetAllComplexAchievements()
         {
             var result = _achievementService.GetAllComplexAchievements();
             return CreateResponse(result);
