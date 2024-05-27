@@ -966,6 +966,6 @@ VALUES
     (-5, 'Legendary Warrior', 'Defeat 100 enemies', 'icon5.png', 0, '{}', -4),
     (-6, 'Champion of the Arena', 'Win 10 arena battles', 'icon6.png', 0, '{}', -4),
     (-7, 'Alchemist', 'Craft 20 potions', 'icon7.png', 0, '{}', -4),
-    (-8, 'Marathon Runner', 'Run a total of 42km', 'icon8.png', 0, '{}', -4);
+    (-8, 'Marathon Runner', 'Run a total of 42km', 'icon8.png', 0, '{}', -4),
     (-9, 'Ultimate Explorer', 'Discover all locations', 'icon9.png', 0, '{-1, -2}', -4),
     (-10, 'Master Alchemist', 'Craft all potions', 'icon10.png', 0, '{-7}', -4);
