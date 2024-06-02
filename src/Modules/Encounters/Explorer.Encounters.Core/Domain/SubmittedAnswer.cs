@@ -23,6 +23,7 @@ namespace Explorer.Encounters.Core.Domain
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Content;
+            yield return OrderInQuiz;
         }
     }
 }
