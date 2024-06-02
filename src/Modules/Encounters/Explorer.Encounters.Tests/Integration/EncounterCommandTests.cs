@@ -496,6 +496,47 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
+        public void Completes_quiz_encounter()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateTouristController(scope, "-21");
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+            var submittedAnswers = new List<SubmittedAnswerDto>()
+            {
+                new SubmittedAnswerDto
+            {
+                Content = "Ide gas",
+                OrderInQuiz = 1
+            },
+            new SubmittedAnswerDto
+            {
+                Content = "Maybe",
+                OrderInQuiz = 2
+            },
+            new SubmittedAnswerDto
+            {
+                Content = "Ide",
+                OrderInQuiz = 3
+            }
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.CompleteQuiz(-10, submittedAnswers).Result)?.Value as EncounterExecutionDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.CompletionTime.ShouldNotBeNull();
+            result.CorrectAnswersPercentage.ShouldNotBeNull();
+            result.CorrectAnswersPercentage.ShouldBe(100);
+
+            // Assert - Database
+            var storedEntity = dbContext.EncounterExecutions.FirstOrDefault(e => e.EncounterId == -10 && e.TouristId == -21);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.CompletionTime.ShouldNotBeNull();
+        }
+
+        [Fact]
         public void Creates_for_author()
         {
             // Arrange

@@ -25,3 +25,6 @@ VALUES (-8, -1, 'To complete this challenge, you need to find the designated pic
 INSERT INTO encounters."Encounters"(
     "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "CheckpointId", "IsMandatory", "AchievementId", "Image", "LocationLatitude", "LocationLongitude", "RangeInMeters", "RequiredAttendance")
 VALUES (-9, -21, 'Ubedi publiku da ti da lep aplauz ', 'Demo izazov', 1, 2, 45.247477347792135, 19.853885173788512, 50, -2, false, -1, null, null, null, null, null);
+INSERT INTO encounters."Encounters"(
+    "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "CheckpointId", "IsMandatory", "AchievementId", "Image", "LocationLatitude", "LocationLongitude", "RangeInMeters", "RequiredAttendance")
+VALUES (-10, -11, 'Skacite i masite rukama', 'Lep izazov', 1, 3, 45.247477347792135, 19.853885173788512, 50, -2, false, -1, null, null, null, null, null);

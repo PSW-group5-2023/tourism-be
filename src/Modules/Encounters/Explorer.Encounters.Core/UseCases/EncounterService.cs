@@ -95,13 +95,13 @@ namespace Explorer.Encounters.Core.UseCases
 
         public Result<EncounterDto> Get(long id)
         {
-            var encounterTemp = _encounterRepository.Get(id);
-            if(encounterTemp.Type == EncounterType.Quiz)
-            {
-                return MapToDto(_encounterRepository.GetQuizEncounter(id));
-            }
+            return MapToDto(_encounterRepository.Get(id));
+        }
 
-            return MapToDto(encounterTemp);
+        public Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize)
+        {
+            var result = _encounterRepository.GetPaged(page, pageSize);
+            return MapToDto(result);
         }
 
         public Result<PagedResult<EncounterDto>> GetPagedByCheckpointIdsForTourist(List<long> checkpointIds, int page, int pageSize, long touristId)
@@ -223,7 +223,7 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 EncounterExecutionDto encounterExecutionDto = _encounterExecutionService.SetCompletionTime(touristId, encounterId).Value;
 
-                QuizEncounter encounter = _encounterRepository.GetQuizEncounter(encounterId);
+                var encounter = _encounterRepository.Get(encounterId);
 
                 if (encounter.Type != EncounterType.Quiz) throw new ArgumentException("You cannot complete this encounter, it's not Quiz.");
 
