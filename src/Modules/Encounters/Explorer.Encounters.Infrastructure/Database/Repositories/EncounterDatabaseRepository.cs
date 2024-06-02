@@ -29,6 +29,22 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             return task.Result;
         }
 
+        public QuizEncounter GetQuizEncounter(long encounterId)
+        {
+            var quizEncounter = _dbSet
+                .Where(e => e.Id == encounterId)
+                .OfType<QuizEncounter>() // Filtrira samo QuizEncounter
+                .Include(qe => qe.Questions) // Učitava pitanja povezana s QuizEncounter
+                .FirstOrDefault();
+
+            if (quizEncounter == null)
+            {
+                throw new KeyNotFoundException($"QuizEncounter not found for id: {encounterId}");
+            }
+
+            return quizEncounter;
+        }
+
         public PagedResult<Encounter> GetPublicPaged(int page, int pageSize)
         {
             var task = _dbSet

@@ -8,5 +8,6 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
         public PagedResult<Encounter> GetPublicPaged(int page, int pageSize);
         void SaveChanges();
         public Encounter GetNoTracking(long id);
+        public QuizEncounter GetQuizEncounter(long encounterId);
     }
 }
