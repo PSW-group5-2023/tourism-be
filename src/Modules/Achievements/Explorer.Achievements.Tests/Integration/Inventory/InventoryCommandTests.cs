@@ -105,6 +105,31 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
             storedEntity.AchievementsId.Count.ShouldBe(3);
         }
 
+        [Fact]
+        public void AddComplexAchievement()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<AchievementsContext>();
+            var requiredItems = new List<int>() { -4, -5 };
+            var updatedEntity = new InventoryDto
+            {
+                Id = -2,
+                UserId = -6,
+                AchievementsId = new List<int>() { -3, -9 }
+            };
+            // Act
+            var result = ((ObjectResult)controller.AddComplexAchievementToInventory(updatedEntity, requiredItems).Result)?.Value as InventoryDto;
+
+            // Assert
+            result.UserId.ShouldBe(updatedEntity.UserId);
+
+            // Assert - Database
+            var storedEntity = dbContext.Inventory.FirstOrDefault(i => i.UserId == updatedEntity.UserId);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.AchievementsId.Count.ShouldBe(3);
+        }
+
         private static InventoryController CreateController(IServiceScope scope)
         {
             return new InventoryController(scope.ServiceProvider.GetRequiredService<IInventoryService>())
