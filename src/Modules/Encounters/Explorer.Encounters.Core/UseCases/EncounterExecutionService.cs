@@ -11,10 +11,12 @@ namespace Explorer.Encounters.Core.UseCases
     public class EncounterExecutionService : CrudService<EncounterExecutionDto, EncounterExecution>, IEncounterExecutionService
     {
         private readonly IEncounterExecutionRepository _encounterExecutionRepository;
+        private readonly IMapper _mapper;
 
         public EncounterExecutionService(IEncounterExecutionRepository repository, IMapper mapper) : base(repository, mapper)
         {
             _encounterExecutionRepository = repository;
+            _mapper = mapper;
         }
 
 
@@ -74,6 +76,43 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
+        }
+
+        public Result<EncounterExecutionDto> CalculateCorrectAnswersPercentage(long touristId, List<SubmittedAnswerDto> answers, EncounterDto encounterDto)
+        {
+            try
+            {
+                var encounterExecution = _encounterExecutionRepository.GetByTouristIdAndEncounterId(touristId, encounterDto.Id);
+
+                encounterExecution.SetCorrectAnswersPercentage(CalculatePercentage(answers, encounterDto.Questions));
+                encounterExecution.SetAnswers(_mapper.Map<List<SubmittedAnswer>>(answers));
+
+                _encounterExecutionRepository.SaveChanges();
+                
+                return MapToDto(encounterExecution);
+            }
+            catch(KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        private double CalculatePercentage(ICollection<SubmittedAnswerDto> answers, ICollection<QuestionDto> questions)
+        {
+            if (questions.Count != answers.Count) throw new ArgumentException("There is more/less answers than questions.");
+
+            double correctAnswersCounter = 0;
+
+            correctAnswersCounter = answers.Count(answer =>
+                questions.Any(question =>
+                    question.OrderInQuiz == answer.OrderInQuiz &&
+                    question.Answers.Any(qAnswer =>
+                        qAnswer.Content.Equals(answer.Content) && qAnswer.Correct
+                    )
+                )
+            );
+
+            return (correctAnswersCounter/questions.Count)*100;
         }
     }
 }
