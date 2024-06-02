@@ -8,6 +8,7 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Internal;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Encounters.Core.UseCases
 {
@@ -94,7 +95,13 @@ namespace Explorer.Encounters.Core.UseCases
 
         public Result<EncounterDto> Get(long id)
         {
-            return MapToDto(_encounterRepository.Get(id));
+            var encounterTemp = _encounterRepository.Get(id);
+            if(encounterTemp.Type == EncounterType.Quiz)
+            {
+                return MapToDto(_encounterRepository.GetQuizEncounter(id));
+            }
+
+            return MapToDto(encounterTemp);
         }
 
         public Result<PagedResult<EncounterDto>> GetPagedByCheckpointIdsForTourist(List<long> checkpointIds, int page, int pageSize, long touristId)
@@ -238,7 +245,8 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
                 encounterDto.CreatorId = authorId;
-
+                
+                if (encounterDto.Type == 3 && encounterDto.Questions.IsNullOrEmpty()) throw new ArgumentException("You have to add atleast one question to create quiz");
                 if (encounterDto.CheckpointId == null) throw new ArgumentException("Author can only create an encounter for a checkpoint.");
                 if (!IsAuthorOfCheckpoint(encounterDto.CreatorId, (long)encounterDto.CheckpointId)) throw new ArgumentException("This author is not the author of selected checkpoint.");
                 encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
