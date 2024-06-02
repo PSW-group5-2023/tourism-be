@@ -4,13 +4,13 @@ namespace Explorer.Encounters.Core.Domain
 {
     public class Question : Entity
     {
-        public uint OrderInLecture { get; init; }
+        public uint OrderInQuiz { get; init; }
         public string Content { get; init; }
         public ICollection<Answer> Answers { get; init; }
 
-        public Question(uint orderInLecture, string content, ICollection<Answer> answers)
+        public Question(uint orderInQuiz, string content, ICollection<Answer> answers)
         {
-            OrderInLecture = orderInLecture;
+            OrderInQuiz = orderInQuiz;
             Content = content;
             Answers = answers;
         }
