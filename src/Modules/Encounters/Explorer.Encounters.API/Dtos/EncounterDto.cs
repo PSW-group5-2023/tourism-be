@@ -12,6 +12,7 @@
         public int Type { get; set; }
         public int ExperiencePoints { get; set; }
         public bool IsMandatory { get; set; }
+        public long? AchievementId { get; set; }
         public Uri? Image { get; set; }
         public double? LocationLatitude { get; set; }
         public double? LocationLongitude { get; set; }

@@ -14,5 +14,7 @@ namespace Explorer.Encounters.API.Dtos
         public DateTime ActivationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
         public bool InRange { get; set; }
+        public List<SubmittedAnswerDto> Answers { get; set; }
+        public double? CorrectAnswersPercentage { get; set; }
     }
 }
