@@ -35,7 +35,6 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
                 Description = "Test Description",
                 Icon = new Uri("https://example.com/icon1.png"),
                 Rarity = 1,
-                KeypointId = 204,
                 AuthorId = 323
             };
 
