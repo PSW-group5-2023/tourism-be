@@ -23,6 +23,7 @@ namespace Explorer.Encounters.Core.Mappers
                 dto.CheckpointId,
                 dto.ExperiencePoints,
                 dto.IsMandatory,
+                dto.AchievementId,
                 dto.RangeInMeters ?? 0,
                 dto.RequiredAttendance ?? 0))
             .ReverseMap();
@@ -30,6 +31,7 @@ namespace Explorer.Encounters.Core.Mappers
             CreateMap<EncounterDto, QuizEncounter>().ReverseMap();
             CreateMap<QuestionDto, Question>().ReverseMap();
             CreateMap<AnswerDto, Answer>().ReverseMap();
+            CreateMap<SubmittedAnswerDto, SubmittedAnswer>().ReverseMap();
         }
     }
 }
