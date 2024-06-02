@@ -13,5 +13,7 @@ namespace Explorer.Achievements.API.Dtos
         public string Description { get; set; }
         public Uri Icon { get; set; }
         public int Rarity { get; set; }
+
+        public int AuthorId { get; set; }
     }
 }

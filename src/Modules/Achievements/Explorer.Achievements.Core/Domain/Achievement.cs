@@ -14,13 +14,15 @@ namespace Explorer.Achievements.Core.Domain
         public string Description { get; init; }
         public Uri Icon { get; init; }
         public RarityCategories Rarity { get; init; }
+        public long AuthorId { get; init; }
 
-        public Achievement(string name, string description, Uri icon, RarityCategories rarity)
+        public Achievement(string name, string description, Uri icon, RarityCategories rarity, long authorId)
         {
             Name = name;
             Description = description;
             Icon = icon;
             Rarity = rarity;
+            AuthorId = authorId;
             Validate();
         }
 

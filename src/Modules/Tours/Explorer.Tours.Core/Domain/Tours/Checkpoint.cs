@@ -24,7 +24,6 @@ namespace Explorer.Tours.Core.Domain.Tours
             Secret = secret;
             PositionInTour = positionInTour;
             Validate();
-            
         }
 
         private void Validate()

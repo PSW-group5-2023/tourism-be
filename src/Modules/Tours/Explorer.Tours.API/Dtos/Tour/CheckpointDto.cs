@@ -17,5 +17,6 @@ namespace Explorer.Tours.API.Dtos.Tour
         public long TourId { get; set; }
         public int PositionInTour { get; set; }
         public string? Secret { get; set; }
+        public long? AchievementId { get; set; }
     }
 }

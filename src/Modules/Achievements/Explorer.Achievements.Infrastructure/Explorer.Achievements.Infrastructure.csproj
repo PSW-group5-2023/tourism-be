@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Explorer.Achievements.Core\Explorer.Achievements.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\Repositories\" />
-  </ItemGroup>
-
 </Project>
