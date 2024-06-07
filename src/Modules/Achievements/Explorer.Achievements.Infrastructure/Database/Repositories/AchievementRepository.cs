@@ -1,5 +1,7 @@
 ﻿using Explorer.Achievements.Core.Domain;
 using Explorer.Achievements.Core.Domain.RepositoryInterfaces;
+using Explorer.BuildingBlocks.Core.UseCases;
+using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,16 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<Achievement>();
+        }
+
+        public List<Achievement> GetAllBaseAchievements()
+        {
+            return _dbSet.Where(a => a.CraftingRecipe.Count == 0).ToList();
+        }
+
+        public List<Achievement> GetAllComplexAchievements()
+        {
+            return _dbSet.Where(a => a.CraftingRecipe.Count != 0).ToList();
         }
     }
 }

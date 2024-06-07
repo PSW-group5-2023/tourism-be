@@ -15,5 +15,8 @@ namespace Explorer.Achievements.API.Public
         Result Delete(int id);
         Result<AchievementDto> Get(int id);
         Result<PagedResult<AchievementDto>> GetPaged(int page, int pageSize);
+        Result<List<AchievementDto>> GetAllBaseAchievements();
+        Result<List<AchievementDto>> GetAllComplexAchievements();
+        Result<AchievementDto> CreateComplexAchievement(List<int> requiredAchievements);
     }
 }
