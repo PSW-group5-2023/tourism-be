@@ -8,7 +8,10 @@
 docker-compose --env-file config/env.conf up
 docker-compose -f docker-compose-migration.yml --env-file config/env.conf up
 ```
-
+3. Pokretanje insert skripte
+``` 
+docker exec -it <id kontenjera baze> psql -U <username baze> -d <sema baze> -f /tmp/DEMO_SKRIPTA.sql
+```  
 3. Pozicionirati se na operations granu, podesiti parametre
 ```
 set +o history 
