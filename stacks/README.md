@@ -6,7 +6,7 @@
 2. U /stacks folderu najbolje je podici cijeli docker compose fajl da bi izbildovali sve slike, potom izvrsiti migracije
 ``` 
 docker-compose --env-file config/env.conf up
-docker-compose -f docker-compose-migration.yml up
+docker-compose -f docker-compose-migration.yml --env-file config/env.conf up
 ```
 
 3. Pozicionirati se na operations granu, podesiti parametre
