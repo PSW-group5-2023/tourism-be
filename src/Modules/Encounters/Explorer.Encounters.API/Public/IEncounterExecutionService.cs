@@ -13,5 +13,7 @@ namespace Explorer.Encounters.API.Public
         Result<PagedResult<EncounterExecutionDto>> GetAllActiveByEncounterId(long encounterId);
         Result Delete(int id);
         Result<EncounterExecutionDto> SetInRange(long encounterId, long touristId, bool inRange);
+        Result<EncounterExecutionDto> CalculateCorrectAnswersPercentage(long touristId, List<SubmittedAnswerDto> answers, EncounterDto encounterDto);
+
     }
 }

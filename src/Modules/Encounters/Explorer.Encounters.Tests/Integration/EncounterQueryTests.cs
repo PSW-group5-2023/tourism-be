@@ -27,8 +27,8 @@ namespace Explorer.Encounters.Tests.Integration
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(9);
-            result.TotalCount.ShouldBe(9);
+            result.Results.Count.ShouldBe(10);
+            result.TotalCount.ShouldBe(10);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace Explorer.Encounters.Tests.Integration
             var controller = CreateAdministratorController(scope, "-1");
 
             // Act
-            var result = ((ObjectResult)controller.Get(-1).Result)?.Value as EncounterDto;
+            var result = ((ObjectResult)controller.Get(-10).Result)?.Value as EncounterDto;
 
             // Assert
             result.ShouldNotBeNull();
@@ -73,8 +73,8 @@ namespace Explorer.Encounters.Tests.Integration
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(2);
-            result.TotalCount.ShouldBe(2);
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
         }
 
         private static Explorer.API.Controllers.Administrator.EncounterController CreateAdministratorController(IServiceScope scope, string userId)

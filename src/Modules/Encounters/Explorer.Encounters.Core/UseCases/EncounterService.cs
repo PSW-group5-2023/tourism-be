@@ -8,6 +8,7 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Internal;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Encounters.Core.UseCases
 {
@@ -18,14 +19,16 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IEncounterExecutionService _encounterExecutionService;
         private readonly IMapper _mapper;
         private readonly IInternalCheckpointService _internalCheckpointService;
+        private readonly IQuestionService _questionService;
 
-        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalCheckpointService internalCheckpointService) : base(encounterRepository, mapper)
+        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalCheckpointService internalCheckpointService, IQuestionService questionService) : base(encounterRepository, mapper)
         {
             _encounterRepository = encounterRepository;
             _userExperienceService = userExperienceService;
             _encounterExecutionService = encounterExecutionService;
             _mapper = mapper;
             _internalCheckpointService = internalCheckpointService;
+            _questionService = questionService;
         }
 
 
@@ -93,6 +96,12 @@ namespace Explorer.Encounters.Core.UseCases
         public Result<EncounterDto> Get(long id)
         {
             return MapToDto(_encounterRepository.Get(id));
+        }
+
+        public Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize)
+        {
+            var result = _encounterRepository.GetPaged(page, pageSize);
+            return MapToDto(result);
         }
 
         public Result<PagedResult<EncounterDto>> GetPagedByCheckpointIdsForTourist(List<long> checkpointIds, int page, int pageSize, long touristId)
@@ -195,7 +204,32 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 EncounterExecutionDto encounterExecutionDto = _encounterExecutionService.SetCompletionTime(touristId, encounterId).Value;
 
-                _userExperienceService.AddXP(_userExperienceService.GetByUserId(encounterExecutionDto.TouristId).Value.Id, _encounterRepository.Get(encounterId).ExperiencePoints);
+                var encounter = _encounterRepository.Get(encounterId);
+
+
+                _userExperienceService.AddXP(_userExperienceService.GetByUserId(encounterExecutionDto.TouristId).Value.Id, encounter.ExperiencePoints);
+
+                return encounterExecutionDto;
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
+        public Result<EncounterExecutionDto> CompleteQuiz(long touristId, long encounterId, ICollection<SubmittedAnswerDto> answers)
+        {
+            try
+            {
+                EncounterExecutionDto encounterExecutionDto = _encounterExecutionService.SetCompletionTime(touristId, encounterId).Value;
+
+                var encounter = _encounterRepository.Get(encounterId);
+
+                if (encounter.Type != EncounterType.Quiz) throw new ArgumentException("You cannot complete this encounter, it's not Quiz.");
+
+                encounterExecutionDto =  _encounterExecutionService.CalculateCorrectAnswersPercentage(touristId, answers.ToList(), MapToDto(encounter)).Value;
+
+                _userExperienceService.AddXP(_userExperienceService.GetByUserId(encounterExecutionDto.TouristId).Value.Id, encounter.ExperiencePoints);
 
                 return encounterExecutionDto;
             }
@@ -211,11 +245,12 @@ namespace Explorer.Encounters.Core.UseCases
             {
                 encounterDto.Status = 1; //Setting status on ACTIVE no matter what came from controller
                 encounterDto.CreatorId = authorId;
-
+                
+                if (encounterDto.Type == 3 && encounterDto.Questions.IsNullOrEmpty()) throw new ArgumentException("You have to add atleast one question to create quiz");
                 if (encounterDto.CheckpointId == null) throw new ArgumentException("Author can only create an encounter for a checkpoint.");
                 if (!IsAuthorOfCheckpoint(encounterDto.CreatorId, (long)encounterDto.CheckpointId)) throw new ArgumentException("This author is not the author of selected checkpoint.");
                 encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
-
+                
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
@@ -242,6 +277,10 @@ namespace Explorer.Encounters.Core.UseCases
             else if (encounterDto.Type == 1)
             {
                 return _mapper.Map<LocationEncounter>(encounterDto);
+            }
+            else if(encounterDto.Type == 3)
+            {
+                return _mapper.Map<QuizEncounter>(encounterDto);
             }
             else
             {
@@ -350,6 +389,8 @@ namespace Explorer.Encounters.Core.UseCases
                 ActivationTime = DateTime.UtcNow,
                 CompletionTime = null,
                 InRange = false,
+                Answers = new List<SubmittedAnswerDto>(),
+                CorrectAnswersPercentage = null
             });
         }
     }

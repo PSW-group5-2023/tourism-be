@@ -18,6 +18,7 @@ namespace Explorer.Encounters.API.Public
         Result<EncounterDto> ApproveTouristMadeEncounter(long createdEncounterId);
         Result<EncounterDto> ArchiveTouristMadeEncounter(long archivedEncounterId);
         Result<EncounterExecutionDto> Complete(long touristId, long encounterId);
+        Result<EncounterExecutionDto> CompleteQuiz(long touristId, long encounterId, ICollection<SubmittedAnswerDto> answers);
         Result<EncounterDto> CreateForAuthor(EncounterDto encounterDto, long authorId);
         Result<EncounterDto> UpdateForAuthor(EncounterDto encounterDto, long authorId);
         Result<EncounterDto> CreateForAdministrator(EncounterDto encounterDto, long administratorId);

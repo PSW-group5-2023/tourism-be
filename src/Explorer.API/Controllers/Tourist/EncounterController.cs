@@ -65,6 +65,14 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpPut("complete-quiz/{encounterId:int}")]
+        public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _encounterService.CompleteQuiz(long.Parse(userId.Value), encounterId, answers);
+            return CreateResponse(result);
+        }
+
         [HttpPost("start/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {

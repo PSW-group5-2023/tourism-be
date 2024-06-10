@@ -496,6 +496,47 @@ namespace Explorer.Encounters.Tests.Integration
         }
 
         [Fact]
+        public void Completes_quiz_encounter()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateTouristController(scope, "-21");
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+            var submittedAnswers = new List<SubmittedAnswerDto>()
+            {
+                new SubmittedAnswerDto
+            {
+                Content = "Ide gas",
+                OrderInQuiz = 1
+            },
+            new SubmittedAnswerDto
+            {
+                Content = "Maybe",
+                OrderInQuiz = 2
+            },
+            new SubmittedAnswerDto
+            {
+                Content = "Ide",
+                OrderInQuiz = 3
+            }
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.CompleteQuiz(-10, submittedAnswers).Result)?.Value as EncounterExecutionDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.CompletionTime.ShouldNotBeNull();
+            result.CorrectAnswersPercentage.ShouldNotBeNull();
+            result.CorrectAnswersPercentage.ShouldBe(100);
+
+            // Assert - Database
+            var storedEntity = dbContext.EncounterExecutions.FirstOrDefault(e => e.EncounterId == -10 && e.TouristId == -21);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.CompletionTime.ShouldNotBeNull();
+        }
+
+        [Fact]
         public void Creates_for_author()
         {
             // Arrange
@@ -528,6 +569,73 @@ namespace Explorer.Encounters.Tests.Integration
             result.Status.ShouldBe(1);
             result.CreatorId.ShouldBe(-11);
             result.CheckpointId.ShouldBe(-17);
+
+            // Assert - Database
+            var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == result.Id);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(result.Id);
+        }
+
+        [Fact]
+        public void Creates_quiz_for_author()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateAuthorController(scope, "-11");
+            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
+
+            var newEntity = new EncounterDto()
+            {
+                Description = "Test",
+                Name = "Test",
+                Status = 0,
+                Latitude = 50,
+                Longitude = 50,
+                Type = 3,
+                ExperiencePoints = 10,
+                CheckpointId = -17,
+                Questions = new List<QuestionDto>
+                {
+                    new QuestionDto
+                    {
+                        OrderInQuiz = 1,
+                        Content = "What is the capital of France?",
+                        Answers = new List<AnswerDto>
+                        {
+                            new AnswerDto { Content = "Paris", Correct = true },
+                            new AnswerDto { Content = "Berlin", Correct = false },
+                            new AnswerDto { Content = "Madrid", Correct = false }
+                        }
+                    },
+                    new QuestionDto
+                    {
+                        OrderInQuiz = 2,
+                        Content = "What is 2 + 2?",
+                        Answers = new List<AnswerDto>
+                        {
+                            new AnswerDto { Content = "3", Correct = false },
+                            new AnswerDto { Content = "4", Correct = true },
+                            new AnswerDto { Content = "5", Correct = false }
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.Create(newEntity).Result)?.Value as EncounterDto;
+
+            // Assert - Response
+
+            result.ShouldNotBeNull();
+            result.Id.ShouldNotBe(0);
+            result.Name.ShouldBe(newEntity.Name);
+            result.Description.ShouldBe(newEntity.Description);
+            result.Longitude.ShouldBe(12.3);
+            result.Latitude.ShouldBe(24.22);
+            result.Status.ShouldBe(1);
+            result.CreatorId.ShouldBe(-11);
+            result.CheckpointId.ShouldBe(-17);
+            result.Questions.ShouldNotBeNull();
 
             // Assert - Database
             var storedEntity = dbContext.Encounters.FirstOrDefault(i => i.Id == result.Id);

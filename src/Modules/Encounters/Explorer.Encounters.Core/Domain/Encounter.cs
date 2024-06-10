@@ -14,13 +14,14 @@ namespace Explorer.Encounters.Core.Domain
         public int ExperiencePoints { get; init; }
         public long? CheckpointId { get; init; }
         public bool IsMandatory { get; init; }
+        public long? AchievementId { get; init; }
 
         public Encounter()
         {
              
         }
 
-        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? checkpointId, int experiencePoints, bool isMandatory)
+        public Encounter(long creatorId, string description, string name, EncounterStatus status, EncounterType type, double latitude, double longitude, long? checkpointId, int experiencePoints, bool isMandatory, long? achievementId)
         {
             CreatorId = creatorId;
             Description = description;
@@ -32,6 +33,7 @@ namespace Explorer.Encounters.Core.Domain
             CheckpointId = checkpointId;
             ExperiencePoints = experiencePoints;
             IsMandatory = isMandatory;
+            AchievementId = achievementId;
             Validate();
         }
 
@@ -66,6 +68,7 @@ namespace Explorer.Encounters.Core.Domain
     {
         Social,
         Location,
-        Misc
+        Misc,
+        Quiz
     }
 }

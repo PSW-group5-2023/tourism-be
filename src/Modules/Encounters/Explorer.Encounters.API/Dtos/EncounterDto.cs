@@ -12,11 +12,13 @@
         public int Type { get; set; }
         public int ExperiencePoints { get; set; }
         public bool IsMandatory { get; set; }
+        public long? AchievementId { get; set; }
         public Uri? Image { get; set; }
         public double? LocationLatitude { get; set; }
         public double? LocationLongitude { get; set; }
         public double? RangeInMeters { get; set; }
         public long? CheckpointId { get; set; }
         public int? RequiredAttendance { get; set; }
+        public ICollection<QuestionDto> Questions { get; set; }
     }
 }
