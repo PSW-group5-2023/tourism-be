@@ -52,7 +52,7 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPut]
+        [HttpPut("craft")]
         public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromBody]InventoryDto inventory, [FromQuery] List<int> requiredAchievements)
         {
             var result = _inventoryService.AddComplexAchievementToInventory(inventory, requiredAchievements);
