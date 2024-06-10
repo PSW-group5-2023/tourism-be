@@ -955,3 +955,17 @@ VALUES (
     '2024-01-18 09:59:47.064+01',
     '[{"KeyPointId": -36, "CompletionTime": "2024-01-18T08:59:47.104412Z"}]', 0
 );
+
+INSERT INTO achievements."Achievements"(
+    "Id", "Name", "Description", "Icon", "Rarity", "CraftingRecipe", "AuthorId")
+VALUES
+    (-1, 'First Steps', 'Complete the tutorial', 'icon1.png', 0, '{}', -4),
+    (-2, 'Novice Explorer', 'Discover 10 locations', 'icon2.png', 0, '{}', -4),
+    (-3, 'Treasure Hunter', 'Find 5 hidden treasures', 'icon3.png', 0, '{}', -4),
+    (-4, 'Master Builder', 'Construct 50 buildings', 'icon4.png', 0, '{}', -4),
+    (-5, 'Legendary Warrior', 'Defeat 100 enemies', 'icon5.png', 0, '{}', -4),
+    (-6, 'Champion of the Arena', 'Win 10 arena battles', 'icon6.png', 0, '{}', -4),
+    (-7, 'Alchemist', 'Craft 20 potions', 'icon7.png', 0, '{}', -4),
+    (-8, 'Marathon Runner', 'Run a total of 42km', 'icon8.png', 0, '{}', -4),
+    (-9, 'Ultimate Explorer', 'Discover all locations', 'icon9.png', 0, '{-1, -2}', -4),
+    (-10, 'Master Alchemist', 'Craft all potions', 'icon10.png', 0, '{-7}', -4);

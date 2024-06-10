@@ -35,6 +35,7 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
                 Description = "Test Description",
                 Icon = new Uri("https://example.com/icon1.png"),
                 Rarity = 1,
+                CraftingRecipe = new List<int>(),
                 AuthorId = 323
             };
 

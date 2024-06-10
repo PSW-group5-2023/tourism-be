@@ -30,8 +30,38 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(3);
-            result.TotalCount.ShouldBe(3);
+            result.Results.Count.ShouldBe(6);
+            result.TotalCount.ShouldBe(6);
+        }
+
+        [Fact]
+        public void Get_all_base_achievements()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllBaseAchievements().Result)?.Value as List<AchievementDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(5);
+        }
+
+        [Fact]
+        public void Get_all_complex_achievements()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllComplexAchievements().Result)?.Value as List<AchievementDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(1);
         }
 
         private static AchievementController CreateController(IServiceScope scope)
