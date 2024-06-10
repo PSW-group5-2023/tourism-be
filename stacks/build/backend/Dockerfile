@@ -9,7 +9,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:${SDK_VERSION} as build
 ENV PROJECT=Explorer.API
 ARG SRC_URL=https://github.com/PSW-group5-2023/tourism-be/archive/refs/heads/feat/deployment.tar.gz
-ARG GITHUB_TOKEN=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
+ARG GITHUB_TOKEN=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
 WORKDIR /src
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -y \

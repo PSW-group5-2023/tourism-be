@@ -4,7 +4,7 @@ set -e
 
 apk --update --no-cache add curl tar gettext
 
-GITHUB_TOKEN="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"
+GITHUB_TOKEN="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"
 FRONTEND_APP_SRC_URL=$1
 
 curl -L -o app.tar.gz -H "Authorization: token $GITHUB_TOKEN" "${FRONTEND_APP_SRC_URL}"
