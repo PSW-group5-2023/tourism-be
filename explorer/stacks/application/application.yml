@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   explorer:
-    image: jovankatanic/explorer:${EXPLORER_VERSION-latest}
+    image: explorer:${EXPLORER_VERSION-latest}    #jovankatanic/explorer:${EXPLORER_VERSION-latest}
     networks:
       - application
       - database
