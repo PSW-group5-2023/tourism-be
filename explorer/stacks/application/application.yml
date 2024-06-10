@@ -2,14 +2,14 @@ version: '3.9'
 
 services:
   explorer:
-    image: explorer:${EXPLORER_VERSION-latest}
+    image: jovankatanic/explorer:${EXPLORER_VERSION-latest}
     networks:
       - application
       - database
     ports:
       - "9000:80"
     environment:
-      DATABASE_HOST: database #${EXPLORER_DATABASE_HOST}
+      DATABASE_HOST: ${EXPLORER_DATABASE_HOST}
       DATABASE_PORT: ${EXPLORER_DATABASE_PORT}
       DATABASE_SCHEMA_FILE: /run/secrets/database-schema
       DATABASE_USERNAME_FILE: /run/secrets/database-username
