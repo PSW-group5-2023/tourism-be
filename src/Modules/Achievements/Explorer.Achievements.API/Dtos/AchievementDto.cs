@@ -14,6 +14,5 @@ namespace Explorer.Achievements.API.Dtos
         public Uri Icon { get; set; }
         public int Rarity { get; set; }  
         public List<int> CraftingRecipe { get; set; }
-        public int AuthorId { get; set; }
     }
 }

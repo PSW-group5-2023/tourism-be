@@ -1,4 +1,5 @@
-﻿using Explorer.API.Controllers.Administrator.Administration;
+﻿using Explorer.Achievements.Core.Domain;
+using Explorer.API.Controllers.Administrator.Administration;
 using Explorer.API.Controllers.Author;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
@@ -34,7 +35,8 @@ namespace Explorer.Tours.Tests.Integration
                 Latitude = -32.6,
                 TourId = -2,
                 Secret = "asd",
-                PositionInTour = 1
+                PositionInTour = 1,
+                AchievementId = 1
             };
 
             // Act
@@ -129,7 +131,7 @@ namespace Explorer.Tours.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var updatedEntity = new CheckpointDto
             {
-                Id = -1, 
+                Id = -1,
                 Name = "Test",
                 Description = "Updated value",
                 Image = new Uri("http://tacka1.com/"),
@@ -137,7 +139,8 @@ namespace Explorer.Tours.Tests.Integration
                 Latitude = -24.22,
                 TourId = -2,
                 Secret = "asd",
-                PositionInTour = 1
+                PositionInTour = 1,
+                AchievementId = 1
             };
 
             //Act

@@ -12,8 +12,9 @@ namespace Explorer.Tours.Core.Domain.Tours
         public long TourId { get; init; }
         public string? Secret { get; init; }
         public int PositionInTour { get; init; }
+        public long AchievementId { get; init; }
 
-        public Checkpoint(string name, string description, Uri image, double latitude, double longitude, int positionInTour, long tourId, string secret)
+        public Checkpoint(string name, string description, Uri image, double latitude, double longitude, int positionInTour, long tourId, string secret, long achievementId)
         {
             Name = name;
             Description = description;
@@ -23,6 +24,7 @@ namespace Explorer.Tours.Core.Domain.Tours
             TourId = tourId;
             Secret = secret;
             PositionInTour = positionInTour;
+            AchievementId = achievementId;
             Validate();
         }
 

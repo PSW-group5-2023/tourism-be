@@ -130,7 +130,8 @@ namespace Explorer.Tours.Tests.Integration
                 Latitude = 7,
                 TourId = -2,
                 Secret = "asd",
-                PositionInTour = 1
+                PositionInTour = 1,
+                AchievementId = 1
             };
 
             // Act

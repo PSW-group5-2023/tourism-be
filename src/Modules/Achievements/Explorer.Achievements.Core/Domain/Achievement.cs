@@ -8,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace Explorer.Achievements.Core.Domain
 {
-    public class Achievement : Entity
+    public class Achievement : Entity 
     {
         public string Name { get; init; }
         public string Description { get; init; }
         public Uri Icon { get; init; }
         public RarityCategories Rarity { get; init; }
         public List<int> CraftingRecipe {  get; init; }
-        public long AuthorId { get; init; }
 
-        public Achievement(string name, string description, Uri icon, RarityCategories rarity, long authorId)
+        public Achievement(string name, string description, Uri icon, RarityCategories rarity)
         {
             Name = name;
             Description = description;
             Icon = icon;
             Rarity = rarity;
             CraftingRecipe = new List<int>();
-            AuthorId = authorId;
             Validate();
         }
 
