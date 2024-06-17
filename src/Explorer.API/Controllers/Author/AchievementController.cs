@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Author
 {
-    [Authorize(Policy = "authorPolicy")]
+    [Authorize(Policy = "authorOrAdminPolicy")]
     [Route("api/author/achievement")]
     public class AchievementController : BaseApiController
     {
