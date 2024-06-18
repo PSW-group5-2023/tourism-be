@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4:${PGADMIN_VERSION-latest}
+    networks:
+      - operations
+      - persistence
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_ROOT_EMAIL-admin@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_ROOT_PASSWORD-admin}
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PUBLISHED_PORT-8081}:80"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  pgadmin:
+    name: pgadmin_${STAGE:-dev}
+
+networks:
+  operations:
+    name: operations_network_${STAGE-dev}
+    driver: overlay
+    attachable: true
+  persistence:
+    name: persistance_network_${STAGE-dev}
+    driver: overlay 
+    external: true
