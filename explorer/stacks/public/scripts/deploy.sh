@@ -46,7 +46,7 @@ set -- "${POSITIONAL[@]}"
 
 export STAGE=${STAGE:-dev}
 STACK_NAME="explorer_public_${STAGE}"
-COMPOSE_FILE=${COMPOSE_FILE:-../public2.yml}
+COMPOSE_FILE=${COMPOSE_FILE:-../public.yml}
 ENVIRONMENT_TEMPLATE_FILE=${ENVIRONMENT_TEMPLATE_FILE:-../env.conf.template}
 ENVIRONMENT_FILE=./env.${STAGE}.conf
 DOCKER_CONFIG_HASH=${DOCKER_CONFIG_HASH:-explorer/docker-config-hash:latest}

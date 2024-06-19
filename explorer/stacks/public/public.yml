@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   gateway:
-    image: explorer/gateway:${GATEWAY_VERSION-latest}
+    image: jovankatanic/gateway:${GATEWAY_VERSION-latest}
     networks:
       - public
       - application
@@ -55,7 +55,10 @@ networks:
     name: public_network_${STAGE-dev}
     driver: overlay
     attachable: true
+    external: true
   application:
     name: application_network_${STAGE-dev}
     driver: overlay
     external: true
+
+    
