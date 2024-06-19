@@ -549,3 +549,6 @@ $RECYCLE.BIN/
 
 # Migrations
 src/**/Migrations/*
+
+#For testing github actions
+.secrets
