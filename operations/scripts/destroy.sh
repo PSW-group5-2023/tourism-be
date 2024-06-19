@@ -23,7 +23,5 @@ STAGE=${STAGE:-dev}
 STACK_NAME="explorer_operations_${STAGE}"
 
 docker stack rm "${STACK_NAME}"
-docker network rm operations_network_${STAGE}
-docker service rm explorer_operations_${STAGE}_pgadmin
 
  

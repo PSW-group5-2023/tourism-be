@@ -14,3 +14,8 @@ echo "********** DEPLOYING PUBLIC STACK **********"
 pushd explorer/stacks/public/scripts/ > /dev/null || exit
 ./deploy.sh
 popd > /dev/null || exit
+
+echo "********** DEPLOYING OPERATIONS STACK **********"
+pushd operations/scripts/ > /dev/null || exit
+./deploy.sh
+popd > /dev/null || exit
