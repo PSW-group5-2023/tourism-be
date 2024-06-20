@@ -1,5 +1,8 @@
 #! /bin/bash
 
+echo "********** DESTROYING OPERATIONS STACK **********"
+./operations/scripts/destroy.sh
+
 echo "********** DESTROYING PUBLIC STACK **********"
 ./explorer/stacks/public/scripts/destroy.sh
 
@@ -8,3 +11,4 @@ echo "********** DESTROYING APPLICATION STACK **********"
 
 echo "********** DESTROYING PERSISTENCE STACK **********"
 ./explorer/stacks/persistance/scripts/destroy.sh
+

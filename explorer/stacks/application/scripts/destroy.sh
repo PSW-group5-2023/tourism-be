@@ -24,6 +24,3 @@ STACK_NAME="explorer_application_${STAGE}"
 docker stack rm "${STACK_NAME}"
 docker secret rm "explorer_jwt_key_${STAGE}"
 docker secret rm "explorer_cors_${STAGE}"
-
-docker service rm explorer_application_${STAGE}_database
-docker network rm application_network_${STAGE}

@@ -25,6 +25,3 @@ docker stack rm "${STACK_NAME}"
 docker secret rm "explorer_database_password_${STAGE}"
 docker secret rm "explorer_database_username_${STAGE}"
 docker secret rm "explorer_database_schema_${STAGE}"
-
-docker service rm explorer_persistence_${STAGE}_database
-docker network rm persistance_network_${STAGE}
