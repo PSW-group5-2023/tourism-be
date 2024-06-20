@@ -55,7 +55,6 @@ networks:
     name: public_network_${STAGE-dev}
     driver: overlay
     attachable: true
-    external: true
   application:
     name: application_network_${STAGE-dev}
     driver: overlay
