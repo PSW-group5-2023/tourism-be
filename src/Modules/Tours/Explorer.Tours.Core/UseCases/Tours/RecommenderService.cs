@@ -5,6 +5,7 @@ using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Email;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
@@ -15,7 +16,7 @@ using FluentResults;
 namespace Explorer.Tours.Core.UseCases.Tours
 {
 
-    public class RecommenderService : BaseService<TourDto, Tour>, IRecommenderService
+    public class RecommenderService : BaseService<TourDto, Tour>, IRecommenderService, IInternalRecommenderService
     {
         private readonly ITourRepository _tourRepository;
         private readonly IPreferencesRepository _preferencesRepository;

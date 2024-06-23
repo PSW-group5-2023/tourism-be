@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.API.Internal;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
@@ -42,7 +43,7 @@ namespace Explorer.Stakeholders.Core.UseCases
                     List<UserNewsDto> usersToUpdate = new List<UserNewsDto>();
                     using (var scope = _scopeFactory.CreateScope())
                     {
-                        var myScopedService = scope.ServiceProvider.GetRequiredService<IRecommenderService>();
+                        var myScopedService = scope.ServiceProvider.GetRequiredService<IInternalRecommenderService>();
                         var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
                         var personService = scope.ServiceProvider.GetRequiredService<IPersonService>();
                         var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
