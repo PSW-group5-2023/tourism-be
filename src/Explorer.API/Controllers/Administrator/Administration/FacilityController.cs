@@ -34,7 +34,28 @@ namespace Explorer.API.Controllers.Administrator.Administration
             return CreateResponse(result);
         }
 
-        [HttpGet("public")]
+        [HttpPost]
+        public ActionResult<FacilityDto> Create([FromBody] FacilityDto facility)
+        {
+            var result = _facilityService.Create(facility);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<FacilityDto> Update([FromBody] FacilityDto facility)
+        {
+            var result = _facilityService.Update(facility);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var result = _facilityService.Delete(id);
+            return CreateResponse(result);
+        }
+
+        /*[HttpGet("public")]
         public ActionResult<PagedResult<PublicFacilityDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _publicFacilityService.GetPaged(page, pageSize);
@@ -53,7 +74,7 @@ namespace Explorer.API.Controllers.Administrator.Administration
         {
             var result = _publicFacilityService.GetByStatus(status);
             return CreateResponse(result);
-        }
+        }*/
     }
 }
 
