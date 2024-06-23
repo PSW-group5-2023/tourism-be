@@ -4,6 +4,7 @@ using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.API.Internal;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    public class PersonService : BaseService<PersonDto, Person>, IPersonService
+    public class PersonService : BaseService<PersonDto, Person>, IPersonService, IInternalPersonService
     {
         private readonly IPersonRepository _personRepository;
         private readonly IUserRepository _userRepository;

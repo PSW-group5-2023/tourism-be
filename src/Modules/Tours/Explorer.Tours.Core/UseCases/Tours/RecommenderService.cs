@@ -2,9 +2,11 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Payments.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Email;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
@@ -15,16 +17,16 @@ using FluentResults;
 namespace Explorer.Tours.Core.UseCases.Tours
 {
 
-    public class RecommenderService : BaseService<TourDto, Tour>, IRecommenderService
+    public class RecommenderService : BaseService<TourDto, Tour>, IRecommenderService, IInternalRecommenderService
     {
         private readonly ITourRepository _tourRepository;
         private readonly IPreferencesRepository _preferencesRepository;
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
-        private readonly IFollowerService _followerService;
+        private readonly IInternalFollowerService _followerService;
         private readonly ISessionService _sessionService;
         private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
-        private readonly IPersonService _personService;
+        private readonly IInternalPersonService _personService;
         private readonly ITourService _tourService;
 
         public RecommenderService(IMapper mapper,
@@ -32,10 +34,10 @@ namespace Explorer.Tours.Core.UseCases.Tours
             IPreferencesRepository preferencesRepository,
             ITourRatingRepository tourRatingRepository,
             IInternalBoughtItemService internalBoughtItemService,
-            IFollowerService followerService,
+            IInternalFollowerService followerService,
             ISessionService sessionService,
             IEmailSendingTourCommunityRecommendationService emailSendingService,
-            IPersonService personService,
+            IInternalPersonService personService,
             ITourService tourService
             ) : base(mapper)
         {

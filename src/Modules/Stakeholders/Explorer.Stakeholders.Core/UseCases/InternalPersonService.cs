@@ -29,5 +29,15 @@ namespace Explorer.Stakeholders.API.Public
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<string> GetEmailByUserId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<string> GetNameById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

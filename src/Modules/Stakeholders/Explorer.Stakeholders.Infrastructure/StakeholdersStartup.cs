@@ -15,6 +15,7 @@ using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Stakeholders.Infrastructure.Database;
 using Explorer.Stakeholders.Infrastructure.Database.Repositories;
 using Explorer.Stakeholders.Infrastructure.Email;
+using Explorer.Tours.API.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -50,6 +51,8 @@ public static class StakeholdersStartup
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IEmailSendingService, EmailSedningService>();
         services.AddScoped<IUserNewsService, UserNewsService>();
+        services.AddScoped<IInternalFollowerService,FollowerService>();
+        services.AddScoped<IInternalPersonService, PersonService>();
 
 
     }

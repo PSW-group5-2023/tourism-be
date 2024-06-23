@@ -63,6 +63,7 @@ public static class ToursStartup
         services.AddScoped<IEmailSendingTourCommunityRecommendationService, EmailSendingTourCommunityRecommendationService>();
         services.AddScoped<IInternalPersonService, InternalPersonService>();
         services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
+        services.AddScoped<IInternalRecommenderService, RecommenderService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
