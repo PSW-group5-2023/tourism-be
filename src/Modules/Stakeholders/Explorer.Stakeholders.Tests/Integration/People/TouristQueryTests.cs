@@ -33,6 +33,33 @@ namespace Explorer.Stakeholders.Tests.Integration.People
             result.ShouldNotBeNull();
             result.Count.ShouldBe(7);
         }
+        [Fact]
+        public void Get_all_followers()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFollowers(-12).Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(2);
+        }
+
+        [Fact]
+        public void Get_all_followings()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFollowings(-22).Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(1);
+        }
 
         [Fact]
         public void Get_by_id()
