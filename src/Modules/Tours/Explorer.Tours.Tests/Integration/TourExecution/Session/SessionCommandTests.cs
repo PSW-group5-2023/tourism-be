@@ -1,23 +1,12 @@
 ﻿using Explorer.API.Controllers.Execution;
-using Explorer.Blog.API.Dtos;
-using Explorer.Blog.API.Public;
-using Explorer.Blog.Infrastructure.Database;
 using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Public.Execution;
-using Explorer.Tours.Core.Domain;
-using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Infrastructure.Database;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Explorer.Tours.Tests.Integration.TourExecution
+namespace Explorer.Tours.Tests.Integration.TourExecution.Session
 {
     [Collection("Sequential")]
     public class SessionCommandTests : BaseToursIntegrationTest
@@ -126,6 +115,40 @@ namespace Explorer.Tours.Tests.Integration.TourExecution
             var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == sessionId);
             var rating = storedEntity.CompletedKeyPoints.FirstOrDefault(t => t.KeyPointId == keyPointId);
             rating.ShouldNotBeNull();
+        }
+
+        [Theory]
+        [InlineData(-1, true)]
+        [InlineData(-4, false)]
+        [InlineData(-3, false)]
+        public void Check_valid_for_tourist_comment(int id, bool expectedResponse)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            // Act
+            var result = ((ObjectResult)controller.Check(id).Result)?.Value as bool?;
+
+            // Assert
+            result.ShouldBe(expectedResponse);
+        }
+
+        [Theory]
+        [InlineData(-6, 404)]
+        public void Check_valid_for_tourist_comment_fails_notfound(int id, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            // Act
+            var result = (ObjectResult)controller.Check(id).Result;
+
+            // Assert - Response
+            result.StatusCode.ShouldBe(expectedResponseCode);
         }
 
         private static SessionController CreateController(IServiceScope scope)
