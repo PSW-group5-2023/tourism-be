@@ -36,30 +36,57 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.PositionSimulator
             result.ShouldNotBeNull();
             result.Id.ShouldNotBe(0);
             result.Longitude.ShouldBe(newEntity.Longitude);
+            result.Latitude.ShouldBe(newEntity.Latitude);
+            result.TouristId.ShouldBe(newEntity.TouristId);
 
             // Assert - Database
             var storedEntity = dbContext.PositionSimulators.FirstOrDefault(i => i.Longitude == newEntity.Longitude);
             storedEntity.ShouldNotBeNull();
             storedEntity.Id.ShouldBe(result.Id);
+            storedEntity.Latitude.ShouldBe(newEntity.Latitude);
+            storedEntity.Longitude.ShouldBe(newEntity.Longitude);
+            storedEntity.TouristId.ShouldBe(newEntity.TouristId);
         }
 
-        [Fact]
-        public void Create_fails_invalid_data()
+        [Theory]
+        [MemberData(nameof(PositionSimulatorCreationData))]
+        public void Create_fails_invalid_data(PositionSimulatorDto newEntity, int expectedStatusCode)
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var newEntity = new PositionSimulatorDto()
-            {
-                Latitude = -1000
-            };
 
             // Act
             var result = (ObjectResult)controller.Create(newEntity).Result;
 
             // Assert
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
+            result.StatusCode.ShouldBe(expectedStatusCode);
+        }
+
+        public static IEnumerable<object[]> PositionSimulatorCreationData()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new PositionSimulatorDto
+                    {
+                        Latitude = - 91,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new PositionSimulatorDto
+                    {
+                        Latitude = 0,
+                        Longitude = -191
+                    },
+                    400
+                }
+            };
         }
 
         [Fact]
@@ -82,7 +109,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.PositionSimulator
 
             // Assert - Response
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(-21);
+            result.Id.ShouldBe(updatedEntity.Id);
             result.Latitude.ShouldBe(updatedEntity.Latitude);
             result.Longitude.ShouldBe(updatedEntity.Longitude);
             result.TouristId.ShouldBe(updatedEntity.TouristId);
@@ -90,48 +117,62 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.PositionSimulator
             // Assert - Database
             var storedEntity = dbContext.PositionSimulators.FirstOrDefault(i => i.Id == -21);
             storedEntity.ShouldNotBeNull();
+            storedEntity.Id.ShouldBe(updatedEntity.Id);
             storedEntity.Latitude.ShouldBe(updatedEntity.Latitude);
+            storedEntity.Longitude.ShouldBe(updatedEntity.Longitude);
+            storedEntity.TouristId.ShouldBe(updatedEntity.TouristId);
         }
 
-        [Fact]
-        public void Update_fails_invalid_value()
+        [Theory]
+        [MemberData(nameof(PositionSimulatorUpdateData))]
+        public void Update_fails(PositionSimulatorDto updatedEntity, int expectedStatusCode)
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new PositionSimulatorDto
-            {
-                Id = -23,
-                Latitude = -1000
-            };
 
             //Act
             var result = (ObjectResult)controller.Update(updatedEntity).Result;
 
             //Assert
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
+            result.StatusCode.ShouldBe(expectedStatusCode);
         }
 
-        [Fact]
-        public void Update_fail_invalid_id()
+        public static IEnumerable<object[]> PositionSimulatorUpdateData()
         {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-            var updatedEntity = new PositionSimulatorDto
+            return new List<object[]>
             {
-                Id = -25,
-                Longitude = 10,
-                Latitude = 10,
-                TouristId = -25
+                new object[]
+                {
+                    new PositionSimulatorDto
+                    {
+                        Id = -21,
+                        Latitude = - 91,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new PositionSimulatorDto
+                    {
+                        Id = -21,
+                        Latitude = 0,
+                        Longitude = -191
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new PositionSimulatorDto
+                    {
+                        Id = 123,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    404
+                }
             };
-
-            // Act
-            var result = (ObjectResult)controller.Update(updatedEntity).Result;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
         }
 
         private static PositionSimulatorController CreateController(IServiceScope scope)
