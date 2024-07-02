@@ -25,7 +25,12 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
 
         public Message Create(Message message)
         {
-                _dbContext.Messages.Add(message);
+            var messageSender = _dbContext.Users.FirstOrDefault(u => u.Id == message.SenderId);
+            if(messageSender == null) throw new ArgumentException("Sender with id " + message.SenderId + " does not exist");
+            var messageRecipient = _dbContext.Users.FirstOrDefault(u => u.Id == message.RecipientId);
+            if (messageRecipient == null) throw new ArgumentException("Recipient with id " + message.RecipientId + " does not exist");
+
+            _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
             return message;
         }
