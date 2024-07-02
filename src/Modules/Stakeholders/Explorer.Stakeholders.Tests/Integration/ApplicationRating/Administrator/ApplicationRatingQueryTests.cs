@@ -13,8 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.Tests.Integration
+namespace Explorer.Stakeholders.Tests.Integration.ApplicationRating.Administrator
 {
+    [Collection("Sequential")]
     public class ApplicationRatingQueryTests : BaseStakeholdersIntegrationTest
     {
         public ApplicationRatingQueryTests(StakeholdersTestFactory factory) : base(factory) { }
