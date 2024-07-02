@@ -23,6 +23,11 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         }
         public Follower Create(Follower follower)
         {
+            var followerUser = _context.Users.FirstOrDefault(u => u.Id == follower.FollowerId);
+            if (followerUser == null) throw new ArgumentException("Follower with id: " + follower.FollowerId + " not found");
+            var followedUser = _context.Users.FirstOrDefault(u => u.Id == follower.FollowedId);
+            if (followedUser == null) throw new ArgumentException("Follower with id: " + follower.FollowedId + " not found");
+
             _context.Followers.Add(follower);
             _context.SaveChanges();
             return follower;
