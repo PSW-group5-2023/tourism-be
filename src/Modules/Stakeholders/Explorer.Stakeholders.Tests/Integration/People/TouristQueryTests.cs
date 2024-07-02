@@ -23,6 +23,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
         [Fact]
         public void Get_authors_and_tourists()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
@@ -36,6 +37,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
         [Fact]
         public void Get_all_followers()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
@@ -50,6 +52,7 @@ namespace Explorer.Stakeholders.Tests.Integration.People
         [Fact]
         public void Get_all_followings()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 

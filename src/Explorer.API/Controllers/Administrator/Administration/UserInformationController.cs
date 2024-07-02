@@ -54,9 +54,16 @@ namespace Explorer.API.Controllers.Administrator.Administration
         }
 
         [HttpPut("addToBalance")]
-        public ActionResult AddToBalance([FromQuery] int userId, [FromQuery] int coins)
+        public ActionResult<WalletDto> AddToBalance([FromQuery] int userId, [FromQuery] int coins)
         {
-            return CreateResponse(_walletService.AddToBallance(userId, coins));
+            try
+            {
+                return CreateResponse(_walletService.AddToBallance(userId, coins));
+            }
+            catch(Exception e)
+            {
+                return NotFound(new {message = e.Message});
+            }
         }
     }
 }
