@@ -140,14 +140,14 @@ namespace Explorer.Stakeholders.Tests.Integration.ApplicationRating.Author
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
 
             // Act
-            var result = (OkResult)controller.Delete(-2);
+            var result = (OkResult)controller.Delete(-4);
 
             // Assert - Response
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            var storedCourse = dbContext.ApplicationRatings.FirstOrDefault(i => i.Id == 2);
+            var storedCourse = dbContext.ApplicationRatings.FirstOrDefault(i => i.Id == -4);
             storedCourse.ShouldBeNull();
         }
 

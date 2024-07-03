@@ -13,6 +13,8 @@ namespace Explorer.Stakeholders.API.Dtos
         public long LastSendMs { get;  set; }
         public int SendingPeriod { get;  set; }
 
+        public UserNewsDto() { }
+
         public UserNewsDto(int id, long touristId, long lastSendMs, int sendingPeriod)
         {
             Id = id;

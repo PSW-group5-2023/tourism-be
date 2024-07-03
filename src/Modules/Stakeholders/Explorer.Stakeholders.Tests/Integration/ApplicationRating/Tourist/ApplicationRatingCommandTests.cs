@@ -141,7 +141,7 @@ namespace Explorer.Stakeholders.Tests.Integration.ApplicationRating.Tourist
             var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
 
             // Act
-            var result = (OkResult)controller.Delete(-2);
+            var result = (OkResult)controller.Delete(-5);
 
             // Assert - Response
             result.ShouldNotBeNull();
