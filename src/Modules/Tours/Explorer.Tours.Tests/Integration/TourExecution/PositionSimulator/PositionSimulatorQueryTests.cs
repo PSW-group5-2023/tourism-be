@@ -7,6 +7,7 @@ using Shouldly;
 
 namespace Explorer.Tours.Tests.Integration.TourExecution.PositionSimulator
 {
+    [Collection("Sequential")]
     public class PositionSimulatorQueryTests : BaseToursIntegrationTest
     {
         public PositionSimulatorQueryTests(ToursTestFactory factory) : base(factory)
