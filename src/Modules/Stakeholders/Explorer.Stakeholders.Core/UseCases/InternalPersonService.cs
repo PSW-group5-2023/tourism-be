@@ -30,6 +30,19 @@ namespace Explorer.Stakeholders.API.Public
             }
         }
 
+        public Result<PersonDto> GetByUserId(int id)
+        {
+            try
+            {
+                var result = _personRepository.GetByUserId(id);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
         public Result<string> GetEmailByUserId(int id)
         {
             throw new NotImplementedException();

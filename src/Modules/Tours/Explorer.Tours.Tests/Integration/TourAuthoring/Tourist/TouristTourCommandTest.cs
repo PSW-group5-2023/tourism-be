@@ -148,7 +148,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tourist
 
         [Theory]
         [MemberData(nameof(TourData))]
-        public void Creation(TourDto tourDto, int expectedResponseCode)
+        public void Create(TourDto tourDto, int expectedResponseCode)
         {
 
 
@@ -172,8 +172,66 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tourist
 
 
         }
-
-
+        public static IEnumerable<object[]> TourDataFail()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new TourDto
+                    {
+                        Id = -100000,
+                        Name = "",
+                        AuthorId = -1,
+                        Description = "OpisTure",
+                        DistanceInKm = 60,
+                        Status =3,
+                        Durations = new List<TourDurationDto>
+                        {
+                            new TourDurationDto
+                            {
+                                TimeInSeconds = 124124,
+                                Transportation = 0
+                            }
+                        },
+                        Checkpoints = new List<CheckpointDto>
+                        {
+                            new CheckpointDto
+                            {
+                                Id = -3329,
+                                Latitude = 0,
+                                Longitude = 0,
+                                Description = "Opis tacke",
+                                Image = new Uri("http://tacka1.com/"),
+                                Name = "Ime tacke",
+                                PositionInTour = 1,
+                            },
+                            new CheckpointDto
+                            {
+                                Id = -3330,
+                                Latitude = 0,
+                                Longitude = 0,
+                                Description = "Opis tacke",
+                                Image = new Uri("http://tacka1.com/"),
+                                Name = "Ime tacke 2",
+                                PositionInTour = 2,
+                            },
+                            new CheckpointDto
+                            {
+                                Id = -3331,
+                                Latitude = 0,
+                                Longitude = 0,
+                                Description = "Opis tacke",
+                                Image = new Uri("http://tacka1.com/"),
+                                Name = "Ime tacke 3",
+                                PositionInTour = 3,
+                            }
+                        }
+                    },
+                    400
+                }
+            };
+        }
 
         public static IEnumerable<object[]> TourDataUpdate()
         {
@@ -385,8 +443,6 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tourist
             // Assert - Response
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(expectedResponseCode);
-
-
 
         }
         [Fact]

@@ -1,7 +1,7 @@
-﻿using Explorer.API.Controllers.Administrator.Administration;
-using Explorer.API.Controllers.Author.Authoring;
+﻿using Explorer.API.Controllers.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Tour;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
+namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 {
     [Collection("Sequential")]
     public class TourQueryTests : BaseToursIntegrationTest
@@ -36,39 +36,9 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
         }
 
         [Fact]
-        public void Get_all_by_authorId()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Act
-            var result = ((ObjectResult)controller.GetAllByAuthorId(-11, 0, 0).Result)?.Value as PagedResult<TourDto>;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(3);
-            result.TotalCount.ShouldBe(3);
-        }
-
-        [Fact]
-        public void Get_all_by_authorId_fails_invalid_authorId()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Act
-            var result = (ObjectResult)controller.GetAllByAuthorId(-10000, 0, 0).Result;
-
-            // Assert
-            //result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
-
-        [Fact]
         public void Get()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
@@ -82,6 +52,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
         [Fact]
         public void Get_fails_invalid_id()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
@@ -92,14 +63,30 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
             result.StatusCode.ShouldBe(404);
         }
 
+        [Theory]
+        [InlineData(0, 0, "tura 1", new string[] { "tag", "tag2" }, 200)]
+        public void Search(int page, int pageSize, string name, string[] tags, int expectedResultCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.Search(page, pageSize, name, tags).Result;
+
+            // Assert
+            result.StatusCode.ShouldBe(expectedResultCode);
+            (result.Value as PagedResult<TourDto>).Results.Count.ShouldBe(7);
+            (result.Value as PagedResult<TourDto>).TotalCount.ShouldBe(7);
+        }
 
         private static TourController CreateController(IServiceScope scope)
         {
-            return new TourController(scope.ServiceProvider.GetRequiredService<ITourService>())
+            return new TourController(scope.ServiceProvider.GetRequiredService<ITourService>(), scope.ServiceProvider.GetRequiredService<IRecommenderService>())
             {
                 ControllerContext = BuildContext("-1")
             };
+
         }
     }
-
 }

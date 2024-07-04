@@ -16,6 +16,7 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.API.Dtos.Equipment;
+using Explorer.Tours.API.Internal;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
 {
@@ -199,6 +200,27 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
             storedEntity.DistanceInKm.ShouldBe(result.DistanceInKm);
             storedEntity.ArchivedDate.ShouldBe(result.ArchivedDate);
             storedEntity.PublishedDate.ShouldBe(result.PublishedDate);
+        }
+
+        [Fact]
+        public void Create_campaign_fails_not_enough_tours()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateTouristController(scope);
+            var campaignDto = new CampaignDto
+            {
+                Tours = new List<TourDto>(),
+                Name = "Tura Najnovija",
+                Description = "Jako lepa tura idemo.",
+                TouristId = -6
+            };
+
+            // Act
+            var result = (ObjectResult)controller.CreateCampaign(campaignDto).Result;
+
+            // Assert - Response
+            result.StatusCode.ShouldBe(400);
         }
 
         [Fact]
