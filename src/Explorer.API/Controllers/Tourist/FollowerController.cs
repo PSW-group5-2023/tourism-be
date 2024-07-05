@@ -27,6 +27,7 @@ namespace Explorer.API.Controllers.Tourist.Identity
         public ActionResult<FollowerDto> Create([FromBody] FollowerDto follower)
         {
             var result = _followerService.Create(follower);
+            if(result.IsFailed) return BadRequest(result);
             return CreateResponse(result);
         }
 

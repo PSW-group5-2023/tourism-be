@@ -1,9 +1,7 @@
-﻿using Explorer.API.Controllers.Administrator;
-using Explorer.API.Controllers.Administrator.Administration;
+﻿using Explorer.API.Controllers.Author;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
-using Explorer.Tours.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -13,8 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.Tests.Integration
+namespace Explorer.Stakeholders.Tests.Integration.ApplicationRating.Author
 {
+    [Collection("Sequential")]
     public class ApplicationRatingQueryTests : BaseStakeholdersIntegrationTest
     {
         public ApplicationRatingQueryTests(StakeholdersTestFactory factory) : base(factory) { }
@@ -31,8 +30,8 @@ namespace Explorer.Stakeholders.Tests.Integration
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(3);
-            result.TotalCount.ShouldBe(3);
+            result.Results.Count.ShouldBe(6);
+            result.TotalCount.ShouldBe(6);
         }
 
         private static ApplicationRatingController CreateController(IServiceScope scope)

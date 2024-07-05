@@ -30,16 +30,23 @@ public class AuthenticationController : BaseApiController
     [HttpPost]
     public ActionResult<AuthenticationTokensDto> RegisterTourist([FromBody] AccountRegistrationDto account)
     {
-        var result = _authenticationService.RegisterTourist(account);
+        try
+        {
+            var result = _authenticationService.RegisterTourist(account);
 
-        WalletDto wallet = new WalletDto(result.Value.Id, 0);
-        _walletService.Create(wallet);
-        _userExperienceService.Create(result.Value.Id);
+            WalletDto wallet = new WalletDto(result.Value.Id, 0);
+            _walletService.Create(wallet);
+            _userExperienceService.Create(result.Value.Id);
 
-        InventoryDto inventory = new InventoryDto(result.Value.Id,new List<int>());
-        _inventoryService.Create(inventory);
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            _inventoryService.Create(inventory);
 
-        return CreateResponse(result);
+            return CreateResponse(result);
+        }
+         catch(Exception e)
+        {
+            return StatusCode(400, e.Message);
+        }
     }
 
     [HttpPost("login")]

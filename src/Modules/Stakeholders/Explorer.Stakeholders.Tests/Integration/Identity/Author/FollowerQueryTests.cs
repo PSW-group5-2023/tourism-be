@@ -1,4 +1,4 @@
-﻿using Explorer.API.Controllers.Tourist.Identity;
+﻿using Explorer.API.Controllers.Author.Identity;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.Tests.Integration.Identity
+namespace Explorer.Stakeholders.Tests.Integration.Identity.Author
 {
     [Collection("Sequential")]
     public class FollowerQueryTests : BaseStakeholdersIntegrationTest

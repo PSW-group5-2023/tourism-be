@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Stakeholders.Tests.Integration;
+namespace Explorer.Stakeholders.Tests.Integration.ApplicationRating.Administrator;
 
 [Collection("Sequential")]
 public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
@@ -30,8 +30,8 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
         using var scope = Factory.Services.CreateScope();
         var controller = CreateController(scope);
         var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
-        var newEntity = new API.Dtos.ApplicationRatingDto
-        {  
+        var newEntity = new ApplicationRatingDto
+        {
             Grade = 2,
             Comment = "Dodati comment",
             IssueDate = DateTime.UtcNow,
@@ -64,7 +64,7 @@ public class ApplicationRatingCommandTests : BaseStakeholdersIntegrationTest
         {
             Comment = "Dodati comment",
             Grade = 12
-           
+
         };
 
         // Act

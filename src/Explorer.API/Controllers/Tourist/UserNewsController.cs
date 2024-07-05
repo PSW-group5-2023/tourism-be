@@ -42,7 +42,9 @@ namespace Explorer.API.Controllers.Tourist
         [HttpPost]
         public ActionResult<UserNewsDto> Create([FromBody] UserNewsDto news)
         {
+            if(news.TouristId == 0) return BadRequest();
             var result = _userNewsService.Create(news);
+            if (result.IsFailed) return BadRequest();
             return CreateResponse(result);
         }
 
