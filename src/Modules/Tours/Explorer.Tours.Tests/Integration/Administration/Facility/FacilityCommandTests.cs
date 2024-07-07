@@ -55,23 +55,87 @@ namespace Explorer.Tours.Tests.Integration.Administration.Facility
             storedEntity.Longitude.ShouldBe(result.Longitude);
         }
 
-        [Fact]
-        public void Create_fails_invalid_data()
+        [Theory]
+        [MemberData(nameof(FacilityCreationData))]
+        public void Create_fails_invalid_data(FacilityDto newEntity, int expectedStatusCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new FacilityDto
-            {
-                Description = "Test"
-            };
 
             // Act
-            var result = (ObjectResult)controller.Create(updatedEntity).Result;
+            var result = (ObjectResult)controller.Create(newEntity).Result;
 
             // Assert
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
+            result.StatusCode.ShouldBe(expectedStatusCode);
+        }
+
+        public static IEnumerable<object[]> FacilityCreationData()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Name = "",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Name = "Facility name",
+                        Description = "",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = -1,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 181
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 91,
+                        Longitude = 0
+                    },
+                    400
+                }
+            };
         }
 
         [Fact]
@@ -113,29 +177,105 @@ namespace Explorer.Tours.Tests.Integration.Administration.Facility
             oldEntity.ShouldBeNull();
         }
 
-        [Fact]
-        public void Update_fails_invalid_id()
+        [Theory]
+        [MemberData(nameof(FacilityUpdateData))]
+        public void Update_fails(FacilityDto updatedEntity, int expectedStatusCode)
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
-            var updatedEntity = new FacilityDto
-            {
-                Id = -1000,
-                Name = "Test",
-                Description = "Test",
-                Image = new Uri("https://example.com/"),
-                Category = 1,
-                Latitude = 0,
-                Longitude = 0
-            };
 
             // Act
             var result = (ObjectResult)controller.Update(updatedEntity).Result;
 
             // Assert
             result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(404);
+            result.StatusCode.ShouldBe(expectedStatusCode);
+        }
+
+        public static IEnumerable<object[]> FacilityUpdateData()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = -1,
+                        Name = "",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = -1,
+                        Name = "Facility name",
+                        Description = "",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = -1,
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = -1,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = -1,
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 181
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = -1,
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 91,
+                        Longitude = 0
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new FacilityDto
+                    {
+                        Id = 123,
+                        Name = "Facility name",
+                        Description = "Facility description",
+                        Category = 0,
+                        Latitude = 0,
+                        Longitude = 0
+                    },
+                    404
+                }
+            };
         }
 
         [Fact]
@@ -154,8 +294,8 @@ namespace Explorer.Tours.Tests.Integration.Administration.Facility
             result.StatusCode.ShouldBe(200);
 
             // Assert - Database
-            var storedCourse = dbContext.Facilities.FirstOrDefault(i => i.Id == -3);
-            storedCourse.ShouldBeNull();
+            var storedFacility = dbContext.Facilities.FirstOrDefault(i => i.Id == -3);
+            storedFacility.ShouldBeNull();
         }
 
         [Fact]

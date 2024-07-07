@@ -12,12 +12,10 @@ namespace Explorer.API.Controllers.Administrator.Administration
     public class FacilityController : BaseApiController
     {
         private readonly IFacilityService _facilityService;
-        private readonly IPublicFacilityService _publicFacilityService;
 
-        public FacilityController(IFacilityService facilityService, IPublicFacilityService publicFacilityService)
+        public FacilityController(IFacilityService facilityService)
         {
             _facilityService = facilityService;
-            _publicFacilityService = publicFacilityService;
         }
 
         [HttpGet]
@@ -54,27 +52,6 @@ namespace Explorer.API.Controllers.Administrator.Administration
             var result = _facilityService.Delete(id);
             return CreateResponse(result);
         }
-
-        /*[HttpGet("public")]
-        public ActionResult<PagedResult<PublicFacilityDto>> GetAllPublic([FromQuery] int page, [FromQuery] int pageSize)
-        {
-            var result = _publicFacilityService.GetPaged(page, pageSize);
-            return CreateResponse(result);
-        }
-
-        [HttpPut("public/{facilityId}/{status}")]
-        public ActionResult<PublicFacilityDto> ChangeStatus(int facilityId, string status)
-        {
-            var result = _publicFacilityService.ChangeStatus(facilityId, status);
-            return CreateResponse(result);
-        }
-
-        [HttpGet("public/{status}")]
-        public ActionResult<PagedResult<PublicFacilityDto>> GetByStatus(string status)
-        {
-            var result = _publicFacilityService.GetByStatus(status);
-            return CreateResponse(result);
-        }*/
     }
 }
 
