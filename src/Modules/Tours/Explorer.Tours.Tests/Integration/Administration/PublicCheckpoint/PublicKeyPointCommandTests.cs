@@ -18,7 +18,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void UpdatePublicStatus()
+        public void Updates_public_status()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -41,7 +41,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
 
 
         [Fact]
-        public void UpdateFailsInvalidValue()
+        public void Update_fails_invalid_value()
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
@@ -61,7 +61,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void UpdateFailInvalidId()
+        public void Update_fails_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();

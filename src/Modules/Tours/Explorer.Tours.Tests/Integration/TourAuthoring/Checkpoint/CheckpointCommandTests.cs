@@ -52,7 +52,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void CreatesPublic()
+        public void Creates_public()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -84,7 +84,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void CreateFailsInvalidData()
+        public void Create_fails_invalid_data()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -102,7 +102,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             result.StatusCode.ShouldBe(400);
         }
         [Fact]
-        public void CreatePublicFailsInvalidData()
+        public void Create_public_fails_invalid_data()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -121,7 +121,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void Update()
+        public void Updates()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -162,7 +162,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void UpdatePublicStatus()
+        public void Updates_public_status()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -185,7 +185,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
 
 
         [Fact]
-        public void UpdateFailsInvalidValue()
+        public void Update_fails_invalid_value()
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
@@ -205,7 +205,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void UpdateFailInvalidId()
+        public void Update_fails_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -247,7 +247,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             var storedCourse = dbContext.Checkpoints.FirstOrDefault(i => i.Id == -3);
             storedCourse.ShouldBeNull();
         }
-        public void DeleteFailsInvalidId()
+        public void Delete_fails_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();

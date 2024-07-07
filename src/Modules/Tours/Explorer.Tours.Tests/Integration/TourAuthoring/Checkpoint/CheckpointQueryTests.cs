@@ -16,7 +16,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void RetrievesAll()
+        public void Retrieves_all()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -32,7 +32,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void RetrievesAllPublic()
+        public void Retrieves_all_public()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -48,7 +48,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void RetrievesOne()
+        public void Retrieves_one()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -63,7 +63,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void RetrievesByTourId()
+        public void Retrieves_by_tour_id()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -78,7 +78,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void RetrievesByStatus()
+        public void Retrieves_by_status()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -92,7 +92,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             result.StatusCode.ShouldBe(200);
         }
         [Fact]
-        public void RetrievesOneFailedInvalidId()
+        public void Retrieves_one_fails_invalid_id()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -106,7 +106,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
         }
 
         [Fact]
-        public void Update()
+        public void Updates()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -135,7 +135,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             result.StatusCode.ShouldBe(200);
         }
         [Fact]
-        public void ChangeStatus()
+        public void Changes_status()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -149,7 +149,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             result.StatusCode.ShouldBe(200);
         }
         [Fact]
-        public void UpdateFailInvalidId()
+        public void Update_fails_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -174,7 +174,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             result.StatusCode.ShouldBe(404);
         }
         [Fact]
-        public void UpdateFailIvalidData()
+        public void Update_fails_invalid_data()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();

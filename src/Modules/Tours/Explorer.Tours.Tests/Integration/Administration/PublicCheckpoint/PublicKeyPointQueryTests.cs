@@ -16,7 +16,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void RetrievesAll()
+        public void Retrieves_all()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -32,7 +32,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void RetrievesAllPublic()
+        public void Retrieves_all_public()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -48,7 +48,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void RetrievesOne()
+        public void Retrieves_one()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -63,7 +63,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void RetrievesByStatus()
+        public void Retrieves_by_status()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -77,7 +77,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
             result.StatusCode.ShouldBe(200);
         }
         [Fact]
-        public void RetrievesOneFailedInvalidId()
+        public void Retrieves_one_fails_invalid_id()
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
@@ -91,7 +91,7 @@ namespace Explorer.Tours.Tests.Integration.Administration.PublicCheckpoint
         }
 
         [Fact]
-        public void ChangeStatus()
+        public void Changes_status()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
