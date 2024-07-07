@@ -1,17 +1,8 @@
 ﻿using Explorer.API.Controllers.Tourist;
-using Explorer.BuildingBlocks.Core.UseCases;
-using Explorer.Tours.API.Dtos;
 using Explorer.Tours.API.Public.Problem;
-using Explorer.Tours.Core.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Explorer.Tours.Tests.Integration.Administration.TourProblem;
 
@@ -21,7 +12,7 @@ public class TourProblemMessagingTests : BaseToursIntegrationTest
     public TourProblemMessagingTests(ToursTestFactory factory) : base(factory) { }
 
     [Fact]
-    public void RetrievesByTouristId()
+    public void Retrieves_by_tourist_id()
     {
         // Arrange
         using var scope = Factory.Services.CreateScope();
