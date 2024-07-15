@@ -1,4 +1,5 @@
-﻿using Explorer.API.Controllers.Author.Authoring;
+﻿using Explorer.API.Controllers.Author;
+using Explorer.API.Controllers.Author.Authoring;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Rating;
 using Microsoft.AspNetCore.Mvc;
