@@ -16,21 +16,5 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tourist
                 ControllerContext = BuildContext("-1")
             };
         }
-
-        /* [Fact]
-         public void RetrievesAllByPublicId()
-         {
-             //Arrange
-             using var scope = Factory.Services.CreateScope();
-             var controller = CreateController(scope);
-
-             //Act
-             var result = ((ObjectResult)controller.GetAllByPublicKeypointId(-5).Result);
-
-             //Assert
-             result.ShouldNotBe(null);
-             result.StatusCode.ShouldBe(200);
-         }*/
-
     }
 }
