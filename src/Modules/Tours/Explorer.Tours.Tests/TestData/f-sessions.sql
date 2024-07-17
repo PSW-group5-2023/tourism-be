@@ -35,7 +35,7 @@ VALUES (
     -21,
     2,
     0,
-    36,
+    34,
     CURRENT_TIMESTAMP,
     '[]',
     0
@@ -50,7 +50,7 @@ VALUES (
     2,
     0,
     36,
-    CURRENT_TIMESTAMP,
+    TIMESTAMP WITH TIME ZONE '2004-10-19 10:23:54+02',
     '[]',
     0
 );

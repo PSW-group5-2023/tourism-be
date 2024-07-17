@@ -3,6 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.UseCases;
 using FluentResults;
@@ -58,6 +59,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("recommended/{touristId:int}")]
         public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
+
             var result = _recommenderService.GetRecommendedToursByLocationForTourist(page, pageSize, touristId);
             return CreateResponse(result);
         }

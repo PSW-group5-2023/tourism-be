@@ -40,7 +40,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("tour/{tourId:int}")]
-        public ActionResult<PagedResult<TourRatingDto>> GetByTourId(int tourId)
+        public ActionResult<List<TourRatingDto>> GetByTourId(int tourId)
         {
             var result = _ratingService.GetByTourId(tourId);
             return CreateResponse(result);
