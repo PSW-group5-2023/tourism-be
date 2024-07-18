@@ -2,10 +2,13 @@
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Statistics;
+using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Rating;
+using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
+using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 
 
@@ -15,10 +18,14 @@ namespace Explorer.Tours.Core.UseCases.Rating
     {
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
-        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(repository, mapper)
+        private readonly ITourService _tourService;
+        private readonly IMapper _mapper;
+        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService, ITourService tourService) : base(repository, mapper)
         {
             _tourRatingRepository = tourRatingRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
+            _tourService = tourService;
+            _mapper = mapper;
         }
 
         public Result<List<TourRatingDto>> GetByTourId(int tourId)
@@ -73,6 +80,36 @@ namespace Explorer.Tours.Core.UseCases.Rating
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
+        }
+
+        public Result<double> GetAverageAuthorRating(int authorId)
+        {
+
+            try
+            {
+                List<TourDto> tours = _tourService.GetAllByAuthorId(authorId);
+                List<TourRatingDto> ratings = new List<TourRatingDto>();
+
+                foreach (var tour in tours)
+                {
+                    foreach (var rating in GetByTourId(tour.Id).Value)
+                    {
+                        ratings.Add(rating);
+                    }
+                }
+
+                if(ratings.Count == 0)
+                {
+                    return 0;
+                }
+
+                return (double)ratings.Sum(r => r.Mark)/ratings.Count;
+            }
+            catch(KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            
         }
     }
 }

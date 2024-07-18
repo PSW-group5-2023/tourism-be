@@ -19,5 +19,6 @@ namespace Explorer.Tours.API.Public.Rating
         Result<TourRatingDto> Update(TourRatingDto rating);
         Result<List<TourStatisticsDto>> GetBestRatedStatistics();
         Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId);
+        Result<double> GetAverageAuthorRating(int authorId);
     }
 }
