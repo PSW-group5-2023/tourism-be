@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.API.Dtos.Execution;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Public.Execution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace Explorer.API.Controllers.Execution
         }
 
         [HttpGet("getAllByTouristId/{id:long}")]
-        public ActionResult<SessionDto> GetAllByTouristId(long id)
+        public ActionResult<List<SessionDto>> GetAllByTouristId(long id)
         {
             var result = _sessionService.GetAllByTouristId(id);
             return CreateResponse(result);
@@ -79,7 +80,7 @@ namespace Explorer.API.Controllers.Execution
         }
 
         [HttpGet("getSessionsByTouristId/{touristId:long}")]
-        public ActionResult<SessionDto> GetPagedByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
+        public ActionResult<PagedResult<SessionDto>> GetPagedByTouristId(long touristId, [FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _sessionService.GetPagedByTouristId(touristId, page, pageSize);
             return CreateResponse(result);

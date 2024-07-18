@@ -61,6 +61,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId)
         {
+            var tourist = _personService.Get(touristId);
+            if(tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
+
             var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
             return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
@@ -118,6 +121,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId)
         {
+            var person = _personService.Get(userId);
+            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+
             var userFromFollowing = _followerService.GetFollowings(userId).Value;
             var users = new List<FollowerDto>();
 
@@ -232,6 +238,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId)
         {
+            var tourist = _personService.Get(touristId);
+            if (tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
             var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
             return GetActiveTours(MapToDomain(publishedTours.Value.Results));
@@ -290,6 +298,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<bool> SendEmail(int userId, string body)
         {
+            var person = _personService.GetNameById(userId);
+            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+
             var links = body.Split('|');
             string linksForSend = "";
             foreach (var link in links)
@@ -314,6 +325,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
+            var person = _personService.Get(userId);
+            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+
             var list = GetRecommendedToursFromFollowings(tourId, userId);
             PagedResult<TourDto> filteredList = new PagedResult<TourDto>(new List<TourDto>(), 0);
             foreach (var item in list.Value.Results)

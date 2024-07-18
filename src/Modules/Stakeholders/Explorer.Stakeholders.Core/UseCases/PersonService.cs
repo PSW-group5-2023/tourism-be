@@ -37,6 +37,19 @@ namespace Explorer.Stakeholders.Core.UseCases
             }
         }
 
+        public Result<PersonDto> GetByUserId(int id)
+        {
+            try
+            {
+                var result = _personRepository.GetByUserId(id);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
         public Result<List<PersonDto>> GetAllFollowers(int id)
         {
             return MapToDto(_personRepository.GetAllFollowers(id));

@@ -78,7 +78,7 @@ namespace Explorer.API.Controllers.Author
         }
 
         [HttpGet("public/{status}")]
-        public ActionResult<PagedResult<PublicFacilityDto>> GetByStatus(String status)
+        public ActionResult<List<PublicFacilityDto>> GetByStatus(String status)
         {
             var result = _publicFacilityService.GetByStatus(status);
             return CreateResponse(result);

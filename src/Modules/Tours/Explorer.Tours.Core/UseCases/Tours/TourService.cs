@@ -70,15 +70,25 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize)
         {
-            var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
-            return MapToDto(result);
+            try
+            {
+                var author = _internalPersonService.GetByUserId(authorId);
+                if (author.Value
+                    == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Author with id " + authorId + " doesnt exist");
+                var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
+                return MapToDto(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
         }
 
         public Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId)
         {
             if (tours.Count < 2)
             {
-                throw new ArgumentException("In order to create campaign, atleast 2 Tours have to be picked.");
+                return Result.Fail(FailureCode.InvalidArgument).WithError("In order to create campaign, atleast 2 Tours have to be picked.");
             }
 
             int difficulty = 0;
@@ -199,22 +209,20 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
         {
             var tours = _tourRepository.GetPaged(page, pageSize);
-            PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
 
             if (tags[0].Contains(","))
             {
                 tags = tags[0].Split(",");
             }
 
-            filteredTours.Results.AddRange(
-                tours.Results
+            var filteredResults = tours.Results
                     .Where(tour => (tour.Name.ToLower().Contains(name.ToLower()) || name.Equals("empty")) &&
                                    tags.All(tag => tour.Tags.Any(tourTag =>
                                        tourTag.ToLower() == tag.ToLower() || tag == "empty")))
                     .Select(MapToDto)
-            );
+                    .ToList();
 
-            return filteredTours;
+            return new PagedResult<TourDto>(new List<TourDto>(filteredResults), filteredResults.Count); ;
         }
 
         public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
