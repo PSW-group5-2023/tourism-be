@@ -33,127 +33,129 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using PeriodicTimer timer = new PeriodicTimer(_period);
 
-            while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
-            {
-                try
-                {
-                    List<TourDto> tours;
-                    List<UserNewsDto> usersToUpdate = new List<UserNewsDto>();
-                    using (var scope = _scopeFactory.CreateScope())
-                    {
-                        var myScopedService = scope.ServiceProvider.GetRequiredService<IInternalRecommenderService>();
-                        var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
-                        var personService = scope.ServiceProvider.GetRequiredService<IPersonService>();
-                        var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
+            //using PeriodicTimer timer = new PeriodicTimer(_period);
 
-                        var usersNews = userNewsService.GetPaged(0, 0).Value.Results.AsQueryable().AsNoTracking().ToList();
+            //while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
+            //{
+            //    try
+            //    {
+            //        List<TourDto> tours;
+            //        List<UserNewsDto> usersToUpdate = new List<UserNewsDto>();
+            //        using (var scope = _scopeFactory.CreateScope())
+            //        {
+            //            var myScopedService = scope.ServiceProvider.GetRequiredService<IRecommenderService>();
+            //            var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
+            //            var personService = scope.ServiceProvider.GetRequiredService<IPersonService>();
+            //            var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
 
-                        foreach (var userNews in usersNews)
-                        {
-                            DateTime dateTime = DateTime.UtcNow;
-                            DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                            long unixTime = (long)(dateTime - unixEpoch).TotalMilliseconds;
+            //            var usersNews = userNewsService.GetPaged(0, 0).Value.Results.AsQueryable().AsNoTracking().ToList();
 
-                            if (userNews.SendingPeriod == 0)
-                            {
-                                continue;
-                            }
-                            if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 86400000)
-                            {
-                                var reccommendedTours = myScopedService.GetRecommendedToursByLocationForTourist(0, 0, (int)userNews.TouristId);
-                                var toursForUserRecommended = reccommendedTours.Value.Results;
+            //            foreach (var userNews in usersNews)
+            //            {
+            //                DateTime dateTime = DateTime.UtcNow;
+            //                DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            //                long unixTime = (long)(dateTime - unixEpoch).TotalMilliseconds;
 
-                                var activeTours = myScopedService.GetActiveToursByLocationForTourist( 0, 0, (int)userNews.TouristId);
-                                var activeToursForUser = activeTours.Value.Results;
+            //                if (userNews.SendingPeriod == 0)
+            //                {
+            //                    continue;
+            //                }
+            //                if (unixTime - userNews.LastSendMs >= userNews.SendingPeriod * 86400000)
+            //                {
+            //                    var reccommendedTours = myScopedService.GetRecommendedToursByLocationForTourist(0, 0, (int)userNews.TouristId);
+            //                    var toursForUserRecommended = reccommendedTours.Value.Results;
 
-                                string toEmail = personService.Get((int)userNews.TouristId).Value.Email;
-                                string toNameAndSurname = personService.Get((int)userNews.TouristId).Value.Name + " " + personService.Get((int)userNews.TouristId).Value.Surname;
-                                try
-                                {
-                                    string emailSubject = $"TRAVELO Check out our latest updates.";
-                                    string emailBody = @"
-                                                            <html>
-                                                            <head>
-                                                                <style>
-                                                                    /* Add other inline styles for specific elements as needed */
-                                                                </style>
-                                                            </head>
-                                                            <body>
-                                                                <p>Dear " + toNameAndSurname + @",</p><br>
-                                                                <p>Thank you for being a valued user. We have some exciting news to share...</p><br>
-                                                                <h3>Recommended top 5 tours only for you!</h3>";
+            //                    var activeTours = myScopedService.GetActiveToursByLocationForTourist( 0, 0, (int)userNews.TouristId);
+            //                    var activeToursForUser = activeTours.Value.Results;
 
-                                    int i = 0;
-                                    foreach (var tour in toursForUserRecommended)
-                                    {
-                                        emailBody += $@"
-                                                        <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
-                                                            <div style=""flex: 1;"">
-                                                                <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
-                                                                <p>{tour.Price} RSD</p>
-                                                                <p>{tour.Description}</p>
-                                                            </div>
-                                                        </div>";
-                                        i++;
-                                        if (i == 5)
-                                        {
-                                            break;
-                                        }
-                                    }
+            //                    string toEmail = personService.Get((int)userNews.TouristId).Value.Email;
+            //                    string toNameAndSurname = personService.Get((int)userNews.TouristId).Value.Name + " " + personService.Get((int)userNews.TouristId).Value.Surname;
+            //                    try
+            //                    {
+            //                        string emailSubject = $"TRAVELO Check out our latest updates.";
+            //                        string emailBody = @"
+            //                                                <html>
+            //                                                <head>
+            //                                                    <style>
+            //                                                        /* Add other inline styles for specific elements as needed */
+            //                                                    </style>
+            //                                                </head>
+            //                                                <body>
+            //                                                    <p>Dear " + toNameAndSurname + @",</p><br>
+            //                                                    <p>Thank you for being a valued user. We have some exciting news to share...</p><br>
+            //                                                    <h3>Recommended top 5 tours only for you!</h3>";
 
-                                    emailBody += @"<h3>Look at our top 5 active tours:</h3>";
+            //                        int i = 0;
+            //                        foreach (var tour in toursForUserRecommended)
+            //                        {
+            //                            emailBody += $@"
+            //                                            <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
+            //                                                <div style=""flex: 1;"">
+            //                                                    <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
+            //                                                    <p>{tour.Price} RSD</p>
+            //                                                    <p>{tour.Description}</p>
+            //                                                </div>
+            //                                            </div>";
+            //                            i++;
+            //                            if (i == 5)
+            //                            {
+            //                                break;
+            //                            }
+            //                        }
 
-                                    int j = 0;
-                                    foreach (var tour in activeToursForUser)
-                                    {
-                                        emailBody += $@"
-                                                        <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
-                                                            <div style=""flex: 1;"">
-                                                                <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
-                                                                <p>{tour.Price} RSD</p>
-                                                                <p>{tour.Description}</p>
-                                                            </div>
-                                                        </div>";
-                                        j++;
-                                        if (j == 5)
-                                        {
-                                            break;
-                                        }
-                                    }
+            //                        emailBody += @"<h3>Look at our top 5 active tours:</h3>";
 
-                                    emailBody += @"
-                                                    </body>
-                                                    </html>";
+            //                        int j = 0;
+            //                        foreach (var tour in activeToursForUser)
+            //                        {
+            //                            emailBody += $@"
+            //                                            <div style=""display: flex; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background-color: #f0f0f0;"">
+            //                                                <div style=""flex: 1;"">
+            //                                                    <p style=""font-size: 18px; font-weight: bold;"">{tour.Name}</p>
+            //                                                    <p>{tour.Price} RSD</p>
+            //                                                    <p>{tour.Description}</p>
+            //                                                </div>
+            //                                            </div>";
+            //                            j++;
+            //                            if (j == 5)
+            //                            {
+            //                                break;
+            //                            }
+            //                        }
 
-                                    emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody, isBodyHtml: true);
-                                    UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
-                                    usersToUpdate.Add(news);
-                                }
-                                catch (Exception ex) { _logger.LogInformation($"GRESKAGRESKAGRGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA u bloku {ex.Message}. Good luck next round!"); }
-                            }
-                        }
+            //                        emailBody += @"
+            //                                        </body>
+            //                                        </html>";
 
-                    }
-                    using (var scope = _scopeFactory.CreateScope())
-                    {
-                        var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
+            //                        emailScopedService.SendEmailAsync(toEmail, emailSubject, emailBody, isBodyHtml: true);
+            //                        UserNewsDto news = new UserNewsDto(userNews.Id, userNews.TouristId, unixTime, userNews.SendingPeriod);
+            //                        usersToUpdate.Add(news);
+            //                    }
+            //                    catch (Exception ex) { _logger.LogInformation($"GRESKAGRESKAGRGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA u bloku {ex.Message}. Good luck next round!"); }
+            //                }
+            //            }
 
-                        var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
-                        foreach (var news in usersToUpdate.ToList())
-                        {
-                            userNewsService.Update(news);
-                            _logger.LogInformation($"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE updated {news.Id}");
-                        }
-                    }
+            //        }
+            //        using (var scope = _scopeFactory.CreateScope())
+            //        {
+            //            var emailScopedService = scope.ServiceProvider.GetRequiredService<IEmailSendingService>();
 
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogInformation($"GRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA to execute PeriodicHostedService with exception message {ex.Message}. Good luck next round!");
-                }
-            }
+            //            var userNewsService = scope.ServiceProvider.GetRequiredService<IUserNewsService>();
+            //            foreach (var news in usersToUpdate.ToList())
+            //            {
+            //                userNewsService.Update(news);
+            //                _logger.LogInformation($"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE updated {news.Id}");
+            //            }
+            //        }
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        _logger.LogInformation($"GRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA to execute PeriodicHostedService with exception message {ex.Message}. Good luck next round!");
+            //    }
+            //}
+
         }
 
 
