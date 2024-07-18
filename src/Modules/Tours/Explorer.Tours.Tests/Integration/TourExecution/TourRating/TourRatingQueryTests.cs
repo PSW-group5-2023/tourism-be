@@ -119,9 +119,9 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             };
         }
 
-        private static Explorer.API.Controllers.Author.Authoring.TourRatingController CreateAuthorController(IServiceScope scope)
+        private static Explorer.API.Controllers.Author.TourRatingController CreateAuthorController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Author.Authoring.TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>())
+            return new Explorer.API.Controllers.Author.TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>())
             {
                 ControllerContext = BuildContext("-1")
             };
