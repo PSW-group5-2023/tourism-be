@@ -54,8 +54,6 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-
-            
             var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
             var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);

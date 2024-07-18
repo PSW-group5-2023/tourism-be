@@ -2,8 +2,6 @@
 using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
-using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
+using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Public.Tour;
+using Explorer.Tours.API.Internal;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
@@ -32,6 +33,7 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
             //using PeriodicTimer timer = new PeriodicTimer(_period);
 
             //while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
@@ -153,6 +155,7 @@ namespace Explorer.Stakeholders.Core.UseCases
             //        _logger.LogInformation($"GRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKAGRESKA to execute PeriodicHostedService with exception message {ex.Message}. Good luck next round!");
             //    }
             //}
+
         }
 
 

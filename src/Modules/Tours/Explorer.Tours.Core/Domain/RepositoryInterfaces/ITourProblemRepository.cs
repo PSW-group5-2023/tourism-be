@@ -1,9 +1,4 @@
-﻿using Explorer.Tours.API.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Explorer.Tours.Core.Domain.Problem;
 
 namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {
@@ -13,6 +8,5 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
         List<TourProblem> GetByTourId(long tourId);
         TourProblem GiveDeadline(DateTime deadline, long tourProblemId);
         TourProblem PunishAuthor(string authorUsername, long tourId, long tourProblemId);
-
     }
 }

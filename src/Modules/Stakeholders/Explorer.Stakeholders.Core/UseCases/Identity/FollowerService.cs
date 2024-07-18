@@ -2,6 +2,7 @@
 using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
 using Explorer.Stakeholders.Core.Domain;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases.Identity
 {
-    public class FollowerService : BaseService<FollowerDto, Follower>, IFollowerService
+    public class FollowerService : BaseService<FollowerDto, Follower>, IFollowerService, IInternalFollowerService
     {
         private readonly IFollowerRepository _followerRepository;
         private readonly IPersonRepository _personRepository;

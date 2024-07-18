@@ -23,7 +23,14 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public Result<UserNewsDto> GetByTouristId(int touristId)
         {
-            return MapToDto(_userNewsRepository.GetByTouristId(touristId));
+            try
+            {
+                return MapToDto(_userNewsRepository.GetByTouristId(touristId));
+            }
+            catch(Exception e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
         }
     }
 }

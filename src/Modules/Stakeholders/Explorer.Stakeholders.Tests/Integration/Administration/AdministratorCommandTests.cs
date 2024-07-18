@@ -52,6 +52,30 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
             var oldEntity = dbContext.Users.FirstOrDefault(u => u.IsActive == true && u.Username== "autor2@gmail.com");
             oldEntity.ShouldBeNull();
         }
+
+        [Fact]
+        public void Update_fails_invalid_id()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var updatedEntity = new UserDto
+            {
+                Id = -10000,
+                Username = "autor2@gmail.com",
+                Password = "autor2",
+                Role = "Author",
+                IsActive = true
+            };
+
+            // Act
+            var result = (ObjectResult)controller.Update(updatedEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(404);
+        }
+
         private static UserInformationController CreateController(IServiceScope scope)
         {
             return new UserInformationController(scope.ServiceProvider.GetRequiredService<IUserInformationService>(), scope.ServiceProvider.GetRequiredService<IPersonInformationService>(), scope.ServiceProvider.GetRequiredService<IUserActivityService>(), scope.ServiceProvider.GetRequiredService<IWalletService>())

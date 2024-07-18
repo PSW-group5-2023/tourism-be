@@ -4,6 +4,7 @@ using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+using Explorer.Tours.API.Internal;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    public class PersonService : BaseService<PersonDto, Person>, IPersonService
+    public class PersonService : BaseService<PersonDto, Person>, IPersonService, IInternalPersonService
     {
         private readonly IPersonRepository _personRepository;
         private readonly IUserRepository _userRepository;
@@ -28,6 +29,19 @@ namespace Explorer.Stakeholders.Core.UseCases
             try
             {
                 var result = _personRepository.Get(id);
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<PersonDto> GetByUserId(int id)
+        {
+            try
+            {
+                var result = _personRepository.GetByUserId(id);
                 return MapToDto(result);
             }
             catch (KeyNotFoundException e)

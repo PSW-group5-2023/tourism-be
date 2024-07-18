@@ -4,7 +4,6 @@ using Explorer.Payments.API.Public;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Tours.API.Dtos;
-using Explorer.Tours.API.Public.Administration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -36,6 +35,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Administration
             result.Results.Count.ShouldBe(7);
             result.TotalCount.ShouldBe(9);
         }
+
         private static UserInformationController CreateController(IServiceScope scope)
         {
             return new UserInformationController(scope.ServiceProvider.GetRequiredService<IUserInformationService>(), scope.ServiceProvider.GetRequiredService<IPersonInformationService>(),scope.ServiceProvider.GetRequiredService<IUserActivityService>(), scope.ServiceProvider.GetRequiredService<IWalletService>())

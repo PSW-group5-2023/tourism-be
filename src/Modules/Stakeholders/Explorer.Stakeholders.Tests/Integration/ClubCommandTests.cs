@@ -104,7 +104,7 @@ namespace Explorer.Stakeholders.Tests.Integration
         }
 
         [Fact]
-        public void UpdateFailsInvalidValue()
+        public void Update_fails_invalid_value()
         {
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
@@ -123,7 +123,7 @@ namespace Explorer.Stakeholders.Tests.Integration
         }
 
         [Fact]
-        public void UpdateFailInvalidId()
+        public void Update_fail_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -147,7 +147,7 @@ namespace Explorer.Stakeholders.Tests.Integration
         }
 
         [Fact]
-        public void Deletes()
+        public void Delete()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -166,7 +166,8 @@ namespace Explorer.Stakeholders.Tests.Integration
             storedCourse.ShouldBeNull();
         }
 
-        public void DeleteFailsInvalidId()
+        [Fact]
+        public void Delete_fails_invalid_id()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();

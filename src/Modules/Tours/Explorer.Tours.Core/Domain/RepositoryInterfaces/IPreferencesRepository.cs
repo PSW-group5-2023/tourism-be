@@ -1,5 +1,4 @@
-﻿
-using Explorer.Tours.Core.Domain;
+﻿using Explorer.Tours.Core.Domain.Tours;
 
 namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 {

@@ -19,9 +19,11 @@ namespace Explorer.Stakeholders.Tests.Integration.People
     {
         public AuthorQueryTests(StakeholdersTestFactory factory) : base(factory) { }
 
+
         [Fact]
         public void Get_authors_and_tourists()
         {
+            // Arrange
             using var scope = Factory.Services.CreateScope();
             var controller = CreateController(scope);
 
@@ -32,6 +34,37 @@ namespace Explorer.Stakeholders.Tests.Integration.People
             result.ShouldNotBeNull();
             result.Count.ShouldBe(7);
         }
+
+        [Fact]
+        public void Get_all_followers()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFollowers(-12).Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(2);
+        }
+
+        [Fact]
+        public void Get_all_followings()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFollowings(-22).Result)?.Value as List<PersonDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(1);
+        }
+
 
         [Fact]
         public void Get_by_id()

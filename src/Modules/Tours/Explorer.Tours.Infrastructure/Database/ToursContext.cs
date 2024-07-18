@@ -1,19 +1,21 @@
-﻿using Explorer.Blog.Core.Domain;
-using Explorer.BuildingBlocks.Core.Domain;
-using Explorer.Stakeholders.Core.Domain;
-using Explorer.Tours.Core.Domain;
+﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
+using Explorer.Tours.Core.Domain.Equipment;
+using Explorer.Tours.Core.Domain.Problem;
+using Explorer.Tours.Core.Domain.Rating;
+using Explorer.Tours.Core.Domain.Facilities;
 
 namespace Explorer.Tours.Infrastructure.Database;
 
 public class ToursContext : DbContext
 {
-    public DbSet<Tour> Tour { get; set; }
+    public DbSet<Tour> Tours { get; set; }
     public DbSet<Equipment> Equipment { get; set; }
-    public DbSet<TourKeyPoint> TourKeyPoints { get; set; }
+    public DbSet<Checkpoint> Checkpoints { get; set; }
+    public DbSet<PublicCheckpoint> PublicCheckpoints { get; set; }
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<TourRating> TourRatings { get; set; }
     public DbSet<TourProblem> TourProblems { get; set; }
@@ -21,7 +23,6 @@ public class ToursContext : DbContext
     public DbSet<Session> Sessions { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
     public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
-    public DbSet<PublicTourKeyPoints> PublicTourKeyPoints { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
 
 
@@ -34,10 +35,6 @@ public class ToursContext : DbContext
 
         modelBuilder.Entity<Session>().Property(item => item.CompletedKeyPoints).HasColumnType("jsonb");
 
-        modelBuilder.Entity<PositionSimulator>()
-            .HasIndex(ps => ps.TouristId)
-            .IsUnique();
-
         ConfigureTour(modelBuilder);
     }
 
@@ -48,9 +45,9 @@ public class ToursContext : DbContext
             .HasColumnType("jsonb");
 
         modelBuilder.Entity<Tour>()
-            .HasMany(t => t.KeyPoints)
+            .HasMany(t => t.Checkpoints)
             .WithOne()
-            .HasForeignKey(kp => kp.TourId);
+            .HasForeignKey(cp => cp.TourId);
 
         modelBuilder.Entity<Session>()
             .HasOne<Tour>()
