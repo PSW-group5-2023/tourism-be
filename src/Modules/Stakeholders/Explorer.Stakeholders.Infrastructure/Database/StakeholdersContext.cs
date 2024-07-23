@@ -15,8 +15,8 @@ public class StakeholdersContext : DbContext
     public DbSet<JoinRequest> JoinRequests { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Follower> Followers { get; set; }
-
     public DbSet<UserNews> UserNews { get; set; }
+    public DbSet<GuestUser> GuestUsers { get; set; }
 
     public StakeholdersContext(DbContextOptions<StakeholdersContext> options) : base(options) {}
 
@@ -27,6 +27,8 @@ public class StakeholdersContext : DbContext
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
         modelBuilder.Entity<Follower>().Property(item => item.Notification).HasColumnType("jsonb");
+
+        modelBuilder.Entity<GuestUser>().HasIndex(gu => gu.Username).IsUnique();
 
         ConfigureStakeholder(modelBuilder); 
     }

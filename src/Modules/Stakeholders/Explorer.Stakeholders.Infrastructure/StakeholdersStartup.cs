@@ -53,7 +53,7 @@ public static class StakeholdersStartup
         services.AddScoped<IUserNewsService, UserNewsService>();
         services.AddScoped<IInternalFollowerService,FollowerService>();
         services.AddScoped<IInternalPersonService, PersonService>();
-
+        services.AddScoped<IGuestUserService, GuestUserService>();
 
     }
 
@@ -76,7 +76,7 @@ public static class StakeholdersStartup
         services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped(typeof(ICrudRepository<UserNews>), typeof(CrudDatabaseRepository<UserNews, StakeholdersContext>));
         services.AddScoped<IUserNewsRepository, UserNewsRepository>();
-
+        services.AddScoped(typeof(ICrudRepository<GuestUser>), typeof(CrudDatabaseRepository<GuestUser, StakeholdersContext>));
 
         services.AddDbContext<StakeholdersContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("stakeholders"),

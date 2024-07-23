@@ -25,7 +25,7 @@ public static class CorsConfiguration
 
     private static string[] ParseCorsOrigins()
     {
-        var corsOrigins = new[] { "http://localhost:8080", "http://localhost:4200" };
+        var corsOrigins = new[] { "http://localhost:4200" };
         var corsOriginsPath = Environment.GetEnvironmentVariable("EXPLORER_CORS_ORIGINS");
         if (File.Exists(corsOriginsPath))
         {
