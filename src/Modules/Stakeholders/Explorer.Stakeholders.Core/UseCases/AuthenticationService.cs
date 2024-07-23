@@ -9,11 +9,11 @@ using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Stakeholders.API.Internal;
 using System;
 using System.Data.SqlTypes;
-
+using AutoMapper;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationService : BaseService<UserDto, User>, IAuthenticationService
 {
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -22,7 +22,7 @@ public class AuthenticationService : IAuthenticationService
     private readonly IPersonRepository _personeRep;
 
     public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator,
-        IEmailSendingService emailSendingService, IPersonRepository personeRep)
+        IEmailSendingService emailSendingService, IPersonRepository personeRep, IMapper mapper) : base(mapper)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
@@ -45,10 +45,10 @@ public class AuthenticationService : IAuthenticationService
         {
             personId = 0;
         }
-        return _tokenGenerator.GenerateAccessToken(user, personId);
+        return _tokenGenerator.GenerateTokens(user, personId);
     }
 
-    public Result<AuthenticationTokensDto> RegisterTourist(AccountRegistrationDto account)
+    public Result<UserDto> RegisterTourist(AccountRegistrationDto account)
     {
         if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
@@ -57,11 +57,8 @@ public class AuthenticationService : IAuthenticationService
             var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
             var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
-            user.EmailVerificationToken = emailVerificationToken;
-            user = _userRepository.Update(user);
 
-            sendVerificationEmail(person, emailVerificationToken);
-            return _tokenGenerator.GenerateAccessToken(user, person.Id);
+            return MapToDto(user);
         }
         catch (ArgumentException e)
         {
@@ -192,8 +189,6 @@ public class AuthenticationService : IAuthenticationService
         user = _userRepository.Update(user);
     }
 
-
-
     private Result<string> sendVerificationEmail(Person person, string token)
     {
         try
@@ -253,7 +248,7 @@ public class AuthenticationService : IAuthenticationService
 
 
 
-            return _tokenGenerator.GenerateAccessToken(user, person.Id); ;
+            return _tokenGenerator.GenerateTokens(user, person.Id); ;
 
         }
         catch (Exception ex)

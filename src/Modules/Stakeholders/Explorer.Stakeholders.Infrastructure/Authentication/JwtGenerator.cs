@@ -15,7 +15,7 @@ public class JwtGenerator : ITokenGenerator
     private readonly string _issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "explorer";
     private readonly string _audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "explorer-front.com";
 
-    public Result<AuthenticationTokensDto> GenerateAccessToken(User user, long personId)
+    public Result<AuthenticationTokensDto> GenerateTokens(User user, long personId)
     {
         var authenticationResponse = new AuthenticationTokensDto();
 
@@ -28,7 +28,7 @@ public class JwtGenerator : ITokenGenerator
             new(ClaimTypes.Role, user.GetPrimaryRoleName())
         };
 
-        var jwt = CreateToken(claims, 60 * 24);
+        var jwt = CreateToken(claims, 24 * 60);
         authenticationResponse.Id = user.Id;
         authenticationResponse.AccessToken = jwt;
 

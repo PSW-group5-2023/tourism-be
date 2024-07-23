@@ -28,7 +28,7 @@ public class AuthenticationController : BaseApiController
     }
 
     [HttpPost]
-    public ActionResult<AuthenticationTokensDto> RegisterTourist([FromBody] AccountRegistrationDto account)
+    public ActionResult<UserDto> RegisterTourist([FromBody] AccountRegistrationDto account)
     {
         try
         {
