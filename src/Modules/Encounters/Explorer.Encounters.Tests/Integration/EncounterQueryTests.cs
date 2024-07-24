@@ -95,7 +95,7 @@ namespace Explorer.Encounters.Tests.Integration
 
         private static Explorer.API.Controllers.Tourist.EncounterController CreateTouristController(IServiceScope scope, string userId)
         {
-            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
+            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>(), scope.ServiceProvider.GetRequiredService<IQuestionService>())
             {
                 ControllerContext = BuildEncounterContext(userId)
             };

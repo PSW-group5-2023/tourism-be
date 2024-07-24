@@ -11,10 +11,12 @@ namespace Explorer.API.Controllers.Tourist
     public class EncounterController : BaseApiController
     {
         private readonly IEncounterService _encounterService;
+        private readonly IQuestionService _questionService;
 
-        public EncounterController(IEncounterService encounterService)
+        public EncounterController(IEncounterService encounterService, IQuestionService questionService)
         {
             _encounterService = encounterService;
+            _questionService = questionService;
         }
 
         [HttpGet("public")]
@@ -85,6 +87,14 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<EncounterDto> Get(long id)
         {
             var result = _encounterService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("forTourist/{checkpointId:int}")]
+        public ActionResult<QuizTouristMobileDto> GetByCheckpointTourist(int checkpointId)
+        {
+            var result= _questionService.GetQuestionsByCheckpointId(checkpointId);
             return CreateResponse(result);
         }
     }

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Explorer.BuildingBlocks.Core\Explorer.BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\..\Achievements\Explorer.Achievements.API\Explorer.Achievements.API.csproj" />
   </ItemGroup>
 
 </Project>

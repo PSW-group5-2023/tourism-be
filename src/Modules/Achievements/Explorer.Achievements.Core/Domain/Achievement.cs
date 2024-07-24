@@ -35,11 +35,10 @@ namespace Explorer.Achievements.Core.Domain
 
         public enum RarityCategories
         {
-            Common,
-            Rare,
-            Epic,
-            Legendary
-
+            COMMON,
+            RARE,
+            EPIC,
+            LEGENDARY
         }
     }
 }
