@@ -10,6 +10,7 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.API.Dtos.Equipment;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
@@ -19,6 +20,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
         private readonly ICheckpointService _checkpointService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IInternalPersonService _internalPersonService;
+        protected readonly IMapper _mapper;
+
 
         public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService,
             IInternalBoughtItemService internalBoughtItemService,
@@ -28,6 +31,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             _checkpointService = checkpointService;
             _internalBoughtItemService = internalBoughtItemService;
             _internalPersonService = internalPersonService;
+            _mapper = mapper;
         }
 
         public Result<TourDto> Archive(int id, int userId)
@@ -290,6 +294,28 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             return MapToDto(_tourRepository.Get(id));
         }
-    }
 
+        public Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize)
+        {
+            var result = CrudRepository.GetPaged(page, pageSize);
+            var mappedResult = result.Results.Select(tour => _mapper.Map<TourMobileDto>(tour)).ToList();
+            var pagedResult = new PagedResult<TourMobileDto>(mappedResult, result.TotalCount);
+            return Result.Ok(pagedResult);
+        }
+
+
+        public Result<TourMobileDto> GetMobile(int id)
+        {
+            try
+            {
+                var result = CrudRepository.Get(id); 
+                var tourTouristDto = _mapper.Map<TourMobileDto>(result);
+                return Result.Ok(tourTouristDto);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+    }
 }

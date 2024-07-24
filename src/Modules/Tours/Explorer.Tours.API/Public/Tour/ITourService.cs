@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Xml.Linq;
@@ -9,10 +10,12 @@ namespace Explorer.Tours.API.Public.Tour
     public interface ITourService
     {
         Result<PagedResult<TourDto>> GetPaged(int page, int pageSize);
+        Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize);
         Result<TourDto> Create(TourDto tour);
         Result<TourDto> Update(TourDto tour);
         Result Delete(int id);
         Result<TourDto> Get(int id);
+        Result<TourMobileDto> GetMobile(int id);
         Result<TourDto> GetById(long id);
         Result<TourDto> Publish(int id, int userId);
         Result<TourDto> Archive(int id, int userId);
