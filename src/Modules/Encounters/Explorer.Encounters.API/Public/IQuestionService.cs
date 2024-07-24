@@ -2,6 +2,7 @@
 using FluentResults;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace Explorer.Encounters.API.Public
         Result<QuestionDto> Create(QuestionDto questionDto);
         Result Delete(int id);
         Result<List<QuestionDto>> GetAllByEncounterId(long encounterId);
+        Result<QuizTouristMobileDto> GetQuestionsByCheckpointId(int checkpointId);
     }
 }

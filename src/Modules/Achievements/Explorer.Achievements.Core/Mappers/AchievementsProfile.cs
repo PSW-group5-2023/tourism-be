@@ -16,6 +16,9 @@ namespace Explorer.Achievements.Core.Mappers
         {
             CreateMap<AchievementDto, Achievement>().ReverseMap();
             CreateMap<InventoryDto, Inventory>().ReverseMap();
+            CreateMap<AchievementTouristMobileDto, Achievement>().ReverseMap()
+                .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => src.Icon.ToString()))
+                .ForMember(dest => dest.Rarity, opt => opt.MapFrom(src => src.Rarity.ToString()));
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Internal;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using Explorer.Encounters.API.Public;
@@ -19,16 +21,16 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IEncounterExecutionService _encounterExecutionService;
         private readonly IMapper _mapper;
         private readonly IInternalCheckpointService _internalCheckpointService;
-        private readonly IQuestionService _questionService;
+        
 
-        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalCheckpointService internalCheckpointService, IQuestionService questionService) : base(encounterRepository, mapper)
+        public EncounterService(IEncounterRepository encounterRepository, IMapper mapper, IUserExperienceService userExperienceService, IEncounterExecutionService encounterExecutionService, IInternalCheckpointService internalCheckpointService) : base(encounterRepository, mapper)
         {
             _encounterRepository = encounterRepository;
             _userExperienceService = userExperienceService;
             _encounterExecutionService = encounterExecutionService;
             _mapper = mapper;
             _internalCheckpointService = internalCheckpointService;
-            _questionService = questionService;
+            
         }
 
 
@@ -393,5 +395,11 @@ namespace Explorer.Encounters.Core.UseCases
                 CorrectAnswersPercentage = null
             });
         }
+        public Result<EncounterDto> GetEncounterByCheckpointId(int checkPointId)
+        {
+            return MapToDto(_encounterRepository.GetByCheckpointId(checkPointId));
+        }
+
+        
     }
 }

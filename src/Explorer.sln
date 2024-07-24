@@ -52,6 +52,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Encounters.API", "Modules\Encounters\Explorer.Encounters.API\Explorer.Encounters.API.csproj", "{439D4C3C-2446-4146-8B35-EDE02A5E4DD7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Encounters.Core", "Modules\Encounters\Explorer.Encounters.Core\Explorer.Encounters.Core.csproj", "{959E466B-00FE-4228-96E6-CF5D5A7B25A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E30D0BF-039A-4F4E-86C8-33494FFDA197} = {5E30D0BF-039A-4F4E-86C8-33494FFDA197}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Encounters.Infrastructure", "Modules\Encounters\Explorer.Encounters.Infrastructure\Explorer.Encounters.Infrastructure.csproj", "{94FA3E22-83F3-43AA-AAC5-671AC5352698}"
 EndProject
@@ -69,13 +72,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Payments.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Achievements", "Achievements", "{8CA6D479-C5C9-4088-8353-72EE3C59F04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Achievements.API", "Modules\Achievements\Explorer.Achievements.API\Explorer.Achievements.API.csproj", "{5E30D0BF-039A-4F4E-86C8-33494FFDA197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Achievements.API", "Modules\Achievements\Explorer.Achievements.API\Explorer.Achievements.API.csproj", "{5E30D0BF-039A-4F4E-86C8-33494FFDA197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Achievements.Core", "Modules\Achievements\Explorer.Achievements.Core\Explorer.Achievements.Core.csproj", "{36C7FC5C-EF69-4C8A-B0DD-A60C4687B120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Achievements.Core", "Modules\Achievements\Explorer.Achievements.Core\Explorer.Achievements.Core.csproj", "{36C7FC5C-EF69-4C8A-B0DD-A60C4687B120}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Achievements.Infrastructure", "Modules\Achievements\Explorer.Achievements.Infrastructure\Explorer.Achievements.Infrastructure.csproj", "{26FB02B4-09B3-4456-89DC-904E85C4D36A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Achievements.Infrastructure", "Modules\Achievements\Explorer.Achievements.Infrastructure\Explorer.Achievements.Infrastructure.csproj", "{26FB02B4-09B3-4456-89DC-904E85C4D36A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorer.Achievements.Tests", "Modules\Achievements\Explorer.Achievements.Tests\Explorer.Achievements.Tests.csproj", "{F03777A7-7D3F-483D-9981-C049015DEB22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Explorer.Achievements.Tests", "Modules\Achievements\Explorer.Achievements.Tests\Explorer.Achievements.Tests.csproj", "{F03777A7-7D3F-483D-9981-C049015DEB22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
