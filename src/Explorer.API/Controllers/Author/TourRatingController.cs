@@ -50,7 +50,6 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-
         [HttpGet("getBestRatedStats")]
         public ActionResult<List<TourStatisticsDto>> GetBestRatedStatistics()
         {

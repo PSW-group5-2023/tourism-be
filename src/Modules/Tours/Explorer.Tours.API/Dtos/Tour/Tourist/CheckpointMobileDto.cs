@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos.Tour.Tourist
 {
-    public class TourMobileDto
+    public class CheckpointMobileDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<CheckpointDto> Checkpoints { get; set; }
-        public List<string>? Images { get; set; }
-        public double Price { get; set; }
-        public double Rating { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        //public List<QuizTouristMobileDto>? Questions { get; set; }
+        //public AchievementTouristMobileDto AchievementTouristMobileDto { get; set; }
+
+
 
     }
- }
+}
