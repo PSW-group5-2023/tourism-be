@@ -2,6 +2,7 @@
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Rating;
+using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.UseCases.Rating;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace Explorer.API.Controllers.Author
     public class TourRatingController: BaseApiController
     {
         private readonly ITourRatingService _ratingService;
+        private readonly ITourService _tourService;
 
-        public TourRatingController(ITourRatingService ratingService)
+        public TourRatingController(ITourRatingService ratingService, ITourService tourService)
         {
             _ratingService = ratingService;
+            _tourService = tourService;
         }
 
         [HttpGet]
@@ -36,9 +39,17 @@ namespace Explorer.API.Controllers.Author
         [HttpGet("average/{authorId:int}")]
         public ActionResult<double> GetAverageAuthorRating(int authorId)
         {
-            var result = _ratingService.GetAverageAuthorRating(authorId);
+            var tours = _tourService.GetAllByAuthorId(authorId);
+
+            if (tours == null || !tours.Any())
+            {
+                return NotFound();
+            }
+
+            var result = _ratingService.GetAverageAuthorRating(tours);
             return CreateResponse(result);
         }
+
 
         [HttpGet("getBestRatedStats")]
         public ActionResult<List<TourStatisticsDto>> GetBestRatedStatistics()

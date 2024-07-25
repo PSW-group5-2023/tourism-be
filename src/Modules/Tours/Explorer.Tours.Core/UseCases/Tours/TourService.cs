@@ -11,6 +11,7 @@ using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Dtos.Tour.Tourist;
+using Explorer.Tours.API.Public.Rating;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
@@ -18,17 +19,19 @@ namespace Explorer.Tours.Core.UseCases.Tours
     {
         private readonly ITourRepository _tourRepository;
         private readonly ICheckpointService _checkpointService;
+        private readonly ITourRatingService _tourRatingService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IInternalPersonService _internalPersonService;
         protected readonly IMapper _mapper;
 
 
-        public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService,
+        public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService, ITourRatingService tourRatingService,
             IInternalBoughtItemService internalBoughtItemService,
             IInternalPersonService internalPersonService) : base(repository, mapper)
         {
             _tourRepository = repository;
             _checkpointService = checkpointService;
+            _tourRatingService = tourRatingService;
             _internalBoughtItemService = internalBoughtItemService;
             _internalPersonService = internalPersonService;
             _mapper = mapper;
@@ -299,23 +302,53 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             var result = CrudRepository.GetPaged(page, pageSize);
             var mappedResult = result.Results.Select(tour => _mapper.Map<TourMobileDto>(tour)).ToList();
+
+            foreach (var tour in mappedResult)
+            {
+                var ratingResult = _tourRatingService.GetAverageTourRating((int)tour.Id);
+                if (ratingResult.IsSuccess)
+                {
+                    tour.Rating = ratingResult.Value;
+                }
+                else
+                {
+                    tour.Rating = 0;
+                }
+            }
+
             var pagedResult = new PagedResult<TourMobileDto>(mappedResult, result.TotalCount);
             return Result.Ok(pagedResult);
         }
-
 
         public Result<TourMobileDto> GetMobile(int id)
         {
             try
             {
-                var result = CrudRepository.Get(id); 
-                var tourTouristDto = _mapper.Map<TourMobileDto>(result);
-                return Result.Ok(tourTouristDto);
+                var result = CrudRepository.Get(id);
+                if (result == null)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError("Tour not found.");
+                }
+
+                var tourMobileDto = _mapper.Map<TourMobileDto>(result);
+
+                var ratingResult = _tourRatingService.GetAverageTourRating(id);
+                if (ratingResult.IsSuccess)
+                {
+                    tourMobileDto.Rating = ratingResult.Value;
+                }
+                else
+                {
+                    tourMobileDto.Rating = 0;
+                }
+
+                return Result.Ok(tourMobileDto);
             }
             catch (KeyNotFoundException e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
     }
 }
