@@ -15,5 +15,13 @@ namespace Explorer.Achievements.API.Dtos
         public string Rarity { get; set; }
         public List<int> CraftingRecipe { get; set; }
         public AchievementTouristMobileDto() { }
+        public AchievementTouristMobileDto(AchievementDto achievementDto) 
+        {
+            this.Id= achievementDto.Id;
+            this.Name= achievementDto.Name;
+            this.Description= achievementDto.Description;
+            this.Icon=achievementDto.Icon.ToString();
+            this.CraftingRecipe = achievementDto.CraftingRecipe;
+        }
     }
 }

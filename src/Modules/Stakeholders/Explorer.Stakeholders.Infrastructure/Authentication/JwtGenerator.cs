@@ -24,7 +24,7 @@ public class JwtGenerator : ITokenGenerator
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("id", user.Id.ToString()),
             new("username", user.Username),
-            new("personId", personId.ToString()),
+            //new("personId", personId.ToString()),
             new(ClaimTypes.Role, user.GetPrimaryRoleName())
         };
 

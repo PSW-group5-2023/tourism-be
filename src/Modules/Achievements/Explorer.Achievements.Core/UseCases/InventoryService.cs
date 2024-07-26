@@ -34,5 +34,10 @@ namespace Explorer.Achievements.Core.UseCases
 
             return AddAchievementToInventory(inventory, complexAchievement.Value.Id);
         }
+
+        public Result<InventoryDto> GetByUserId(int userId)
+        { 
+            return MapToDto(CrudRepository.GetPaged(0,0).Results.Where(x=>x.UserId == userId).FirstOrDefault());
+        }
     }
 }

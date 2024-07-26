@@ -16,6 +16,7 @@ namespace Explorer.Achievements.Core.UseCases
     public class AchievementService : CrudService<AchievementDto, Achievement>, IAchievementService
     {
         public IAchievementRepository _achievementRepository;
+        
         public AchievementService(ICrudRepository<Achievement> crudRepository, IMapper mapper, IAchievementRepository achievementRepository) : base(crudRepository, mapper)
         {
             _achievementRepository = achievementRepository;
@@ -53,6 +54,14 @@ namespace Explorer.Achievements.Core.UseCases
             var dict2 = list2.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
 
             return dict1.Count == dict2.Count && !dict1.Except(dict2).Any();
+        }
+
+        public Result<AchievementTouristMobileDto> GetMobile(int id)
+        {
+            var achievementsBase = _achievementRepository.Get(id);
+            AchievementTouristMobileDto achievementTouristMobileDto = new AchievementTouristMobileDto(MapToDto(achievementsBase));
+            achievementTouristMobileDto.Rarity = achievementsBase.Rarity.ToString();
+            return achievementTouristMobileDto;
         }
     }
 }
