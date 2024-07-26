@@ -1,6 +1,7 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Statistics;
+using Explorer.Tours.API.Dtos.Tour;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace Explorer.Tours.API.Public.Rating
         Result<List<TourRatingDto>> GetByTourId(int tourId);
         Result<TourRatingDto> Update(TourRatingDto rating);
         Result<List<TourStatisticsDto>> GetBestRatedStatistics();
-        Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId);
-        Result<double> GetAverageAuthorRating(int authorId);
+        Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId);       
+        Result<double> GetAverageAuthorRating(List<TourDto> tours);
+        Result<double> GetAverageTourRating(int tourId);
     }
 }
