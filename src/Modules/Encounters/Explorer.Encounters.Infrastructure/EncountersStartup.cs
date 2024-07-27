@@ -42,7 +42,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped<IInternalCheckpointService, InternalCheckpointService>();
             services.AddScoped<IAchievementTouristInternalService, AchievementTouristInternalService>();
             services.AddScoped<IQuestionService, QuestionService>();
-            services.AddScoped<IQuizMobileInternalService, QuizMobileInternalService>();
+            services.AddScoped<IQuizAchievementMobileInternalService, QuizAchievementMobileInternalService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

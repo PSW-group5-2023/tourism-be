@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.API.Internal
 {
-    public interface IQuizMobileInternalService
+    public interface IQuizAchievementMobileInternalService
     {
         Result<List<QuestionDto>> GetAllByEncounterId(long encounterId);
         Result<QuizTouristMobileDto> GetQuestionsByCheckpointId(int checkpointId);

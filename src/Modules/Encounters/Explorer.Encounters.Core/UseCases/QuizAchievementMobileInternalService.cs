@@ -15,13 +15,13 @@ using System.Threading.Tasks;
 
 namespace Explorer.Encounters.Core.UseCases
 {
-    public class QuizMobileInternalService : BaseService<QuestionDto, Question>, IQuizMobileInternalService
+    public class QuizAchievementMobileInternalService : BaseService<QuestionDto, Question>, IQuizAchievementMobileInternalService
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IEncounterRepository _encounterRepository;
         private readonly IAchievementTouristInternalService _achievementTouristInternalService;
 
-        public QuizMobileInternalService(IQuestionRepository questionRepository, IMapper mapper, IEncounterRepository encounterRepository, IAchievementTouristInternalService achievementTouristInternalService) : base(mapper)
+        public QuizAchievementMobileInternalService(IQuestionRepository questionRepository, IMapper mapper, IEncounterRepository encounterRepository, IAchievementTouristInternalService achievementTouristInternalService) : base(mapper)
         {
             _questionRepository = questionRepository;
             _encounterRepository = encounterRepository;

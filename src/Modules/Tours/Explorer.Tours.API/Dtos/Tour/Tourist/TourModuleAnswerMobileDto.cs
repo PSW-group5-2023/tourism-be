@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos.Tour.Tourist
 {
-    public class QuizAchievementMobileDto
+    public class TourModuleAnswerMobileDto
     {
-        public List<QuizMobileDto> Questions { get; set; }
-        public  XXXAchievementMobileDto Achievement { get; set; }
+        public int QuestionId { get; set; }
+        public string Answer { get; set; }
+        public bool IsTrue { get; set; }
+
     }
 }

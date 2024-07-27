@@ -14,6 +14,6 @@ namespace Explorer.Tours.API.Dtos.Tour.Tourist
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public List<QuizMobileDto>? Questions { get; set; }
-        public XXXAchievementMobileDto? AchievementMobileDto { get; set; }
+        public TourModuleAchievementMobileDto? AchievementMobileDto { get; set; }
     }
 }

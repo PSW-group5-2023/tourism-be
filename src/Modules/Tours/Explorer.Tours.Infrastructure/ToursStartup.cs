@@ -67,7 +67,7 @@ public static class ToursStartup
         services.AddScoped<IInternalPersonService, InternalPersonService>();
         services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
         services.AddScoped<IInternalRecommenderService, RecommenderService>();
-        services.AddScoped<IQuizMobileInternalService, QuizMobileInternalService>();
+        services.AddScoped<IQuizAchievementMobileInternalService, QuizAchievementMobileInternalService>();
 
     }
 

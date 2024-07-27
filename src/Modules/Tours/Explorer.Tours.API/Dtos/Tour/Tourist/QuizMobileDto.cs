@@ -10,7 +10,7 @@ namespace Explorer.Tours.API.Dtos.Tour.Tourist
     {
         public int QuestionId { get; set; }
         public string Question { get; set; }
-        public List<XXXAnswerMobileDto> Answers { get; set; }
+        public List<TourModuleAnswerMobileDto> Answers { get; set; }
 
     }
 }

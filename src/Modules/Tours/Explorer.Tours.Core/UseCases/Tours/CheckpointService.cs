@@ -14,10 +14,10 @@ namespace Explorer.Tours.Core.UseCases.Tours
     public class CheckpointService : CrudService<CheckpointDto, Checkpoint>, ICheckpointService
     {
         private readonly ICheckpointRepository _checkpointRepository;
-        private readonly IQuizMobileInternalService _quizMobileInternalService;
+        private readonly IQuizAchievementMobileInternalService _quizMobileInternalService;
         private readonly IMapper _mapper;
 
-        public CheckpointService(ICrudRepository<Checkpoint> repository, ICheckpointRepository checkpointRepository, IMapper mapper, IQuizMobileInternalService quizMobileInternalService) : base(repository, mapper)
+        public CheckpointService(ICrudRepository<Checkpoint> repository, ICheckpointRepository checkpointRepository, IMapper mapper, IQuizAchievementMobileInternalService quizMobileInternalService) : base(repository, mapper)
         {
             _checkpointRepository = checkpointRepository;
             _quizMobileInternalService = quizMobileInternalService;
@@ -49,7 +49,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<List<CheckpointMobileDto>> GetByTourIdMobile(long tourId)
         {
             var checkpoints = _checkpointRepository.GetByTourId(tourId);
-            List<CheckpointMobileDto> tourKeyPointDtos = new List<CheckpointMobileDto>();
+            List<CheckpointMobileDto> checkpointDtos = new List<CheckpointMobileDto>();
 
             foreach (var checkpoint in checkpoints)
             {
@@ -67,14 +67,14 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         AchievementMobileDto = null
                     };
 
-                    tourKeyPointDtos.Add(checkpointMobileDtoWithoutQuiz);
+                    checkpointDtos.Add(checkpointMobileDtoWithoutQuiz);
                     continue;
                 }
 
                 var quizAchievementMobileDto = quizResult.Value;
             
                 var achievementMobileDto = quizAchievementMobileDto.Achievement != null
-                    ? new XXXAchievementMobileDto
+                    ? new TourModuleAchievementMobileDto
                     {
                         Id = quizAchievementMobileDto.Achievement.Id,
                         Name = quizAchievementMobileDto.Achievement.Name,
@@ -91,13 +91,13 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         QuestionId = q.QuestionId,
                         Question = q.Question,
                         Answers = q.Answers != null
-                            ? q.Answers.Select(a => new XXXAnswerMobileDto
+                            ? q.Answers.Select(a => new TourModuleAnswerMobileDto
                             {
                                 QuestionId = a.QuestionId,
                                 Answer = a.Answer,
                                 IsTrue = a.IsTrue
                             }).ToList()
-                            : new List<XXXAnswerMobileDto>()
+                            : new List<TourModuleAnswerMobileDto>()
                     }).ToList()
                     : new List<QuizMobileDto>();
 
@@ -112,10 +112,10 @@ namespace Explorer.Tours.Core.UseCases.Tours
                     AchievementMobileDto = achievementMobileDto
                 };
 
-                tourKeyPointDtos.Add(checkpointMobileDto);
+                checkpointDtos.Add(checkpointMobileDto);
             }
 
-            return Result.Ok(tourKeyPointDtos);
+            return Result.Ok(checkpointDtos);
         }
 
         public Result<List<CheckpointMobileDto>> GetByCheckpointIdMobile(int checkpointId)
@@ -141,7 +141,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
           
             var achievementMobileDto = quizAchievementMobileDto.Achievement != null
-                ? new XXXAchievementMobileDto
+                ? new TourModuleAchievementMobileDto
                 {
                     Id = quizAchievementMobileDto.Achievement.Id,
                     Name = quizAchievementMobileDto.Achievement.Name,
@@ -158,13 +158,13 @@ namespace Explorer.Tours.Core.UseCases.Tours
                     QuestionId = q.QuestionId,
                     Question = q.Question,
                     Answers = q.Answers != null
-                        ? q.Answers.Select(a => new XXXAnswerMobileDto
+                        ? q.Answers.Select(a => new TourModuleAnswerMobileDto
                         {
                             QuestionId = a.QuestionId,
                             Answer = a.Answer,
                             IsTrue = a.IsTrue
                         }).ToList()
-                        : new List<XXXAnswerMobileDto>()
+                        : new List<TourModuleAnswerMobileDto>()
                 }).ToList()
                 : new List<QuizMobileDto>();
          
