@@ -6,13 +6,14 @@ namespace Explorer.Stakeholders.Core.Domain;
 public class User : Entity
 {
     public string Username { get; private set; }
-    public string Password { get; private set; }
+    public string? Password { get; private set; }
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
     public string? ResetPasswordToken {  get; set; }
     public string? EmailVerificationToken { get; set; }
+    public string? Email {  get; set; }
 
-    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null)
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
     {
         Username = username;
         Password = password;
@@ -21,12 +22,13 @@ public class User : Entity
         Validate();
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
+        Email = email;
     }
 
     private void Validate()
     {
         if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
-        if (string.IsNullOrWhiteSpace(Password)) throw new ArgumentException("Invalid Surname");
+        //if (string.IsNullOrWhiteSpace(Password)) throw new ArgumentException("Invalid Surname");
     }
 
     public string GetPrimaryRoleName()
@@ -57,5 +59,6 @@ public enum UserRole
 {
     Administrator,
     Author,
-    Tourist
+    Tourist,
+    Guest
 }

@@ -22,6 +22,11 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
             _dbSet = _dbContext.Set<Achievement>();
         }
 
+        public Achievement Get(int id)
+        {
+            return _dbSet.Where(x=>x.Id==id).First();
+        }
+
         public List<Achievement> GetAllBaseAchievements()
         {
             return _dbSet.Where(a => a.CraftingRecipe.Count == 0).ToList();

@@ -1,4 +1,5 @@
 ﻿using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.Achievements.API.Public;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Microsoft.AspNetCore.Authorization;
@@ -26,6 +27,13 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<List<AchievementDto>> GetAllComplexAchievements()
         {
             var result = _achievementService.GetAllComplexAchievements();
+            return CreateResponse(result);
+        }
+        [AllowAnonymous]
+        [HttpGet("{id:int}")]
+        public ActionResult<AchievementModuleAchievementMobileDto> Get(int id)
+        {
+            var result = _achievementService.GetMobile(id);
             return CreateResponse(result);
         }
     }

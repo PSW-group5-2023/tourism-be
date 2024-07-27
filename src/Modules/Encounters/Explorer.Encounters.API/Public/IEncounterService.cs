@@ -1,4 +1,5 @@
-﻿using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.Achievements.API.Dtos;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
 using FluentResults;
 
@@ -26,5 +27,8 @@ namespace Explorer.Encounters.API.Public
         Result<SocialEncounterStatus> UpdateLocation(double latitude, double longitude, long encounterId, long touristId);
         Result AbandonEncounter(long encounterId, long touristId);
         Result<EncounterExecutionDto> StartEncounter(long encounterId, long touristId);
+        Result<EncounterDto> GetEncounterByCheckpointId(int checkPointId);
+       
+
     }
 }

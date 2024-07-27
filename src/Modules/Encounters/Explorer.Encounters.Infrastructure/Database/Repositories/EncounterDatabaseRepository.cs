@@ -68,5 +68,10 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
         {
             DbContext.SaveChanges();
         }
+
+        public Encounter GetByCheckpointId(int checkpointId)
+        {
+            return _dbSet.Where(x=>x.CheckpointId == checkpointId).FirstOrDefault();
+        }
     }
 }

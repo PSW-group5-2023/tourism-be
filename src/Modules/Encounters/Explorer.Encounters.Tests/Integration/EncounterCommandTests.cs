@@ -598,6 +598,7 @@ namespace Explorer.Encounters.Tests.Integration
                 {
                     new QuestionDto
                     {
+                        Id=-1,
                         OrderInQuiz = 1,
                         Content = "What is the capital of France?",
                         Answers = new List<AnswerDto>
@@ -609,6 +610,7 @@ namespace Explorer.Encounters.Tests.Integration
                     },
                     new QuestionDto
                     {
+                        Id=-2,
                         OrderInQuiz = 2,
                         Content = "What is 2 + 2?",
                         Answers = new List<AnswerDto>
@@ -903,7 +905,7 @@ namespace Explorer.Encounters.Tests.Integration
 
         private static Explorer.API.Controllers.Tourist.EncounterController CreateTouristController(IServiceScope scope, string userId)
         {
-            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>())
+            return new Explorer.API.Controllers.Tourist.EncounterController(scope.ServiceProvider.GetRequiredService<IEncounterService>(), scope.ServiceProvider.GetRequiredService<IQuestionService>())
             {
                 ControllerContext = BuildEncounterContext(userId)
             };

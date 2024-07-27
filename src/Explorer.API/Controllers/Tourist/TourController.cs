@@ -3,6 +3,7 @@ using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Infrastructure.Authentication;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.UseCases;
@@ -35,10 +36,26 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [AllowAnonymous]
+        [HttpGet("mobile")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllMobile([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedMobile(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<TourDto> Get(int id)
         {
             var result = _tourService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("mobile/{id:int}")]
+        public ActionResult<TourMobileDto> GetMobile(int id)
+        {
+            var result = _tourService.GetMobile(id);
             return CreateResponse(result);
         }
 
@@ -72,19 +89,20 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-
         [HttpGet("active/{touristId:int}")]
         public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
         {
             var result = _recommenderService.GetActiveToursByLocationForTourist(page, pageSize, touristId);
             return CreateResponse(result);
         }
+
         [HttpPost("sendEmail/{userId:int}")]
         public ActionResult<bool> SendEmail(int userId, [FromQuery] string body)
         {
             var result=_recommenderService.SendEmail(userId, body);    
             return CreateResponse(result);
         }
+
         [HttpGet("filter/{tourId:int}/{userId:int}/{rating:int}")]
         public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {

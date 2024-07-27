@@ -10,5 +10,6 @@ namespace Explorer.Encounters.Core.Domain.RepositoryInterfaces
         void SaveChanges();
         public Encounter GetNoTracking(long id);
         public Encounter Get(long id);
+        public Encounter GetByCheckpointId(int checkpointId);
     }
 }
