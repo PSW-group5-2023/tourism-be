@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using Explorer.Encounters.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace Explorer.API.Controllers.Tourist
     public class EncounterController : BaseApiController
     {
         private readonly IEncounterService _encounterService;
+        private readonly IQuestionService _questionService;
 
-        public EncounterController(IEncounterService encounterService)
+        public EncounterController(IEncounterService encounterService, IQuestionService questionService)
         {
             _encounterService = encounterService;
+            _questionService = questionService;
         }
 
         [HttpGet("public")]
@@ -65,6 +68,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpPut("complete-quiz/{encounterId:int}")]
         public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
         {
@@ -72,7 +76,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.CompleteQuiz(long.Parse(userId.Value), encounterId, answers);
             return CreateResponse(result);
         }
-
+        [AllowAnonymous]
         [HttpPost("start/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
@@ -85,6 +89,14 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<EncounterDto> Get(long id)
         {
             var result = _encounterService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("forTourist/{checkpointId:int}")]
+        public ActionResult<EncounterModuleQuizAchievementMobileDto> GetByCheckpointTourist(int checkpointId)
+        {
+            var result= _questionService.GetQuestionsByCheckpointId(checkpointId);
             return CreateResponse(result);
         }
     }

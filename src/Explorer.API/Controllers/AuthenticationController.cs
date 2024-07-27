@@ -48,6 +48,23 @@ public class AuthenticationController : BaseApiController
             return StatusCode(400, e.Message);
         }
     }
+    [HttpPost("RegisterGuest")]
+    public ActionResult<AuthenticationTokensDto> RegisterGuest([FromBody] AccountMobileDto account)
+    {
+        try
+        {
+            var result = _authenticationService.RegisterGuest(account);
+
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            _inventoryService.Create(inventory);
+
+            return CreateResponse(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(400, e.Message);
+        }
+    }
 
     [HttpPost("login")]
     public ActionResult<AuthenticationTokensDto> Login([FromBody] CredentialsDto credentials)

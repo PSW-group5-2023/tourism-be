@@ -18,13 +18,11 @@ namespace Explorer.Tours.Core.UseCases.Rating
     {
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
-        private readonly ITourService _tourService;
         private readonly IMapper _mapper;
-        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService, ITourService tourService) : base(repository, mapper)
+        public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(repository, mapper)
         {
             _tourRatingRepository = tourRatingRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
-            _tourService = tourService;
             _mapper = mapper;
         }
 
@@ -82,34 +80,60 @@ namespace Explorer.Tours.Core.UseCases.Rating
             }
         }
 
-        public Result<double> GetAverageAuthorRating(int authorId)
+        public Result<double> GetAverageAuthorRating(List<TourDto> tours)
         {
-
             try
             {
-                List<TourDto> tours = _tourService.GetAllByAuthorId(authorId);
                 List<TourRatingDto> ratings = new List<TourRatingDto>();
 
                 foreach (var tour in tours)
                 {
-                    foreach (var rating in GetByTourId(tour.Id).Value)
+                    var tourRatingsResult = GetByTourId(tour.Id);
+                    if (tourRatingsResult.IsSuccess)
                     {
-                        ratings.Add(rating);
+                        ratings.AddRange(tourRatingsResult.Value);
                     }
                 }
 
-                if(ratings.Count == 0)
+                if (ratings.Count == 0)
                 {
                     return 0;
                 }
 
-                return (double)ratings.Sum(r => r.Mark)/ratings.Count;
+                return (double)ratings.Sum(r => r.Mark) / ratings.Count;
             }
-            catch(KeyNotFoundException e)
+            catch (KeyNotFoundException e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
-            
         }
+
+        public Result<double> GetAverageTourRating(int tourId)
+        {
+            try
+            {
+                var tourRatingsResult = GetByTourId(tourId);
+
+                if (!tourRatingsResult.IsSuccess)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError("Ratings for the tour could not be found.");
+                }
+
+                var ratings = tourRatingsResult.Value;
+
+                if (ratings.Count == 0)
+                {
+                    return 0;
+                }
+
+                return (double)ratings.Sum(r => r.Mark) / ratings.Count;
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+
     }
 }

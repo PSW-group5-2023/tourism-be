@@ -10,24 +10,34 @@ using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
 using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.API.Dtos.Equipment;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
+using Explorer.Tours.API.Public.Rating;
+using Explorer.Encounters.API.Internal;
 
 namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class TourService : CrudService<TourDto, Tour>, ITourService, IInternalTourService
     {
         private readonly ITourRepository _tourRepository;
+        private readonly ICheckpointRepository _checkpointRepository;
         private readonly ICheckpointService _checkpointService;
+        private readonly ITourRatingService _tourRatingService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
         private readonly IInternalPersonService _internalPersonService;
+        private readonly IQuizAchievementMobileInternalService _quizMobileInternalService;
+        protected readonly IMapper _mapper;
 
-        public TourService(ITourRepository repository, IMapper mapper, ICheckpointService checkpointService,
-            IInternalBoughtItemService internalBoughtItemService,
-            IInternalPersonService internalPersonService) : base(repository, mapper)
+        public TourService(ITourRepository repository, ICheckpointRepository checkpointRepository, IMapper mapper, ICheckpointService checkpointService, ITourRatingService tourRatingService,
+            IInternalBoughtItemService internalBoughtItemService, IInternalPersonService internalPersonService, IQuizAchievementMobileInternalService quizMobileInternalService) : base(repository, mapper)
         {
             _tourRepository = repository;
+            _checkpointRepository = checkpointRepository;
             _checkpointService = checkpointService;
+            _tourRatingService = tourRatingService;
             _internalBoughtItemService = internalBoughtItemService;
             _internalPersonService = internalPersonService;
+            _quizMobileInternalService = quizMobileInternalService; 
+            _mapper = mapper;
         }
 
         public Result<TourDto> Archive(int id, int userId)
@@ -290,6 +300,169 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             return MapToDto(_tourRepository.Get(id));
         }
-    }
 
+        public Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize)
+        {
+            var result = CrudRepository.GetPaged(page, pageSize);
+            var tours = result.Results;
+
+            var tourDtos = new List<TourMobileDto>();
+
+            foreach (var tour in tours)
+            {
+                var tourDto = _mapper.Map<TourMobileDto>(tour);
+
+                var ratingResult = _tourRatingService.GetAverageTourRating((int)tour.Id);
+                if (ratingResult.IsSuccess)
+                {
+                    tourDto.Rating = ratingResult.Value;
+                }
+                else
+                {
+                    tourDto.Rating = 0;
+                }
+
+                var checkpoints = _checkpointRepository.GetByTourId(tour.Id);
+                var checkpointDtos = new List<CheckpointMobileDto>();
+
+                foreach (var checkpoint in checkpoints)
+                {
+                    var checkpointDto = new CheckpointMobileDto
+                    {
+                        Id = checkpoint.Id,
+                        Name = checkpoint.Name,
+                        Description = checkpoint.Description,
+                        Latitude = checkpoint.Latitude,
+                        Longitude = checkpoint.Longitude,
+                        Questions = new List<TourModuleQuizMobileDto>(),
+                        AchievementMobileDto = null
+                    };
+
+                    var quizResult = _quizMobileInternalService.GetQuestionsByCheckpointId((int)checkpoint.Id);
+
+                    if (quizResult.IsSuccess)
+                    {
+                        var quizAchievementMobileDto = quizResult.Value;
+                   
+                        checkpointDto.AchievementMobileDto = quizAchievementMobileDto.Achievement != null 
+                            ? new TourModuleAchievementMobileDto
+                            {
+                                Id = quizAchievementMobileDto.Achievement.Id,
+                                Name = quizAchievementMobileDto.Achievement.Name,
+                                Description = quizAchievementMobileDto.Achievement.Description,
+                                Icon = quizAchievementMobileDto.Achievement.Icon,
+                                Rarity = quizAchievementMobileDto.Achievement.Rarity,
+                                CraftingRecipe = quizAchievementMobileDto.Achievement.CraftingRecipe
+                            }
+                            : null;
+
+                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
+                        {
+                            QuestionId = q.QuestionId,
+                            Question = q.Question,
+                            Answers = q.Answers?.Select(a => new TourModuleAnswerMobileDto
+                            {
+                                QuestionId = a.QuestionId,
+                                Answer = a.Answer,
+                                IsTrue = a.IsTrue
+                            }).ToList() ?? new List<TourModuleAnswerMobileDto>()
+                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
+                    }
+
+                    checkpointDtos.Add(checkpointDto);
+                }
+
+                tourDto.Checkpoints = checkpointDtos;
+                tourDtos.Add(tourDto);
+            }
+
+            var pagedResult = new PagedResult<TourMobileDto>(tourDtos, result.TotalCount);
+            return Result.Ok(pagedResult);
+        }
+
+
+        public Result<TourMobileDto> GetMobile(int id)
+        {
+            try
+            {
+                var tour = CrudRepository.Get(id);
+                if (tour == null)
+                {
+                    return Result.Fail(FailureCode.NotFound).WithError("Tour not found.");
+                }
+
+                var tourMobileDto = _mapper.Map<TourMobileDto>(tour);
+
+                var ratingResult = _tourRatingService.GetAverageTourRating(id);
+                if (ratingResult.IsSuccess)
+                {
+                    tourMobileDto.Rating = ratingResult.Value;
+                }
+                else
+                {
+                    tourMobileDto.Rating = 0;
+                }
+
+                var checkpoints = _checkpointRepository.GetByTourId(id);
+                var checkpointDtos = new List<CheckpointMobileDto>();
+
+                foreach (var checkpoint in checkpoints)
+                {
+                    var checkpointDto = new CheckpointMobileDto
+                    {
+                        Id = checkpoint.Id,
+                        Name = checkpoint.Name,
+                        Description = checkpoint.Description,
+                        Latitude = checkpoint.Latitude,
+                        Longitude = checkpoint.Longitude,
+                        Questions = new List<TourModuleQuizMobileDto>(),
+                        AchievementMobileDto = null
+                    };
+
+                    var quizResult = _quizMobileInternalService.GetQuestionsByCheckpointId((int)checkpoint.Id);
+
+                    if (quizResult.IsSuccess)
+                    {
+                        var quizAchievementMobileDto = quizResult.Value;
+
+                        checkpointDto.AchievementMobileDto = quizAchievementMobileDto.Achievement != null
+                            ? new TourModuleAchievementMobileDto
+                            {
+                                Id = quizAchievementMobileDto.Achievement.Id,
+                                Name = quizAchievementMobileDto.Achievement.Name,
+                                Description = quizAchievementMobileDto.Achievement.Description,
+                                Icon = quizAchievementMobileDto.Achievement.Icon,
+                                Rarity = quizAchievementMobileDto.Achievement.Rarity,
+                                CraftingRecipe = quizAchievementMobileDto.Achievement.CraftingRecipe
+                            }
+                            : null;
+
+                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
+                        {
+                            QuestionId = q.QuestionId,
+                            Question = q.Question,
+                            Answers = q.Answers?.Select(a => new TourModuleAnswerMobileDto
+                            {
+                                QuestionId = a.QuestionId,
+                                Answer = a.Answer,
+                                IsTrue = a.IsTrue
+                            }).ToList() ?? new List<TourModuleAnswerMobileDto>()
+                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
+                    }
+
+                    checkpointDtos.Add(checkpointDto);
+                }
+
+                tourMobileDto.Checkpoints = checkpointDtos;
+
+                return Result.Ok(tourMobileDto);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+           
+        }
+
+    }
 }

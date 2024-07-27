@@ -1,4 +1,6 @@
-﻿using Explorer.BuildingBlocks.Core.UseCases;
+﻿using Explorer.Achievements.API.Internal;
+using Explorer.Achievements.Core.UseCases;
+using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.API.Public;
@@ -38,7 +40,9 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped<IEncounterService, EncounterService>();
             services.AddScoped<IEncounterExecutionService, EncounterExecutionService>();
             services.AddScoped<IInternalCheckpointService, InternalCheckpointService>();
+            services.AddScoped<IAchievementMobileInternalService, AchievementMobileInternalService>();
             services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IQuizAchievementMobileInternalService, QuizAchievementMobileInternalService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

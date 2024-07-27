@@ -14,5 +14,7 @@ namespace Explorer.Encounters.Core.Domain
             Content = content;
             Answers = answers;
         }
+
+        
     }
 }

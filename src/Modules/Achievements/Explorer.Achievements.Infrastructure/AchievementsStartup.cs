@@ -1,4 +1,5 @@
-﻿using Explorer.Achievements.API.Public;
+﻿using Explorer.Achievements.API.Internal;
+using Explorer.Achievements.API.Public;
 using Explorer.Achievements.Core.Domain;
 using Explorer.Achievements.Core.Domain.RepositoryInterfaces;
 using Explorer.Achievements.Core.Mappers;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +34,7 @@ namespace Explorer.Achievements.Infrastructure
         {
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IAchievementMobileInternalService, AchievementMobileInternalService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

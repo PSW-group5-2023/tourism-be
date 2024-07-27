@@ -2,6 +2,7 @@
 using Explorer.API.Controllers.Author.Authoring;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Rating;
+using Explorer.Tours.API.Public.Tour;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -32,7 +33,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Statistics
 
         private static TourRatingController CreateController(IServiceScope scope)
         {
-            return new TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>())
+            return new TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>(), scope.ServiceProvider.GetRequiredService<ITourService>())
             {
                 ControllerContext = BuildContext("-1")
             };

@@ -68,7 +68,25 @@ public class AuthenticationService : IAuthenticationService
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
         }
     }
+    public Result<AuthenticationTokensDto> RegisterGuest(AccountMobileDto account)
+    {
+        if (_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
+        try
+        {
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode("Guest123."), UserRole.Guest, true));
+            //var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, user.Id);
+            //user.EmailVerificationToken = emailVerificationToken;
+            user = _userRepository.Update(user);
+
+            //sendVerificationEmail(person, emailVerificationToken);
+            return _tokenGenerator.GenerateAccessToken(user, user.Id);
+        }
+        catch (ArgumentException e)
+        {
+            return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        }
+    }
     public Result<string> GetUsername(long id)
     {
         return _userRepository.GetUsername(id);
