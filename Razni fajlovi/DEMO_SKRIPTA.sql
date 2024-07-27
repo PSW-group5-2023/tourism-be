@@ -10,7 +10,7 @@ INSERT INTO stakeholders."Users"(
     (-7, 'lukastankovic', 'MvhubNOwmmqs4dE1e9VAR64KAUk2To3031RLyWwWNmvW6lnPOt36AlIIXw0qpqJlVLNdf0WU0dDY5LWunMK27UM08/Q7XGJbbY18ql8PQHk=', 2, true, NULL, NULL, NULL),
     (-8, 'katarinastojkovic', '7IOHpM31bKnANVn4rRWAwcUK1Mx0+6h6RsZBgTrbWkwyLUAu2h+K5XcvWNAmpBQlJyaHF3ujEXeYFD/at62aPvuD/DY4ahTeXkRc6/JUrRo=', 2, true, NULL, NULL, NULL),
     (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL, NULL),
-    (-10, 'momcilojovanovic', NULL, 2, true, NULL, NULL, NULL);
+    (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL);
 
 INSERT INTO stakeholders."People"(
 	"Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto", "Latitude", "Longitude")
