@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using Explorer.Encounters.API.Public;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,7 +67,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.Complete(long.Parse(userId.Value), encounterId);
             return CreateResponse(result);
         }
-        [AllowAnonymous]
+
         [HttpPut("complete-quiz/{encounterId:int}")]
         public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
         {
@@ -74,7 +75,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.CompleteQuiz(long.Parse(userId.Value), encounterId, answers);
             return CreateResponse(result);
         }
-        [AllowAnonymous]
+
         [HttpPost("start/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
@@ -91,8 +92,8 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [AllowAnonymous]
-        [HttpGet("checkpointMobile/{checkpointId:int}")]
-        public ActionResult<QuizTouristMobileDto> GetByCheckpointTourist(int checkpointId)
+        [HttpGet("forTourist/{checkpointId:int}")]
+        public ActionResult<EncounterModuleQuizAchievementMobileDto> GetByCheckpointTourist(int checkpointId)
         {
             var result= _questionService.GetQuestionsByCheckpointId(checkpointId);
             return CreateResponse(result);

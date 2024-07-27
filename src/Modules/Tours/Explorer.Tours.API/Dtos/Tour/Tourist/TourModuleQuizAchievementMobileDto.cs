@@ -8,7 +8,7 @@ namespace Explorer.Tours.API.Dtos.Tour.Tourist
 {
     public class QuizAchievementMobileDto
     {
-        public List<QuizMobileDto> Questions { get; set; }
+        public List<TourModuleQuizMobileDto> Questions { get; set; }
         public  TourModuleAchievementMobileDto Achievement { get; set; }
     }
 }

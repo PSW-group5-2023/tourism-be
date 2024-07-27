@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Encounters.API.Dtos
+namespace Explorer.Encounters.API.Dtos.Tourist
 {
-    public class AchievementMobileDto
+    public class EncounterModuleAchievementMobileDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,7 +14,7 @@ namespace Explorer.Encounters.API.Dtos
         public string Icon { get; set; }
         public string Rarity { get; set; }
         public List<int> CraftingRecipe { get; set; }
-        public AchievementMobileDto() { }
+        public EncounterModuleAchievementMobileDto() { }
 
     }
 }

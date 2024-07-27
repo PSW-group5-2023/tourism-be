@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using Explorer.Encounters.Core.Domain;
 
 namespace Explorer.Encounters.Core.Mappers
@@ -32,12 +33,12 @@ namespace Explorer.Encounters.Core.Mappers
             CreateMap<QuestionDto, Question>().ReverseMap();
             CreateMap<AnswerDto, Answer>().ReverseMap();
             CreateMap<SubmittedAnswerDto, SubmittedAnswer>().ReverseMap();
-            CreateMap<AnswerMobileDto, Answer>().ReverseMap()
+            CreateMap<EncounterModuleAnswerMobileDto, Answer>().ReverseMap()
                 .ForMember(dest => dest.Answer, opt => opt.MapFrom(src => src.Content))
                 .ForMember(dest => dest.IsTrue, opt => opt.MapFrom(src => src.Correct));
-            CreateMap<AnswerMobileDto, Question>().ReverseMap()
+            CreateMap<EncounterModuleAnswerMobileDto, Question>().ReverseMap()
                 .ForMember(dest => dest.QuestionId, opt => opt.MapFrom(src => src.Id));
-            CreateMap<QuizQuestionMobileDto, Question>().ReverseMap()
+            CreateMap<EncounterModuleQuizMobileDto, Question>().ReverseMap()
                 .ForMember(dest => dest.QuestionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Question, opt => opt.MapFrom(src => src.Content))
                 .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));

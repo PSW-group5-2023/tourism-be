@@ -334,7 +334,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         Description = checkpoint.Description,
                         Latitude = checkpoint.Latitude,
                         Longitude = checkpoint.Longitude,
-                        Questions = new List<QuizMobileDto>(),
+                        Questions = new List<TourModuleQuizMobileDto>(),
                         AchievementMobileDto = null
                     };
 
@@ -356,7 +356,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                             }
                             : null;
 
-                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new QuizMobileDto
+                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
                         {
                             QuestionId = q.QuestionId,
                             Question = q.Question,
@@ -366,7 +366,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                                 Answer = a.Answer,
                                 IsTrue = a.IsTrue
                             }).ToList() ?? new List<TourModuleAnswerMobileDto>()
-                        }).ToList() ?? new List<QuizMobileDto>();
+                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
                     }
 
                     checkpointDtos.Add(checkpointDto);
@@ -415,7 +415,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         Description = checkpoint.Description,
                         Latitude = checkpoint.Latitude,
                         Longitude = checkpoint.Longitude,
-                        Questions = new List<QuizMobileDto>(),
+                        Questions = new List<TourModuleQuizMobileDto>(),
                         AchievementMobileDto = null
                     };
 
@@ -437,7 +437,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                             }
                             : null;
 
-                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new QuizMobileDto
+                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
                         {
                             QuestionId = q.QuestionId,
                             Question = q.Question,
@@ -447,7 +447,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                                 Answer = a.Answer,
                                 IsTrue = a.IsTrue
                             }).ToList() ?? new List<TourModuleAnswerMobileDto>()
-                        }).ToList() ?? new List<QuizMobileDto>();
+                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
                     }
 
                     checkpointDtos.Add(checkpointDto);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Tours.API.Dtos.Tour.Tourist
 {
-    public class QuizMobileDto
+    public class TourModuleQuizMobileDto
     {
         public int QuestionId { get; set; }
         public string Question { get; set; }

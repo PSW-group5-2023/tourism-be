@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.Achievements.Core.Domain;
 using Explorer.BuildingBlocks.Core.Domain;
 using System;
@@ -16,7 +17,7 @@ namespace Explorer.Achievements.Core.Mappers
         {
             CreateMap<AchievementDto, Achievement>().ReverseMap();
             CreateMap<InventoryDto, Inventory>().ReverseMap();
-            CreateMap<AchievementTouristMobileDto, Achievement>().ReverseMap()
+            CreateMap<AchievementModuleAchievementMobileDto, Achievement>().ReverseMap()
                 .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => src.Icon.ToString()))
                 .ForMember(dest => dest.Rarity, opt => opt.MapFrom(src => src.Rarity.ToString()));
         }

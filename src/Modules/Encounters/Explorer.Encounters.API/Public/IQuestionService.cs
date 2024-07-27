@@ -1,4 +1,5 @@
 ﻿using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,6 @@ namespace Explorer.Encounters.API.Public
         Result<QuestionDto> Create(QuestionDto questionDto);
         Result Delete(int id);
         Result<List<QuestionDto>> GetAllByEncounterId(long encounterId);
-        Result<QuizTouristMobileDto> GetQuestionsByCheckpointId(int checkpointId);
+        Result<EncounterModuleQuizAchievementMobileDto> GetQuestionsByCheckpointId(int checkpointId);
     }
 }

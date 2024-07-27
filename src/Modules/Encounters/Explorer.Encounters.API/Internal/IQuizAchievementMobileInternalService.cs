@@ -1,4 +1,5 @@
 ﻿using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Explorer.Encounters.API.Internal
     public interface IQuizAchievementMobileInternalService
     {
         Result<List<QuestionDto>> GetAllByEncounterId(long encounterId);
-        Result<QuizTouristMobileDto> GetQuestionsByCheckpointId(int checkpointId);
+        Result<EncounterModuleQuizAchievementMobileDto> GetQuestionsByCheckpointId(int checkpointId);
        
     }
 }

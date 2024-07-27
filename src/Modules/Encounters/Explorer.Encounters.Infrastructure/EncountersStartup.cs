@@ -40,7 +40,7 @@ namespace Explorer.Encounters.Infrastructure
             services.AddScoped<IEncounterService, EncounterService>();
             services.AddScoped<IEncounterExecutionService, EncounterExecutionService>();
             services.AddScoped<IInternalCheckpointService, InternalCheckpointService>();
-            services.AddScoped<IAchievementTouristInternalService, AchievementTouristInternalService>();
+            services.AddScoped<IAchievementMobileInternalService, AchievementMobileInternalService>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuizAchievementMobileInternalService, QuizAchievementMobileInternalService>();
         }

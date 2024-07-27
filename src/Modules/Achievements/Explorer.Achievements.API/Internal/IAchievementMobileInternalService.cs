@@ -1,4 +1,4 @@
-﻿using Explorer.Achievements.API.Dtos;
+﻿using Explorer.Achievements.API.Dtos.Tourist;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Explorer.Achievements.API.Internal
 {
-    public interface IAchievementTouristInternalService
+    public interface IAchievementMobileInternalService
     {
-        public Result<AchievementTouristMobileDto> GetAchievementById(int id);
+        public Result<AchievementModuleAchievementMobileDto> GetAchievementById(int id);
     }
 }

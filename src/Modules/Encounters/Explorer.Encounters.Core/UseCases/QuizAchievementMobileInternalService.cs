@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.Achievements.API.Internal;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Encounters.API.Dtos;
+using Explorer.Encounters.API.Dtos.Tourist;
 using Explorer.Encounters.API.Internal;
 using Explorer.Encounters.Core.Domain;
 using Explorer.Encounters.Core.Domain.RepositoryInterfaces;
@@ -19,9 +20,9 @@ namespace Explorer.Encounters.Core.UseCases
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IEncounterRepository _encounterRepository;
-        private readonly IAchievementTouristInternalService _achievementTouristInternalService;
+        private readonly IAchievementMobileInternalService _achievementTouristInternalService;
 
-        public QuizAchievementMobileInternalService(IQuestionRepository questionRepository, IMapper mapper, IEncounterRepository encounterRepository, IAchievementTouristInternalService achievementTouristInternalService) : base(mapper)
+        public QuizAchievementMobileInternalService(IQuestionRepository questionRepository, IMapper mapper, IEncounterRepository encounterRepository, IAchievementMobileInternalService achievementTouristInternalService) : base(mapper)
         {
             _questionRepository = questionRepository;
             _encounterRepository = encounterRepository;
@@ -32,13 +33,13 @@ namespace Explorer.Encounters.Core.UseCases
             return MapToDto(_questionRepository.GetAllByEncounterId(encounterId, 0, 0).Results).Value;
         }
 
-        public Result<QuizTouristMobileDto> GetQuestionsByCheckpointId(int checkpointId)
+        public Result<EncounterModuleQuizAchievementMobileDto> GetQuestionsByCheckpointId(int checkpointId)
         {
             var encounterResult = GetEncounterByCheckpointId(checkpointId);
 
             if (encounterResult.IsFailed)
             {
-                return Result.Fail<QuizTouristMobileDto>(encounterResult.Errors);
+                return Result.Fail<EncounterModuleQuizAchievementMobileDto>(encounterResult.Errors);
             }
 
             var encounter = encounterResult.Value;
@@ -47,20 +48,20 @@ namespace Explorer.Encounters.Core.UseCases
             if (questionDtosResult.IsFailed)
             {
                 // Vratite grešku ili obradite neuspeh
-                return Result.Fail<QuizTouristMobileDto>(questionDtosResult.Errors);
+                return Result.Fail<EncounterModuleQuizAchievementMobileDto>(questionDtosResult.Errors);
             }
 
             List<QuestionDto> questionDtos = questionDtosResult.Value;
-            List<QuizQuestionMobileDto> questions = new List<QuizQuestionMobileDto>();
+            List<EncounterModuleQuizMobileDto> questions = new List<EncounterModuleQuizMobileDto>();
 
             foreach (QuestionDto question in questionDtos)
             {
-                QuizQuestionMobileDto quizQuestionTouristDto = new QuizQuestionMobileDto(question);
+                EncounterModuleQuizMobileDto quizQuestionTouristDto = new EncounterModuleQuizMobileDto(question);
                 quizQuestionTouristDto.Answers.ForEach(answer => { answer.QuestionId = question.Id; });
                 questions.Add(quizQuestionTouristDto);
             }
 
-            QuizTouristMobileDto quizTouristDto = new QuizTouristMobileDto
+            EncounterModuleQuizAchievementMobileDto quizTouristDto = new EncounterModuleQuizAchievementMobileDto
             {
                 Questions = questions,
                 Achievement = TouristAchievementToMobile(GetAchievement(Convert.ToInt32(encounter.AchievementId)))
@@ -69,14 +70,14 @@ namespace Explorer.Encounters.Core.UseCases
             return Result.Ok(quizTouristDto);
         }
 
-        public AchievementTouristMobileDto GetAchievement(int id)
+        public AchievementModuleAchievementMobileDto GetAchievement(int id)
         {
             return _achievementTouristInternalService.GetAchievementById(id).Value;
         }
 
-        public AchievementMobileDto TouristAchievementToMobile(AchievementTouristMobileDto achievementTouristDto)
+        public EncounterModuleAchievementMobileDto TouristAchievementToMobile(AchievementModuleAchievementMobileDto achievementTouristDto)
         {
-            AchievementMobileDto achievementMobile = new AchievementMobileDto();
+            EncounterModuleAchievementMobileDto achievementMobile = new EncounterModuleAchievementMobileDto();
             achievementMobile.Id = achievementTouristDto.Id;
             achievementMobile.Rarity = achievementTouristDto.Rarity;
             achievementMobile.CraftingRecipe = achievementTouristDto.CraftingRecipe;

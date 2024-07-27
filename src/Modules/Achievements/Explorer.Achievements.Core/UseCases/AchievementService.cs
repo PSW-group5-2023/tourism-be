@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.Achievements.API.Public;
 using Explorer.Achievements.Core.Domain;
 using Explorer.Achievements.Core.Domain.RepositoryInterfaces;
@@ -56,10 +57,10 @@ namespace Explorer.Achievements.Core.UseCases
             return dict1.Count == dict2.Count && !dict1.Except(dict2).Any();
         }
 
-        public Result<AchievementTouristMobileDto> GetMobile(int id)
+        public Result<AchievementModuleAchievementMobileDto> GetMobile(int id)
         {
             var achievementsBase = _achievementRepository.Get(id);
-            AchievementTouristMobileDto achievementTouristMobileDto = new AchievementTouristMobileDto(MapToDto(achievementsBase));
+            AchievementModuleAchievementMobileDto achievementTouristMobileDto = new AchievementModuleAchievementMobileDto(MapToDto(achievementsBase));
             achievementTouristMobileDto.Rarity = achievementsBase.Rarity.ToString();
             return achievementTouristMobileDto;
         }

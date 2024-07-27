@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Encounters.API.Dtos
+namespace Explorer.Encounters.API.Dtos.Tourist
 {
-    public class AnswerMobileDto
+    public class EncounterModuleAnswerMobileDto
     {
-        public AnswerMobileDto()
+        public EncounterModuleAnswerMobileDto()
         {
         }
-        public AnswerMobileDto(AnswerDto answerDto)
+        public EncounterModuleAnswerMobileDto(AnswerDto answerDto)
         {
-            this.Answer = answerDto.Content;
-            this.IsTrue = answerDto.Correct;
+            Answer = answerDto.Content;
+            IsTrue = answerDto.Correct;
         }
         public int QuestionId { get; set; }
         public string Answer { get; set; }

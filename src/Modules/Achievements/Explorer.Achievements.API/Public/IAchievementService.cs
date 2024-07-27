@@ -1,4 +1,5 @@
 ﻿using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using FluentResults;
 using System;
@@ -18,6 +19,6 @@ namespace Explorer.Achievements.API.Public
         Result<List<AchievementDto>> GetAllBaseAchievements();
         Result<List<AchievementDto>> GetAllComplexAchievements();
         Result<AchievementDto> CreateComplexAchievement(List<int> requiredAchievements);
-        Result<AchievementTouristMobileDto> GetMobile(int id);
+        Result<AchievementModuleAchievementMobileDto> GetMobile(int id);
     }
 }
