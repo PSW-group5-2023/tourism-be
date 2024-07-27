@@ -13,10 +13,7 @@ namespace Explorer.Tours.API.Dtos.Tour.Tourist
         public string Description { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        //public List<QuizTouristMobileDto>? Questions { get; set; }
-        //public AchievementTouristMobileDto AchievementTouristMobileDto { get; set; }
-
-
-
+        public List<QuizMobileDto>? Questions { get; set; }
+        public XXXAchievementMobileDto? AchievementMobileDto { get; set; }
     }
 }

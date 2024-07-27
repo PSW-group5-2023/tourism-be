@@ -71,7 +71,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
 
         public Encounter GetByCheckpointId(int checkpointId)
         {
-            return _dbSet.Where(x=>x.CheckpointId == checkpointId).First();
+            return _dbSet.Where(x=>x.CheckpointId == checkpointId).FirstOrDefault();
         }
     }
 }

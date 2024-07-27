@@ -30,6 +30,9 @@ using Explorer.Tours.Core.UseCases.Equipments;
 using Explorer.Tours.Core.UseCases.Facilities;
 using Explorer.Tours.Core.UseCases.Tours;
 using Explorer.Tours.API.Public.Email;
+using Explorer.Encounters.API.Internal;
+using Explorer.Encounters.Core.UseCases;
+using Explorer.Encounters.API.Public;
 
 namespace Explorer.Tours.Infrastructure;
 
@@ -64,6 +67,8 @@ public static class ToursStartup
         services.AddScoped<IInternalPersonService, InternalPersonService>();
         services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
         services.AddScoped<IInternalRecommenderService, RecommenderService>();
+        services.AddScoped<IQuizMobileInternalService, QuizMobileInternalService>();
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
