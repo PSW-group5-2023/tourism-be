@@ -28,5 +28,12 @@ namespace Explorer.API.Controllers.Tourist
             var result = _achievementService.GetAllComplexAchievements();
             return CreateResponse(result);
         }
+        [AllowAnonymous]
+        [HttpGet("{id:int}")]
+        public ActionResult<AchievementTouristMobileDto> Get(int id)
+        {
+            var result = _achievementService.GetMobile(id);
+            return CreateResponse(result);
+        }
     }
 }

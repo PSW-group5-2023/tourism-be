@@ -13,4 +13,5 @@ public interface IAuthenticationService
 
     Result<string> GetUsername(long id);
     Result<AuthenticationTokensDto> ActivateUser(string token);
+    public Result<AuthenticationTokensDto> RegisterGuest(AccountMobileDto account);
 }

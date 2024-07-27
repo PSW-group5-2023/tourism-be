@@ -18,5 +18,6 @@ namespace Explorer.Achievements.API.Public
         Result<PagedResult<InventoryDto>> GetPaged(int page, int pageSize);
         Result<InventoryDto> AddAchievementToInventory(InventoryDto inventory, int achivementId);
         Result<InventoryDto> AddComplexAchievementToInventory(InventoryDto inventory, List<int> requiredAchievemements);
+        Result<InventoryDto> GetByUserId(int userId);
     }
 }

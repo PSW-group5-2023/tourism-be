@@ -18,5 +18,6 @@ namespace Explorer.Achievements.API.Public
         Result<List<AchievementDto>> GetAllBaseAchievements();
         Result<List<AchievementDto>> GetAllComplexAchievements();
         Result<AchievementDto> CreateComplexAchievement(List<int> requiredAchievements);
+        Result<AchievementTouristMobileDto> GetMobile(int id);
     }
 }
