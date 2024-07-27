@@ -68,6 +68,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpPut("complete-quiz/{encounterId:int}")]
         public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
         {
@@ -75,7 +76,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.CompleteQuiz(long.Parse(userId.Value), encounterId, answers);
             return CreateResponse(result);
         }
-
+        [AllowAnonymous]
         [HttpPost("start/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
