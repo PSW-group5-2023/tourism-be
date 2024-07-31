@@ -45,10 +45,10 @@ services:
 
 configs:
   nginx.conf:
-    name: nginx.conf-${nginx_conf_DIGEST}
+    name: nginx.conf
     file: ./gateway/files/config/nginx.conf
   api_gateway.conf:
-    name: api_gateway.conf-${api_gateway_conf_DIGEST}
+    name: api_gateway.conf
     file: ./gateway/files/config/api_gateway.conf
 
 networks:
