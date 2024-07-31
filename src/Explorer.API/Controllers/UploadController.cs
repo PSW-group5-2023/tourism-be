@@ -65,6 +65,7 @@ namespace Explorer.API.Controllers
                 uploadedFiles.Add($"/images/{uniqueFileName}");
                 
             }
+            
 
             return Ok(new {FilePaths = uploadedFiles});
         }
