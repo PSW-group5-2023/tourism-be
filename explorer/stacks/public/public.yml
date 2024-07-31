@@ -17,7 +17,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
-      - image-data:/usr/share/nginx/htmls/images
+      - image-data:/usr/share/nginx/html/images
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     deploy:
       replicas: 3
