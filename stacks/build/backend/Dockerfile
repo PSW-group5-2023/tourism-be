@@ -8,7 +8,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:${SDK_VERSION} as build
 ENV PROJECT=Explorer.API
-ARG SRC_URL=https://github.com/PSW-group5-2023/tourism-be/archive/refs/heads/feat/deployment.tar.gz
+ARG SRC_URL=https://github.com/PSW-group5-2023/tourism-be/archive/refs/heads/main.tar.gz
 ARG GITHUB_TOKEN
 WORKDIR /src
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -24,6 +24,7 @@ RUN dotnet restore "${PROJECT}/${PROJECT}.csproj"
 RUN dotnet build "${PROJECT}/${PROJECT}.csproj" -c Release
 
 FROM build as publish
+ENV PROJECT=Explorer.API
 RUN dotnet publish "${PROJECT}/${PROJECT}.csproj" -c Release -o /app/publish
 
 
@@ -40,7 +41,7 @@ RUN dotnet tool install --global dotnet-ef --version 7.*
 
 FROM migration-base AS execute-migration
 
-ENV STARTUP_PROJECT=${PROJECT}
+ENV STARTUP_PROJECT=Explorer.API
 ENV MIGRATION=init
 ENV DATABASE_SCHEMA=""
 ENV DATABASE_HOST=""
@@ -56,6 +57,8 @@ ENV BLOG_TARGET_PROJECT=Explorer.Blog.Infrastructure
 ENV ENCOUNTERS_TARGET_PROJECT=Explorer.Encounters.Infrastructure
 
 ENV PAYMENTS_TARGET_PROJECT=Explorer.Payments.Infrastructure
+
+ENV ACHIEVEMENTS_TARGET_PROJECT=Explorer.Achievements.Infrastructure
 
 CMD PATH="$PATH:/root/.dotnet/tools" \
     dotnet-ef migrations add "${MIGRATION}-stakeholders" \
@@ -108,4 +111,14 @@ CMD PATH="$PATH:/root/.dotnet/tools" \
         -s "${STARTUP_PROJECT}/${STARTUP_PROJECT}.csproj" \
         -p "Modules/Payments/${PAYMENTS_TARGET_PROJECT}/${PAYMENTS_TARGET_PROJECT}.csproj" \
         -c "PaymentsContext" \
+        --configuration Release && \
+    dotnet-ef migrations add "${MIGRATION}-achievements" \
+        -s "${STARTUP_PROJECT}/${STARTUP_PROJECT}.csproj" \
+        -p "Modules/Achievements/${ACHIEVEMENTS_TARGET_PROJECT}/${ACHIEVEMENTS_TARGET_PROJECT}.csproj" \
+        -c "AchievementsContext" \
+        --configuration Release && \
+    dotnet-ef database update "${MIGRATION}-achievements" \
+        -s "${STARTUP_PROJECT}/${STARTUP_PROJECT}.csproj" \
+        -p "Modules/Achievements/${ACHIEVEMENTS_TARGET_PROJECT}/${ACHIEVEMENTS_TARGET_PROJECT}.csproj" \
+        -c "AchievementsContext" \
         --configuration Release  
