@@ -15,6 +15,9 @@ services:
       DATABASE_USERNAME_FILE: /run/secrets/database-username
       DATABASE_PASSWORD_FILE: /run/secrets/database-password
       EXPLORER_CORS_ORIGINS: /run/secrets/cors
+      EXPLORER_IMAGE_PATH: /var/www/images
+    volumes:
+      - image-data:/var/www/images
     secrets:
       - source: database-schema
         target: database-schema
@@ -55,3 +58,7 @@ networks:
     name: persistance_network_${STAGE-dev}
     driver: overlay 
     external: true
+
+volumes:
+  image-data:
+    name: image-data

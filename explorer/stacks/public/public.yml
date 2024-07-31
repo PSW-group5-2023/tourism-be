@@ -17,6 +17,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
+      - image-data:/usr/share/nginx/uploaded-images
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     deploy:
       replicas: 3
@@ -60,4 +61,6 @@ networks:
     driver: overlay
     external: true
 
-    
+volumes:
+  image-data:
+    name: image-data
