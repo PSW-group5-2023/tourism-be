@@ -84,7 +84,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.StartEncounter(encounterId, long.Parse(userId.Value));
             return CreateResponse(result);
         }
-
+        [AllowAnonymous]
         [HttpGet("{id:long}")]
         public ActionResult<EncounterDto> Get(long id)
         {
@@ -93,7 +93,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [AllowAnonymous]
-        [HttpGet("forTourist/{checkpointId:int}")]
+        [HttpGet("questionsForTourist/{checkpointId:int}")]
         public ActionResult<EncounterModuleQuizAchievementMobileDto> GetByCheckpointTourist(int checkpointId)
         {
             var result= _questionService.GetQuestionsByCheckpointId(checkpointId);

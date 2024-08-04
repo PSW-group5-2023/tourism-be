@@ -13,3 +13,6 @@ INSERT INTO encounters."EncounterExecutions"(
 INSERT INTO encounters."EncounterExecutions"(
 	"Id", "TouristId", "EncounterId", "ActivationTime", "CompletionTime", "InRange", "Answers", "CorrectAnswersPercentage")
 	VALUES (-4, -21, -10, CURRENT_TIMESTAMP, null, false, '[]', null);
+	INSERT INTO encounters."EncounterExecutions"(
+	"Id", "TouristId", "EncounterId", "ActivationTime", "CompletionTime", "InRange", "Answers", "CorrectAnswersPercentage")
+	VALUES (-5, -21, -11, CURRENT_TIMESTAMP, null, false, '[]', null);
