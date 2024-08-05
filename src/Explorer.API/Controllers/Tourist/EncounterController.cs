@@ -69,7 +69,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [AllowAnonymous]
-        [HttpPut("complete-quiz/{encounterId:int}")]
+        [HttpPut("complete-quiz/mobile/{encounterId:int}")]
         public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
@@ -77,7 +77,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
         [AllowAnonymous]
-        [HttpPost("start/{encounterId:long}")]
+        [HttpPost("start/mobile/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
@@ -93,7 +93,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [AllowAnonymous]
-        [HttpGet("questionsForTourist/{checkpointId:int}")]
+        [HttpGet("questions/mobile/{checkpointId:int}")]
         public ActionResult<EncounterModuleQuizAchievementMobileDto> GetByCheckpointTourist(int checkpointId)
         {
             var result= _questionService.GetQuestionsByCheckpointId(checkpointId);
