@@ -38,7 +38,20 @@ namespace Explorer.Encounters.Core.UseCases
         public Result<EncounterModuleQuizAchievementMobileDto> GetQuestionsByCheckpointId(int checkpointId)
         {
             var encounter = _encounterService.GetEncounterByCheckpointId(checkpointId).Value;
-            List<QuestionDto> questionDtos = GetAllByEncounterId(encounter.Id).Value;
+            List<EncounterModuleQuizMobileDto> questions = GetQuestionsWithAnswers(GetAllByEncounterId(encounter.Id).Value);
+            return SetQuestionsAndAchievement(encounter, questions);
+        }
+
+        private EncounterModuleQuizAchievementMobileDto SetQuestionsAndAchievement(EncounterDto encounter, List<EncounterModuleQuizMobileDto> questions)
+        {
+            EncounterModuleQuizAchievementMobileDto quizTouristDto = new EncounterModuleQuizAchievementMobileDto();
+            quizTouristDto.Questions = questions;
+            quizTouristDto.Achievement = TouristAchievementToMobile(GetAchievement(Convert.ToInt32(encounter.AchievementId)));
+            return quizTouristDto;
+        }
+
+        private List<EncounterModuleQuizMobileDto> GetQuestionsWithAnswers(List<QuestionDto> questionDtos)
+        {
             List<EncounterModuleQuizMobileDto> questions = new List<EncounterModuleQuizMobileDto>();
             foreach (QuestionDto question in questionDtos)
             {
@@ -46,11 +59,10 @@ namespace Explorer.Encounters.Core.UseCases
                 quizQuestionTouristDto.Answers.ForEach(answer => { answer.QuestionId = question.Id; });
                 questions.Add(quizQuestionTouristDto);
             }
-            EncounterModuleQuizAchievementMobileDto quizTouristDto=new EncounterModuleQuizAchievementMobileDto();
-            quizTouristDto.Questions= questions;
-            quizTouristDto.Achievement = TouristAchievementToMobile(GetAchievement(Convert.ToInt32(encounter.AchievementId)));
-            return quizTouristDto;
+
+            return questions;
         }
+
         public AchievementModuleAchievementMobileDto GetAchievement(int id)
         {
             return _achievementTouristInternalService.GetAchievementById(id).Value;

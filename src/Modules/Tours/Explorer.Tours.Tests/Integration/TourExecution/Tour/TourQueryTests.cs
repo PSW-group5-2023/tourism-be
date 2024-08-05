@@ -1,6 +1,7 @@
 ﻿using Explorer.API.Controllers.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Tour;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,22 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
         }
 
         [Fact]
+        public void Retrieves_all_mobile()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllMobile(0, 0).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(15);
+            result.TotalCount.ShouldBe(15);
+        }
+
+        [Fact]
         public void Get()
         {
             // Arrange
@@ -44,6 +61,20 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 
             // Act
             var result = ((ObjectResult)controller.Get(-1).Result)?.Value as TourDto;
+
+            // Assert
+            result.ShouldNotBeNull();
+        }
+
+        [Fact]
+        public void Retrieves_one_mobile()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetMobile(-1).Result)?.Value as TourMobileDto;
 
             // Assert
             result.ShouldNotBeNull();

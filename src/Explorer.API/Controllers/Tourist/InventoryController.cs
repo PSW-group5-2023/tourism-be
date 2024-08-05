@@ -38,7 +38,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
         [AllowAnonymous]
-        [HttpGet("user")]
+        [HttpGet("user/mobile")]
         public ActionResult<InventoryDto> GetByUserId() 
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
