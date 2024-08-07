@@ -27,6 +27,18 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
             return _dbSet.Where(x=>x.Id==id).First();
         }
 
+        public Result<Achievement> GetComplexAchievement(int id)
+        {
+            var achievement = _dbSet.FirstOrDefault(a => a.Id == id && a.CraftingRecipe.Count != 0);
+
+            if (achievement == null)
+            {
+                return Result.Fail<Achievement>("Achievement not found or not complex.");
+            }
+
+            return Result.Ok(achievement);
+        }
+
         public List<Achievement> GetAllBaseAchievements()
         {
             return _dbSet.Where(a => a.CraftingRecipe.Count == 0).ToList();
@@ -36,5 +48,6 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
         {
             return _dbSet.Where(a => a.CraftingRecipe.Count != 0).ToList();
         }
+
     }
 }

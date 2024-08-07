@@ -16,6 +16,7 @@ namespace Explorer.API.Controllers.Tourist
         {
             _achievementService = achievementService;
         }
+
         [HttpGet("baseAchievemnts")]
         public ActionResult<List<AchievementDto>> GetAllBaseAchievements()
         {
@@ -29,6 +30,23 @@ namespace Explorer.API.Controllers.Tourist
             var result = _achievementService.GetAllComplexAchievements();
             return CreateResponse(result);
         }
+
+        [AllowAnonymous]
+        [HttpGet("complexAchievementsWithFullRecipes/mobile")]
+        public ActionResult<List<AchievementWithFullRecipeMobileDto>> GetAllComplexAchievementsWithFullRecipes()
+        {
+            var result = _achievementService.GetAllComplexAchievementsWithFullRecipes();
+            return CreateResponse(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("complexAchievementWithFullRecipe/mobile/{id:int}")]
+        public ActionResult<List<AchievementWithFullRecipeMobileDto>> GetComplexAchievementWithFullRecipe(int id)
+        {
+            var result = _achievementService.GetComplexAchievementWithFullRecipe(id);
+            return CreateResponse(result);
+        }
+
         [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<AchievementModuleAchievementMobileDto> Get(int id)
