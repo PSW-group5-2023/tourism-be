@@ -76,6 +76,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.CompleteQuiz(long.Parse(userId.Value), encounterId, answers);
             return CreateResponse(result);
         }
+
         [AllowAnonymous]
         [HttpPost("start/mobile/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
@@ -84,6 +85,7 @@ namespace Explorer.API.Controllers.Tourist
             var result = _encounterService.StartEncounter(encounterId, long.Parse(userId.Value));
             return CreateResponse(result);
         }
+
         [AllowAnonymous]
         [HttpGet("{id:long}")]
         public ActionResult<EncounterDto> Get(long id)

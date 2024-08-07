@@ -14,5 +14,6 @@ namespace Explorer.Achievements.Core.Domain.RepositoryInterfaces
         Achievement Get(int id);
         List<Achievement> GetAllBaseAchievements();
         List<Achievement> GetAllComplexAchievements();
+        Result<Achievement> GetComplexAchievement(int id);
     }
 }

@@ -22,8 +22,8 @@ namespace Explorer.Achievements.Core.UseCases
         }
         public Result<InventoryDto> AddAchievementToInventory(InventoryDto inventory, int achivementId)
         {
-            if(!inventory.AchievementsId.Contains(achivementId))
-                inventory.AchievementsId.Add(achivementId);
+            //if(!inventory.AchievementsId.Contains(achivementId))
+            inventory.AchievementsId.Add(achivementId);
             Update(inventory);
             return inventory.ToResult();
         }

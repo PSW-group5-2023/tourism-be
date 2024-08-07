@@ -383,7 +383,7 @@ namespace Explorer.Encounters.Core.UseCases
         public Result<EncounterExecutionDto> StartEncounter(long encounterId, long touristId)
         {
             var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
-            if (encounterExecution.IsSuccess) return Result.Fail(FailureCode.Internal).WithError("Encounter already started");
+            //if (encounterExecution.IsSuccess) return Result.Fail(FailureCode.Internal).WithError("Encounter already started");
             return _encounterExecutionService.Create(new EncounterExecutionDto()
             {
                 TouristId = touristId,
