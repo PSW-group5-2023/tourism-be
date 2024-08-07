@@ -24,6 +24,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpPut]
         public ActionResult<InventoryDto> AddAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] int achievementId)
         {
@@ -31,6 +32,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpPut("craft")]
         public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] List<int> requiredAchievements)
         {
@@ -38,7 +40,7 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
         [AllowAnonymous]
-        [HttpGet("user")]
+        [HttpGet("user/mobile")]
         public ActionResult<InventoryDto> GetByUserId() 
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));

@@ -80,6 +80,57 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             storedAccount.ShouldBeNull();
         }
 
+        [Theory]
+        [MemberData(nameof(MobileRegistrationDto))]
+        public void Register_guest(AccountMobileDto account, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.RegisterGuest(account).Result;
+
+
+            // Assert - Response
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            var authenticationResponse = result.Value as AuthenticationTokensDto;
+            authenticationResponse.ShouldNotBeNull();
+            authenticationResponse.Id.ShouldNotBe(0);
+            var decodedAccessToken = new JwtSecurityTokenHandler().ReadJwtToken(authenticationResponse.AccessToken);
+            //var personId = decodedAccessToken.Claims.FirstOrDefault(c => c.Type == "personId");
+            //personId.ShouldNotBeNull();
+            //personId.Value.ShouldNotBe("0");
+
+            // Assert - Database
+            dbContext.ChangeTracker.Clear();
+            var storedAccount = dbContext.Users.FirstOrDefault(u => u.Username == account.Username);
+            storedAccount.ShouldNotBeNull();
+            storedAccount.Role.ShouldBe(UserRole.Guest);
+        }
+
+        [Theory]
+        [MemberData(nameof(MobileRegistrationFailed))]
+        public void Register_guest_fails(AccountMobileDto account, int expectedResponseCode)
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.RegisterGuest(account).Result;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            //Assert - Database
+            var storedAccount = dbContext.Users.FirstOrDefault(u => u.Username == account.Username);
+            storedAccount.ShouldNotBeNull();
+        }
         public static IEnumerable<object[]> AccountRegistrationDto()
         {
             return new List<object[]>
@@ -112,6 +163,36 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
                         Password = "turistaB",
                         Name = "ŽikaB",
                         Surname = "ŽikićB"
+                    },
+                    400
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> MobileRegistrationDto()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new AccountMobileDto
+                    {
+                        Username = "guestA@gmail.com"
+                    },
+                    200
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> MobileRegistrationFailed()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new AccountMobileDto
+                    {
+                        Username = "autor3@gmail.com",
                     },
                     400
                 }

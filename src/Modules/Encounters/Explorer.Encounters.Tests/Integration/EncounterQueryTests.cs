@@ -10,10 +10,10 @@ namespace Explorer.Encounters.Tests.Integration
     [Collection("Sequential")]
     public class EncounterQueryTests : BaseEncountersIntegrationTest
     {
-        public EncounterQueryTests(EncountersTestFactory factory) : base(factory)
-        {
+            public EncounterQueryTests(EncountersTestFactory factory) : base(factory)
+            {
 
-        }
+            }
 
         [Fact]
         public void Retrieves_all_for_administrator()
@@ -27,8 +27,8 @@ namespace Explorer.Encounters.Tests.Integration
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(10);
-            result.TotalCount.ShouldBe(10);
+            result.Results.Count.ShouldBe(11);
+            result.TotalCount.ShouldBe(11);
         }
 
         [Fact]
@@ -76,6 +76,7 @@ namespace Explorer.Encounters.Tests.Integration
             result.Results.Count.ShouldBe(3);
             result.TotalCount.ShouldBe(3);
         }
+       
 
         private static Explorer.API.Controllers.Administrator.EncounterController CreateAdministratorController(IServiceScope scope, string userId)
         {

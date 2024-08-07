@@ -64,5 +64,96 @@ namespace Explorer.Achievements.Core.UseCases
             achievementTouristMobileDto.Rarity = achievementsBase.Rarity.ToString();
             return achievementTouristMobileDto;
         }
+
+        public Result<AchievementDto> GetComplexAchievement(int id)
+        {
+            var result = _achievementRepository.GetComplexAchievement(id);
+
+            var dto = new AchievementDto
+            {
+                Id = (int)result.Value.Id,
+                Name = result.Value.Name,
+                Description = result.Value.Description,
+                Icon = result.Value.Icon,
+                Rarity = (int)result.Value.Rarity,
+                CraftingRecipe = result.Value.CraftingRecipe
+            };
+
+            return Result.Ok(dto);
+        }
+
+        public Result<List<AchievementWithFullRecipeMobileDto>> GetAllComplexAchievementsWithFullRecipes()
+        {
+            var allAchievementsResult = _achievementRepository.GetAllComplexAchievements();
+        
+            var mappedAchievements = allAchievementsResult.Select(a => new AchievementWithFullRecipeMobileDto
+            {
+                Id = a.Id,
+                Name = a.Name,
+                Description = a.Description,
+                Icon = a.Icon,
+                Rarity = (int)a.Rarity,
+                CraftingRecipe = a.CraftingRecipe.Select(id =>
+                {
+                    var recipeAchievement = _achievementRepository.Get(id);
+                    return new AchievementDto
+                    {
+                        Id = (int)recipeAchievement.Id,
+                        Name = recipeAchievement.Name,
+                        Description = recipeAchievement.Description,
+                        Icon = recipeAchievement.Icon,
+                        Rarity = (int)recipeAchievement.Rarity,
+                        CraftingRecipe = recipeAchievement.CraftingRecipe
+                    };
+                }).ToList()
+            }).ToList();
+
+            return Result.Ok(mappedAchievements);
+        }
+
+        public Result<AchievementWithFullRecipeMobileDto> GetComplexAchievementWithFullRecipe(int id)
+        {
+            var craftResult = _achievementRepository.GetComplexAchievement(id);
+
+            if (!craftResult.IsSuccess)
+            {
+                return Result.Fail<AchievementWithFullRecipeMobileDto>(craftResult.Errors);
+            }
+
+            var craft = craftResult.Value;
+
+            var mappedCraft = new AchievementWithFullRecipeMobileDto
+            {
+                Id = craft.Id,
+                Name = craft.Name,
+                Description = craft.Description,
+                Icon = craft.Icon,
+                Rarity = (int)craft.Rarity,
+                CraftingRecipe = craft.CraftingRecipe.Select(recipeId =>
+                {
+                    var recipeAchievementResult = _achievementRepository.Get(recipeId);  
+                    
+                    var recipeAchievement = recipeAchievementResult;
+
+                    return new AchievementDto
+                    {
+                        Id = (int)recipeAchievement.Id,
+                        Name = recipeAchievement.Name,
+                        Description = recipeAchievement.Description,
+                        Icon = recipeAchievement.Icon,
+                        Rarity = (int)recipeAchievement.Rarity,
+                        CraftingRecipe = recipeAchievement.CraftingRecipe
+                    };
+                }).Where(dto => dto != null).ToList()
+            };
+
+            return Result.Ok(mappedCraft);
+        }
+
+
+
+
+
+
     }
 }
