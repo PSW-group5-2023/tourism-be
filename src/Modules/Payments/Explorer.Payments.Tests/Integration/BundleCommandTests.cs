@@ -121,7 +121,7 @@ namespace Explorer.Payments.Tests.Integration
             var controller = CreateController(scope);
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
-            var result = (ObjectResult)controller.UpdateStatus(bundle).Result;
+            var result = (ObjectResult)controller.Update(bundle).Result;
 
             if (result.StatusCode != 404)
             {
@@ -254,7 +254,7 @@ namespace Explorer.Payments.Tests.Integration
             var dbContext = scope.ServiceProvider.GetRequiredService<PaymentsContext>();
 
             //Assert - Response
-            var result = (ObjectResult)controller.ArchiveBundle(bundleDto).Result;
+            var result = (ObjectResult)controller.Update(bundleDto).Result;
 
             if (result.StatusCode != 404)
             {

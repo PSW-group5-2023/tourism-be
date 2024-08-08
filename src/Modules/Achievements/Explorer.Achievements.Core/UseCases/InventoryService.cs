@@ -22,11 +22,10 @@ namespace Explorer.Achievements.Core.UseCases
         }
         public Result<InventoryDto> AddAchievementToInventory(InventoryDto inventory, int achivementId)
         {
-            //if(!inventory.AchievementsId.Contains(achivementId))
             inventory.AchievementsId.Add(achivementId);
             Update(inventory);
             return inventory.ToResult();
-        }
+        } 
 
         public Result<InventoryDto> AddComplexAchievementToInventory(InventoryDto inventory, List<int> requiredAchievemements)
         {
@@ -38,7 +37,7 @@ namespace Explorer.Achievements.Core.UseCases
         public Result<InventoryDto> GetByUserId(int userId)
         {
             var item = CrudRepository.GetPaged(0, 0).Results.FirstOrDefault(x => x.UserId == userId);
-            if (item == null) throw new Exception("User not found");
+            if (item == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User not found.");
             return MapToDto(item);
         }
     }

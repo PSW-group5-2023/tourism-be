@@ -11,6 +11,7 @@ using Explorer.Tours.API.Internal;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata;
 
 namespace Explorer.Encounters.Core.UseCases
 {
@@ -250,7 +251,7 @@ namespace Explorer.Encounters.Core.UseCases
                 if (encounterDto.CheckpointId == null) throw new ArgumentException("Author can only create an encounter for a checkpoint.");
                 if (!IsAuthorOfCheckpoint(encounterDto.CreatorId, (long)encounterDto.CheckpointId)) throw new ArgumentException("This author is not the author of selected checkpoint.");
                 encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
-                
+                if (encounterDto == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Checkpoint not found.");
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
@@ -260,10 +261,10 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        private EncounterDto SetEncounterLocationByCheckpoint(EncounterDto encounterDto)
+        private EncounterDto SetEncounterLocationByCheckpoint(EncounterDto encounterDto)//should return Result<EncounterDto> for cleaner error handling
         {
             var checkpointId = encounterDto.CheckpointId;
-            if (checkpointId == null) throw new Exception("Checkpoint not found!");
+            if (checkpointId == null) return null;//error handling
             CheckpointDto checkpointDto = _internalCheckpointService.Get((long)checkpointId).Value;
             encounterDto.Longitude = checkpointDto.Longitude;
             encounterDto.Latitude = checkpointDto.Latitude;

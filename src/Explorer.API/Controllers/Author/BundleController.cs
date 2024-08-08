@@ -63,7 +63,7 @@ namespace Explorer.API.Controllers.Author
             var result = _bundleService.Delete(id);
             return CreateResponse(result);
         }
-        //Comented because its the same as update!
+        //Comented because its the same as update! Should be changed on frontend.
 
         //[HttpPut("updateBundleStatus")]
         //public ActionResult<BundleDto> UpdateStatus([FromBody] BundleDto bundle)

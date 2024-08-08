@@ -17,7 +17,7 @@ namespace Explorer.Stakeholders.Core.Domain
         {
 
             var httpContext = Context.GetHttpContext();
-            if (httpContext == null) throw new Exception("httpContext not found");
+            if (httpContext == null) return Task.FromException(new InvalidOperationException("HttpContext is not defined."));
             var token = httpContext.Request.Query["access_token"];
 
             var handler = new JwtSecurityTokenHandler();
