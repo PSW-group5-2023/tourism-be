@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
@@ -19,6 +20,7 @@ public class PreferencesService : CrudService<PreferencesDto, Preferences>, IPre
     public Result<PreferencesDto> GetByUserId(long userId)
     {
         var result = _preferencesRepository.GetByUserId(userId);
+        if(result==null)return Result.Fail(FailureCode.InvalidArgument).WithError("Preferences not found.");
         return MapToDto(result);
     }
 }

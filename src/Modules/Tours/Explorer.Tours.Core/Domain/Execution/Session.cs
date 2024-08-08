@@ -39,9 +39,7 @@ namespace Explorer.Tours.Core.Domain.Sessions
         {
             if (int.TryParse(SessionStatus.ToString(), out _)) throw new ArgumentException("Invalid SessionStatus");
             if (Transportation < 0 || Transportation > 2) throw new ArgumentException("Invalid transportation");
-           // if (DistanceCrossed <= 0) throw new ArgumentException("Invalid length");
-            if (!DateTime.TryParse(LastActivity.ToString(), out _) 
-                || (GetMilliseconds(LastActivity) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid LastActivity");
+            if ((GetMilliseconds(LastActivity) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid LastActivity");
             
             foreach(var keyPoint in CompletedKeyPoints)
             {

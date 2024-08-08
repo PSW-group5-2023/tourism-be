@@ -29,7 +29,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             Checkpoint checkpoint = _checkpointRepository.Get(keypointId);
 
-            if (checkpoint.TourId != null)
+            if (checkpoint != null)
             {
                 TourDto tourDto = _tourService.GetById((long)checkpoint.TourId).Value;
                 return authorId == tourDto.AuthorId;
