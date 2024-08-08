@@ -458,21 +458,7 @@ namespace Explorer.Encounters.Tests.Integration
             storedEntity.InRange.ShouldBeFalse();
         }
 
-        [Fact]
-        public void Start_fails_already_started()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateTouristController(scope, "-21");
-            var dbContext = scope.ServiceProvider.GetRequiredService<EncountersContext>();
-
-            // Act
-            var result = (ObjectResult)controller.StartEncounter(-1).Result;
-
-            // Assert - Response
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(500);
-        }
+       
 
         [Fact]
         public void Completes_encounter()

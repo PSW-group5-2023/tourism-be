@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/checkpoint")]
     public class CheckpointController : BaseApiController
     {
@@ -52,7 +52,6 @@ namespace Explorer.API.Controllers.Tourist
         }
 
 
-        [AllowAnonymous]
          [HttpGet("byTourId/mobile/{tourId:int}")]
          public ActionResult<List<CheckpointMobileDto>> GetByTourIdMobile(int tourId)
          {           
@@ -60,7 +59,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
          }
 
-        [AllowAnonymous]
         [HttpGet("byCheckpointId/mobile/{checkpointId:int}")]
         public ActionResult<List<CheckpointMobileDto>> GetByCheckpointIdMobile(int checkpointId)
         {

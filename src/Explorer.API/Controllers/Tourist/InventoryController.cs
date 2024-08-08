@@ -1,12 +1,13 @@
 ﻿using Explorer.Achievements.API.Dtos;
 using Explorer.Achievements.API.Public;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.Core.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/inventory")]
     public class InventoryController : BaseApiController
     {
@@ -15,7 +16,6 @@ namespace Explorer.API.Controllers.Tourist
         {
             _inventoryService = inventoryService;
         }
-        
 
         [HttpGet("{id:int}")]
         public ActionResult<InventoryDto> Get(int id)
@@ -24,22 +24,21 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPut]
-        public ActionResult<InventoryDto> AddAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] int achievementId)
+        public ActionResult<InventoryDto> AddAchievementToInventory([FromQuery] int achievementId)
         {
-            var result = _inventoryService.AddAchievementToInventory(inventory, achievementId);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _inventoryService.AddAchievementToInventory(Convert.ToInt32(userId.Value), achievementId);
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPut("craft")]
-        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] List<int> requiredAchievements)
+        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromQuery] List<int> requiredAchievements)
         {
-            var result = _inventoryService.AddComplexAchievementToInventory(inventory, requiredAchievements);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _inventoryService.AddComplexAchievementToInventory(Convert.ToInt32(userId.Value), requiredAchievements);
             return CreateResponse(result);
         }
-        [AllowAnonymous]
         [HttpGet("user/mobile")]
         public ActionResult<InventoryDto> GetByUserId() 
         {
