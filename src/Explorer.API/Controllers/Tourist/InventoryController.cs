@@ -16,7 +16,6 @@ namespace Explorer.API.Controllers.Tourist
         {
             _inventoryService = inventoryService;
         }
-        
 
         [HttpGet("{id:int}")]
         public ActionResult<InventoryDto> Get(int id)
