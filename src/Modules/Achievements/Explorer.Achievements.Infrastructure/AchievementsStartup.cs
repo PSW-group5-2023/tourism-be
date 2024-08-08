@@ -41,6 +41,7 @@ namespace Explorer.Achievements.Infrastructure
         {
             services.AddScoped(typeof(ICrudRepository<Achievement>), typeof(CrudDatabaseRepository<Achievement, AchievementsContext>));
             services.AddScoped(typeof(ICrudRepository<Inventory>), typeof(CrudDatabaseRepository<Inventory, AchievementsContext>));
+            services.AddScoped(typeof(IInventoryRepository), typeof(InventoryRepository));
             services.AddScoped<IAchievementRepository, AchievementRepository>();
             services.AddDbContext<AchievementsContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("achievements"),

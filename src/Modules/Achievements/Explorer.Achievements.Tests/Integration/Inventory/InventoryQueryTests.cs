@@ -1,6 +1,6 @@
 ﻿using Explorer.Achievements.API.Dtos;
 using Explorer.Achievements.API.Public;
-using Explorer.API.Controllers.Author;
+using Explorer.API.Controllers.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,21 +18,6 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
     {
         public InventoryQueryTests(AchievementsTestFactory factory) : base(factory) { }
 
-        [Fact]
-        public void Retrieves_all()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
-
-            // Act
-            var result = ((ObjectResult)controller.GetAll(0, 0).Result)?.Value as PagedResult<InventoryDto>;
-
-            // Assert
-            result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(3);
-            result.TotalCount.ShouldBe(3);
-        }
         [Fact]
         public void Retrieves_one()
         {

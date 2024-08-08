@@ -15,29 +15,32 @@ namespace Explorer.Achievements.Core.UseCases
 {
     public class InventoryService:CrudService<InventoryDto,Inventory>,IInventoryService
     {
-        public IAchievementService _achievementService;
-        public InventoryService(ICrudRepository<Inventory> crudRepository, IMapper mapper, IAchievementService achievementService):base(crudRepository, mapper) 
+        private IAchievementService _achievementService;
+        private IInventoryRepository _inventoryRepository;
+        public InventoryService(ICrudRepository<Inventory> crudRepository, IMapper mapper, IAchievementService achievementService, IInventoryRepository inventoryRepository):base(crudRepository, mapper) 
         {
             _achievementService = achievementService;
+            _inventoryRepository = inventoryRepository;
         }
-        public Result<InventoryDto> AddAchievementToInventory(InventoryDto inventory, int achivementId)
+        public Result<InventoryDto> AddAchievementToInventory(int userId, int achivementId)
         {
             //if(!inventory.AchievementsId.Contains(achivementId))
+            Inventory inventory= _inventoryRepository.GetByUserId(userId).Value;
             inventory.AchievementsId.Add(achivementId);
-            Update(inventory);
-            return inventory.ToResult();
+            _inventoryRepository.Update(inventory);
+            return MapToDto(inventory).ToResult();
         }
 
-        public Result<InventoryDto> AddComplexAchievementToInventory(InventoryDto inventory, List<int> requiredAchievemements)
+        public Result<InventoryDto> AddComplexAchievementToInventory(int userId, List<int> requiredAchievemements)
         {
             var complexAchievement = _achievementService.CreateComplexAchievement(requiredAchievemements);
 
-            return AddAchievementToInventory(inventory, complexAchievement.Value.Id);
+            return AddAchievementToInventory(userId, complexAchievement.Value.Id);
         }
 
         public Result<InventoryDto> GetByUserId(int userId)
         { 
-            return MapToDto(CrudRepository.GetPaged(0,0).Results.Where(x=>x.UserId == userId).FirstOrDefault());
+            return MapToDto(_inventoryRepository.GetByUserId(userId).Value);
         }
     }
 }

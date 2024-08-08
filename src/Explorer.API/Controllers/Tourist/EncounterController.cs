@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/encounter")]
     public class EncounterController : BaseApiController
     {
@@ -68,7 +68,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPut("complete-quiz/mobile/{encounterId:int}")]
         public ActionResult<EncounterExecutionDto> CompleteQuiz(int encounterId, [FromBody] List<SubmittedAnswerDto> answers)
         {
@@ -77,7 +76,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPost("start/mobile/{encounterId:long}")]
         public ActionResult<EncounterExecutionDto> StartEncounter(long encounterId)
         {
@@ -86,7 +84,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id:long}")]
         public ActionResult<EncounterDto> Get(long id)
         {
@@ -94,7 +91,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("questions/mobile/{checkpointId:int}")]
         public ActionResult<EncounterModuleQuizAchievementMobileDto> GetByCheckpointTourist(int checkpointId)
         {
