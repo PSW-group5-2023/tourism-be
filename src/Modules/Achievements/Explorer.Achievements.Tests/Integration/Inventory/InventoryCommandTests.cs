@@ -71,7 +71,7 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
             storedEntity.ShouldNotBeNull();
             storedEntity.AchievementsId.Count.ShouldBe(3);
         } 
-*/
+*/ 
 
         private static InventoryController CreateController(IServiceScope scope, string userId)
         {
