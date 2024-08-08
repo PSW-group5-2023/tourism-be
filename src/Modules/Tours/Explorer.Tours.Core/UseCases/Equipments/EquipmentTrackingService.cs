@@ -11,11 +11,11 @@ namespace Explorer.Tours.Core.UseCases.Equipments;
 public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, EquipmentTracking>, IEquipmentTrackingService
 {
     private readonly IEquipmentTrackingRepository _equipmentTrackingRepository;
-    private readonly IMapper _mapper;
+    //private readonly IMapper _mapper;
     public EquipmentTrackingService(ICrudRepository<EquipmentTracking> repository, IMapper mapper, IEquipmentTrackingRepository equipmentTrackingRepository) : base(mapper)
     {
         _equipmentTrackingRepository = equipmentTrackingRepository;
-        _mapper = mapper;
+        //_mapper = mapper;
     }
     public Result<EquipmentTrackingDto> GetByTouristId(long touristId)
     {

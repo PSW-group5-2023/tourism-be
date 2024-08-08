@@ -28,7 +28,6 @@ public class User : Entity
     private void Validate()
     {
         if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
-        //if (string.IsNullOrWhiteSpace(Password)) throw new ArgumentException("Invalid Surname");
     }
 
     public string GetPrimaryRoleName()

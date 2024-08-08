@@ -23,9 +23,10 @@ namespace Explorer.Blog.Infrastructure.Database.Repositories
             _dbContext = dbContext;
         }
 
-        public BlogPage? Get(int id)
+        public BlogPage Get(int id)
         {
             var blog=_dbContext.Blogs.FirstOrDefault(b => b.Id == id);
+            if (blog == null) throw new Exception("Blog not found");
             return blog;
         }
 

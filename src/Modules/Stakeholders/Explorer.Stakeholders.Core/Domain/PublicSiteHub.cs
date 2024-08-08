@@ -17,15 +17,19 @@ namespace Explorer.Stakeholders.Core.Domain
         {
 
             var httpContext = Context.GetHttpContext();
+            if (httpContext == null) throw new Exception("httpContext not found");
             var token = httpContext.Request.Query["access_token"];
 
             var handler = new JwtSecurityTokenHandler();
             if (!token.IsNullOrEmpty())
             {
                 var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
-
-                var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "id")?.Value;
-                if (userId != null) Groups.AddToGroupAsync(Context.ConnectionId, userId);
+                if (jsonToken!=null)
+                {
+                    var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "id")?.Value;
+                    if (userId != null) Groups.AddToGroupAsync(Context.ConnectionId, userId);
+                }
+                
             }
 
 

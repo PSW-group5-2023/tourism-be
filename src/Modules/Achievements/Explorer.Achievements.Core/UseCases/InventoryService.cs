@@ -36,8 +36,10 @@ namespace Explorer.Achievements.Core.UseCases
         }
 
         public Result<InventoryDto> GetByUserId(int userId)
-        { 
-            return MapToDto(CrudRepository.GetPaged(0,0).Results.Where(x=>x.UserId == userId).FirstOrDefault());
+        {
+            var item = CrudRepository.GetPaged(0, 0).Results.FirstOrDefault(x => x.UserId == userId);
+            if (item == null) throw new Exception("User not found");
+            return MapToDto(item);
         }
     }
 }

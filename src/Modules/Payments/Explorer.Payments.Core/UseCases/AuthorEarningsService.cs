@@ -11,15 +11,15 @@ namespace Explorer.Payments.Core.UseCases
 {
     public class AuthorEarningsService : BaseService<AuthorEarningsDto, BoughtItem>, IAuthorEarningsService
     {
-        private IInternalTourService _internalTourUsageService;
-        private IBoughtItemService _boughtItemService;
-        private ICouponService _couponService;
-        private IAuthorEarningsDomainService _authorEarningsDomainService;
+        //private readonly IInternalTourService _internalTourUsageService;
+        //private readonly IBoughtItemService _boughtItemService;
+        private readonly ICouponService _couponService;
+        private readonly IAuthorEarningsDomainService _authorEarningsDomainService;
 
         public AuthorEarningsService(IMapper mapper, IInternalTourService internalTourUsageService, IBoughtItemService boughtItemService, ICouponService couponService, IAuthorEarningsDomainService authorEarningsDomainService) : base(mapper)
         {
-            _internalTourUsageService = internalTourUsageService;
-            _boughtItemService = boughtItemService;
+            //_internalTourUsageService = internalTourUsageService;
+            //_boughtItemService = boughtItemService;
             _couponService = couponService;
             _authorEarningsDomainService = authorEarningsDomainService;
         }

@@ -63,19 +63,20 @@ namespace Explorer.API.Controllers.Author
             var result = _bundleService.Delete(id);
             return CreateResponse(result);
         }
+        //Comented because its the same as update!
 
-        [HttpPut("updateBundleStatus")]
-        public ActionResult<BundleDto> UpdateStatus([FromBody] BundleDto bundle)
-        {
-            var result = _bundleService.Update(bundle);
-            return CreateResponse(result);
-        }
+        //[HttpPut("updateBundleStatus")]
+        //public ActionResult<BundleDto> UpdateStatus([FromBody] BundleDto bundle)
+        //{
+        //    var result = _bundleService.Update(bundle);
+        //    return CreateResponse(result);
+        //}
 
-        [HttpPut("archiveBundle")]
-        public ActionResult<List<BundleDto>> ArchiveBundle([FromBody] BundleDto bundle)
-        {
-            var result = _bundleService.Update(bundle);
-            return CreateResponse(result);
-        }
+        //[HttpPut("archiveBundle")]
+        //public ActionResult<List<BundleDto>> ArchiveBundle([FromBody] BundleDto bundle)
+        //{
+        //    var result = _bundleService.Update(bundle);
+        //    return CreateResponse(result);
+        //}
     }
 }

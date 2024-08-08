@@ -15,7 +15,6 @@ namespace Explorer.API.Controllers.Tourist
     {
         private readonly ICheckpointService _checkpointService;
         private readonly IPublicCheckpointService _publicCheckpointService;
-        private readonly ILogger _logger;
 
         public CheckpointController(ICheckpointService checkpointService, IPublicCheckpointService publicCheckpointService)
         {

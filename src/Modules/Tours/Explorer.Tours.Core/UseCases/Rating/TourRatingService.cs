@@ -18,12 +18,12 @@ namespace Explorer.Tours.Core.UseCases.Rating
     {
         private readonly ITourRatingRepository _tourRatingRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         public TourRatingService(ICrudRepository<TourRating> repository, IMapper mapper, ITourRatingRepository tourRatingRepository, ITourStatisticsDomainService tourStatisticsDomainService) : base(repository, mapper)
         {
             _tourRatingRepository = tourRatingRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         public Result<List<TourRatingDto>> GetByTourId(int tourId)

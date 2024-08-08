@@ -12,7 +12,7 @@ namespace Explorer.Payments.Core.Domain.DomainServices
 {
     public class BoughtItemDomainService:IBoughtItemDomainService
     {
-        IBoughtItemRepository _boughtItemRepository;
+        private readonly IBoughtItemRepository _boughtItemRepository;
         public BoughtItemDomainService(IBoughtItemRepository boughtItemRepository) 
         {
             _boughtItemRepository = boughtItemRepository;

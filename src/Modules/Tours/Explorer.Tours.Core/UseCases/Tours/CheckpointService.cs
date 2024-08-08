@@ -15,13 +15,13 @@ namespace Explorer.Tours.Core.UseCases.Tours
     {
         private readonly ICheckpointRepository _checkpointRepository;
         private readonly IQuizAchievementMobileInternalService _quizMobileInternalService;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
 
         public CheckpointService(ICrudRepository<Checkpoint> repository, ICheckpointRepository checkpointRepository, IMapper mapper, IQuizAchievementMobileInternalService quizMobileInternalService) : base(repository, mapper)
         {
             _checkpointRepository = checkpointRepository;
             _quizMobileInternalService = quizMobileInternalService;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         public Result<List<CheckpointDto>> GetByTourId(long tourId)

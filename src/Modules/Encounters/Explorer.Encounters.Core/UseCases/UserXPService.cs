@@ -32,7 +32,7 @@ namespace Explorer.Encounters.Core.UseCases
             dto.Level=userExperience.Level;
             return dto;
         }
-        public UserExperienceDto Create(UserExperienceDto userExperience)
+        public new UserExperienceDto Create(UserExperienceDto userExperience)
         {
             return base.MapToDto(_userExperienceRepository.Create(base.MapToDomain(userExperience)));
         }

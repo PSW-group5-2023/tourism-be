@@ -10,7 +10,7 @@ namespace Explorer.Encounters.Core.UseCases
 {
     public class UserExperienceService : CrudService<UserExperienceDto, UserExperience>, IUserExperienceService
     {
-        IUserExperienceRepository _userExperienceRepository;
+        private readonly IUserExperienceRepository _userExperienceRepository;
         public UserExperienceService(ICrudRepository<UserExperience> crudRepository, IUserExperienceRepository userExperienceRepository, IMapper mapper) : base(crudRepository, mapper)
         {
             _userExperienceRepository = userExperienceRepository;

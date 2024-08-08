@@ -44,6 +44,11 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<InventoryDto> GetByUserId() 
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            if (userId == null || string.IsNullOrEmpty(userId.Value))
+            {
+                // Handle the error when the user ID is not found or the value is empty.
+                throw new Exception("User ID claim not found.");
+            }
             var result= _inventoryService.GetByUserId(Convert.ToInt32(userId.Value));
             return CreateResponse(result);
         }

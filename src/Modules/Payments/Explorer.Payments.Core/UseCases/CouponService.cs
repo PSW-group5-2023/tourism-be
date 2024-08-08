@@ -12,7 +12,7 @@ namespace Explorer.Payments.Core.UseCases;
 public class CouponService : BaseService<CouponDto, Coupon>, ICouponService
 {
     private readonly ICouponRepository _couponRepository;
-    private ICouponUsedService couponUsedService;
+    private readonly ICouponUsedService couponUsedService;
     public CouponService(IMapper mapper, ICouponRepository couponRepository, ICouponUsedService couponUsedService) : base(mapper)
     {
         _couponRepository = couponRepository;

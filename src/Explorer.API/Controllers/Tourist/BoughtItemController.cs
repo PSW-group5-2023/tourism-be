@@ -17,8 +17,8 @@ namespace Explorer.API.Controllers.Tourist
     public class BoughtItemController : BaseApiController
     {
 
-        private IBoughtItemService _shoppingCartService;
-        private ICouponService _couponService;
+        private readonly IBoughtItemService _shoppingCartService;
+        private readonly ICouponService _couponService;
         private readonly IWalletService _walletService;
 
         public BoughtItemController(IBoughtItemService shoppingCartService, ICouponService couponService, IWalletService walletService)
