@@ -1,6 +1,7 @@
 ﻿using Explorer.Achievements.API.Dtos;
 using Explorer.Achievements.API.Public;
 using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Stakeholders.Core.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,16 +26,18 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpPut]
-        public ActionResult<InventoryDto> AddAchievementToInventory([FromQuery] int inventoryId, [FromQuery] int achievementId)
+        public ActionResult<InventoryDto> AddAchievementToInventory([FromQuery] int achievementId)
         {
-            var result = _inventoryService.AddAchievementToInventory(inventoryId, achievementId);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _inventoryService.AddAchievementToInventory(Convert.ToInt32(userId.Value), achievementId);
             return CreateResponse(result);
         }
 
         [HttpPut("craft")]
-        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromQuery] int inventoryId, [FromQuery] List<int> requiredAchievements)
+        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromQuery] List<int> requiredAchievements)
         {
-            var result = _inventoryService.AddComplexAchievementToInventory(inventoryId, requiredAchievements);
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _inventoryService.AddComplexAchievementToInventory(Convert.ToInt32(userId.Value), requiredAchievements);
             return CreateResponse(result);
         }
         [HttpGet("user/mobile")]
