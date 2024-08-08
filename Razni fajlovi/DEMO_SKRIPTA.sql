@@ -10,7 +10,8 @@ INSERT INTO stakeholders."Users"(
     (-7, 'lukastankovic', 'MvhubNOwmmqs4dE1e9VAR64KAUk2To3031RLyWwWNmvW6lnPOt36AlIIXw0qpqJlVLNdf0WU0dDY5LWunMK27UM08/Q7XGJbbY18ql8PQHk=', 2, true, NULL, NULL, NULL),
     (-8, 'katarinastojkovic', '7IOHpM31bKnANVn4rRWAwcUK1Mx0+6h6RsZBgTrbWkwyLUAu2h+K5XcvWNAmpBQlJyaHF3ujEXeYFD/at62aPvuD/DY4ahTeXkRc6/JUrRo=', 2, true, NULL, NULL, NULL),
     (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL, NULL),
-    (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL);
+    (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL),
+    (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL);
 
 INSERT INTO stakeholders."People"(
 	"Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto", "Latitude", "Longitude")
@@ -708,17 +709,24 @@ VALUES
 
 
 INSERT INTO encounters."Encounters"(
-    "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "CheckpointId", "IsMandatory", "Image", "LocationLatitude", "LocationLongitude", "RangeInMeters", "RequiredAttendance")
-VALUES (-1, -3, 'Enjoy the Challenge by calling as many people as possible to join.', 'Community Connection Rally', 1, 0, 45.249055, 19.850548, 190, null, false, null, null, null, 50, 2),
-    (-2, -4, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Visual Quest Adventure', 1, 1, 45.252909, 19.855888, 30, null, false, 'https://fajlovi.bos4.tours/uploads/2020/10/images/tour_217/Petrovaradinska%20tvrdjava%20sat.jpg', 45.253355, 19.861284, null, null),
-    (-3, -3, 'To complete the challenge, you need to shout out loud.', 'Challenge 3', 1, 2, 45.255387, 19.845547, 20, null, false, null, null, null, null, null),
-    (-4, -3, 'You need to do 10 push-ups to complete the challenge.', 'Challenge 4', 1, 2, 45.244873, 19.841853, 10, null, false, null, null, null, null, null),
-    (-5, -4, 'Gathering Waves Challenge', 'Snapshot Scavenger Hunt', 1, 1, 45.249647, 19.825326, 10, null, false, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, null, null),
-    (-6, -5, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Gathering Waves Challenge', 1, 0, 45.264473, 19.825806, 10, null, false, null, null, null, 50, 2),
-	(-7, -1, 'To complete this challenge, do a backflip.', 'Challenge for acrobat', 1, 2, 45.25190843660657, 19.83714580535889, 100, NULL, false, NULL, NULL, NULL, null, NULL),
-    (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, false, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, null, NULL),
-     (-9, -2, 'Ubedi publiku da ti da lep aplauz ', 'Demo izazov', 1, 2, 45.247477347792135, 19.853885173788512, 50, null, false, null, null, null, null, null);
-     
+    "Id", "CreatorId", "Description", "Name", "Status", "Type", "Latitude", "Longitude", "ExperiencePoints", "CheckpointId", "IsMandatory", "AchievementId", "Image", "LocationLatitude", "LocationLongitude", "RangeInMeters", "RequiredAttendance")
+VALUES (-1, -3, 'Enjoy the Challenge by calling as many people as possible to join.', 'Community Connection Rally', 1, 0, 45.249055, 19.850548, 190, null, false, -7, null, null, null, 50, 2),
+      (-2, -4, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Visual Quest Adventure', 1, 1, 45.252909, 19.855888, 30, null, false, -7, 'https://fajlovi.bos4.tours/uploads/2020/10/images/tour_217/Petrovaradinska%20tvrdjava%20sat.jpg', 45.253355, 19.861284, null, null),
+      (-3, -3, 'To complete the challenge, you need to shout out loud.', 'Challenge 3', 1, 2, 45.255387, 19.845547, 20, null, false, -7, null, null, null, null, null),
+      (-4, -3, 'You need to do 10 push-ups to complete the challenge.', 'Challenge 4', 1, 2, 45.244873, 19.841853, 10, null, false, -7, null, null, null, null, null),
+      (-5, -4, 'Gathering Waves Challenge', 'Snapshot Scavenger Hunt', 1, 1, 45.249647, 19.825326, 10, null, false, -7, 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Serbia-0268_-_Name_of_Mary_Parish_Church_(7344449164).jpg', 45.255128, 19.845097, null, null),
+      (-6, -5, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.', 'Gathering Waves Challenge', 1, 0, 45.264473, 19.825806, 10, null, false, -7, null, null, null, 50, 2),
+	    (-7, -1, 'To complete this challenge, do a backflip.', 'Challenge for acrobat', 1, 2, 45.25190843660657, 19.83714580535889, 100, NULL, false, -7, NULL, NULL, NULL, null, NULL),
+      (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, false, -7, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, null, NULL),
+      (-9, -2, 'Ubedi publiku da ti da lep aplauz ', 'Demo izazov', 1, 2, 45.247477347792135, 19.853885173788512, 50, null, false, -7, null, null, null, null, null),
+      (-10, -3, 'Explore the ancient ruins', 'Ruins Exploration', 1, 3, 45.184834, 19.804383, 150, -30, false, -7, null, null, null, null, null);
+INSERT INTO encounters."Questions" (
+    "Id", "OrderInQuiz", "Content", "Answers", "EncounterId") 
+VALUES
+    (1, 1, 'What is the capital of ancient Rome?', '[{"Content": "Rome", "Correct": true}, {"Content": "Athens", "Correct": false}, {"Content": "Cairo", "Correct": false}]', -10),
+    (2, 2, 'Who built the Colosseum?', '[{"Content": "Emperor Vespasian", "Correct": true}, {"Content": "Julius Caesar", "Correct": false}, {"Content": "Nero", "Correct": false}]', -10),
+    (3, 3, 'What year did the Roman Empire fall?', '[{"Content": "476 AD", "Correct": true}, {"Content": "410 AD", "Correct": false}, {"Content": "330 AD", "Correct": false}]', -10),
+    (4, 4, 'What is the tallest structure in ancient Rome?', '[{"Content": "The Colosseum", "Correct": false}, {"Content": "Trajan", "Correct": true}, {"Content": "Pantheon", "Correct": false}, {"Content": "Di Trevi", "Correct": false}]', -10);
 INSERT INTO payments."BoughtItems"(
 	"Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 	VALUES 
@@ -970,3 +978,13 @@ VALUES
     (-8, 'Marathon Runner', 'Run a total of 42km', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
     (-9, 'Ultimate Explorer', 'Discover all locations', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{-1, -2}'),
     (-10, 'Master Alchemist', 'Craft all potions', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{-7}');
+
+INSERT INTO achievements."Inventory"(
+    "Id", "UserId", "AchievementsId")
+	VALUES
+        (-6, -6, '{-4}'),
+        (-7, -7, '{-5,-5,-6,-5}'),
+        (-8, -8, '{-7}'),
+        (-9, -9, '{}'),
+        (-10, -10, '{}'),
+        (-11, -11, '{-1, -3}');

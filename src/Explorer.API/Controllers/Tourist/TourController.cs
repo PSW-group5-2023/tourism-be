@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/tour")]
     public class TourController : BaseApiController
     {
@@ -27,7 +27,6 @@ namespace Explorer.API.Controllers.Tourist
             _recommenderService = recommenderService;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public ActionResult<PagedResult<TourDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
@@ -35,7 +34,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("mobile")]
         public ActionResult<PagedResult<TourMobileDto>> GetAllMobile([FromQuery] int page, [FromQuery] int pageSize)
         {
@@ -43,7 +41,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<TourDto> Get(int id)
         {
@@ -51,7 +48,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("mobile/{id:int}")]
         public ActionResult<TourMobileDto> GetMobile(int id)
         {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/achievement")]
     public class AchievementController : BaseApiController
     {
@@ -31,7 +31,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("complexAchievementsWithFullRecipes/mobile")]
         public ActionResult<List<AchievementWithFullRecipeMobileDto>> GetAllComplexAchievementsWithFullRecipes()
         {
@@ -39,7 +38,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("complexAchievementWithFullRecipe/mobile/{id:int}")]
         public ActionResult<List<AchievementWithFullRecipeMobileDto>> GetComplexAchievementWithFullRecipe(int id)
         {
@@ -47,7 +45,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<AchievementModuleAchievementMobileDto> Get(int id)
         {

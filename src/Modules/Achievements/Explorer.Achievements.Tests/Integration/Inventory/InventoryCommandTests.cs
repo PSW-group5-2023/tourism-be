@@ -94,7 +94,7 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
                 AchievementsId = new List<int>() { -3,-9}
             };
             // Act
-            var result = ((ObjectResult)controller.AddAchievementToInventory(updatedEntity,-33).Result)?.Value as InventoryDto;
+            var result = ((ObjectResult)controller.AddAchievementToInventory(-2,-33).Result)?.Value as InventoryDto;
 
             // Assert
             result.UserId.ShouldBe(updatedEntity.UserId);
@@ -119,7 +119,7 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
                 AchievementsId = new List<int>() { -3, -9 }
             };
             // Act
-            var result = ((ObjectResult)controller.AddComplexAchievementToInventory(updatedEntity, requiredItems).Result)?.Value as InventoryDto;
+            var result = ((ObjectResult)controller.AddComplexAchievementToInventory(-2, requiredItems).Result)?.Value as InventoryDto;
 
             // Assert
             result.UserId.ShouldBe(updatedEntity.UserId);

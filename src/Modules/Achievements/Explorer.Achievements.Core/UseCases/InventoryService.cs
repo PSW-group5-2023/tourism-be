@@ -20,19 +20,20 @@ namespace Explorer.Achievements.Core.UseCases
         {
             _achievementService = achievementService;
         }
-        public Result<InventoryDto> AddAchievementToInventory(InventoryDto inventory, int achivementId)
+        public Result<InventoryDto> AddAchievementToInventory(int inventoryId, int achivementId)
         {
             //if(!inventory.AchievementsId.Contains(achivementId))
+            InventoryDto inventory= MapToDto(CrudRepository.Get(inventoryId));
             inventory.AchievementsId.Add(achivementId);
             Update(inventory);
             return inventory.ToResult();
         }
 
-        public Result<InventoryDto> AddComplexAchievementToInventory(InventoryDto inventory, List<int> requiredAchievemements)
+        public Result<InventoryDto> AddComplexAchievementToInventory(int inventoryId, List<int> requiredAchievemements)
         {
             var complexAchievement = _achievementService.CreateComplexAchievement(requiredAchievemements);
 
-            return AddAchievementToInventory(inventory, complexAchievement.Value.Id);
+            return AddAchievementToInventory(inventoryId, complexAchievement.Value.Id);
         }
 
         public Result<InventoryDto> GetByUserId(int userId)

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/inventory")]
     public class InventoryController : BaseApiController
     {
@@ -24,22 +24,19 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPut]
-        public ActionResult<InventoryDto> AddAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] int achievementId)
+        public ActionResult<InventoryDto> AddAchievementToInventory([FromQuery] int inventoryId, [FromQuery] int achievementId)
         {
-            var result = _inventoryService.AddAchievementToInventory(inventory, achievementId);
+            var result = _inventoryService.AddAchievementToInventory(inventoryId, achievementId);
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
         [HttpPut("craft")]
-        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromBody] InventoryDto inventory, [FromQuery] List<int> requiredAchievements)
+        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromQuery] int inventoryId, [FromQuery] List<int> requiredAchievements)
         {
-            var result = _inventoryService.AddComplexAchievementToInventory(inventory, requiredAchievements);
+            var result = _inventoryService.AddComplexAchievementToInventory(inventoryId, requiredAchievements);
             return CreateResponse(result);
         }
-        [AllowAnonymous]
         [HttpGet("user/mobile")]
         public ActionResult<InventoryDto> GetByUserId() 
         {
