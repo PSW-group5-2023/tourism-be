@@ -10,6 +10,6 @@ namespace Explorer.Encounters.API.Dtos.Tourist
     public class EncounterModuleQuizAchievementMobileDto
     {
         public List<EncounterModuleQuizMobileDto> Questions { get; set; }
-        public EncounterModuleAchievementMobileDto Achievement { get; set; }
+        public EncounterModuleAchievementMobileDto? Achievement { get; set; }
     }
 }

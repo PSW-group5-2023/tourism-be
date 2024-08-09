@@ -6,7 +6,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         List<Checkpoint> GetByTourId(long tourId); 
         Checkpoint GetById(int id);
-        Checkpoint Update(Checkpoint keyPoint);
+        Checkpoint Update(Checkpoint newCheckpoint);
         Checkpoint Get(long id);
     }
 }

@@ -19,6 +19,7 @@ namespace Explorer.Tours.Core.UseCases.Facilities
         public Result<PublicFacilityDto> ChangeStatus(int id, string status)
         {
             PublicFacility facility = (PublicFacility)_facilityRepository.GetById(id);
+            if (facility == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Facility not found.");
             Enum.TryParse(status, out PublicFacility.PublicFacilityStatus parsedStatus);
             facility.ChangeStatus(parsedStatus);
             _facilityRepository.Update(facility);

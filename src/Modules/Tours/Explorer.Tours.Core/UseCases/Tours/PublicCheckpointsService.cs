@@ -21,6 +21,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<PublicCheckpointDto> ChangeStatus(int id, string status)
         {
             PublicCheckpoint checkpoint = (_publicCheckpointRepository.GetById(id));
+            if (checkpoint == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Checkpoint not found.");
+
             switch (status)
             {
                 case "Approved":
@@ -35,13 +37,12 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
             _publicCheckpointRepository.Update(checkpoint);
 
-
             return MapToDto(checkpoint);
         }
 
         public Result<List<PublicCheckpointDto>> GetByStatus(string status)
         {
-            Enum.TryParse(status, out PublicCheckpointStatus parsedStatus);
+            _ = Enum.TryParse(status, out PublicCheckpointStatus parsedStatus);
             var checkpoints = _publicCheckpointRepository.GetByStatus(parsedStatus);
 
             var publicCheckpointDtos = _mapper.Map<List<PublicCheckpointDto>>(checkpoints);

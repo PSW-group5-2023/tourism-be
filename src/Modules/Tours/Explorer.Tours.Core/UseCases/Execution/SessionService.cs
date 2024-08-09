@@ -144,6 +144,7 @@ namespace Explorer.Tours.Core.UseCases.Execution
         {
             var sessions = _sessionRepository.GetAll();
             var result = _tourStatisticsDomainService.GetSessionsByStatusForTourStatistics(tourId,sessionStatus,sessions);
+            if (result == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Session not found.");
             TourStatisticsDto stat = new TourStatisticsDto();
             stat.TourId = result.Value.TourId;
             stat.NumberOfStats = result.Value.NumberOfStats;

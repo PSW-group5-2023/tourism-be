@@ -23,7 +23,7 @@ namespace Explorer.Tours.Core.UseCases.Statistics
 
                 if (session.SessionStatus == SessionStatus.ABANDONED)
                 {
-                    if (matchingStat != null)
+                    if (matchingStat is not null)
                     {
                         matchingStat.NumberOfStats += 1;
                     }
@@ -44,20 +44,18 @@ namespace Explorer.Tours.Core.UseCases.Statistics
 
             foreach (var session in sessions)
             {
-                var matchingStat = attendanceStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
+                TourStatistics? matchingStat = attendanceStatistics.FirstOrDefault(stat => stat.TourId == session.TourId);
 
 
                 if (session.SessionStatus == SessionStatus.ACTIVE || session.SessionStatus == SessionStatus.COMPLETED)
                 {
-                    if (matchingStat != null)
+                    if (matchingStat is not null)
                     {
                         matchingStat.NumberOfStats += 1;
                     }
                     else
                     {
                         TourStatistics stat = new TourStatistics(session.TourId, 1);
-                        //stat.TourId = session.TourId;
-                        //stat.NumberOfStats = 1;
                         attendanceStatistics.Add(stat);
                     }
                 }
@@ -103,13 +101,10 @@ namespace Explorer.Tours.Core.UseCases.Statistics
             var uniqueSessions = new List<Session>();
             foreach (var session in sessions)
             {
-                if (authorsTourIds.Contains(session.TourId))
+                if (authorsTourIds.Contains(session.TourId) && uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null && session.SessionStatus == SessionStatus.COMPLETED)
                 {
-                    if (uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null && session.SessionStatus == SessionStatus.COMPLETED)
-                    {
-                        numberOfCompletedTours += 1;
-                        uniqueSessions.Add(session);
-                    }
+                    numberOfCompletedTours += 1;
+                    uniqueSessions.Add(session);
                 }
             }
 
@@ -216,7 +211,7 @@ namespace Explorer.Tours.Core.UseCases.Statistics
 
             var percentages = new List<int>();
 
-            var uniqueSessions = new List<Session>();
+            List<Session> uniqueSessions = new();
 
             uniqueSessions = sessions
                 .GroupBy(s => new { s.TouristId, s.TourId })

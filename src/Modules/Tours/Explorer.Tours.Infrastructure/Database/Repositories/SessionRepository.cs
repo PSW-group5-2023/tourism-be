@@ -24,7 +24,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return session;
         }
 
-        public Session Get(long id)
+        public Session? Get(long id)
         {
             return _context.Sessions.SingleOrDefault(s => s.Id == id);
         }
@@ -61,7 +61,6 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         public Session AddCompletedKeyPoint(int sessionId, int keyPointId)
         {
             var session = _context.Sessions.FirstOrDefault(s => s.Id == sessionId);
-            var completedKeyPoint = session.AddCompletedKeyPoint(keyPointId);
             _context.Sessions.Update(session);
 
             _context.SaveChanges();

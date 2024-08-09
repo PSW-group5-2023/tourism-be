@@ -25,8 +25,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public PublicCheckpoint Update(PublicCheckpoint newCheckpoint)
         {
-            var checkpoint = _dbContext.PublicCheckpoints.FirstOrDefault(x => x.Id == newCheckpoint.Id);
-            checkpoint = newCheckpoint;
+            var checkpoint = newCheckpoint;
             _dbContext.SaveChanges();
             return checkpoint;
         }

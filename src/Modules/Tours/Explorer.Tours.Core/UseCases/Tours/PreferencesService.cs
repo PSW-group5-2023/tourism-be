@@ -21,6 +21,7 @@ public class PreferencesService : CrudService<PreferencesDto, Preferences>, IPre
     public Result<PreferencesDto> GetByUserId(long userId)
     {
         var result = _preferencesRepository.GetByUserId(userId);
+        if (result == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Preference not found.");
         return MapToDto(result);
     }
 }

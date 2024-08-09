@@ -20,6 +20,7 @@ public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, Equipm
     public Result<EquipmentTrackingDto> GetByTouristId(long touristId)
     {
         EquipmentTracking entity = _equipmentTrackingRepository.GetByTouristId(touristId);
+        if (entity == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Entity not found.");
         return MapToDto(entity);
     }
 
