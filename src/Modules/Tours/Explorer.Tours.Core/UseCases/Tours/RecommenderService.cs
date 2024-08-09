@@ -92,23 +92,20 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 }
             }
 
-            if (preference != null)
+            foreach (var tour in tours)
             {
-                foreach (var tour in tours)
-                {
-                    double tagsSimilarity = getPreferencesTagsSimilarityIndex(preference, tour);
+                double tagsSimilarity = getPreferencesTagsSimilarityIndex(preference, tour);
 
-                    double difficultyError = getPreferencesDifficultySimilarityIndex(preference, tour);
+                double difficultyError = getPreferencesDifficultySimilarityIndex(preference, tour);
 
-                    double usedToursSimilarity = getUsedToursSimilarityIndex(usedTours, tour);
+                double usedToursSimilarity = getUsedToursSimilarityIndex(usedTours, tour);
 
-                    double ratingIndex = getRatingIndex(tour);
+                double ratingIndex = getRatingIndex(tour);
 
 
-                    // make one similarity index and bind it to tour
-                    double averageSimilarityIndexes = (tagsSimilarity + usedToursSimilarity + difficultyError + ratingIndex) / 4;
-                    tourIndexes[tour.Id] = averageSimilarityIndexes;
-                }
+                // make one similarity index and bind it to tour
+                double averageSimilarityIndexes = (tagsSimilarity + usedToursSimilarity + difficultyError + ratingIndex) / 4;
+                tourIndexes[tour.Id] = averageSimilarityIndexes;
             }
 
             var sortedToursByIndexes = tourIndexes.OrderByDescending(x => x.Value);

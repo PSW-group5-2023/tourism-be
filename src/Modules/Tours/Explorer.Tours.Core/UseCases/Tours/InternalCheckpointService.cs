@@ -11,8 +11,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class InternalCheckpointService : BaseService<CheckpointDto, Checkpoint>, IInternalCheckpointService
     {
-        private ICheckpointRepository _checkpointRepository;
-        private ITourService _tourService;
+        private readonly ICheckpointRepository _checkpointRepository;
+        private readonly ITourService _tourService;
 
         public InternalCheckpointService(ICheckpointRepository checkpointRepository, ITourService tourService, IMapper mapper) : base(mapper)
         {
