@@ -30,7 +30,6 @@ namespace Explorer.Tours.Core.Domain.Rating
             if (string.IsNullOrWhiteSpace(Comment)) throw new ArgumentException("Invalid Comment");
             if (string.IsNullOrWhiteSpace(DateOfVisit.ToString()) || (GetMilliseconds(DateOfVisit) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid DateOfVisit");
             if (string.IsNullOrWhiteSpace(DateOfCommenting.ToString()) || (GetMilliseconds(DateOfCommenting) > GetMilliseconds(DateTime.UtcNow))) throw new ArgumentException("Invalid DateOfCommenting");
-            //if (Images.Count == 0) throw new ArgumentException("Invalid Images");
         }
 
         private long GetMilliseconds(DateTime date)

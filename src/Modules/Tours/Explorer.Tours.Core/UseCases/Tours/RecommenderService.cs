@@ -72,6 +72,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
         {
             var preference = _preferencesRepository.GetByUserId(userId);
+            if(preference==null)throw new Exception("Preference doesnt exist.");
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
 
             var usedTours = new List<Tour>();
@@ -253,7 +254,12 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             DateTime lastWeek = DateTime.Today.AddDays(-7);
             var ratingsInLastWeek = _tourRatingRepository.GetByTourId((int)tour.Id).Where(x => x.DateOfCommenting >= lastWeek).ToList();
-            double ratingsCount = ratingsInLastWeek?.Count ?? 0;
+            double ratingsCount =0;
+            if (ratingsInLastWeek != null)
+            {
+                ratingsCount = ratingsInLastWeek.Count;
+            }
+            
             double ratingsSum = 0;
             if (ratingsInLastWeek != null)
             {

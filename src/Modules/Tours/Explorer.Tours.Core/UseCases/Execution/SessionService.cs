@@ -8,6 +8,7 @@ using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using FluentResults;
+using System.Reflection.Metadata;
 
 namespace Explorer.Tours.Core.UseCases.Execution
 {
@@ -48,17 +49,20 @@ namespace Explorer.Tours.Core.UseCases.Execution
         public Result<SessionDto> GetActiveByTouristId(long id)
         {
             var result = _sessionRepository.GetActiveByTouristId(id);
+            if(result==null)return Result.Fail(FailureCode.InvalidArgument).WithError("Session not found.");
             return MapToDto(result);
         }
 
         public Result<List<SessionDto>> GetAllByTouristId(long id)
         {
             var result = _sessionRepository.GetAllByTouristId(id);
+            if (result == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Sessions not found.");
             return MapToDto(result);
         }
         public Result<SessionDto> GetActiveSessionByTouristId(long id)
         {
             var result = _sessionRepository.GetActiveSessionByTouristId(id);
+            if (result == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Session not found.");
             return MapToDto(result);
         }
 

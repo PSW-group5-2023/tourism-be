@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Tour;
+using Explorer.Tours.API.Dtos.Tour.Tourist;
 using Explorer.Tours.API.Public;
 using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.Core.Domain.Tours;
@@ -11,17 +12,15 @@ namespace Explorer.Tours.Core.UseCases.Tours;
 public class PreferencesService : CrudService<PreferencesDto, Preferences>, IPreferencesService
 {
     private readonly IPreferencesRepository _preferencesRepository;
-    private readonly IMapper _mapper;
     public PreferencesService(ICrudRepository<Preferences> repository, IPreferencesRepository preferencesRepository, IMapper mapper) : base(repository, mapper)
     {
         _preferencesRepository = preferencesRepository;
-        _mapper = mapper;
     }
 
     public Result<PreferencesDto> GetByUserId(long userId)
     {
         var result = _preferencesRepository.GetByUserId(userId);
-        if (result == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Preference not found.");
+        if(result==null)return Result.Fail(FailureCode.InvalidArgument).WithError("Preferences not found.");
         return MapToDto(result);
     }
 }

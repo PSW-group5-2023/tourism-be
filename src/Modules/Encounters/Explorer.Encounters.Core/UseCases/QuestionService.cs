@@ -22,11 +22,9 @@ namespace Explorer.Encounters.Core.UseCases
         private readonly IQuestionRepository _questionRepository;
         private readonly IEncounterService _encounterService;
         private readonly IAchievementMobileInternalService _achievementTouristInternalService;
-        private readonly IMapper _mapper;
         public QuestionService(IQuestionRepository questionRepository, IMapper mapper, IEncounterService encounterService, IAchievementMobileInternalService achievementTouristInternalService) : base(questionRepository, mapper)
         {
             _questionRepository = questionRepository;
-            _mapper = mapper;
             _encounterService = encounterService;
             _achievementTouristInternalService = achievementTouristInternalService;
         }

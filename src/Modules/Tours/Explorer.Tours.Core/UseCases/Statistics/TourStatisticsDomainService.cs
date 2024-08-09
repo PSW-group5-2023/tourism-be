@@ -1,4 +1,5 @@
-﻿using Explorer.Tours.Core.Domain.Rating;
+﻿using Explorer.BuildingBlocks.Core.UseCases;
+using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.ServiceInterfaces;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.Core.Domain.Statistics;
@@ -101,7 +102,8 @@ namespace Explorer.Tours.Core.UseCases.Statistics
             var uniqueSessions = new List<Session>();
             foreach (var session in sessions)
             {
-                if (authorsTourIds.Contains(session.TourId) && uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null && session.SessionStatus == SessionStatus.COMPLETED)
+                if (authorsTourIds.Contains(session.TourId) &&
+                    (uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null && session.SessionStatus == SessionStatus.COMPLETED))
                 {
                     numberOfCompletedTours += 1;
                     uniqueSessions.Add(session);
@@ -117,13 +119,11 @@ namespace Explorer.Tours.Core.UseCases.Statistics
             var uniqueSessions = new List<Session>();
             foreach (var session in sessions)
             {
-                if (authorsTourIds.Contains(session.TourId))
+                if (authorsTourIds.Contains(session.TourId) &&
+                    (uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null))
                 {
-                    if (uniqueSessions.FirstOrDefault(s => s.TouristId == session.TouristId && s.TourId == session.TourId) == null)
-                    {
-                        numberOfStartedTours += 1;
-                        uniqueSessions.Add(session);
-                    }
+                    numberOfStartedTours += 1;
+                    uniqueSessions.Add(session);
                 }
             }
 
@@ -211,9 +211,7 @@ namespace Explorer.Tours.Core.UseCases.Statistics
 
             var percentages = new List<int>();
 
-            List<Session> uniqueSessions = new();
-
-            uniqueSessions = sessions
+            var uniqueSessions = sessions
                 .GroupBy(s => new { s.TouristId, s.TourId })
                 .Select(group => group.OrderByDescending(s => s.DistanceCrossedPercent).First())
                 .ToList();

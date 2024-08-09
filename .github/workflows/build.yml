@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - development
+      - feat/sonarcloud-changes
 
   pull_request:
     types: [opened, synchronize, reopened]
@@ -44,9 +45,7 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-        working-directory: ./src 
-      # - name: Install dotnet-coverage tool
-      #   run: dotnet tool install --global dotnet-coverage   
+        working-directory: ./src  
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
@@ -57,5 +56,3 @@ jobs:
           dotnet build --no-incremental
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
         working-directory: ./src  
-        # /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-        # dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
