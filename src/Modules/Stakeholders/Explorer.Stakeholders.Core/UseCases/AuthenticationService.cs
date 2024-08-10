@@ -43,7 +43,25 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
     public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
     {
-        if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
+        if (_userRepository.Exists(account.Username))
+        {
+            var user = _userRepository.GetActiveByName(account.Username);
+            if (user.Role != UserRole.Guest)
+                return Result.Fail(FailureCode.NonUniqueUsername);
+            else
+            {
+                try
+                {
+                    var guest = new User(user.Id, user.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false);
+                    var updatedUser = _userRepository.Update(guest);
+                    return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
+                }
+                catch(ArgumentException e)
+                {
+                    return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+                }
+            }
+        }
 
         try
         {

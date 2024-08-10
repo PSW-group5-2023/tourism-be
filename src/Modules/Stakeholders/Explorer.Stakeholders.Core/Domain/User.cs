@@ -25,6 +25,19 @@ public class User : Entity
         Email = email;
     }
 
+    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
+    {
+        Id = id;
+        Username = username;
+        Password = password;
+        Role = role;
+        IsActive = isActive;
+        Validate();
+        ResetPasswordToken = resetPasswordToken;
+        EmailVerificationToken = emailVerificationToken;
+        Email = email;
+    }
+
     private void Validate()
     {
         if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
