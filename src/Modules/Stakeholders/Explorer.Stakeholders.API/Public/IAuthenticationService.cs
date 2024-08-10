@@ -6,7 +6,7 @@ namespace Explorer.Stakeholders.API.Public;
 public interface IAuthenticationService
 {
     Result<AuthenticationTokensDto> Login(CredentialsDto credentials);
-    Result<AuthenticationTokensDto> RegisterTourist(AccountRegistrationDto account);
+    Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account);
     Result<string> ChangePasswordRequest(string password);
 
     Result<string> ChangePassword(ChangePasswordDto changePassword);
