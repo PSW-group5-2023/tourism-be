@@ -11,8 +11,8 @@ namespace Explorer.Achievements.API.Dtos.Tourist
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Uri Icon { get; set; }
-        public int Rarity { get; set; }
-        public List<AchievementDto> CraftingRecipe { get; set; }
+        public string Icon { get; set; }
+        public string Rarity { get; set; }
+        public List<AchievementModuleAchievementMobileDto> CraftingRecipe { get; set; }
     }
 }
