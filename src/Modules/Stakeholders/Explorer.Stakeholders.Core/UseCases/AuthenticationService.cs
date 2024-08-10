@@ -45,15 +45,18 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         if (_userRepository.Exists(account.Username))
         {
-            var user = _userRepository.GetActiveByName(account.Username);
+            var user = _userRepository.GetByUsername(account.Username);
             if (user.Role != UserRole.Guest)
                 return Result.Fail(FailureCode.NonUniqueUsername);
             else
             {
                 try
                 {
-                    var guest = new User(user.Id, user.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false);
-                    var updatedUser = _userRepository.Update(guest);
+                    user.Password = PasswordEncoder.Encode(account.Password);
+                    user.Role = UserRole.Tourist;
+                    user.IsActive = false;
+                    user.Email = account.Email;
+                    var updatedUser = _userRepository.Update(user);
                     return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
                 }
                 catch(ArgumentException e)
@@ -65,7 +68,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
             /*var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);*/

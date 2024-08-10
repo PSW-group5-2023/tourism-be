@@ -6,8 +6,8 @@ namespace Explorer.Stakeholders.Core.Domain;
 public class User : Entity
 {
     public string Username { get; private set; }
-    public string? Password { get; private set; }
-    public UserRole Role { get; private set; }
+    public string? Password { get; set; }
+    public UserRole Role { get; set; }
     public bool IsActive { get; set; }
     public string? ResetPasswordToken {  get; set; }
     public string? EmailVerificationToken { get; set; }
