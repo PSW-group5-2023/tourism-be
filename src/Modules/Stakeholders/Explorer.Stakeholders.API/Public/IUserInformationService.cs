@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace Explorer.Stakeholders.API.Public
     {
         Result<PagedResult<UserInformationDto>> GetPaged(int page, int pageSize);
         Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons);
-
+        Result<UserInformationMobileDto> GetMobile(int userId);
     }
 }
