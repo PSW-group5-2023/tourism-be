@@ -68,7 +68,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true, null, null, account.Email));
             /*var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);*/
