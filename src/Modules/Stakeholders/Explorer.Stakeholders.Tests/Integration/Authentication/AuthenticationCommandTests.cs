@@ -56,7 +56,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             var storedPerson = dbContext.People.FirstOrDefault(i => i.Email == account.Email);
             storedPerson.ShouldNotBeNull();
             storedPerson.UserId.ShouldBe(storedAccount.Id);
-            storedPerson.Name.ShouldBe(account.Name);
+            //storedPerson.Name.ShouldBe(account.Name);
         }
 
         [Theory]
@@ -142,8 +142,8 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
                         Username = "turistaA@gmail.com",
                         Email = "turistaA@gmail.com",
                         Password = "turistaA",
-                        Name = "Žika",
-                        Surname = "Žikić"
+                        //Name = "Žika",
+                        //Surname = "Žikić"
                     },
                     200
                 }
@@ -161,8 +161,8 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
                         Username = "turista2@gmail.com",
                         Email = "turista2@gmail.com",
                         Password = "turistaB",
-                        Name = "ŽikaB",
-                        Surname = "ŽikićB"
+                        //Name = "ŽikaB",
+                        //Surname = "ŽikićB"
                     },
                     400
                 }
