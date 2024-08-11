@@ -20,6 +20,9 @@ namespace Explorer.Achievements.Core.Mappers
             CreateMap<AchievementModuleAchievementMobileDto, Achievement>().ReverseMap()
                 .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => src.Icon.ToString()))
                 .ForMember(dest => dest.Rarity, opt => opt.MapFrom(src => src.Rarity.ToString()));
+            CreateMap<AchievementWithFullRecipeMobileDto, Achievement>().ReverseMap()
+                .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => src.Icon.ToString()))
+                .ForMember(dest => dest.Rarity, opt => opt.MapFrom(src => src.Rarity.ToString()));
         }
     }
 }

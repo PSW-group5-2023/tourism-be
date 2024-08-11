@@ -65,17 +65,17 @@ namespace Explorer.Achievements.Core.UseCases
             return achievementTouristMobileDto;
         }
 
-        public Result<AchievementDto> GetComplexAchievement(int id)
+        public Result<AchievementModuleAchievementMobileDto> GetComplexAchievement(int id)
         {
             var result = _achievementRepository.GetComplexAchievement(id);
 
-            var dto = new AchievementDto
+            var dto = new AchievementModuleAchievementMobileDto
             {
                 Id = (int)result.Value.Id,
                 Name = result.Value.Name,
                 Description = result.Value.Description,
-                Icon = result.Value.Icon,
-                Rarity = (int)result.Value.Rarity,
+                Icon = result.Value.Icon.ToString(),
+                Rarity = result.Value.Rarity.ToString(),
                 CraftingRecipe = result.Value.CraftingRecipe
             };
 
@@ -91,18 +91,18 @@ namespace Explorer.Achievements.Core.UseCases
                 Id = a.Id,
                 Name = a.Name,
                 Description = a.Description,
-                Icon = a.Icon,
-                Rarity = (int)a.Rarity,
+                Icon = a.Icon.ToString(),
+                Rarity = a.Rarity.ToString(),
                 CraftingRecipe = a.CraftingRecipe.Select(id =>
                 {
                     var recipeAchievement = _achievementRepository.Get(id);
-                    return new AchievementDto
+                    return new AchievementModuleAchievementMobileDto
                     {
                         Id = (int)recipeAchievement.Id,
                         Name = recipeAchievement.Name,
                         Description = recipeAchievement.Description,
-                        Icon = recipeAchievement.Icon,
-                        Rarity = (int)recipeAchievement.Rarity,
+                        Icon = recipeAchievement.Icon.ToString(),
+                        Rarity = recipeAchievement.Rarity.ToString(),
                         CraftingRecipe = recipeAchievement.CraftingRecipe
                     };
                 }).ToList()
@@ -127,21 +127,21 @@ namespace Explorer.Achievements.Core.UseCases
                 Id = craft.Id,
                 Name = craft.Name,
                 Description = craft.Description,
-                Icon = craft.Icon,
-                Rarity = (int)craft.Rarity,
+                Icon = craft.Icon.ToString(),
+                Rarity = craft.Rarity.ToString(),
                 CraftingRecipe = craft.CraftingRecipe.Select(recipeId =>
                 {
                     var recipeAchievementResult = _achievementRepository.Get(recipeId);  
                     
                     var recipeAchievement = recipeAchievementResult;
 
-                    return new AchievementDto
+                    return new AchievementModuleAchievementMobileDto
                     {
                         Id = (int)recipeAchievement.Id,
                         Name = recipeAchievement.Name,
                         Description = recipeAchievement.Description,
-                        Icon = recipeAchievement.Icon,
-                        Rarity = (int)recipeAchievement.Rarity,
+                        Icon = recipeAchievement.Icon.ToString(),
+                        Rarity = recipeAchievement.Rarity.ToString(),
                         CraftingRecipe = recipeAchievement.CraftingRecipe
                     };
                 }).Where(dto => dto != null).ToList()
