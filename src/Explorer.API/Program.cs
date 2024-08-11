@@ -24,17 +24,17 @@ builder.Services.AddSignalR(o =>
 });
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
-//else
-//{
-//    app.UseExceptionHandler("/error");
-//    app.UseHsts();
-//}
+}
+else
+{
+    app.UseExceptionHandler("/error");
+    app.UseHsts();
+}
 
 app.UseRouting();
 app.UseCors(corsPolicy);
@@ -46,7 +46,7 @@ app.MapHub<PublicSiteHub>("hub");
 app.MapHub<EncounterExecutionHub>("api/tourist/encounter/execution");
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
 
 // Required for automated tests
 namespace Explorer.API

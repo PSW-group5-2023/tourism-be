@@ -11,15 +11,14 @@ namespace Explorer.Tours.Core.UseCases.Equipments;
 public class EquipmentTrackingService : BaseService<EquipmentTrackingDto, EquipmentTracking>, IEquipmentTrackingService
 {
     private readonly IEquipmentTrackingRepository _equipmentTrackingRepository;
-    private readonly IMapper _mapper;
     public EquipmentTrackingService(ICrudRepository<EquipmentTracking> repository, IMapper mapper, IEquipmentTrackingRepository equipmentTrackingRepository) : base(mapper)
     {
         _equipmentTrackingRepository = equipmentTrackingRepository;
-        _mapper = mapper;
     }
     public Result<EquipmentTrackingDto> GetByTouristId(long touristId)
     {
         EquipmentTracking entity = _equipmentTrackingRepository.GetByTouristId(touristId);
+        if (entity == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Entity not found.");
         return MapToDto(entity);
     }
 

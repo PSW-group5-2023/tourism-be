@@ -24,12 +24,10 @@ namespace Explorer.Achievements.Core.UseCases
         }
         public Result<InventoryDto> AddAchievementToInventory(int userId, int achivementId)
         {
-            //if(!inventory.AchievementsId.Contains(achivementId))
-            Inventory inventory= _inventoryRepository.GetByUserId(userId).Value;
             inventory.AchievementsId.Add(achivementId);
-            _inventoryRepository.Update(inventory);
-            return MapToDto(inventory).ToResult();
-        }
+            Update(inventory);
+            return inventory.ToResult();
+        } 
 
         public Result<InventoryDto> AddComplexAchievementToInventory(int userId, List<int> requiredAchievemements)
         {
@@ -39,8 +37,10 @@ namespace Explorer.Achievements.Core.UseCases
         }
 
         public Result<InventoryDto> GetByUserId(int userId)
-        { 
-            return MapToDto(_inventoryRepository.GetByUserId(userId).Value);
+        {
+            var item = CrudRepository.GetPaged(0, 0).Results.FirstOrDefault(x => x.UserId == userId);
+            if (item == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User not found.");
+            return MapToDto(item);
         }
     }
 }

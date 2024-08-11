@@ -21,14 +21,14 @@ namespace Explorer.Stakeholders.Core.UseCases
 {
     public class PeriodicHostedService : BackgroundService
     {
-        private readonly IServiceScopeFactory _scopeFactory;
-        private readonly ILogger<PeriodicHostedService> _logger;
-        private readonly TimeSpan _period = TimeSpan.FromSeconds(4);
+        //private readonly IServiceScopeFactory _scopeFactory;
+        //private readonly ILogger<PeriodicHostedService> _logger;
+        //private readonly TimeSpan _period = TimeSpan.FromSeconds(4);
         public PeriodicHostedService(ILogger<PeriodicHostedService> logger, IServiceScopeFactory scopeFactory)
         {
 
-            _logger = logger;
-            _scopeFactory = scopeFactory ?? throw new ArgumentNullException(nameof(scopeFactory));
+            //_logger = logger;
+            //_scopeFactory = scopeFactory ?? throw new ArgumentNullException(nameof(scopeFactory));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

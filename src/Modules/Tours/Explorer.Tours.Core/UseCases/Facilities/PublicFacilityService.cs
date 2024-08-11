@@ -5,6 +5,7 @@ using Explorer.Tours.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Dtos.Facility;
 using Explorer.Tours.API.Public.Facility;
 using Explorer.Tours.Core.Domain.Facilities;
+using System.Reflection.Metadata;
 
 namespace Explorer.Tours.Core.UseCases.Facilities
 {
@@ -19,7 +20,9 @@ namespace Explorer.Tours.Core.UseCases.Facilities
         public Result<PublicFacilityDto> ChangeStatus(int id, string status)
         {
             PublicFacility facility = (PublicFacility)_facilityRepository.GetById(id);
-            Enum.TryParse(status, out PublicFacility.PublicFacilityStatus parsedStatus);
+            if(!Enum.TryParse(status, out PublicFacility.PublicFacilityStatus parsedStatus)) {
+                return Result.Fail(FailureCode.Internal).WithError("Error while parsing facility status.");
+            }
             facility.ChangeStatus(parsedStatus);
             _facilityRepository.Update(facility);
 
@@ -45,7 +48,10 @@ namespace Explorer.Tours.Core.UseCases.Facilities
         public Result<List<PublicFacilityDto>> GetByStatus(string status)
         {
             List<PublicFacilityDto> facilityDtos = new List<PublicFacilityDto>();
-            Enum.TryParse(status, out PublicFacility.PublicFacilityStatus parsedStatus);
+            if(!Enum.TryParse(status, out PublicFacility.PublicFacilityStatus parsedStatus))
+            {
+                return Result.Fail(FailureCode.Internal).WithError("Error while parsing facility status.");
+            }
             var facilities = _facilityRepository.GetByStatus(parsedStatus);
             foreach (var facility in facilities)
             {

@@ -11,7 +11,7 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 {
     public interface IJoinRequestRepository
     {
-        List<JoinRequest> FindRequestsForOwner(long ownerId);
+        List<JoinRequest> FindRequestsForOwner(long clubId);
 
         public string CheckStatusOfRequest(long touristId, long clubId); // used to see if user has already sent a request or no
 

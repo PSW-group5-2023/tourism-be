@@ -7,7 +7,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     {
         Session Create(Session session);
         Session Update(Session session);
-        Session Get(long id);
+        Session? Get(long id);
         Session? GetActiveByTouristId(long id);
         List<Session> GetAllByTouristId(long id);
         Session? GetActiveSessionByTouristId(long id);

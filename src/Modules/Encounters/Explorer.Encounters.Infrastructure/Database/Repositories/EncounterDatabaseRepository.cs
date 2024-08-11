@@ -31,7 +31,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             return task.Result;
         }
 
-        public PagedResult<Encounter> GetPaged(int page, int pageSize)
+        public new PagedResult<Encounter> GetPaged(int page, int pageSize)
         {
             var task = _dbSet
                 .Include(e => (e as QuizEncounter).Questions)
@@ -40,7 +40,7 @@ namespace Explorer.Encounters.Infrastructure.Database.Repositories
             return task.Result;
         }
 
-        public Encounter Get(long id)
+        public new Encounter Get(long id)
         {
             var quizEncounter = _dbSet
                 .Where(e => e.Id == id)

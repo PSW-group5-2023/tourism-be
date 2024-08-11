@@ -16,6 +16,6 @@ namespace Explorer.BuildingBlocks.Core.Domain
             Changes = new List<DomainEvent>();
         }
 
-        public abstract void Apply(DomainEvent changes);
+        public abstract void Apply(DomainEvent @event);
     }
 }

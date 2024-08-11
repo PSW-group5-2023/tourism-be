@@ -11,8 +11,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 {
     public class InternalCheckpointService : BaseService<CheckpointDto, Checkpoint>, IInternalCheckpointService
     {
-        public ICheckpointRepository _checkpointRepository;
-        public ITourService _tourService;
+        private readonly ICheckpointRepository _checkpointRepository;
+        private readonly ITourService _tourService;
 
         public InternalCheckpointService(ICheckpointRepository checkpointRepository, ITourService tourService, IMapper mapper) : base(mapper)
         {
@@ -29,9 +29,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
         {
             Checkpoint checkpoint = _checkpointRepository.Get(keypointId);
 
-            if (checkpoint.TourId != null)
+            if (checkpoint != null)
             {
-                TourDto tourDto = _tourService.GetById((long)checkpoint.TourId).Value;
+                TourDto tourDto = _tourService.GetById(checkpoint.TourId).Value;
                 return authorId == tourDto.AuthorId;
             }
             return false;

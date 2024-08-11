@@ -40,10 +40,6 @@ namespace Explorer.Encounters.Infrastructure.Database
 
         private void ConfigureEncounterExecutions(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<EncounterExecution>()
-            //                .HasIndex(ee => new { ee.TouristId, ee.EncounterId })
-            //                .IsUnique();
-
             modelBuilder.Entity<EncounterExecution>()
                             .Property(e => e.Answers)
                             .HasColumnType("jsonb");

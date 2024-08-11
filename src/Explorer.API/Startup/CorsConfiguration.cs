@@ -14,10 +14,6 @@ public static class CorsConfiguration
                     builder.WithOrigins(ParseCorsOrigins())
                         .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "access_token")
                         .WithMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
-                    // builder.WithOrigins("http://localhost:8080")
-                    //.AllowAnyHeader()
-                    //.AllowAnyMethod()
-                    //.AllowCredentials();
                 });
         });
         return services;

@@ -32,7 +32,7 @@ namespace Explorer.Blog.Core.UseCases
             _commentService = commentService;
         }
 
-        public Result<BlogDto> Get(int id)
+        public new Result<BlogDto> Get(int id)
         {
             try
             {

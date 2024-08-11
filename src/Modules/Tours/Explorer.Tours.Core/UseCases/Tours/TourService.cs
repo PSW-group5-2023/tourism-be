@@ -147,7 +147,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public void CreateDuplicateKeypoints(List<TourDto> tours, int campaignId)
         {
-            List<CheckpointDto> checkpoints = new List<CheckpointDto>();
+            List<CheckpointDto> checkpoints = new();
             int positionInCampaign = 1;
             foreach (var tour in tours)
             {
@@ -232,7 +232,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                     .Select(MapToDto)
                     .ToList();
 
-            return new PagedResult<TourDto>(new List<TourDto>(filteredResults), filteredResults.Count); ;
+            return new PagedResult<TourDto>(new List<TourDto>(filteredResults), filteredResults.Count);
         }
 
         public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
@@ -268,7 +268,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public bool CheckIfAnyKeyPointInRange(List<Checkpoint> checkpoints, double? lat, double? lon, double radius)
         {
-            return checkpoints.Any(checkpoint => IsInRange(checkpoint, lat, lon, radius));
+            return checkpoints.Exists(checkpoint => IsInRange(checkpoint, lat, lon, radius));
         }
 
         public bool IsInRange(Checkpoint checkpoint, double? lat, double? lon, double radius)
@@ -276,6 +276,14 @@ namespace Explorer.Tours.Core.UseCases.Tours
             double distance;
             int earthRadius = 6371000;
             double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
+            if (lat == null)
+            {
+                lat = 0;
+            }
+            if (lon == null)
+            {
+                lon = 0;
+            }
             distance = Math.Sqrt(Math.Pow((double)(checkpoint.Latitude - lat), 2) +
                                  Math.Pow((double)(checkpoint.Longitude - lon), 2));
             return distance <= radiusInDegrees;

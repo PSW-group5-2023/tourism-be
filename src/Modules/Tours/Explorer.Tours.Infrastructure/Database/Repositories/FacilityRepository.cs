@@ -20,8 +20,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public Facility Update(Facility newFacility)
         {
-            var facility = _dbContext.Facilities.FirstOrDefault(x => x.Id == newFacility.Id);
-            facility = newFacility;
+            var facility = newFacility;
             _dbContext.SaveChanges();
             return facility;
         }

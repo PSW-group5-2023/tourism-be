@@ -12,12 +12,10 @@ namespace Explorer.API.Controllers.Author
     public class BlogController : BaseApiController
     {
         private readonly IBlogService _blogService;
-        //private readonly ICommentService _commentService;
 
         public BlogController(IBlogService blogService)
         {
             _blogService = blogService;
-            //_commentService = commentService;
         }
 
         [HttpPost]

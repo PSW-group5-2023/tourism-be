@@ -75,11 +75,8 @@ public class AuthenticationService : IAuthenticationService
         try
         {
             var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode("Guest123."), UserRole.Guest, true));
-            //var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, user.Id);
-            //user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);
 
-            //sendVerificationEmail(person, emailVerificationToken);
             return _tokenGenerator.GenerateAccessToken(user, user.Id);
         }
         catch (ArgumentException e)

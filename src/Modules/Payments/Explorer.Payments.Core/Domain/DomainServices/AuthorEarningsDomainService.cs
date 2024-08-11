@@ -14,8 +14,8 @@ namespace Explorer.Payments.Core.UseCases
 {
     public class AuthorEarningsDomainService: IAuthorEarningsDomainService
     {
-        IBoughtItemDomainService _boughtItemDomainService;
-        IInternalTourService _internalTourService;
+        private readonly IBoughtItemDomainService _boughtItemDomainService;
+        private readonly IInternalTourService _internalTourService;
         public AuthorEarningsDomainService(IBoughtItemDomainService boughtItemDomainService,IInternalTourService internalTourService)
         {
             _boughtItemDomainService = boughtItemDomainService;

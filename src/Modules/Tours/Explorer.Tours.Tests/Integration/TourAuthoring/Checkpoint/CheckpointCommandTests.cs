@@ -247,6 +247,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Checkpoint
             var storedCourse = dbContext.Checkpoints.FirstOrDefault(i => i.Id == -3);
             storedCourse.ShouldBeNull();
         }
+        [Fact]
         public void Delete_fails_invalid_id()
         {
             // Arrange

@@ -11,6 +11,7 @@ using Explorer.Tours.API.Internal;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata;
 
 namespace Explorer.Encounters.Core.UseCases
 {
@@ -100,7 +101,7 @@ namespace Explorer.Encounters.Core.UseCases
             return MapToDto(_encounterRepository.Get(id));
         }
 
-        public Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize)
+        public new Result<PagedResult<EncounterDto>> GetPaged(int page, int pageSize)
         {
             var result = _encounterRepository.GetPaged(page, pageSize);
             return MapToDto(result);
@@ -223,13 +224,11 @@ namespace Explorer.Encounters.Core.UseCases
         {
             try
             {
-                EncounterExecutionDto encounterExecutionDto = _encounterExecutionService.SetCompletionTime(touristId, encounterId).Value;
-
                 var encounter = _encounterRepository.Get(encounterId);
 
                 if (encounter.Type != EncounterType.Quiz) throw new ArgumentException("You cannot complete this encounter, it's not Quiz.");
 
-                encounterExecutionDto =  _encounterExecutionService.CalculateCorrectAnswersPercentage(touristId, answers.ToList(), MapToDto(encounter)).Value;
+                EncounterExecutionDto encounterExecutionDto =  _encounterExecutionService.CalculateCorrectAnswersPercentage(touristId, answers.ToList(), MapToDto(encounter)).Value;
 
                 _userExperienceService.AddXP(_userExperienceService.GetByUserId(encounterExecutionDto.TouristId).Value.Id, encounter.ExperiencePoints);
 
@@ -252,7 +251,7 @@ namespace Explorer.Encounters.Core.UseCases
                 if (encounterDto.CheckpointId == null) throw new ArgumentException("Author can only create an encounter for a checkpoint.");
                 if (!IsAuthorOfCheckpoint(encounterDto.CreatorId, (long)encounterDto.CheckpointId)) throw new ArgumentException("This author is not the author of selected checkpoint.");
                 encounterDto = SetEncounterLocationByCheckpoint(encounterDto);
-                
+                if (encounterDto == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Checkpoint not found.");
                 var result = _encounterRepository.Create(MapToEncounter(encounterDto));
                 return MapToDto(result);
             }
@@ -262,9 +261,11 @@ namespace Explorer.Encounters.Core.UseCases
             }
         }
 
-        private EncounterDto SetEncounterLocationByCheckpoint(EncounterDto encounterDto)
+        private EncounterDto SetEncounterLocationByCheckpoint(EncounterDto encounterDto)//should return Result<EncounterDto> for cleaner error handling
         {
-            CheckpointDto checkpointDto = _internalCheckpointService.Get((long)encounterDto.CheckpointId).Value;
+            var checkpointId = encounterDto.CheckpointId;
+            if (checkpointId == null) return null;//error handling
+            CheckpointDto checkpointDto = _internalCheckpointService.Get((long)checkpointId).Value;
             encounterDto.Longitude = checkpointDto.Longitude;
             encounterDto.Latitude = checkpointDto.Latitude;
             return encounterDto;
@@ -356,7 +357,7 @@ namespace Explorer.Encounters.Core.UseCases
 
             // Completes for all if criteria is met
             var activeExecutions = _encounterExecutionService.GetAllActiveByEncounterId(encounterId).Value.Results;
-            var touristsInRange = activeExecutions.Where(ee => ee.InRange).Count();
+            var touristsInRange = activeExecutions.Count(ee => ee.InRange);
             if (touristsInRange >= socialEncounter.RequiredAttendance)
             {
                 foreach (var execution in activeExecutions)
@@ -383,7 +384,6 @@ namespace Explorer.Encounters.Core.UseCases
         public Result<EncounterExecutionDto> StartEncounter(long encounterId, long touristId)
         {
             var encounterExecution = _encounterExecutionService.GetByTouristIdAndEnctounterId(touristId, encounterId);
-            //if (encounterExecution.IsSuccess) return Result.Fail(FailureCode.Internal).WithError("Encounter already started");
             return _encounterExecutionService.Create(new EncounterExecutionDto()
             {
                 TouristId = touristId,

@@ -50,19 +50,26 @@ namespace Explorer.Tours.Core.UseCases.Problem
         }
         public void FindNames(List<TourProblemDto> result)
         {
-            var tours = _tourService.GetPaged(0, 0).Value.Results;
-
-            foreach (var r in result)
+            try
             {
-                long authorId = tours.Find(t => t.Id == r.TourId).AuthorId;
-                r.AuthorUsername = _userNamesService.GetName(authorId).Username;
-                r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
-                foreach (var m in r.Messages)
+                var tours = _tourService.GetPaged(0, 0).Value.Results;
+                foreach (var r in result)
                 {
-                    if (m.SenderId != 0)
-                        m.SenderName = _userNamesService.GetName(m.SenderId).Username;
+                    long authorId = tours.Find(t => t.Id == r.TourId).AuthorId;
+                    r.AuthorUsername = _userNamesService.GetName(authorId).Username;
+                    r.TouristUsername = _userNamesService.GetName(r.TouristId).Username;
+                    foreach (var m in r.Messages)
+                    {
+                        if (m.SenderId != 0)
+                            m.SenderName = _userNamesService.GetName(m.SenderId).Username;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
         }
 
         public Result<List<TourProblemMessageDto>> GetUnreadMessages(long id)

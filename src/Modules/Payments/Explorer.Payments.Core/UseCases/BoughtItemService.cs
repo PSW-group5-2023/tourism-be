@@ -22,8 +22,8 @@ namespace Explorer.Payments.Core.UseCases
     public class BoughtItemService : BaseService<BoughtItemDto, BoughtItem>, IBoughtItemService, IInternalBoughtItemService
     {
         private readonly IMapper mapper;
-        private IBoughtItemRepository shoppingCartRepository;
-        private IInternalTourService internalTourUsageService;
+        private readonly IBoughtItemRepository shoppingCartRepository;
+        private readonly IInternalTourService internalTourUsageService;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
 
         public BoughtItemService(IMapper mapper, IBoughtItemRepository shoppingCartRepository, IInternalTourService internalTourUsageService, ITourStatisticsDomainService tourStatisticsDomainService) : base(mapper)
@@ -120,22 +120,6 @@ namespace Explorer.Payments.Core.UseCases
 
             var mostSoldToursStatistics = new List<SoldTourStatisticsDto>();
 
-            /*foreach (var item in boughtItems)
-            {
-                var matchingStat = mostSoldToursStatistics.FirstOrDefault(stat => stat.TourId == item.TourId);
-
-                if (matchingStat != null)
-                {
-                    matchingStat.NumberOfStats += 1;
-                }
-                else
-                {
-                    SoldTourStatisticsDto stat = new SoldTourStatisticsDto();
-                    stat.TourId = item.TourId;
-                    stat.NumberOfStats = 1;
-                    mostSoldToursStatistics.Add(stat);
-                }
-            }*/
 
             foreach (var stat in domainStatistics)
             {
@@ -208,18 +192,5 @@ namespace Explorer.Payments.Core.UseCases
             var boughtItems = shoppingCartRepository.GetAllByUserId(userId);
             return MapToDto(boughtItems);
         }
-        /*public Result<List<BoughtItemDto>> GetAll()
-        {
-            var list= shoppingCartRepository.GetAll().ToResult();
-            List<BoughtItemDto> boughtItems = new List<BoughtItemDto>();
-            foreach (var item in list.Value) 
-            {
-                BoughtItemDto itemDto = new BoughtItemDto();
-                itemDto.TourId= item.TourId;
-                itemDto.Id = Convert.ToInt32(item.Id);
-                boughtItems.Add(itemDto);
-            }
-            return boughtItems.ToResult();
-        }*/
     }
 }

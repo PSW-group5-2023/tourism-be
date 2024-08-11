@@ -10,7 +10,7 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
     public interface IPublicCheckpointRepository
     {
         PublicCheckpoint GetById(long id);
-        PublicCheckpoint Update(PublicCheckpoint checkpoint);
+        PublicCheckpoint Update(PublicCheckpoint newCheckpoint);
         List<PublicCheckpoint> GetByStatus(PublicCheckpointStatus status);
     }
 }
