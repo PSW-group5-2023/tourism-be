@@ -6,8 +6,8 @@ namespace Explorer.Stakeholders.Core.Domain;
 public class User : Entity
 {
     public string Username { get; private set; }
-    public string? Password { get; private set; }
-    public UserRole Role { get; private set; }
+    public string? Password { get; set; }
+    public UserRole Role { get; set; }
     public bool IsActive { get; set; }
     public string? ResetPasswordToken {  get; set; }
     public string? EmailVerificationToken { get; set; }
@@ -15,6 +15,19 @@ public class User : Entity
 
     public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
     {
+        Username = username;
+        Password = password;
+        Role = role;
+        IsActive = isActive;
+        Validate();
+        ResetPasswordToken = resetPasswordToken;
+        EmailVerificationToken = emailVerificationToken;
+        Email = email;
+    }
+
+    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
+    {
+        Id = id;
         Username = username;
         Password = password;
         Role = role;

@@ -9,11 +9,12 @@ using Explorer.BuildingBlocks.Infrastructure.Email;
 using Explorer.Stakeholders.API.Internal;
 using System;
 using System.Data.SqlTypes;
-
+using AutoMapper;
+using System.Linq.Expressions;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationService : BaseService<UserDto, User>, IAuthenticationService
 {
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -22,7 +23,7 @@ public class AuthenticationService : IAuthenticationService
     private readonly IPersonRepository _personeRep;
 
     public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator,
-        IEmailSendingService emailSendingService, IPersonRepository personeRep)
+        IEmailSendingService emailSendingService, IPersonRepository personeRep, IMapper mapper) : base(mapper)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
@@ -35,33 +36,44 @@ public class AuthenticationService : IAuthenticationService
     {
         var user = _userRepository.GetActiveByName(credentials.Username);
         if (user == null || !PasswordEncoder.Matches(credentials.Password,user.Password) ) return Result.Fail(FailureCode.NotFound);
+        if (user.Role == UserRole.Guest) return Result.Fail(FailureCode.InvalidArgument);
 
-        long personId;
-        try
-        {
-            personId = _userRepository.GetPersonId(user.Id);
-        }
-        catch (KeyNotFoundException)
-        {
-            personId = 0;
-        }
-        return _tokenGenerator.GenerateAccessToken(user, personId);
+        return _tokenGenerator.GenerateAccessToken(user);
     }
 
-    public Result<AuthenticationTokensDto> RegisterTourist(AccountRegistrationDto account)
+    public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
     {
-        if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
+        if (_userRepository.Exists(account.Username))
+        {
+            var user = _userRepository.GetByUsername(account.Username);
+            if (user.Role != UserRole.Guest)
+                return Result.Fail(FailureCode.NonUniqueUsername);
+            else
+            {
+                try
+                {
+                    user.Password = PasswordEncoder.Encode(account.Password);
+                    user.Role = UserRole.Tourist;
+                    user.IsActive = false;
+                    user.Email = account.Email;
+                    var updatedUser = _userRepository.Update(user);
+                    return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
+                }
+                catch(ArgumentException e)
+                {
+                    return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+                }
+            }
+        }
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false));
-            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
-            var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
+            /*var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
-            user = _userRepository.Update(user);
+            user = _userRepository.Update(user);*/
 
-            sendVerificationEmail(person, emailVerificationToken);
-            return _tokenGenerator.GenerateAccessToken(user, person.Id);
+            return new RegisteredUserDto(user.Id, user.Username, user.Role.ToString()) ;
         }
         catch (ArgumentException e)
         {
@@ -74,13 +86,9 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode("Guest123."), UserRole.Guest, true));
-            //var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, user.Id);
-            //user.EmailVerificationToken = emailVerificationToken;
-            user = _userRepository.Update(user);
+            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
 
-            //sendVerificationEmail(person, emailVerificationToken);
-            return _tokenGenerator.GenerateAccessToken(user, user.Id);
+            return _tokenGenerator.GenerateAccessToken(user);
         }
         catch (ArgumentException e)
         {
@@ -271,7 +279,7 @@ public class AuthenticationService : IAuthenticationService
 
 
 
-            return _tokenGenerator.GenerateAccessToken(user, person.Id); ;
+            return _tokenGenerator.GenerateAccessToken(user); ;
 
         }
         catch (Exception ex)
