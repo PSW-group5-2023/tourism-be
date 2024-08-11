@@ -17,6 +17,13 @@ namespace Explorer.API.Controllers.Tourist
             _achievementService = achievementService;
         }
 
+        [HttpGet]
+        public ActionResult<PagedResult<AchievementDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _achievementService.GetPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
         [HttpGet("baseAchievemnts")]
         public ActionResult<List<AchievementDto>> GetAllBaseAchievements()
         {

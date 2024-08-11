@@ -33,7 +33,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpPut("craft")]
-        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromQuery] List<int> requiredAchievements)
+        public ActionResult<InventoryDto> AddComplexAchievementToInventory([FromBody] List<int> requiredAchievements)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
             var result = _inventoryService.AddComplexAchievementToInventory(Convert.ToInt32(userId.Value), requiredAchievements);

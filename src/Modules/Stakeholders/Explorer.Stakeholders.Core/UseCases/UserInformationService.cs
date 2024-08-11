@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.Core.Domain;
 using FluentResults;
@@ -16,6 +17,12 @@ namespace Explorer.Stakeholders.Core.UseCases
     {
         public UserInformationService(ICrudRepository<User> userRepository, IMapper mapper) : base(userRepository, mapper)
         { }
+
+        public Result<UserInformationMobileDto> GetMobile(int userId)
+        {
+            var user = CrudRepository.Get(userId);
+            return new UserInformationMobileDto(user.Username,user.Role.ToString(), user.Email);
+        }
 
         public Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons)
         {
