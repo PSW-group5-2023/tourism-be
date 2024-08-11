@@ -39,7 +39,7 @@ namespace Explorer.API.Controllers.Tourist
         }
 
         [HttpGet("complexAchievementWithFullRecipe/mobile/{id:int}")]
-        public ActionResult<List<AchievementWithFullRecipeMobileDto>> GetComplexAchievementWithFullRecipe(int id)
+        public ActionResult<AchievementWithFullRecipeMobileDto> GetComplexAchievementWithFullRecipe(int id)
         {
             var result = _achievementService.GetComplexAchievementWithFullRecipe(id);
             return CreateResponse(result);

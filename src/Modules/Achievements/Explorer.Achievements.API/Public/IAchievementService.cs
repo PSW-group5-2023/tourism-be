@@ -18,7 +18,7 @@ namespace Explorer.Achievements.API.Public
         Result<PagedResult<AchievementDto>> GetPaged(int page, int pageSize);
         Result<List<AchievementDto>> GetAllBaseAchievements();
         Result<List<AchievementDto>> GetAllComplexAchievements();
-        Result<AchievementDto> GetComplexAchievement(int id);
+        Result<AchievementModuleAchievementMobileDto> GetComplexAchievement(int id);
         Result<List<AchievementWithFullRecipeMobileDto>> GetAllComplexAchievementsWithFullRecipes();
         Result<AchievementWithFullRecipeMobileDto> GetComplexAchievementWithFullRecipe(int id);
         Result<AchievementDto> CreateComplexAchievement(List<int> requiredAchievements);
