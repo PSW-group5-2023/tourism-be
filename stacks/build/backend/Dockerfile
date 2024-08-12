@@ -18,7 +18,8 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ../downloads && cd ../downloads \
     && curl -L -H "Authorization: token ${GITHUB_TOKEN}" ${SRC_URL} | tar -xz \
-    && mv $(ls -d -- */|head -n 1) app && mv app/* /src
+    && mv $(ls -d -- */|head -n 1) app && mv app/* /src \
+    && echo "Cache busting: $(date +%s)"
 WORKDIR /src/src
 RUN dotnet restore "${PROJECT}/${PROJECT}.csproj"
 RUN dotnet build "${PROJECT}/${PROJECT}.csproj" -c Release
