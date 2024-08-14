@@ -15,7 +15,7 @@ namespace Explorer.API.Controllers
 
         private readonly string _uploadFolderPath = Environment.GetEnvironmentVariable("EXPLORER_IMAGE_PATH") ?? "/var/www/images";
         private readonly long _maxFileSize = 5 * 1024 * 1024; // 5 MB
-        private readonly List<string> _allowedFileTypes = new List<string> { "image/jpeg", "image/jpg" , "image/png", "image/gif" };
+        private readonly List<string> _allowedFileTypes = new List<string> { "image/jpeg", "image/jpg" , "image/png", "image/gif", "image/svg+xml" };
 
 
         public UploadController()
