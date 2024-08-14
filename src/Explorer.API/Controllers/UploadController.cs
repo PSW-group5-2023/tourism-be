@@ -17,6 +17,7 @@ namespace Explorer.API.Controllers
         private readonly long _maxFileSize = 5 * 1024 * 1024; // 5 MB
         private readonly List<string> _allowedFileTypes = new List<string> { "image/jpeg", "image/jpg" , "image/png", "image/gif" };
 
+
         public UploadController()
         {
             if (!Directory.Exists(_uploadFolderPath))
