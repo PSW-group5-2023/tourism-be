@@ -11,7 +11,9 @@ INSERT INTO stakeholders."Users"(
     (-8, 'katarinastojkovic', '7IOHpM31bKnANVn4rRWAwcUK1Mx0+6h6RsZBgTrbWkwyLUAu2h+K5XcvWNAmpBQlJyaHF3ujEXeYFD/at62aPvuD/DY4ahTeXkRc6/JUrRo=', 2, true, NULL, NULL, NULL),
     (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL, NULL),
     (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL),
-    (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL);
+    (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL),
+    (-12, 'tourist', 'j0upkqxvw7n9DkwJ5jT74GeOGxWanEM6swM4HllKAc9i4SpbosDXlvUohocOtakvP11iEoGeE+et6AlnnbnQ02txk+EfY+RZAtxwujFzQCw=', 2, true, NULL, NULL, 'tourist@tourist.com'),
+
 
 INSERT INTO stakeholders."People"(
 	"Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "Biography", "Motto", "Latitude", "Longitude")
@@ -479,11 +481,11 @@ INSERT INTO tours."Checkpoints"(
 
 INSERT INTO tours."Tours"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Images") VALUES
-  (-10, 'Ledinacko jezero tour', 'Discover the serene beauty of Ledinacko Jezero, nestled in the picturesque Fruska Gora National Park. This enchanting tour promises a perfect blend of nature, tranquility, and cultural exploration.', 2, '{"bike", "hike"}', 1, 40, -3, 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]', '{https://cdn.discordapp.com/attachments/1165673303898345664/1197250587100717146/IMG_8660.jpg?ex=65ba957f&is=65a8207f&hm=2777393ea8d5587ddc6c3eba6b9f67be4986f0e6c87b8fd823a618a9f8b4e69a&}');
+  (-10, 'Ledinacko jezero tour', 'Discover the serene beauty of Ledinacko Jezero, nestled in the picturesque Fruska Gora National Park. This enchanting tour promises a perfect blend of nature, tranquility, and cultural exploration.', 2, '{"bike", "hike"}', 1, 40, -3, 10.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]', '{https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD5nGT_fNeHlRvmeIMYXeJm6JCWqSUCEY0yfOsGqp5nmngID2o-GmlEo_z8bJgpID4lgs4GBS8nvXM3TkzOekjZLielUquxHLsGqJcXUjcpuUk0xVGl8UqU_VQIOpZDZXhJa8R3ricpZOTPeXH-GcrzzCUDCu8VmwfAI4cJGHIilzGRIhPtyWWlm9Tqg/s850/prelepo-jezero-na-Fruskoj-gori.jpg}');
 
 INSERT INTO tours."Tours"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Images") VALUES
-  (-11, 'Light walk on Popovica', 'Take a leisurely light walk from Cafe Gorski Smesko to Orlovo Bojiste on Popovica mountain. Enjoy scenic trails, lush landscapes, and panoramic views. Revel in the tranquility, capturing the beauty of the surroundings. Conclude your walk with a peaceful return to Cafe Gorski Smesko, savoring the mountain atmosphere.', 0, '{"forest", "hike", "bike"}', 1, 20, -5, 5.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','{https://media.discordapp.net/attachments/1165673303898345664/1197251414750134352/DSC_3797.jpg?ex=65ba9645&is=65a82145&hm=82b4e84459710652f7bcd3a452384b65edd37dac9021c78e4c6c9ec9449bcc61&=&format=webp&width=984&height=655}');
+  (-11, 'Light walk on Popovica', 'Take a leisurely light walk from Cafe Gorski Smesko to Orlovo Bojiste on Popovica mountain. Enjoy scenic trails, lush landscapes, and panoramic views. Revel in the tranquility, capturing the beauty of the surroundings. Conclude your walk with a peaceful return to Cafe Gorski Smesko, savoring the mountain atmosphere.', 0, '{"forest", "hike", "bike"}', 1, 20, -5, 5.0, NULL, '2023-11-16 18:33:42.718996+01', '[{"TimeInSeconds": 4800, "Transportation": 1}]','{https://novisad.travel/wp-content/uploads/2022/11/Orlovo-bojiste-Popovica_compressed-scaled.jpg}');
 
 INSERT INTO tours."Tours"(
 	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Images") VALUES
@@ -758,6 +760,38 @@ INSERT INTO tours."TourRatings"(
 			(-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
 			(-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://cdn.getyourguide.com/img/tour/621a3d641a639.jpeg/146.jpg}'),
 			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}');
+      (1, -8, -1, 5, 'Amazing experience!', '2024-07-01', '2024-07-05', NULL),
+      (2, -9, -1, 4, 'Very enjoyable tour.', '2024-06-25', '2024-07-01', NULL),
+      (3, -6, -1, 3, 'Good, but could be better.', '2024-06-20', '2024-06-25', NULL),
+      (4, -8, -1, 5, 'Highly recommended!', '2024-07-10', '2024-07-12', NULL),
+      (5, -9, -5, 4, 'Great tour, loved the guide.', '2024-06-30', '2024-07-04', NULL),
+      (6, -6, -5, 3, 'Nice experience.', '2024-07-02', '2024-07-06', NULL),
+      (7, -8, -5, 5, 'Would do it again!', '2024-07-03', '2024-07-07', NULL),
+      (8, -9, -5, 4, 'Very enjoyable.', '2024-07-01', '2024-07-05', NULL),
+      (9, -6, -7, 3, 'Good, but room for improvement.', '2024-06-22', '2024-06-26', NULL),
+      (10, -8, -7, 4, 'Loved it, would recommend!', '2024-07-05', '2024-07-09', NULL),
+      (11, -9, -7, 5, 'Fantastic tour!', '2024-07-08', '2024-07-12', NULL),
+      (12, -6, -7, 4, 'Enjoyed the whole trip.', '2024-07-04', '2024-07-08', NULL),
+      (13, -8, -8, 5, 'Outstanding experience!', '2024-07-01', '2024-07-05', NULL),
+      (14, -9, -8, 4, 'Very well organized.', '2024-06-28', '2024-07-02', NULL),
+      (15, -6, -8, 3, 'Good tour, but could be better.', '2024-06-25', '2024-06-30', NULL),
+      (16, -8, -8, 5, 'Perfect in every way!', '2024-07-09', '2024-07-13', NULL),
+      (17, -9, -9, 5, 'Amazing tour!', '2024-07-03', '2024-07-07', NULL),
+      (18, -6, -9, 4, 'Really good experience.', '2024-06-29', '2024-07-03', NULL),
+      (19, -8, -9, 5, 'Best tour ever!', '2024-07-06', '2024-07-10', NULL),
+      (20, -9, -9, 4, 'Very enjoyable!', '2024-07-02', '2024-07-06', NULL),
+      (21, -6, -11, 3, 'Good, but not great.', '2024-06-21', '2024-06-25', NULL),
+      (22, -8, -11, 5, 'Loved every moment!', '2024-07-07', '2024-07-11', NULL),
+      (23, -9, -11, 4, 'Would recommend to others.', '2024-06-26', '2024-06-30', NULL),
+      (24, -6, -11, 3, 'Not bad, but could be better.', '2024-06-23', '2024-06-27', NULL),
+      (25, -8, -13, 5, 'Amazing tour!', '2024-07-05', '2024-07-09', NULL),
+      (26, -9, -13, 4, 'Very good experience.', '2024-06-30', '2024-07-04', NULL),
+      (27, -6, -13, 3, 'Decent, but not great.', '2024-06-24', '2024-06-28', NULL),
+      (28, -8, -13, 5, 'Perfect tour!', '2024-07-10', '2024-07-14', NULL),
+      (29, -9, -14, 5, 'Fantastic tour!', '2024-07-01', '2024-07-05', NULL),
+      (30, -6, -14, 4, 'Good, but could be better.', '2024-06-29', '2024-07-03', NULL),
+      (31, -8, -14, 5, 'Amazing experience!', '2024-07-03', '2024-07-07', NULL),
+      (32, -9, -14, 4, 'Very enjoyable.', '2024-06-27', '2024-07-01', NULL);
 
 
 INSERT INTO payments."BoughtItems"("Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
@@ -968,16 +1002,18 @@ VALUES (
 INSERT INTO achievements."Achievements"(
     "Id", "Name", "Description", "Icon", "Rarity", "CraftingRecipe")
 VALUES
-    (-1, 'First Steps', 'Complete the tutorial', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-2, 'Novice Explorer', 'Discover 10 locations', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-3, 'Treasure Hunter', 'Find 5 hidden treasures', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-4, 'Master Builder', 'Construct 50 buildings', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-5, 'Legendary Warrior', 'Defeat 100 enemies', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-6, 'Champion of the Arena', 'Win 10 arena battles', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
     (-7, 'Alchemist', 'Craft 20 potions', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-8, 'Marathon Runner', 'Run a total of 42km', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-9, 'Ultimate Explorer', 'Discover all locations', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{-1, -2}'),
-    (-10, 'Master Alchemist', 'Craft all potions', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{-7}');
+    (-1, 'Ramonda', 'Complete the tutorial', 'https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png', 0, '{}'),
+    (-2, 'Oakleaf', 'Discover 10 locations', 'https://via-ventura.com/images/40f210d9-5804-445a-9513-33d8129f773f.png', 3, '{}'),
+    (-3, 'Maple Leaf', 'Find 5 hidden treasures', 'https://via-ventura.com/images/c3e2e15d-9aa0-41ac-861a-fd963bc4c5dc.png', 1, '{}'),
+    (-4, 'Honey Jar', 'Construct 50 buildings', 'https://via-ventura.com/images/1794be3c-74bd-47f1-84ad-2dbba01aa9e7.png', 0, '{}'),
+    (-5, 'Garden Cart', 'Defeat 100 enemies', 'https://via-ventura.com/images/a7a7ffa9-f1c3-4998-9a68-950175f94667.png', 2, '{}'),
+    (-6, 'Fertilizer', 'Win 10 arena battles', 'https://via-ventura.com/images/7d9f92a4-aa16-44c9-bd32-0f35fddc710f.png', 1, '{}'),
+    (-11, 'Jigglypuff', 'Crafts', 'https://www.pngkey.com/png/full/545-5457914_jigglypuff-pokemon-pixel-art-pokmon.png', 3, '{-8,-7,-1}'),
+    (-9, 'Senshru', 'Discover all locations', 'https://pngpix.com/images/hd/pixel-art-pokemon-jolteon-u28qva7l85x7ayfp.jpg', 2, '{-1,-2}'),
+    (-10, 'Squirtle', 'Craft all potions', 'https://art.pixilart.com/thumb/c13d41c55906657.png', 1, '{-4,-7}'),
+    (-8, 'Ljubicica', 'Run a total of 42km', 'https://i.redd.it/some-flowers-v0-0yh6cbhr6ptb1.png?width=1984&format=png&auto=webp&s=6b60ab6d979e66cae373befc9b567db4001d1837', 0, '{}');
+
 
 INSERT INTO achievements."Inventory"(
     "Id", "UserId", "AchievementsId")
@@ -987,4 +1023,5 @@ INSERT INTO achievements."Inventory"(
         (-8, -8, '{-7}'),
         (-9, -9, '{}'),
         (-10, -10, '{}'),
-        (-11, -11, '{-1, -3}');
+        (-11, -11, '{-1, -3}')
+        (-12,-12,'{-2,-4,-7,-3,-1,-2,-7,-6}');
