@@ -49,7 +49,7 @@ public static class StakeholdersStartup
         services.AddScoped<IInternalBlogService, InternalBlogService>();
         services.AddScoped<IInternalCommentService, InternalCommentService>();
         services.AddScoped<IMessageService, MessageService>();
-        services.AddScoped<IEmailSendingService, EmailSedningService>();
+        services.AddTransient<IEmailSendingService, EmailSedningService>();
         services.AddScoped<IUserNewsService, UserNewsService>();
         services.AddScoped<IInternalFollowerService,FollowerService>();
         services.AddScoped<IInternalPersonService, PersonService>();

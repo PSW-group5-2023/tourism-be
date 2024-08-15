@@ -56,7 +56,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                     user.Role = UserRole.Tourist;
                     user.IsActive = false;
                     user.Email = account.Email;
+                    var emailVerificationToken = Guid.NewGuid().ToString();
+                    user.EmailVerificationToken = emailVerificationToken;
+                    sendVerificationEmail(user, emailVerificationToken);
+
                     var updatedUser = _userRepository.Update(user);
+                    sendVerificationEmail(user, Guid.NewGuid().ToString());
                     return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
                 }
                 catch(ArgumentException e)
@@ -68,10 +73,11 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true, null, null, account.Email));
-            /*var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
+            var emailVerificationToken = Guid.NewGuid().ToString();
+            sendVerificationEmail(user, emailVerificationToken);
             user.EmailVerificationToken = emailVerificationToken;
-            user = _userRepository.Update(user);*/
+            user = _userRepository.Update(user);
 
             return new RegisteredUserDto(user.Id, user.Username, user.Role.ToString()) ;
         }
@@ -95,6 +101,52 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
         }
     }
+
+    private Result<string> sendVerificationEmail(User user, string token)
+    {
+        try
+        {
+            string to = user.Email;
+            string subject = "Email Verification";
+            string body = $@"
+            <html>
+            <body>
+                <p>Hello {to},</p><br>
+                <p>Thank you for registering with our service. To verify your email address, please click on the link below:</p><br>
+                <p><a href='http://localhost:4200/verify-email?token={token}'>Verify Your Email Address</a></p><br>
+                <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p><br>
+                <p>Thank you for choosing our service.</p>
+                <p>Best regards,<br>ViaVentura team</p>
+            </body>
+            </html>";
+
+            _emailSendingService.SendEmailAsync(to, subject, body, true);
+            return "Email successfully sent for verification.";
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
+    public Result<string> ActivateUser(string token)
+    {
+        try
+        {
+            var user = _userRepository.GetByEmailToke(token);
+            if (user == null) throw new ArgumentException("User with given email token doesn't exist");
+            user.IsActive = true;
+            _userRepository.Update(user);
+
+            return Result.Ok("User activated successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
+
     public Result<string> GetUsername(long id)
     {
         return _userRepository.GetUsername(id);
@@ -217,78 +269,4 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         user.RemoveEmailVerificationToken();
         user = _userRepository.Update(user);
     }
-
-
-
-    private Result<string> sendVerificationEmail(Person person, string token)
-    {
-        try
-        {
-            string to = person.Email;
-            string personName = person.Name;
-            string subject = "Email Verification";
-            string body = $@"
-            Hello {personName},
-
-            Thank you for registering with our service. To verify your email address, please click on the link below:
-
-            http://localhost:4200/verify-email?token={token}
-
-            For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.
-
-            Thank you for choosing our service.
-
-            Best regards,
-            Travelo";
-
-            _emailSendingService.SendEmailAsync(to, subject, body);
-            return "Email successfully sent for verification.";
-        }
-        catch (Exception ex)
-        {
-            return Result.Fail(ex.Message);
-        }
-    }
-
-
-    public Result<AuthenticationTokensDto> ActivateUser(string token)
-    {
-        try
-        {
-
-            long userId = getUserIdFromToken(token);
-            if (userId == 0)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            User user = _userRepository.Get(userId);
-            if (user == null)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("User not found");
-            }
-            if (user.EmailVerificationToken == null || user.EmailVerificationToken != token)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            if (isTokenExpired(token))
-            {
-                return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
-            }
-            Person person = _personeRep.GetByUserId(userId);
-            activateUser(user);
-
-
-
-            return _tokenGenerator.GenerateAccessToken(user); ;
-
-        }
-        catch (Exception ex)
-        {
-            return Result.Fail(ex.Message);
-        }
-
-
-    }
-
-
 }
