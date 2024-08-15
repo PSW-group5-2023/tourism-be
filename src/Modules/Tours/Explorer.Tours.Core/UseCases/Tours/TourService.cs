@@ -23,19 +23,17 @@ namespace Explorer.Tours.Core.UseCases.Tours
         private readonly ICheckpointService _checkpointService;
         private readonly ITourRatingService _tourRatingService;
         private readonly IInternalBoughtItemService _internalBoughtItemService;
-        private readonly IInternalPersonService _internalPersonService;
         private readonly IQuizAchievementMobileInternalService _quizMobileInternalService;
         protected readonly IMapper _mapper;
 
         public TourService(ITourRepository repository, ICheckpointRepository checkpointRepository, IMapper mapper, ICheckpointService checkpointService, ITourRatingService tourRatingService,
-            IInternalBoughtItemService internalBoughtItemService, IInternalPersonService internalPersonService, IQuizAchievementMobileInternalService quizMobileInternalService) : base(repository, mapper)
+            IInternalBoughtItemService internalBoughtItemService, IQuizAchievementMobileInternalService quizMobileInternalService) : base(repository, mapper)
         {
             _tourRepository = repository;
             _checkpointRepository = checkpointRepository;
             _checkpointService = checkpointService;
             _tourRatingService = tourRatingService;
             _internalBoughtItemService = internalBoughtItemService;
-            _internalPersonService = internalPersonService;
             _quizMobileInternalService = quizMobileInternalService; 
             _mapper = mapper;
         }
@@ -80,9 +78,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetPagedByAuthorId(int authorId, int page, int pageSize)
         {
-            try
+            /*try
             {
-                var author = _internalPersonService.GetByUserId(authorId);
+                var author = _userRepository.GetByUserId(authorId);
                 if (author.Value
                     == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Author with id " + authorId + " doesnt exist");
                 var result = _tourRepository.GetPagedByAuthorId(authorId, page, pageSize);
@@ -91,7 +89,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
             catch (ArgumentException e)
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
-            }
+            }*/
+            throw new NotImplementedException();
         }
 
         public Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId)
@@ -237,7 +236,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
         {
-            double radius = 40000;
+            /*double radius = 40000;
             var person = _internalPersonService.Get(touristId);
             var tours = _tourRepository.GetPaged(page, pageSize);
             var publishedTours = tours.Results.Where(tour => tour.Status == TourStatus.Published).ToList();
@@ -263,7 +262,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 }
             }
 
-            return filteredTours;
+            return filteredTours;*/
+
+            throw new NotImplementedException();
         }
 
         public bool CheckIfAnyKeyPointInRange(List<Checkpoint> checkpoints, double? lat, double? lon, double radius)

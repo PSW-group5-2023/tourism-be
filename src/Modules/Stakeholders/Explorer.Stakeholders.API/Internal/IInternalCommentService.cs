@@ -9,6 +9,6 @@ namespace Explorer.Stakeholders.API.Internal
 {
     public interface IInternalCommentService
     {
-        PersonDto GetByUserId(int id);
+        UserDto GetByUserId(int id);
     }
 }

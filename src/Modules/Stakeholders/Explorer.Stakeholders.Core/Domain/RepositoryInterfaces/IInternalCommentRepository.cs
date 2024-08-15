@@ -8,6 +8,6 @@ namespace Explorer.Stakeholders.Core.Domain.RepositoryInterfaces
 {
     public interface IInternalCommentRepository
     {
-        Person GetPersonByUserId(long userId);
+        User GetUserByUserId(long userId);
     }
 }

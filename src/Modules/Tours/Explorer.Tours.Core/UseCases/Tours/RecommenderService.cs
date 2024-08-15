@@ -5,6 +5,7 @@ using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.API.Public;
 using Explorer.Stakeholders.API.Public.Identity;
+using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Internal;
 using Explorer.Tours.API.Public.Email;
@@ -26,9 +27,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
         private readonly IInternalFollowerService _followerService;
         private readonly ISessionService _sessionService;
         private readonly IEmailSendingTourCommunityRecommendationService _emailSendingService;
-        private readonly IInternalPersonService _personService;
         private readonly ITourService _tourService;
-
+        private readonly IUserRepository _userRepository;
         public RecommenderService(IMapper mapper,
             ITourRepository tourRepository,
             IPreferencesRepository preferencesRepository,
@@ -37,8 +37,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
             IInternalFollowerService followerService,
             ISessionService sessionService,
             IEmailSendingTourCommunityRecommendationService emailSendingService,
-            IInternalPersonService personService,
-            ITourService tourService
+            ITourService tourService,
+            IUserRepository userRepository
             ) : base(mapper)
         {
             _tourRepository = tourRepository;
@@ -48,8 +48,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
             _followerService = followerService;
             _sessionService = sessionService;
             _emailSendingService = emailSendingService;
-            _personService = personService;
             _tourService = tourService;
+            _userRepository = userRepository;
         }
 
         public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int page, int pageSize, int touristId)
@@ -61,8 +61,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId)
         {
-            var tourist = _personService.Get(touristId);
-            if(tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
+            var tourist = _userRepository.Get(touristId);
+            if(tourist == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
 
             var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
@@ -121,8 +121,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetRecommendedToursFromFollowings(int tourId, int userId)
         {
-            var person = _personService.Get(userId);
-            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+            var person = _userRepository.Get(userId);
+            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
 
             var userFromFollowing = _followerService.GetFollowings(userId).Value;
             var users = new List<FollowerDto>();
@@ -238,8 +238,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId)
         {
-            var tourist = _personService.Get(touristId);
-            if (tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
+            var tourist = _userRepository.Get(touristId);
+            if (tourist == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
             var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
             return GetActiveTours(MapToDomain(publishedTours.Value.Results));
@@ -298,8 +298,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<bool> SendEmail(int userId, string body)
         {
-            var person = _personService.GetNameById(userId);
-            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+            var person = _userRepository.GetUsername(userId);
+            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
 
             var links = body.Split('|');
             string linksForSend = "";
@@ -307,9 +307,9 @@ namespace Explorer.Tours.Core.UseCases.Tours
             {
                 linksForSend += link + "\n\t\t";
             }
-            var email = _personService.GetEmailByUserId(userId);
+            var email = _userRepository.Get(userId).Email;
             string bodyForSend = $@"
-                Hello {_personService.GetNameById(userId).Value},
+                Hello {_userRepository.GetUsername(userId)},
                 
                 This is list of tours we recommended you:
 
@@ -319,14 +319,14 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
                 Best regards,
                 Travelo";
-            _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend);
-            return _emailSendingService.SendEmailAsync(email.Value, "Recomended tours", bodyForSend).IsCanceled.ToResult();
+            _emailSendingService.SendEmailAsync(email, "Recomended tours", bodyForSend);
+            return _emailSendingService.SendEmailAsync(email, "Recomended tours", bodyForSend).IsCanceled.ToResult();
         }
 
         public Result<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
-            var person = _personService.Get(userId);
-            if (person.IsFailed || person.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
+            var person = _userRepository.Get(userId);
+            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("User with id " + userId + " doesnt exist");
 
             var list = GetRecommendedToursFromFollowings(tourId, userId);
             PagedResult<TourDto> filteredList = new PagedResult<TourDto>(new List<TourDto>(), 0);

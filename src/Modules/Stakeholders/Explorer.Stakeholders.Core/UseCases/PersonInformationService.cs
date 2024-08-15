@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    public class PersonInformationService : CrudService<UserInformationDto, Person>, IPersonInformationService
+    public class PersonInformationService /*: CrudService<UserInformationDto, Person>, IPersonInformationService*/
     {
-        public PersonInformationService(ICrudRepository<Person> personRepository, IMapper mapper) : base(personRepository, mapper)
+        public PersonInformationService(/*ICrudRepository<Person> personRepository, IMapper mapper*/) /*: base(personRepository, mapper)*/
         { }
 
     }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Stakeholders.Core.UseCases
 {
-    public class InternalCommentService : BaseService<PersonDto, Person>, IInternalCommentService
+    public class InternalCommentService : BaseService<UserDto, User>, IInternalCommentService
     {
 
         public IInternalCommentRepository _internalCommentRepository;
@@ -22,9 +22,9 @@ namespace Explorer.Stakeholders.Core.UseCases
             _internalCommentRepository = internalCommetnRepository;
         }
 
-        public PersonDto GetByUserId(int id)
+        public UserDto GetByUserId(int id)
         {
-            var result = _internalCommentRepository.GetPersonByUserId(id);
+            var result = _internalCommentRepository.GetUserByUserId(id);
             return MapToDto(result);
         }
     }
