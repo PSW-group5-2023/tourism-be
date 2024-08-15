@@ -111,12 +111,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             string body = $@"
             <html>
             <body>
-                <p>Hello {to},</p><br>
-                <p>Thank you for registering with our service. To verify your email address, please click on the link below:</p><br>
-                <p><a href='https://via-ventura.com/verify-email?token={token}'>Verify Your Email Address</a></p><br>
-                <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p><br>
-                <p>Thank you for choosing our service.</p>
-                <p>Best regards,<br>ViaVentura team</p>
+                <p>Hello {to},<br><br>
+                Thank you for registering with our service. To verify your email address, please click on the link below:<br><br>
+                <a href='https://via-ventura.com/verify-email?token={token}'>Verify Your Email Address</a><br><br>
+                For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.<br><br>
+                Thank you for choosing our service.
+                Best regards,<br>ViaVentura team
             </body>
             </html>";
 
@@ -133,7 +133,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         try
         {
-            var user = _userRepository.GetByEmailToke(token);
+            var user = _userRepository.GetByEmailToken(token);
             if (user == null) throw new ArgumentException("User with given email token doesn't exist");
             user.IsActive = true;
             _userRepository.Update(user);
@@ -156,13 +156,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         try
         {
-            Person person = _personeRep.GetByEmail(email);
-            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid mail");
-            User user = _userRepository.Get(person.UserId);
-            string token = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
-            user.ResetPasswordToken = token;
-            user = _userRepository.Update(user);
-            return sendChangePasswordEmail(person, user.ResetPasswordToken);
+            User user = _userRepository.GetByEmail(email);
+            if (user == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid email");
+            var resetPasswordToken = Guid.NewGuid().ToString();
+            user.ResetPasswordToken = resetPasswordToken;
+            _userRepository.Update(user);
+            return sendChangePasswordEmail(user, resetPasswordToken);
         }
         catch (Exception ex)
         {
@@ -171,27 +170,25 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
     }
 
-    private Result<string> sendChangePasswordEmail(Person person, string token)
+    private Result<string> sendChangePasswordEmail(User user, string token)
     {
         try
         {
-            string to = person.Email;
-            string personName = person.Name;
+            string to = user.Email;
             string subject = "Change password request";
             string body = $@"
-                Hello {personName},
-
-                We recently received a request to change the password associated with your account. If you initiated this request, please follow the link below to reset your password. If you did not make this request, please disregard this email.
-
-                http://localhost:4200/reset-password?token={token}
-
-                For security reasons, this link will expire in 24h. If you're unable to use the link, copy and paste it into your browser's address bar.
-
-                Thank you for using our service.
-
-                 Best regards,
-                Travelo";
-            _emailSendingService.SendEmailAsync(to, subject, body);
+                <html>
+                <body>
+                    <p>Hello {to},</p>
+                    <p>We recently received a request to change the password associated with your account. If you initiated this request, please follow the link below to reset your password. If you did not make this request, please disregard this email.</p>
+                    <p><a href='https://via-ventura.com/reset-password?token={token}'>Reset Your Password</a></p>
+                    <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p>
+                    <p>Thank you for using our service.</p>
+                    <p>Best regards</p>
+                    <p>Travelo</p>
+                </body>
+                </html>";
+            _emailSendingService.SendEmailAsync(to, subject, body, true);
             return "Mail successfuly sent";
         }
         catch(Exception ex)
@@ -209,33 +206,15 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError("Passwords don't match");
             }
-            long userId = getUserIdFromToken(changePassword.token);
-            if (userId == 0)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token"); 
-            }
-            User user = _userRepository.Get(userId);
+            var user = _userRepository.GetByResetPasswordToken(changePassword.token);
             if (user == null)
             {
                 return Result.Fail(FailureCode.NotFound).WithError("User not found");
             }
-            if(user.ResetPasswordToken == null || user.ResetPasswordToken != changePassword.token)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            if(isTokenExpired(changePassword.token))
-            {
-                return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
-            }
 
             updatePassword(user, changePassword.newPassword);
 
-
-
             return "Password successfuly changed";
-
-
-
         }
         catch(Exception ex)
         {

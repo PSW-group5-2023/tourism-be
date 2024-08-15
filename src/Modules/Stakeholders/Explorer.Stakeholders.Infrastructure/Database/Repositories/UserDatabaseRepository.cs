@@ -34,9 +34,19 @@ public class UserDatabaseRepository : IUserRepository
         return _dbContext.Users.FirstOrDefault(user => user.Username == username);
     }
 
-    public User? GetByEmailToke(string token)
+    public User? GetByEmail(string email)
+    {
+        return _dbContext.Users.FirstOrDefault(user => user.Email == email);
+    }
+
+    public User? GetByEmailToken(string token)
     {
         return _dbContext.Users.FirstOrDefault(user => user.EmailVerificationToken == token);
+    }
+
+    public User? GetByResetPasswordToken(string token)
+    {
+        return _dbContext.Users.FirstOrDefault(user => user.ResetPasswordToken == token);
     }
 
     public User Create(User user)

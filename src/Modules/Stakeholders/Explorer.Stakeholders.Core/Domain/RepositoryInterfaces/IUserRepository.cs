@@ -6,7 +6,9 @@ public interface IUserRepository
     User? Get(long userId);
     User? GetActiveByName(string username);
     User? GetByUsername(string username);
-    User? GetByEmailToke(string token);
+    User? GetByEmail(string email);
+    User? GetByEmailToken(string token);
+    User? GetByResetPasswordToken(string token);
     User Create(User user);
     long GetPersonId(long userId);
 
