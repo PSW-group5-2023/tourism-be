@@ -113,7 +113,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             <body>
                 <p>Hello {to},</p><br>
                 <p>Thank you for registering with our service. To verify your email address, please click on the link below:</p><br>
-                <p><a href='http://localhost:4200/verify-email?token={token}'>Verify Your Email Address</a></p><br>
+                <p><a href='https://via-ventura.com/verify-email?token={token}'>Verify Your Email Address</a></p><br>
                 <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p><br>
                 <p>Thank you for choosing our service.</p>
                 <p>Best regards,<br>ViaVentura team</p>
