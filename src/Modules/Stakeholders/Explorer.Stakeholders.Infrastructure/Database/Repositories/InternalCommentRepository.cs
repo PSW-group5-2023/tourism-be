@@ -16,9 +16,10 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories
         {
             _dbContext = dbContext;
         }
-        public Person GetPersonByUserId(long userId)
+
+        public User GetUserByUserId(long userId)
         {
-            return _dbContext.People.FirstOrDefault(person => person.UserId == userId);
+            return _dbContext.Users.FirstOrDefault(u => u.Id == userId);
         }
     }
 }

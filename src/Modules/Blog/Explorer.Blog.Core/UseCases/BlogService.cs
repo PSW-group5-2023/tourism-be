@@ -97,8 +97,6 @@ namespace Explorer.Blog.Core.UseCases
             {
                 var user = _internalBlogService.GetByUserId(result.Value.UserId);
                 result.Value.Username = user.Username;
-                var person = _internalCommentService.GetByUserId(user.Id);
-                result.Value.ProfilePic = person.ProfilePic;
             }
             return result;
         }
@@ -117,8 +115,6 @@ namespace Explorer.Blog.Core.UseCases
             {
                 var user = _internalBlogService.GetByUserId(comment.UserId);
                 comment.Username = user.Username;
-                var person = _internalCommentService.GetByUserId(user.Id);
-                comment.ProfilePic = person.ProfilePic;
             }
 
             return result;

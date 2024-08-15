@@ -18,18 +18,14 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 {
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
-    private readonly ICrudRepository<Person> _personRepository;
     private readonly IEmailSendingService _emailSendingService;
-    private readonly IPersonRepository _personeRep;
 
-    public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator,
-        IEmailSendingService emailSendingService, IPersonRepository personeRep, IMapper mapper) : base(mapper)
+    public AuthenticationService(IUserRepository userRepository, ITokenGenerator tokenGenerator,
+        IEmailSendingService emailSendingService, IMapper mapper) : base(mapper)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
-        _personRepository = personRepository;
         _emailSendingService = emailSendingService;
-        _personeRep = personeRep;
     }
 
     public Result<AuthenticationTokensDto> Login(CredentialsDto credentials)
@@ -104,13 +100,13 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         try
         {
-            Person person = _personeRep.GetByEmail(email);
-            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid mail");
-            User user = _userRepository.Get(person.UserId);
-            string token = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
-            user.ResetPasswordToken = token;
-            user = _userRepository.Update(user);
-            return sendChangePasswordEmail(person, user.ResetPasswordToken);
+            /*User user = _userRepository.GetByEmail(email);
+            if (user == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid email");
+            var resetPasswordToken = Guid.NewGuid().ToString();
+            user.ResetPasswordToken = resetPasswordToken;
+            _userRepository.Update(user);
+            return sendChangePasswordEmail(user, resetPasswordToken);*/
+            return Result.Ok();
         }
         catch (Exception ex)
         {
@@ -119,15 +115,14 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
     }
 
-    private Result<string> sendChangePasswordEmail(Person person, string token)
+    private Result<string> sendChangePasswordEmail(User user, string token)
     {
         try
         {
-            string to = person.Email;
-            string personName = person.Name;
+            string to = user.Email;
             string subject = "Change password request";
             string body = $@"
-                Hello {personName},
+                Hello {to},
 
                 We recently received a request to change the password associated with your account. If you initiated this request, please follow the link below to reset your password. If you did not make this request, please disregard this email.
 
@@ -220,15 +215,14 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
 
 
-    private Result<string> sendVerificationEmail(Person person, string token)
+    private Result<string> sendVerificationEmail(User user, string token)
     {
         try
         {
-            string to = person.Email;
-            string personName = person.Name;
+            string to = user.Email;
             string subject = "Email Verification";
             string body = $@"
-            Hello {personName},
+            Hello {to},
 
             Thank you for registering with our service. To verify your email address, please click on the link below:
 
@@ -274,7 +268,6 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
             }
-            Person person = _personeRep.GetByUserId(userId);
             activateUser(user);
 
 

@@ -21,19 +21,17 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
     public class FollowerService : BaseService<FollowerDto, Follower>, IFollowerService, IInternalFollowerService
     {
         private readonly IFollowerRepository _followerRepository;
-        private readonly IPersonRepository _personRepository;
 
-        public FollowerService(IFollowerRepository followerRepository, IMapper mapper, IPersonRepository personRepository) : base(mapper)
+        public FollowerService(IFollowerRepository followerRepository, IMapper mapper) : base(mapper)
         {
             _followerRepository = followerRepository;
-            _personRepository = personRepository;
         }
         public Result<List<SavedNotificationDto>> GetFollowersNotifications(int id)
         {
-            try
+            /*try
             {
                 var followers = _followerRepository.GetFollowersNotifications(id);
-                List<Person> people = _personRepository.GetAllFollowers(id);
+                List<User> people = _personRepository.GetAllFollowers(id);
 
                 List<SavedNotificationDto> saveNotifications = new List<SavedNotificationDto>();
 
@@ -49,7 +47,9 @@ namespace Explorer.Stakeholders.Core.UseCases.Identity
             catch (KeyNotFoundException e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
-            }
+            }*/
+
+            throw new NotImplementedException();
         }
         public Result<FollowerDto> Create(FollowerDto follower)
         {

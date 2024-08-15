@@ -53,10 +53,6 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             var storedAccount = dbContext.Users.FirstOrDefault(u => u.Username == account.Email);
             storedAccount.ShouldNotBeNull();
             storedAccount.Role.ShouldBe(UserRole.Tourist);
-            var storedPerson = dbContext.People.FirstOrDefault(i => i.Email == account.Email);
-            storedPerson.ShouldNotBeNull();
-            storedPerson.UserId.ShouldBe(storedAccount.Id);
-            //storedPerson.Name.ShouldBe(account.Name);
         }
 
         [Theory]

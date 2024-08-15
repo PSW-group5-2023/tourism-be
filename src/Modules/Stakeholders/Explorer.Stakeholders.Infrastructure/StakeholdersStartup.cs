@@ -38,11 +38,10 @@ public static class StakeholdersStartup
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
         services.AddScoped<IApplicationRatingService, ApplicationRatingService>();
-        services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IClubService, ClubService>();
         services.AddScoped<IJoinRequestService, JoinRequestService>();
         services.AddScoped<IUserInformationService, UserInformationService>();
-        services.AddScoped<IPersonInformationService, PersonInformationService>();
+        /*services.AddScoped<IPersonInformationService, PersonInformationService>();*/
         services.AddScoped<IUserActivityService, UserActivityService>();
         services.AddScoped<IUserNames,UserNamesService>();
         services.AddScoped<IFollowerService, FollowerService>();
@@ -52,17 +51,12 @@ public static class StakeholdersStartup
         services.AddScoped<IEmailSendingService, EmailSedningService>();
         services.AddScoped<IUserNewsService, UserNewsService>();
         services.AddScoped<IInternalFollowerService,FollowerService>();
-        services.AddScoped<IInternalPersonService, PersonService>();
-
-
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
     {
-        services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
         services.AddScoped(typeof(ICrudRepository<ApplicationRating>), typeof(CrudDatabaseRepository<ApplicationRating, StakeholdersContext>));
-        services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
         services.AddScoped(typeof(ICrudRepository<Club>), typeof(CrudDatabaseRepository<Club, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<JoinRequest>), typeof(CrudDatabaseRepository<JoinRequest, StakeholdersContext>));

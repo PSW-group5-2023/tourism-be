@@ -41,13 +41,6 @@ public class UserDatabaseRepository : IUserRepository
         return user;
     }
 
-    public long GetPersonId(long userId)
-    {
-        var person = _dbContext.People.FirstOrDefault(i => i.UserId == userId);
-        if (person == null) throw new KeyNotFoundException("Not found.");
-        return person.Id;
-    }
-
     public string GetUsername(long userId)
     {
         var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
