@@ -1,6 +1,7 @@
 ﻿using Explorer.Achievements.API.Dtos;
+using Explorer.Achievements.API.Dtos.Tourist;
 using Explorer.Achievements.API.Public;
-using Explorer.API.Controllers.Author;
+using Explorer.API.Controllers.Tourist;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,12 +12,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Explorer.Achievements.Tests.Integration.Achievements
+namespace Explorer.Achievements.Tests.Integration.Achievements.Tourist
 {
     [Collection("Sequential")]
     public class AchievementQueryTests : BaseAchievementsIntegrationTest
     {
-        public AchievementQueryTests(AchievementsTestFactory factory) : base(factory) { }
+        public AchievementQueryTests(AchievementsTestFactory factory) : base(factory)
+        {
+        }
 
         [Fact]
         public void Retrieves_all()
@@ -35,7 +38,22 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
         }
 
         [Fact]
-        public void Get_all_base_achievements()
+        public void Retrieves_one()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.Get(-2).Result)?.Value as AchievementModuleAchievementMobileDto;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-2);
+        }
+
+        [Fact]
+        public void Retrieves_all_base_achievements()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -50,7 +68,7 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
         }
 
         [Fact]
-        public void Get_all_complex_achievements()
+        public void Retrieves_all_complex_achievements()
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
@@ -64,6 +82,36 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
             result.Count.ShouldBe(1);
         }
 
+        [Fact]
+        public void Retrieves_all_complex_achievements_with_full_recipes()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllComplexAchievementsWithFullRecipes().Result)?.Value as List<AchievementWithFullRecipeMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(1);
+        }
+
+        [Fact]
+        public void Retrieves_one_complex_achievement_with_full_recipe()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetComplexAchievementWithFullRecipe(-6).Result)?.Value as AchievementWithFullRecipeMobileDto;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Id.ShouldBe(-6);
+        }
+
         private static AchievementController CreateController(IServiceScope scope)
         {
             return new AchievementController(scope.ServiceProvider.GetRequiredService<IAchievementService>())
@@ -71,6 +119,5 @@ namespace Explorer.Achievements.Tests.Integration.Achievements
                 ControllerContext = BuildContext("-1")
             };
         }
-
     }
 }
