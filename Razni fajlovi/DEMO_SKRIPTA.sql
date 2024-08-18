@@ -12,7 +12,7 @@ INSERT INTO stakeholders."Users"(
     (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL, NULL),
     (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL),
     (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL),
-    (-12, 'tourist', 'j0upkqxvw7n9DkwJ5jT74GeOGxWanEM6swM4HllKAc9i4SpbosDXlvUohocOtakvP11iEoGeE+et6AlnnbnQ02txk+EfY+RZAtxwujFzQCw=', 2, true, NULL, NULL, 'tourist@tourist.com'),
+    (-12, 'tourist', 'j0upkqxvw7n9DkwJ5jT74GeOGxWanEM6swM4HllKAc9i4SpbosDXlvUohocOtakvP11iEoGeE+et6AlnnbnQ02txk+EfY+RZAtxwujFzQCw=', 2, true, NULL, NULL, 'tourist@tourist.com');
 
 
 INSERT INTO stakeholders."People"(
@@ -759,7 +759,7 @@ INSERT INTO tours."TourRatings"(
 			(-4, -8, -4, 3, 'The ''History Route'' tour was an enlightening adventure through time! Expert guides brought historical landmarks to life with fascinating narratives. From ancient tales to pivotal moments, this tour provided a captivating journey through the pages of history. A highly recommended experience for history buffs!', '2024-01-17 20:13:55.862+01', '2024-01-17 20:13:55.862+01', '{https://www.historic-uk.com/wp-content/uploads/2020/10/historic-uk-banner-scaled.jpg}'),
 			(-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
 			(-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://cdn.getyourguide.com/img/tour/621a3d641a639.jpeg/146.jpg}'),
-			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}');
+			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}'),
       (1, -8, -1, 5, 'Amazing experience!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
       (2, -9, -1, 4, 'Very enjoyable tour.', '2024-06-25', '2024-07-01', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
       (3, -6, -1, 3, 'Good, but could be better.', '2024-06-20', '2024-06-25', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
@@ -1023,5 +1023,5 @@ INSERT INTO achievements."Inventory"(
         (-8, -8, '{-7}'),
         (-9, -9, '{}'),
         (-10, -10, '{}'),
-        (-11, -11, '{-1, -3}')
+        (-11, -11, '{-1, -3}'),
         (-12,-12,'{-2,-4,-7,-3,-1,-2,-7,-6}');
