@@ -9,6 +9,6 @@ namespace Explorer.Achievements.API.Internal
 {
     public interface IInventoryMobileInternalService
     {
-        Result Delete(int id);
+        Result DeleteByUserId(int userId);
     }
 }

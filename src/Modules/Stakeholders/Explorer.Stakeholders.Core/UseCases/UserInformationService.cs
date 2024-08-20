@@ -48,7 +48,7 @@ namespace Explorer.Stakeholders.Core.UseCases
             try
             {
                 CrudRepository.Delete(userId);
-                _inventoryMobileInternalService.Delete(userId);
+                _inventoryMobileInternalService.DeleteByUserId(userId);
                 return Result.Ok();
             }
             catch (KeyNotFoundException e)

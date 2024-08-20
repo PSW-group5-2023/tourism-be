@@ -18,5 +18,18 @@ namespace Explorer.Achievements.Core.UseCases
         {
         }
 
+        public Result DeleteByUserId(int userId)
+        {
+            try
+            {
+                var inventory = CrudRepository.GetPaged(0, 0).Results.Where(x => x.UserId == userId).FirstOrDefault();
+                CrudRepository.Delete(inventory.Id);
+                return Result.Ok();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }
