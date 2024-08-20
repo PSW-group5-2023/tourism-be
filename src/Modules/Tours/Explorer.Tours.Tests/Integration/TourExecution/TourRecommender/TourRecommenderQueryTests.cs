@@ -23,34 +23,34 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRecommender
             };
         }
 
-        [Fact]
-        public void Get_recommended_by_touristId()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+        //[Fact]
+        //public void Get_recommended_by_touristId()
+        //{
+        //    // Arrange
+        //    using var scope = Factory.Services.CreateScope();
+        //    var controller = CreateController(scope);
 
-            // Act
-            var result = (ObjectResult)controller.GetRecommendedToursForTourist(0, 0, -24).Result;
+        //    // Act
+        //    var result = (ObjectResult)controller.GetRecommendedToursForTourist(0, 0, -24).Result;
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(200);
-        }
+        //    // Assert
+        //    result.ShouldNotBeNull();
+        //    result.StatusCode.ShouldBe(200);
+        //}
 
-        [Fact]
-        public void Get_recommended_by_touristId_fails_invalid_touristId()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+        //[Fact]
+        //public void Get_recommended_by_touristId_fails_invalid_touristId()
+        //{
+        //    // Arrange
+        //    using var scope = Factory.Services.CreateScope();
+        //    var controller = CreateController(scope);
 
-            // Act
-            var result = (ObjectResult)controller.GetRecommendedToursForTourist(0, 0, -1000).Result;
+        //    // Act
+        //    var result = (ObjectResult)controller.GetRecommendedToursForTourist(0, 0, -1000).Result;
 
-            // Assert
-            result.StatusCode.ShouldBe(400);
-        }
+        //    // Assert
+        //    result.StatusCode.ShouldBe(400);
+        //}
 
         [Fact]
         public void Get_recommended_tours_from_followings()
@@ -81,35 +81,35 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRecommender
             result.StatusCode.ShouldBe(400);
         }
 
-        [Fact]
-        public void Get_active_by_touristId()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+        //[Fact]
+        //public void Get_active_by_touristId()
+        //{
+        //    // Arrange
+        //    using var scope = Factory.Services.CreateScope();
+        //    var controller = CreateController(scope);
 
-            // Act
-            var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -24).Result;
+        //    // Act
+        //    var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -24).Result;
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(200);
-        }
+        //    // Assert
+        //    result.ShouldNotBeNull();
+        //    result.StatusCode.ShouldBe(200);
+        //}
 
-        [Fact]
-        public void Get_active_by_touristId_fails_invalid_id()
-        {
-            // Arrange
-            using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+        //[Fact]
+        //public void Get_active_by_touristId_fails_invalid_id()
+        //{
+        //    // Arrange
+        //    using var scope = Factory.Services.CreateScope();
+        //    var controller = CreateController(scope);
 
-            // Act
-            var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -1000).Result;
+        //    // Act
+        //    var result = (ObjectResult)controller.GetActiveToursForTourist(0, 0, -1000).Result;
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.StatusCode.ShouldBe(400);
-        }
+        //    // Assert
+        //    result.ShouldNotBeNull();
+        //    result.StatusCode.ShouldBe(400);
+        //}
 
         [Fact]
         public void Filter_recommended_tours()

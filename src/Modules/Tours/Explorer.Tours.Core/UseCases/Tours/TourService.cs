@@ -238,49 +238,48 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return new PagedResult<TourDto>(new List<TourDto>(filteredResults), filteredResults.Count); ;
         }
 
-        public Result<PagedResult<TourDto>> GetPagedForSearchByLocation(int page, int pageSize, int touristId)
+        public Result<PagedResult<TourMobileDto>> GetPagedMobileByLocation(int page, int pageSize, LocationMobileDto location)
         {
-            double radius = 40000;
-            var person = _internalPersonService.Get(touristId);
-            var tours = _tourRepository.GetPaged(page, pageSize);
-            var publishedTours = tours.Results.Where(tour => tour.Status == TourStatus.Published).ToList();
-            var resultTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
 
-            if (person.Value.Latitude == null && person.Value.Longitude == null)
+            var tours = GetPagedMobile(0, 0).Value.Results;
+            var resultTours = new PagedResult<TourMobileDto>(new List<TourMobileDto>(), 0);
+
+            if (location.Latitude == null && location.Longitude == null)
             {
-                foreach (Tour tour in publishedTours)
+                foreach (TourMobileDto tour in tours)
                 {
-                    resultTours.Results.Add(MapToDto(tour));
+                    resultTours.Results.Add(tour);
                 }
 
                 return resultTours;
             }
 
-            PagedResult<TourDto> filteredTours = new PagedResult<TourDto>(new List<TourDto>(), 0);
-            foreach (var tour in tours.Results)
+            List<TourMobileDto> filteredTours = new List<TourMobileDto>();
+            foreach (var tour in tours)
             {
-                if (tour.Status == TourStatus.Published && CheckIfAnyKeyPointInRange(tour.Checkpoints,
-                        person.Value.Latitude, person.Value.Longitude, radius))
+                LocationMobileDto locaion = new LocationMobileDto( location.Latitude, location.Longitude, location.Radius);
+                if (CheckIfAnyKeyPointInRange(tour.Checkpoints,location))
                 {
-                    filteredTours.Results.Add(MapToDto(tour));
+                    filteredTours.Add(tour);
+                    
                 }
             }
 
-            return filteredTours;
+            return new PagedResult<TourMobileDto>(filteredTours,filteredTours.Count);
         }
 
-        public bool CheckIfAnyKeyPointInRange(List<Checkpoint> checkpoints, double? lat, double? lon, double radius)
+        public bool CheckIfAnyKeyPointInRange(List<CheckpointMobileDto> checkpoints, LocationMobileDto location)
         {
-            return checkpoints.Any(checkpoint => IsInRange(checkpoint, lat, lon, radius));
+            return checkpoints.Any(checkpoint => IsInRange(checkpoint, location));
         }
 
-        public bool IsInRange(Checkpoint checkpoint, double? lat, double? lon, double radius)
+        public bool IsInRange(CheckpointMobileDto checkpoint, LocationMobileDto location)
         {
             double distance;
             int earthRadius = 6371000;
-            double radiusInDegrees = radius * 360 / (2 * Math.PI * earthRadius);
-            distance = Math.Sqrt(Math.Pow((double)(checkpoint.Latitude - lat), 2) +
-                                 Math.Pow((double)(checkpoint.Longitude - lon), 2));
+            double radiusInDegrees = location.Radius*1000 * 360 / (2 * Math.PI * earthRadius);
+            distance = Math.Sqrt(Math.Pow((double)(checkpoint.Latitude - location.Latitude), 2) +
+                                 Math.Pow((double)(checkpoint.Longitude - location.Longitude), 2));
             return distance <= radiusInDegrees;
         }
 
@@ -306,8 +305,8 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize)
         {
-            var result = CrudRepository.GetPaged(page, pageSize);
-            var tours = result.Results;
+            var result = CrudRepository.GetPaged(page, pageSize).Results.Where(x=>x.Status== TourStatus.Published).ToList();
+            var tours = result;
 
             var tourDtos = new List<TourMobileDto>();
 
@@ -379,7 +378,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 tourDtos.Add(tourDto);
             }
 
-            var pagedResult = new PagedResult<TourMobileDto>(tourDtos, result.TotalCount);
+            var pagedResult = new PagedResult<TourMobileDto>(tourDtos, tourDtos.Count);
             return Result.Ok(pagedResult);
         }
 
@@ -541,6 +540,16 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
         
             var pagedResult = new PagedResult<TourMobileDto>(tourDtos, result.TotalCount);
+            return Result.Ok(pagedResult);
+        }
+
+        public Result<PagedResult<TourMobileDto>> GetPagedMobileByRating(int page, int pageSize, int rating)
+        {
+            var list = GetPagedMobile(page, pageSize);
+
+            var newList = list.Value.Results.Where(x => x.Rating>=rating);
+            var pagedResult = new PagedResult<TourMobileDto>(newList.ToList(), newList.Count());
+
             return Result.Ok(pagedResult);
         }
 
