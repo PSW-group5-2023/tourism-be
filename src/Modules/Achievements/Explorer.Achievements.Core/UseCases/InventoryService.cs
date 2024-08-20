@@ -24,10 +24,11 @@ namespace Explorer.Achievements.Core.UseCases
         }
         public Result<InventoryDto> AddAchievementToInventory(int userId, int achivementId)
         {
+            Inventory inventory = _inventoryRepository.GetByUserId(userId).Value;
             inventory.AchievementsId.Add(achivementId);
-            Update(inventory);
-            return inventory.ToResult();
-        } 
+            _inventoryRepository.Update(inventory);
+            return MapToDto(inventory).ToResult();
+        }
 
         public Result<InventoryDto> AddComplexAchievementToInventory(int userId, List<int> requiredAchievemements)
         {

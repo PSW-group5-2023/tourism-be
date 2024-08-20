@@ -8,7 +8,7 @@ namespace Explorer.BuildingBlocks.Core.Domain
 {
     public class DomainEvent
     {
-        public long Id { get;}
+        public long Id { get; private set; }
         public long AggregateRootId { get; private set; }
 
         public DomainEvent(long aggregateRootId)
