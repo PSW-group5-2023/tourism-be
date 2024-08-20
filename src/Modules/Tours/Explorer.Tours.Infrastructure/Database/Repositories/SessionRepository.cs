@@ -61,6 +61,7 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         public Session AddCompletedKeyPoint(int sessionId, int keyPointId)
         {
             var session = _context.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            var completedKeyPoint = session.AddCompletedKeyPoint(keyPointId);
             _context.Sessions.Update(session);
 
             _context.SaveChanges();
