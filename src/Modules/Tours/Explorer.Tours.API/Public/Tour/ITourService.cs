@@ -10,7 +10,7 @@ namespace Explorer.Tours.API.Public.Tour
     public interface ITourService
     {
         Result<PagedResult<TourDto>> GetPaged(int page, int pageSize);
-        Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize);
+        Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize, string order);
         Result<PagedResult<TourMobileDto>> GetPagedSortedByLatestMobile(int page, int pageSize);
         Result<PagedResult<TourMobileDto>> GetPagedSortedByPopularMobile(int page, int pageSize);
         Result<TourDto> Create(TourDto tour);

@@ -64,8 +64,8 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(15);
-            result.TotalCount.ShouldBe(15);
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
         }
         [Fact]
         public void Retrieves_all_mobile_filtered_by_location()
@@ -110,8 +110,8 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(15);
-            result.TotalCount.ShouldBe(15);
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
         }
 
         [Fact]

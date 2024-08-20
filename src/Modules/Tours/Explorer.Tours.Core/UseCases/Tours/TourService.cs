@@ -241,7 +241,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<PagedResult<TourMobileDto>> GetPagedMobileByLocation(int page, int pageSize, LocationMobileDto location)
         {
 
-            var tours = GetPagedMobile(0, 0).Value.Results;
+            var tours = GetPagedMobile(0, 0,"").Value.Results;
             var resultTours = new PagedResult<TourMobileDto>(new List<TourMobileDto>(), 0);
 
             if (location.Latitude == null && location.Longitude == null)
@@ -303,11 +303,18 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return MapToDto(_tourRepository.Get(id));
         }
 
-        public Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize)
+        public Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize, string order)
         {
             var result = CrudRepository.GetPaged(page, pageSize).Results.Where(x=>x.Status== TourStatus.Published).ToList();
             var tours = result;
-
+            if (order.Equals("latest"))
+            {
+                tours=tours.OrderByDescending(t => t.PublishedDate).ToList();
+            }
+            if (order.Equals("popular"))
+            {
+                tours = tours.OrderByDescending(t => GetCompletedSessionCount((int)t.Id)).ToList();
+            }
             var tourDtos = new List<TourMobileDto>();
 
             foreach (var tour in tours)
@@ -377,175 +384,31 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 tourDto.Checkpoints = checkpointDtos;
                 tourDtos.Add(tourDto);
             }
-
+            
             var pagedResult = new PagedResult<TourMobileDto>(tourDtos, tourDtos.Count);
             return Result.Ok(pagedResult);
         }
 
         public Result<PagedResult<TourMobileDto>> GetPagedSortedByLatestMobile(int page, int pageSize)
         {
-            var result = CrudRepository.GetPaged(page, pageSize);
-            var tours = result.Results.OrderByDescending(t => t.PublishedDate).ToList();
-
-            var tourDtos = new List<TourMobileDto>();
-
-            foreach (var tour in tours)
-            {
-                var tourDto = _mapper.Map<TourMobileDto>(tour);
-
-                var ratingResult = _tourRatingService.GetAverageTourRating((int)tour.Id);
-                if (ratingResult.IsSuccess)
-                {
-                    tourDto.Rating = ratingResult.Value;
-                }
-                else
-                {
-                    tourDto.Rating = 0;
-                }
-
-                var checkpoints = _checkpointRepository.GetByTourId(tour.Id);
-                var checkpointDtos = new List<CheckpointMobileDto>();
-
-                foreach (var checkpoint in checkpoints)
-                {
-                    var checkpointDto = new CheckpointMobileDto
-                    {
-                        Id = checkpoint.Id,
-                        Name = checkpoint.Name,
-                        Description = checkpoint.Description,
-                        Latitude = checkpoint.Latitude,
-                        Longitude = checkpoint.Longitude,
-                        Questions = new List<TourModuleQuizMobileDto>(),
-                        AchievementMobileDto = null
-                    };
-
-                    var quizResult = _quizMobileInternalService.GetQuestionsByCheckpointId((int)checkpoint.Id);
-
-                    if (quizResult.IsSuccess)
-                    {
-                        var quizAchievementMobileDto = quizResult.Value;
-
-                        checkpointDto.AchievementMobileDto = quizAchievementMobileDto.Achievement != null
-                            ? new TourModuleAchievementMobileDto
-                            {
-                                Id = quizAchievementMobileDto.Achievement.Id,
-                                Name = quizAchievementMobileDto.Achievement.Name,
-                                Description = quizAchievementMobileDto.Achievement.Description,
-                                Icon = quizAchievementMobileDto.Achievement.Icon,
-                                Rarity = quizAchievementMobileDto.Achievement.Rarity,
-                                CraftingRecipe = quizAchievementMobileDto.Achievement.CraftingRecipe
-                            }
-                            : null;
-
-                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
-                        {
-                            QuestionId = q.QuestionId,
-                            Question = q.Question,
-                            Answers = q.Answers?.Select(a => new TourModuleAnswerMobileDto
-                            {
-                                QuestionId = a.QuestionId,
-                                Answer = a.Answer,
-                                IsTrue = a.IsTrue
-                            }).ToList() ?? new List<TourModuleAnswerMobileDto>()
-                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
-                    }
-
-                    checkpointDtos.Add(checkpointDto);
-                }
-
-                tourDto.Checkpoints = checkpointDtos;
-                tourDtos.Add(tourDto);
-            }
-
-            var pagedResult = new PagedResult<TourMobileDto>(tourDtos, result.TotalCount);
+            var result = GetPagedMobile(page, pageSize,"latest").Value.Results.ToList(); 
+            var pagedResult = new PagedResult<TourMobileDto>(result, result.Count);
             return Result.Ok(pagedResult);
           
         }
 
         public Result<PagedResult<TourMobileDto>> GetPagedSortedByPopularMobile(int page, int pageSize)
         {
-            var result = CrudRepository.GetPaged(page, pageSize);
-            var tours = result.Results;
-
-            var sortedTours = tours.OrderByDescending(t => GetCompletedSessionCount((int)t.Id)).ToList();
-
-            var tourDtos = new List<TourMobileDto>();
-
-            foreach (var tour in sortedTours)
-            {
-                var tourDto = _mapper.Map<TourMobileDto>(tour);
-
-                var ratingResult = _tourRatingService.GetAverageTourRating((int)tour.Id);
-                if (ratingResult.IsSuccess)
-                {
-                    tourDto.Rating = ratingResult.Value;
-                }
-                else
-                {
-                    tourDto.Rating = 0;
-                }
-
-                var checkpoints = _checkpointRepository.GetByTourId(tour.Id);
-                var checkpointDtos = new List<CheckpointMobileDto>();
-
-                foreach (var checkpoint in checkpoints)
-                {
-                    var checkpointDto = new CheckpointMobileDto
-                    {
-                        Id = checkpoint.Id,
-                        Name = checkpoint.Name,
-                        Description = checkpoint.Description,
-                        Latitude = checkpoint.Latitude,
-                        Longitude = checkpoint.Longitude,
-                        Questions = new List<TourModuleQuizMobileDto>(),
-                        AchievementMobileDto = null
-                    };
-
-                    var quizResult = _quizMobileInternalService.GetQuestionsByCheckpointId((int)checkpoint.Id);
-
-                    if (quizResult.IsSuccess)
-                    {
-                        var quizAchievementMobileDto = quizResult.Value;
-
-                        checkpointDto.AchievementMobileDto = quizAchievementMobileDto.Achievement != null
-                            ? new TourModuleAchievementMobileDto
-                            {
-                                Id = quizAchievementMobileDto.Achievement.Id,
-                                Name = quizAchievementMobileDto.Achievement.Name,
-                                Description = quizAchievementMobileDto.Achievement.Description,
-                                Icon = quizAchievementMobileDto.Achievement.Icon,
-                                Rarity = quizAchievementMobileDto.Achievement.Rarity,
-                                CraftingRecipe = quizAchievementMobileDto.Achievement.CraftingRecipe
-                            }
-                            : null;
-
-                        checkpointDto.Questions = quizAchievementMobileDto.Questions?.Select(q => new TourModuleQuizMobileDto
-                        {
-                            QuestionId = q.QuestionId,
-                            Question = q.Question,
-                            Answers = q.Answers?.Select(a => new TourModuleAnswerMobileDto
-                            {
-                                QuestionId = a.QuestionId,
-                                Answer = a.Answer,
-                                IsTrue = a.IsTrue
-                            }).ToList() ?? new List<TourModuleAnswerMobileDto>()
-                        }).ToList() ?? new List<TourModuleQuizMobileDto>();
-                    }
-
-                    checkpointDtos.Add(checkpointDto);
-                }
-
-                tourDto.Checkpoints = checkpointDtos;
-                tourDtos.Add(tourDto);
-            }
+            var result = GetPagedMobile(page,pageSize,"popular").Value.Results;
+           
         
-            var pagedResult = new PagedResult<TourMobileDto>(tourDtos, result.TotalCount);
+            var pagedResult = new PagedResult<TourMobileDto>(result, result.Count);
             return Result.Ok(pagedResult);
         }
 
         public Result<PagedResult<TourMobileDto>> GetPagedMobileByRating(int page, int pageSize, int rating)
         {
-            var list = GetPagedMobile(page, pageSize);
+            var list = GetPagedMobile(page, pageSize,"");
 
             var newList = list.Value.Results.Where(x => x.Rating>=rating);
             var pagedResult = new PagedResult<TourMobileDto>(newList.ToList(), newList.Count());

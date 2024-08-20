@@ -37,7 +37,7 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("mobile")]
         public ActionResult<PagedResult<TourMobileDto>> GetAllMobile([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _tourService.GetPagedMobile(page, pageSize);
+            var result = _tourService.GetPagedMobile(page, pageSize, "");
             return CreateResponse(result);
         }
 
