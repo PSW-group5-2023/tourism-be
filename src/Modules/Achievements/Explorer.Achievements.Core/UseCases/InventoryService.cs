@@ -42,5 +42,6 @@ namespace Explorer.Achievements.Core.UseCases
         { 
             return MapToDto(_inventoryRepository.GetByUserId(userId).Value);
         }
+       
     }
 }

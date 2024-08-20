@@ -35,6 +35,7 @@ namespace Explorer.Achievements.Infrastructure
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IAchievementMobileInternalService, AchievementMobileInternalService>();
+            services.AddScoped<IInventoryMobileInternalService, InventoryMobileInternalService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
