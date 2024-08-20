@@ -53,6 +53,22 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
         }
 
         [Fact]
+        public void Retrieves_all_mobile_sorted_by_latest()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllSortedByLatestMobile(0, 0).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(15);
+            result.TotalCount.ShouldBe(15);
+        }
+
+        [Fact]
         public void Get()
         {
             // Arrange

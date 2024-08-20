@@ -11,6 +11,7 @@ namespace Explorer.Tours.API.Public.Tour
     {
         Result<PagedResult<TourDto>> GetPaged(int page, int pageSize);
         Result<PagedResult<TourMobileDto>> GetPagedMobile(int page, int pageSize);
+        Result<PagedResult<TourMobileDto>> GetPagedSortedByLatestMobile(int page, int pageSize);
         Result<TourDto> Create(TourDto tour);
         Result<TourDto> Update(TourDto tour);
         Result Delete(int id);
