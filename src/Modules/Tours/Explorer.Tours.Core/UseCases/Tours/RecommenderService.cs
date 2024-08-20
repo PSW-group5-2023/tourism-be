@@ -72,7 +72,6 @@ namespace Explorer.Tours.Core.UseCases.Tours
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
         {
             var preference = _preferencesRepository.GetByUserId(userId);
-            if(preference==null)throw new Exception("Preference doesnt exist.");
             var usedBoughtItems = _internalBoughtItemService.GetUsedByUserId(userId);
 
             var usedTours = new List<Tour>();

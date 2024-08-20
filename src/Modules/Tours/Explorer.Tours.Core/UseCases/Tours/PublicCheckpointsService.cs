@@ -42,7 +42,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
 
         public Result<List<PublicCheckpointDto>> GetByStatus(string status)
         {
-            if(Enum.TryParse(status, out PublicCheckpointStatus parsedStatus))
+            if(!Enum.TryParse(status, out PublicCheckpointStatus parsedStatus))
             {
                 return Result.Fail(FailureCode.Internal).WithError("Error while parsing public checkpoint status.");
             }
