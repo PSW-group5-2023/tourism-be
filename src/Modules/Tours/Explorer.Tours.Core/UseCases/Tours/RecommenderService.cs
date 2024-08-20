@@ -52,22 +52,22 @@ namespace Explorer.Tours.Core.UseCases.Tours
             _tourService = tourService;
         }
 
-        public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int page, int pageSize, int touristId)
-        {
-            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+        //public Result<PagedResult<TourDto>> GetRecommendedToursByLocation(int page, int pageSize, int touristId)
+        //{
+        //    var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
-        }
+        //    return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
+        //}
 
-        public Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId)
-        {
-            var tourist = _personService.Get(touristId);
-            if(tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
+        //public Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId)
+        //{
+        //    var tourist = _personService.Get(touristId);
+        //    if(tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
 
-            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+        //    var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
-        }
+        //    return GetRecommendedTours(touristId, MapToDomain(publishedTours.Value.Results));
+        //}
 
         public Result<PagedResult<TourDto>> GetRecommendedTours(int userId, List<Tour> tours)
         {
@@ -229,21 +229,21 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return intersection / union;
         }
 
-        public Result<PagedResult<TourDto>> GetActiveToursByLocation(int page, int pageSize, int touristId)
-        {
-            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+        //public Result<PagedResult<TourDto>> GetActiveToursByLocation(int page, int pageSize, int touristId)
+        //{
+        //    var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetActiveTours(MapToDomain(publishedTours.Value.Results));
-        }
+        //    return GetActiveTours(MapToDomain(publishedTours.Value.Results));
+        //}
 
-        public Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId)
-        {
-            var tourist = _personService.Get(touristId);
-            if (tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
-            var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
+        //public Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId)
+        //{
+        //    var tourist = _personService.Get(touristId);
+        //    if (tourist.IsFailed || tourist.Value == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Tourist with id " + touristId + " doesnt exist");
+        //    var publishedTours = _tourService.GetPagedForSearchByLocation(page, pageSize, touristId);
 
-            return GetActiveTours(MapToDomain(publishedTours.Value.Results));
-        }
+        //    return GetActiveTours(MapToDomain(publishedTours.Value.Results));
+        //}
 
         public Tuple<double, double> getRatingParameters(Tour tour, int totalRatings)
         {

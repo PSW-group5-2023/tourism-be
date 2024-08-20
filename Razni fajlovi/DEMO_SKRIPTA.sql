@@ -752,46 +752,48 @@ VALUES
     (-2, -8, -4, 4, 1, 'The guide was late.', '2023-01-17 15:00:00'::timestamp, false, '[]', null);
 
 INSERT INTO tours."TourRatings"(
-	"Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
-	VALUES  (-1, -10, -6, 4, 'Absolutely amazing tour experience! The guides were knowledgeable, friendly, and made the entire journey enjoyable. The itinerary was well-planned, covering all the must-see attractions. The accommodations were top-notch, and the included meals were delicious. The group activities fostered a sense of camaraderie among fellow travelers. I highly recommend this tour for anyone seeking a memorable and immersive travel adventure. Cant wait to join another tour with this company in the future!', '2024-01-17 20:07:26.7+01', '2024-01-17 20:07:26.7+01', '{https://nypost.com/wp-content/uploads/sites/2/2017/12/nyc-streets.jpg?quality=75&strip=all}'),
-			(-2, -10, -3, 5, 'Embarking on the ''Walk in Wild'' tour was an unforgettable adventure through nature''s wonders. The guides were not just experts but true enthusiasts, sharing their passion for the wilderness at every step. From scenic trails to hidden gems, each day offered a new discovery. The wildlife encounters were breathtaking, making this journey a perfect blend of excitement and serenity. The camp accommodations immersed us in the heart of nature without sacrificing comfort. If you''re seeking a transformative experience surrounded by the beauty of the wild, ''Walk in Wild'' is the tour for you. A truly remarkable and rejuvenating expedition!', '2024-01-17 20:08:21.375+01', '2024-01-17 20:08:21.375+01', '{https://cdn.britannica.com/87/138787-050-33727493/Belovezhskaya-Forest-Poland.jpg}'),
-			(-3, -9, -5, 5, 'Embarking on the ''Food Route'' tour was a gastronomic delight from start to finish! Each stop along the way brought a new culinary adventure, tantalizing my taste buds with a diverse array of flavors and cuisines. The knowledgeable guides not only led us to hidden culinary gems but also shared fascinating insights into the local food culture. From street food markets to gourmet restaurants, every meal was a masterpiece. The carefully curated itinerary allowed us to savor both traditional and innovative dishes, creating a memorable journey for any food enthusiast. ''Food Route'' is a feast for the senses, offering a delectable exploration of the world''s culinary treasures.', '2024-01-17 20:12:32.323+01', '2024-01-17 20:12:32.323+01', '{https://cdnsecureimage.hotelkeys.it/202131511514647.jpeg}'),
-			(-4, -8, -4, 3, 'The ''History Route'' tour was an enlightening adventure through time! Expert guides brought historical landmarks to life with fascinating narratives. From ancient tales to pivotal moments, this tour provided a captivating journey through the pages of history. A highly recommended experience for history buffs!', '2024-01-17 20:13:55.862+01', '2024-01-17 20:13:55.862+01', '{https://www.historic-uk.com/wp-content/uploads/2020/10/historic-uk-banner-scaled.jpg}'),
-			(-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
-			(-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://cdn.getyourguide.com/img/tour/621a3d641a639.jpeg/146.jpg}'),
-			(-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}'),
-      (1, -8, -1, 5, 'Amazing experience!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (2, -9, -1, 4, 'Very enjoyable tour.', '2024-06-25', '2024-07-01', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (3, -6, -1, 3, 'Good, but could be better.', '2024-06-20', '2024-06-25', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (4, -8, -1, 5, 'Highly recommended!', '2024-07-10', '2024-07-12', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (5, -9, -5, 4, 'Great tour, loved the guide.', '2024-06-30', '2024-07-04', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (6, -6, -5, 3, 'Nice experience.', '2024-07-02', '2024-07-06', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (7, -8, -5, 5, 'Would do it again!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (8, -9, -5, 4, 'Very enjoyable.', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (9, -6, -7, 3, 'Good, but room for improvement.', '2024-06-22', '2024-06-26', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (10, -8, -7, 4, 'Loved it, would recommend!', '2024-07-05', '2024-07-09', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (11, -9, -7, 5, 'Fantastic tour!', '2024-07-08', '2024-07-12', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (12, -6, -7, 4, 'Enjoyed the whole trip.', '2024-07-04', '2024-07-08', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (13, -8, -8, 5, 'Outstanding experience!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (14, -9, -8, 4, 'Very well organized.', '2024-06-28', '2024-07-02', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (15, -6, -8, 3, 'Good tour, but could be better.', '2024-06-25', '2024-06-30', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (16, -8, -8, 5, 'Perfect in every way!', '2024-07-09', '2024-07-13', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (17, -9, -9, 5, 'Amazing tour!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (18, -6, -9, 4, 'Really good experience.', '2024-06-29', '2024-07-03', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (19, -8, -9, 5, 'Best tour ever!', '2024-07-06', '2024-07-10', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (20, -9, -9, 4, 'Very enjoyable!', '2024-07-02', '2024-07-06', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (21, -6, -11, 3, 'Good, but not great.', '2024-06-21', '2024-06-25', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (22, -8, -11, 5, 'Loved every moment!', '2024-07-07', '2024-07-11', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (23, -9, -11, 4, 'Would recommend to others.', '2024-06-26', '2024-06-30', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (24, -6, -11, 3, 'Not bad, but could be better.', '2024-06-23', '2024-06-27', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (25, -8, -13, 5, 'Amazing tour!', '2024-07-05', '2024-07-09', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (26, -9, -13, 4, 'Very good experience.', '2024-06-30', '2024-07-04', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (27, -6, -13, 3, 'Decent, but not great.', '2024-06-24', '2024-06-28', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (28, -8, -13, 5, 'Perfect tour!', '2024-07-10', '2024-07-14', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (29, -9, -14, 5, 'Fantastic tour!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (30, -6, -14, 4, 'Good, but could be better.', '2024-06-29', '2024-07-03', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (31, -8, -14, 5, 'Amazing experience!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
-      (32, -9, -14, 4, 'Very enjoyable.', '2024-06-27', '2024-07-01', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}');
+    "Id", "UserId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+VALUES  
+    (-1, -10, -6, 4, 'Absolutely amazing tour experience! The guides were knowledgeable, friendly, and made the entire journey enjoyable. The itinerary was well-planned, covering all the must-see attractions. The accommodations were top-notch, and the included meals were delicious. The group activities fostered a sense of camaraderie among fellow travelers. I highly recommend this tour for anyone seeking a memorable and immersive travel adventure. Cant wait to join another tour with this company in the future!', '2024-01-17 20:07:26.7+01', '2024-01-17 20:07:26.7+01', '{https://nypost.com/wp-content/uploads/sites/2/2017/12/nyc-streets.jpg?quality=75&strip=all}'),
+    (-2, -10, -3, 5, 'Embarking on the ''Walk in Wild'' tour was an unforgettable adventure through nature''s wonders. The guides were not just experts but true enthusiasts, sharing their passion for the wilderness at every step. From scenic trails to hidden gems, each day offered a new discovery. The wildlife encounters were breathtaking, making this journey a perfect blend of excitement and serenity. The camp accommodations immersed us in the heart of nature without sacrificing comfort. If you''re seeking a transformative experience surrounded by the beauty of the wild, ''Walk in Wild'' is the tour for you. A truly remarkable and rejuvenating expedition!', '2024-01-17 20:08:21.375+01', '2024-01-17 20:08:21.375+01', '{https://cdn.britannica.com/87/138787-050-33727493/Belovezhskaya-Forest-Poland.jpg}'),
+    (-3, -9, -5, 5, 'Embarking on the ''Food Route'' tour was a gastronomic delight from start to finish! Each stop along the way brought a new culinary adventure, tantalizing my taste buds with a diverse array of flavors and cuisines. The knowledgeable guides not only led us to hidden culinary gems but also shared fascinating insights into the local food culture. From street food markets to gourmet restaurants, every meal was a masterpiece. The carefully curated itinerary allowed us to savor both traditional and innovative dishes, creating a memorable journey for any food enthusiast. ''Food Route'' is a feast for the senses, offering a delectable exploration of the world''s culinary treasures.', '2024-01-17 20:12:32.323+01', '2024-01-17 20:12:32.323+01', '{https://cdnsecureimage.hotelkeys.it/202131511514647.jpeg}'),
+    (-4, -8, -4, 3, 'The ''History Route'' tour was an enlightening adventure through time! Expert guides brought historical landmarks to life with fascinating narratives. From ancient tales to pivotal moments, this tour provided a captivating journey through the pages of history. A highly recommended experience for history buffs!', '2024-01-17 20:13:55.862+01', '2024-01-17 20:13:55.862+01', '{https://www.historic-uk.com/wp-content/uploads/2020/10/historic-uk-banner-scaled.jpg}'),
+    (-5, -6, -6, 4, 'Exploring the art gallery was a sensory feast! Each masterpiece whispered its own story, and the curated collection showcased a mesmerizing blend of creativity. The atmosphere was serene, allowing for a profound connection with the art. Kudos to the knowledgeable staff who added insightful commentary. A cultural gem worth revisiting!', '2024-01-17 23:10:48.89+01', '2024-01-17 23:10:48.89+01', '{https://artgallery.yale.edu/sites/default/files/styles/hero_small/public/2023-01/ag-doc-2281-0036-pub.jpg?h=147a4df9&itok=uclO7OrF}'),
+    (-6, -6, -5, 2, 'I must express my disappointment with the tour. The itinerary lacked variety, and the guide seemed disinterested. Some promised attractions were skipped, leaving us unsatisfied. Overall, it fell short of expectations, and I wouldnt recommend it to others seeking an engaging experience.', '2024-01-17 23:12:11.969+01', '2024-01-17 23:12:11.969+01', '{https://cdn.getyourguide.com/img/tour/621a3d641a639.jpeg/146.jpg}'),
+    (-7, -7, -5, 4, 'I had an amazing experience on the food tour! The diverse selection of delicious dishes showcased the citys culinary gems. Our guide was knowledgeable and passionate, adding a delightful touch to each stop. I highly recommend this tour to fellow food enthusiasts – a flavorful journey that exceeded my expectations!', '2024-01-17 23:13:39.352+01', '2024-01-17 23:13:39.352+01', '{https://www.greekality.com/wp-content/uploads/2023/03/Food-tours-in-Athens-e1678193769211.jpg}'),
+    (-8, -8, -1, 5, 'Amazing experience!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-9, -9, -1, 4, 'Very enjoyable tour.', '2024-06-25', '2024-07-01', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-10, -6, -1, 3, 'Good, but could be better.', '2024-06-20', '2024-06-25', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-11, -8, -1, 5, 'Highly recommended!', '2024-07-10', '2024-07-12', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-12, -9, -5, 4, 'Great tour, loved the guide.', '2024-06-30', '2024-07-04', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-13, -6, -5, 3, 'Nice experience.', '2024-07-02', '2024-07-06', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-14, -8, -5, 5, 'Would do it again!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-15, -9, -5, 4, 'Very enjoyable.', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-16, -6, -7, 3, 'Good, but room for improvement.', '2024-06-22', '2024-06-26', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-17, -8, -7, 4, 'Loved it, would recommend!', '2024-07-05', '2024-07-09', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-18, -9, -7, 5, 'Fantastic tour!', '2024-07-08', '2024-07-12', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-19, -6, -7, 4, 'Enjoyed the whole trip.', '2024-07-04', '2024-07-08', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-20, -8, -8, 5, 'Outstanding experience!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-21, -9, -8, 4, 'Very well organized.', '2024-06-28', '2024-07-02', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-22, -6, -8, 3, 'Good tour, but could be better.', '2024-06-25', '2024-06-30', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-23, -8, -8, 5, 'Perfect in every way!', '2024-07-09', '2024-07-13', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-24, -9, -9, 5, 'Amazing tour!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-25, -6, -9, 4, 'Really good experience.', '2024-06-29', '2024-07-03', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-26, -8, -9, 5, 'Best tour ever!', '2024-07-06', '2024-07-10', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-27, -9, -9, 4, 'Very enjoyable!', '2024-07-02', '2024-07-06', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-28, -6, -11, 3, 'Good, but not great.', '2024-06-21', '2024-06-25', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-29, -8, -11, 5, 'Loved every moment!', '2024-07-07', '2024-07-11', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-30, -9, -11, 4, 'Would recommend to others.', '2024-06-26', '2024-06-30', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-31, -6, -11, 3, 'Not bad, but could be better.', '2024-06-23', '2024-06-27', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-32, -8, -13, 5, 'Amazing tour!', '2024-07-05', '2024-07-09', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-33, -9, -13, 4, 'Very good experience.', '2024-06-30', '2024-07-04', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-34, -6, -13, 3, 'Decent, but not great.', '2024-06-24', '2024-06-28', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-35, -8, -13, 5, 'Perfect tour!', '2024-07-10', '2024-07-14', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-36, -9, -14, 5, 'Fantastic tour!', '2024-07-01', '2024-07-05', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-37, -6, -14, 4, 'Good, but could be better.', '2024-06-29', '2024-07-03', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-38, -8, -14, 5, 'Amazing experience!', '2024-07-03', '2024-07-07', '{https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png}'),
+    (-39, -9, -14, 4, 'Very enjoyable.', '2024-06-27', '2024-07-01', null);
+
 
 
 INSERT INTO payments."BoughtItems"("Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
@@ -933,36 +935,36 @@ VALUES
       {"KeyPointId": -13, "CompletionTime": "2024-01-18T08:27:43.1287138Z"}]', 0);
 
 INSERT INTO tours."TourRatings"(
-    "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+    "Id", "UserId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES 
-    (-8, -10, -12, 5, 'This was really magical tour, I enjoyed every moment of it!!! <3', 
+    (-40, -10, -12, 5, 'This was really magical tour, I enjoyed every moment of it!!! <3', 
     '2024-01-18 09:21:42.26+01', '2024-01-18 09:21:42.26+01', 
     '{"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5afZTp10UvqHEevWXLO4qEb5qH6laB9lp7YoMD0IdFJCxTcGOjYalv1mUbTHr96-C9zg&usqp=CAU"}'),
     
-    (-9, -9, -12, 5, 'It was great hiking with these people on these beautiful paths!', 
+    (-41, -9, -12, 5, 'It was great hiking with these people on these beautiful paths!', 
     '2024-01-18 09:26:58.332+01',  '2024-01-18 09:26:58.332+01', 
     '{"https://cdn.discordapp.com/attachments/1165673303898345664/1197456518749102110/20230410_150807.jpg?ex=65bb5549&is=65a8e049&hm=7226a837e7098bd43dad3dad8d6a9865b366eacfa9d196385049d28bb745c92e&"}'),
 
-    (-10, -9, -4, 3, 'Meh, it was too ordinary for me', 
+    (-42, -9, -4, 3, 'Meh, it was too ordinary for me', 
      '2024-01-18 09:28:47.695+01',  '2024-01-18 09:28:47.695+01', 
     '{"https://www.gradnja.rs/wp-content/uploads/2019/04/golubacka-tvdjava-06.jpg"}'),
 
-    (-11, -8, -10, 5, 'It was really good weather that day, so the lake was in its full shine', 
+    (-43, -8, -10, 5, 'It was really good weather that day, so the lake was in its full shine', 
      '2024-01-18 09:30:32.032+01', '2024-01-18 09:30:32.032+01', 
     '{"https://nova.rs/wp-content/uploads/2022/08/07/1659871432-1-1200x800.jpg"}'),
 
-    (-12, -8, -2, 2, 'It was really bad tour, all streets were just crowded and we could not see anything', 
+    (-44, -8, -2, 2, 'It was really bad tour, all streets were just crowded and we could not see anything', 
     '2024-01-18 09:33:15.666+01',  '2024-01-18 09:33:15.666+01', 
     '{"https://thehill.com/wp-content/uploads/sites/2/2023/06/648e08fa8f2698.92719294-e1687042741437.jpeg?strip=1"}'),
 
-    (-13, -8, -3, 4, 'It was too hard for me, so I could not enjoy nature that much', 
+    (-45, -8, -3, 4, 'It was too hard for me, so I could not enjoy nature that much', 
     '2024-01-18 09:34:32.924+01', '2024-01-18 09:34:32.924+01', 
     '{"https://www.fao.org/images/newsroomlibraries/breafing-notes/36949400340_030e4ae5f9_oab4ccd35-fd6a-4230-bd2e-f0113f50357d.jpg?sfvrsn=426ca1c_3"}');
 
 INSERT INTO tours."TourRatings"(
-    "Id", "PersonId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
+    "Id", "UserId", "TourId", "Mark", "Comment", "DateOfVisit", "DateOfCommenting", "Images")
 VALUES 
-    (-14, -6, -10, 5, 'This hike was really hard for me, but in the end it was beautiful, the view was magical.', 
+    (-46, -6, -10, 5, 'This hike was really hard for me, but in the end it was beautiful, the view was magical.', 
      '2024-01-18 09:47:29.993+01',  '2024-01-18 09:47:29.993+01', 
     '{"https://cdn.discordapp.com/attachments/1165673303898345664/1197457130228305981/IMG_6620.jpg?ex=65bb55db&is=65a8e0db&hm=8088ed25240c693b393c097dc10db68911a78fef5ceba3d2de3f56a9eb5cc18b&"}');
 
