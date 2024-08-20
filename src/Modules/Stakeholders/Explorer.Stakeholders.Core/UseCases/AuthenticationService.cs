@@ -116,7 +116,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                 <a href='https://via-ventura.com/verify-email?token={token}'>Verify Your Email Address</a><br><br>
                 For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.<br><br>
                 Thank you for choosing our service.
-                Best regards,<br>ViaVentura team
+                Best regards,<br>Via Ventura team
             </body>
             </html>";
 
@@ -185,7 +185,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                     <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p>
                     <p>Thank you for using our service.</p>
                     <p>Best regards</p>
-                    <p>Travelo</p>
+                    <p>Via Ventura team</p>
                 </body>
                 </html>";
             _emailSendingService.SendEmailAsync(to, subject, body, true);

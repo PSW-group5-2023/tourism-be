@@ -1,5 +1,4 @@
 ﻿using Explorer.API.Controllers.Administrator.Administration;
-using Explorer.API.Controllers.Tourist;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
 using Explorer.Payments.Infrastructure.Database;

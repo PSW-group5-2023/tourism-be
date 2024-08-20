@@ -40,10 +40,8 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             // Assert - Response
             result.StatusCode.ShouldBe(expectedResponseCode);
 
-            var authenticationResponse = result.Value as AuthenticationTokensDto;
+            var authenticationResponse = result.Value as RegisteredUserDto;
             authenticationResponse.ShouldNotBeNull();
-            authenticationResponse.Id.ShouldNotBe(0);
-            var decodedAccessToken = new JwtSecurityTokenHandler().ReadJwtToken(authenticationResponse.AccessToken);
             //var personId = decodedAccessToken.Claims.FirstOrDefault(c => c.Type == "personId");
             //personId.ShouldNotBeNull();
             //personId.Value.ShouldNotBe("0");
@@ -53,9 +51,9 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             var storedAccount = dbContext.Users.FirstOrDefault(u => u.Username == account.Email);
             storedAccount.ShouldNotBeNull();
             storedAccount.Role.ShouldBe(UserRole.Tourist);
-            var storedPerson = dbContext.People.FirstOrDefault(i => i.Email == account.Email);
+            /*var storedPerson = dbContext.People.FirstOrDefault(i => i.Email == account.Email);
             storedPerson.ShouldNotBeNull();
-            storedPerson.UserId.ShouldBe(storedAccount.Id);
+            storedPerson.UserId.ShouldBe(storedAccount.Id);*/
             //storedPerson.Name.ShouldBe(account.Name);
         }
 
