@@ -22,7 +22,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourRatingDto
             {
-                PersonId = 1,
+                UserId = 1,
                 TourId = 2,
                 Mark = 4,
                 Comment = "Bilo je odlicno",
@@ -36,7 +36,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
 
             // Assert - Response
             result.ShouldNotBeNull();
-            result.PersonId.ShouldBe(newEntity.PersonId);
+            result.UserId.ShouldBe(newEntity.UserId);
             result.TourId.ShouldBe(newEntity.TourId);
             result.Mark.ShouldBe(newEntity.Mark);
             result.Comment.ShouldBe(newEntity.Comment);
@@ -47,7 +47,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             // Assert - Database
             var storedEntity = dbContext.TourRatings.FirstOrDefault(i => i.Comment == newEntity.Comment);
             storedEntity.ShouldNotBeNull();
-            storedEntity.PersonId.ShouldBe(newEntity.PersonId);
+            storedEntity.UserId.ShouldBe(newEntity.UserId);
             storedEntity.TourId.ShouldBe(newEntity.TourId);
             storedEntity.Mark.ShouldBe(newEntity.Mark);
             storedEntity.Comment.ShouldBe(newEntity.Comment);
@@ -72,6 +72,57 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         }
 
         [Fact]
+        public void Creates_Mobile()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+            var newEntity = new TourRatingMobileDto
+            {
+                UserId = 1,
+                TourId = 2,
+                Mark = 4,
+                Comment = "Bilo je odlicno",
+                DateOfCommenting = DateTime.UtcNow
+            };
+
+            // Act
+            var result = ((ObjectResult)controller.CreateMobile(newEntity).Result)?.Value as TourRatingMobileDto;
+
+            // Assert - Response
+            result.ShouldNotBeNull();
+            result.UserId.ShouldBe(newEntity.UserId);
+            result.TourId.ShouldBe(newEntity.TourId);
+            result.Mark.ShouldBe(newEntity.Mark);
+            result.Comment.ShouldBe(newEntity.Comment);
+            result.DateOfCommenting.ShouldBe(newEntity.DateOfCommenting);
+
+            // Assert - Database
+            var storedEntity = dbContext.TourRatings.FirstOrDefault(i => i.Comment == newEntity.Comment);
+            storedEntity.ShouldNotBeNull();
+            storedEntity.UserId.ShouldBe(newEntity.UserId);
+            storedEntity.TourId.ShouldBe(newEntity.TourId);
+            storedEntity.Mark.ShouldBe(newEntity.Mark);
+            storedEntity.Comment.ShouldBe(newEntity.Comment);
+            storedEntity.DateOfCommenting.ShouldBe(newEntity.DateOfCommenting);
+        }
+        [Theory]
+        [MemberData(nameof(TourRatingCreationDataMobile))]
+        public void Creates_fails_invalid_data_Mobile(TourRatingMobileDto newEntity, int ExpectedStatusCode)
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = (ObjectResult)controller.CreateMobile(newEntity).Result;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldBe(ExpectedStatusCode);
+        }
+        [Fact]
         public void Updates()
         {
             // Arrange
@@ -81,7 +132,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             var updatedEntity = new TourRatingDto
             {
                 Id = -1,
-                PersonId = -2,
+                UserId = -2,
                 TourId = -2,
                 Mark = 5,
                 Comment = "Bilo je odlicnoo",
@@ -96,7 +147,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             // Assert
             // Assert - Response
             result.ShouldNotBeNull();
-            result.PersonId.ShouldBe(updatedEntity.PersonId);
+            result.UserId.ShouldBe(updatedEntity.UserId);
             result.TourId.ShouldBe(updatedEntity.TourId);
             result.Mark.ShouldBe(updatedEntity.Mark);
             result.Comment.ShouldBe(updatedEntity.Comment);
@@ -107,7 +158,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             // Assert - Database
             var storedEntity = dbContext.TourRatings.FirstOrDefault(i => i.Comment == updatedEntity.Comment);
             storedEntity.ShouldNotBeNull();
-            storedEntity.PersonId.ShouldBe(updatedEntity.PersonId);
+            storedEntity.UserId.ShouldBe(updatedEntity.UserId);
             storedEntity.TourId.ShouldBe(updatedEntity.TourId);
             storedEntity.Mark.ShouldBe(updatedEntity.Mark);
             storedEntity.Comment.ShouldBe(updatedEntity.Comment);
@@ -132,6 +183,36 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             result.StatusCode.ShouldBe(ExpectedStatusCode);
         }
 
+        public static IEnumerable<object[]> TourRatingCreationDataMobile()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new TourRatingMobileDto
+                    {
+                        UserId = 1,
+                        TourId = 2,
+                        Mark = -1,
+                        Comment = "Bilo je odlicno",
+                        DateOfCommenting = DateTime.UtcNow
+                    },
+                    400
+                },
+                new object[]
+                {
+                    new TourRatingMobileDto
+                    {
+                        UserId = 1,
+                        TourId = 2,
+                        Mark = 4,
+                        Comment = "",
+                        DateOfCommenting = DateTime.UtcNow
+                    },
+                    400
+                },
+            };
+        }
         public static IEnumerable<object[]> TourRatingCreationData()
         {
             return new List<object[]>
@@ -140,7 +221,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
                 {
                     new TourRatingDto
                     {
-                        PersonId = 1,
+                        UserId = 1,
                         TourId = 2,
                         Mark = -1,
                         Comment = "Bilo je odlicno",
@@ -154,7 +235,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
                 {
                     new TourRatingDto
                     {
-                        PersonId = 1,
+                        UserId = 1,
                         TourId = 2,
                         Mark = 4,
                         Comment = "",
@@ -176,7 +257,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
                     new TourRatingDto
                     {
                         Id = -1,
-                        PersonId = 1,
+                        UserId = 1,
                         TourId = 2,
                         Mark = -1,
                         Comment = "Bilo je odlicno",
@@ -191,7 +272,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
                     new TourRatingDto
                     {
                         Id = -1,
-                        PersonId = 1,
+                        UserId = 1,
                         TourId = 2,
                         Mark = 4,
                         Comment = "",
@@ -206,7 +287,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
                     new TourRatingDto
                     {
                         Id = 12345,
-                        PersonId = 1,
+                        UserId = 1,
                         TourId = 2,
                         Mark = 4,
                         Comment = "Bilo je odlicno",
@@ -221,7 +302,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
 
         private static TourRatingController CreateController(IServiceScope scope)
         {
-            return new TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>())
+            return new TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>(), scope.ServiceProvider.GetRequiredService<ITourRatingMobileService>())
             {
                 ControllerContext = BuildContext("-1")
             };

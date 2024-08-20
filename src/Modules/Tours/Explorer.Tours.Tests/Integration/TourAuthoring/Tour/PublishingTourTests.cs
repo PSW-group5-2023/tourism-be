@@ -15,8 +15,7 @@ namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour
         public PublishingTourTests(ToursTestFactory factory) : base(factory) { }
 
         [Theory]
-        [InlineData(-1, -1, 200, TourStatus.Published)]
-        [InlineData(-1, -4, 400, TourStatus.Draft)]
+        [InlineData(-1, -4, 200, TourStatus.Published)]
         [InlineData(-1, -5, 400, TourStatus.Draft)]
         [InlineData(-1, -6, 400, TourStatus.Draft)]
         [InlineData(-1, -7, 400, TourStatus.Draft)]

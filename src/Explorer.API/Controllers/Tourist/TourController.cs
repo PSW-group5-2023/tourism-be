@@ -37,7 +37,21 @@ namespace Explorer.API.Controllers.Tourist
         [HttpGet("mobile")]
         public ActionResult<PagedResult<TourMobileDto>> GetAllMobile([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var result = _tourService.GetPagedMobile(page, pageSize);
+            var result = _tourService.GetPagedMobile(page, pageSize, "");
+            return CreateResponse(result);
+        }
+
+        [HttpGet("sortedByLatest/mobile")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllSortedByLatestMobile([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedSortedByLatestMobile(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("sortedByPopular/mobile")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllSortedByPopularMobile([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedSortedByPopularMobile(page, pageSize);
             return CreateResponse(result);
         }
 
@@ -69,13 +83,13 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
         
-        [HttpGet("recommended/{touristId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
-        {
+        //[HttpGet("recommended/{touristId:int}")]
+        //public ActionResult<PagedResult<TourDto>> GetRecommendedToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
+        //{
 
-            var result = _recommenderService.GetRecommendedToursByLocationForTourist(page, pageSize, touristId);
-            return CreateResponse(result);
-        }
+        //    var result = _recommenderService.GetRecommendedToursByLocationForTourist(page, pageSize, touristId);
+        //    return CreateResponse(result);
+        //}
 
         [HttpGet("recommendedByFollowing/{tourId:int}/{userId:int}")]
         
@@ -85,12 +99,12 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
-        [HttpGet("active/{touristId:int}")]
-        public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
-        {
-            var result = _recommenderService.GetActiveToursByLocationForTourist(page, pageSize, touristId);
-            return CreateResponse(result);
-        }
+        //[HttpGet("active/{touristId:int}")]
+        //public ActionResult<PagedResult<TourDto>> GetActiveToursForTourist([FromQuery] int page, [FromQuery] int pageSize, [FromRoute] int touristId)
+        //{
+        //    var result = _recommenderService.GetActiveToursByLocationForTourist(page, pageSize, touristId);
+        //    return CreateResponse(result);
+        //}
 
         [HttpPost("sendEmail/{userId:int}")]
         public ActionResult<bool> SendEmail(int userId, [FromQuery] string body)
@@ -103,6 +117,19 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<PagedResult<TourDto>> FilterRecommendedTours(int tourId, int userId, int rating)
         {
             var result = _recommenderService.FilterRecommendedTours(tourId, userId,rating);
+            return CreateResponse(result);
+        }
+        [HttpGet("filterByRating/mobile/{rating:int}")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllFilterByRatingMobile([FromQuery] int page, [FromQuery] int pageSize, int rating)
+        {
+            var result =_tourService.GetPagedMobileByRating(page, pageSize, rating);
+            return CreateResponse(result);
+        }
+        [HttpGet("filterByLocation/mobile/{radius:double}/{latitude:double}/{longitude:double}")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllFilterByLocationMobile([FromQuery] int page, [FromQuery] int pageSize,double radius, double latitude, double longitude )
+        {
+            LocationMobileDto location = new LocationMobileDto(radius,latitude,longitude);
+            var result = _tourService.GetPagedMobileByLocation(page, pageSize, location);
             return CreateResponse(result);
         }
     }

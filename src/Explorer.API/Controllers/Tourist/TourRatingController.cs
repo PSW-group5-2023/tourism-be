@@ -7,15 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Tourist
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/tourrating")]
     public class TourRatingController : BaseApiController
     {
         private readonly ITourRatingService _ratingService;
+        private readonly ITourRatingMobileService _ratingMobileService;
 
-        public TourRatingController(ITourRatingService ratingService)
+        public TourRatingController(ITourRatingService ratingService, ITourRatingMobileService ratingMobileService)
         {
             _ratingService = ratingService;
+            _ratingMobileService = ratingMobileService;
         }
 
         [HttpGet]
@@ -57,6 +59,12 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId)
         {
             var result = _ratingService.GetByPersonIdAndTourId(personId, tourId);
+            return CreateResponse(result);
+        }
+        [HttpPost("mobile")]
+        public ActionResult<TourRatingMobileDto> CreateMobile([FromBody] TourRatingMobileDto rating)
+        {
+            var result = _ratingMobileService.Create(rating);
             return CreateResponse(result);
         }
     }

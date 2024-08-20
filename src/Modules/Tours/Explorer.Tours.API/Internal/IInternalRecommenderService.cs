@@ -11,7 +11,7 @@ namespace Explorer.Tours.API.Internal
 {
     public interface IInternalRecommenderService
     {
-        Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId);
-        Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId);
+        //Result<PagedResult<TourDto>> GetRecommendedToursByLocationForTourist(int page, int pageSize, int touristId);
+        //Result<PagedResult<TourDto>> GetActiveToursByLocationForTourist(int page, int pageSize, int touristId);
     }
 }

@@ -44,7 +44,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
 
             //Assert
             result.ShouldNotBeNull();
-            result.PersonId.ShouldBe(-1);
+            result.UserId.ShouldBe(-1);
             result.TourId.ShouldBe(-1);
             result.Mark.ShouldBe(4);
             result.Comment.ShouldBe("Bilo je veoma dobro");
@@ -91,7 +91,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
 
             //Assert
             result.ShouldNotBeNull();
-            result.PersonId.ShouldBe(-1);
+            result.UserId.ShouldBe(-1);
             result.TourId.ShouldBe(-1);
             result.Mark.ShouldBe(4);
             result.Comment.ShouldBe("Bilo je veoma dobro");
@@ -114,7 +114,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
 
         private static Explorer.API.Controllers.Tourist.TourRatingController CreateTouristController(IServiceScope scope)
         {
-            return new Explorer.API.Controllers.Tourist.TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>())
+            return new Explorer.API.Controllers.Tourist.TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>(), scope.ServiceProvider.GetRequiredService<ITourRatingMobileService>())
             {
                 ControllerContext = BuildContext("-1")
             };
