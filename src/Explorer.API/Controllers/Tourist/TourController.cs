@@ -48,6 +48,13 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(result);
         }
 
+        [HttpGet("sortedByPopular/mobile")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllSortedByPopularMobile([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _tourService.GetPagedSortedByPopularMobile(page, pageSize);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<TourDto> Get(int id)
         {

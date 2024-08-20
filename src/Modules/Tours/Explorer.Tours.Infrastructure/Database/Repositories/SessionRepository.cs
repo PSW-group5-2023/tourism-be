@@ -90,5 +90,11 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
         {
             _context.SaveChanges();
         }
+
+        public int GetCountByTourIdAndStatus(int tourId, SessionStatus status)
+        {
+            return _context.Sessions
+                .Count(s => s.TourId == tourId && s.SessionStatus == status);
+        }
     }
 }
