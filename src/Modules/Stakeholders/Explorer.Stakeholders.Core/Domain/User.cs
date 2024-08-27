@@ -1,10 +1,13 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.API.Dtos;
+using System.Text.RegularExpressions;
 
 namespace Explorer.Stakeholders.Core.Domain;
 
 public class User : Entity
 {
+    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+
     public string Username { get; private set; }
     public string? Password { get; set; }
     public UserRole Role { get; set; }
@@ -13,16 +16,17 @@ public class User : Entity
     public string? EmailVerificationToken { get; set; }
     public string? Email {  get; set; }
 
+
     public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
     {
         Username = username;
-        Password = password;
+        Password = password ;
         Role = role;
-        IsActive = isActive;
-        Validate();
+        IsActive = isActive;    
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
         Email = email;
+        Validate();
     }
 
     public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
@@ -32,16 +36,19 @@ public class User : Entity
         Password = password;
         Role = role;
         IsActive = isActive;
-        Validate();
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
         Email = email;
+        Validate();
     }
 
     private void Validate()
     {
         if (string.IsNullOrWhiteSpace(Username)) throw new ArgumentException("Invalid Name");
         //if (string.IsNullOrWhiteSpace(Password)) throw new ArgumentException("Invalid Surname");
+
+        if (!string.IsNullOrWhiteSpace(Email) && !EmailRegex.IsMatch(Email))
+            throw new ArgumentException("Invalid Email format.");    
     }
 
     public string GetPrimaryRoleName()
