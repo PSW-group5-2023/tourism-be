@@ -68,6 +68,7 @@ public static class ToursStartup
         services.AddScoped<ITourStatisticsDomainService, TourStatisticsDomainService>();
         services.AddScoped<IInternalRecommenderService, RecommenderService>();
         services.AddScoped<IQuizAchievementMobileInternalService, QuizAchievementMobileInternalService>();
+        services.AddScoped<ITourRatingMobileService, TourRatingMobileService>();
 
     }
 
@@ -87,6 +88,7 @@ public static class ToursStartup
         services.AddScoped(typeof(IPositionSimulatorRepository), typeof(PositionSimulatorDatabaseRepository));
         services.AddScoped(typeof(ICrudRepository<PublicFacility>), typeof(CrudDatabaseRepository<PublicFacility, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
+        
 
         services.AddScoped<IPreferencesRepository, PreferencesRepository>();
         services.AddScoped<ITourProblemRepository, TourProblemRepository>();

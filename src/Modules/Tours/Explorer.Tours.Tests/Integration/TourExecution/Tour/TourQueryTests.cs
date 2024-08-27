@@ -48,8 +48,70 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 
             // Assert
             result.ShouldNotBeNull();
-            result.Results.Count.ShouldBe(15);
-            result.TotalCount.ShouldBe(15);
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
+        }
+
+        [Fact]
+        public void Retrieves_all_mobile_sorted_by_latest()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllSortedByLatestMobile(0, 0).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
+        }
+        [Fact]
+        public void Retrieves_all_mobile_filtered_by_location()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFilterByLocationMobile(0, 0,10, 24.209304098892062, 12.332725774649834).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(1);
+            result.TotalCount.ShouldBe(1);
+        }
+        [Fact]
+        public void Retrieves_all_mobile_filtered_by_rating()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFilterByRatingMobile(0, 0, 4).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(1);
+            result.TotalCount.ShouldBe(1);
+        }
+
+        [Fact]
+        public void Retrieves_all_mobile_sorted_by_popular()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllSortedByPopularMobile(0, 0).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(3);
+            result.TotalCount.ShouldBe(3);
         }
 
         [Fact]

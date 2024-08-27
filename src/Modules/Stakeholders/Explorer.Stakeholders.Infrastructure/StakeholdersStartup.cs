@@ -1,4 +1,6 @@
 using Castle.Core.Smtp;
+using Explorer.Achievements.API.Internal;
+using Explorer.Achievements.Core.UseCases;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.BuildingBlocks.Infrastructure.Database;
 using Explorer.BuildingBlocks.Infrastructure.Email;
@@ -53,6 +55,7 @@ public static class StakeholdersStartup
         services.AddScoped<IUserNewsService, UserNewsService>();
         services.AddScoped<IInternalFollowerService,FollowerService>();
         services.AddScoped<IInternalPersonService, PersonService>();
+        services.AddScoped<IInventoryMobileInternalService, InventoryMobileInternalService>();
 
 
     }

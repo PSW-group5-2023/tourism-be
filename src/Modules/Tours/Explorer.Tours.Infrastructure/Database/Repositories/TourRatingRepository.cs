@@ -27,10 +27,10 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             return query.ToList();
         }
 
-        public TourRating GetByPersonIdAndTourId(long personId, long tourId)
+        public TourRating GetByUserIdAndTourId(long userId, long tourId)
         {
-            return _dbSet.Where(tr => tr.PersonId == personId && tr.TourId == tourId).FirstOrDefault()
-                ?? throw new KeyNotFoundException($"Not found: personId = {personId}, tourId = {tourId}");
+            return _dbSet.Where(tr => tr.UserId == userId && tr.TourId == tourId).FirstOrDefault()
+                ?? throw new KeyNotFoundException($"Not found: personId = {userId}, tourId = {tourId}");
         }
     }
 }

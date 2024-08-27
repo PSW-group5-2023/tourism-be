@@ -36,11 +36,11 @@ namespace Explorer.Tours.Core.UseCases.Rating
                 TourRatingDto tourRatingDto = new TourRatingDto
                 {
                     Id = (int)tourRaing.Id,
-                    PersonId = (int)tourRaing.PersonId,
+                    UserId = (int)tourRaing.UserId,
                     TourId = (int)tourRaing.TourId,
                     Mark = tourRaing.Mark,
                     Comment = tourRaing.Comment,
-                    DateOfVisit = tourRaing.DateOfVisit,
+                    DateOfVisit = tourRaing.DateOfVisit ?? DateTime.Now,
                     DateOfCommenting = tourRaing.DateOfCommenting,
                     Images = tourRaing.Images
                 };
@@ -67,11 +67,11 @@ namespace Explorer.Tours.Core.UseCases.Rating
             return bestRatedToursStats;
         }
 
-        public Result<TourRatingDto> GetByPersonIdAndTourId(long personId, long tourId)
+        public Result<TourRatingDto> GetByPersonIdAndTourId(long userId, long tourId)
         {
             try
             {
-                var rating = _tourRatingRepository.GetByPersonIdAndTourId(personId, tourId);
+                var rating = _tourRatingRepository.GetByUserIdAndTourId(userId, tourId);
                 return MapToDto(rating);
             }
             catch (KeyNotFoundException e)

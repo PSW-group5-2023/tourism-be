@@ -48,12 +48,13 @@ public class ToursProfile : Profile
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<TourStatisticsDto, TourStatisticsDto>().ReverseMap();
         CreateMap<TourDuration, TourDurationDto>().ReverseMap();
+        CreateMap<TourRating, TourRatingMobileDto>().ReverseMap();
 
-        /////////
+
         CreateMap<Tour, TourMobileDto>().ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(uri => uri.ToString()).ToList()));
         CreateMap<TourMobileDto, Tour>().ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(img => new Uri(img)).ToList()));
         CreateMap<TourMobileDto, TourRating>().ReverseMap().ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Mark));
         CreateMap<CheckpointMobileDto, Checkpoint>().ReverseMap();
-        ////////
+   
     }
 }

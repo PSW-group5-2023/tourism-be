@@ -16,5 +16,6 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
         List<Session> GetAll();
         PagedResult<Session> GetPagedByTouristId(long touristId, int page, int pageSize);
         public void SaveChanges();
+        public int GetCountByTourIdAndStatus(int tourId, SessionStatus status);
     }
 }
