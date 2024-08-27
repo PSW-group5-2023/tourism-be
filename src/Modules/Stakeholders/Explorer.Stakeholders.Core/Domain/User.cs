@@ -6,7 +6,7 @@ namespace Explorer.Stakeholders.Core.Domain;
 
 public class User : Entity
 {
-    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
 
     public string Username { get; private set; }
     public string? Password { get; set; }
