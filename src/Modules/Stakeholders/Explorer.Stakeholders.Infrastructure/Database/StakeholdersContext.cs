@@ -26,6 +26,8 @@ public class StakeholdersContext : DbContext
 
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
         modelBuilder.Entity<Follower>().Property(item => item.Notification).HasColumnType("jsonb");
 
         ConfigureStakeholder(modelBuilder); 

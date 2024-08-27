@@ -18,7 +18,7 @@ VALUES (-4, 'admi2n@gmail.com', 'B21fiSrUcBRIOfhgS1vbwx04+AGyNdGG4zd8lhL+8aF3lFQ
 
 INSERT INTO stakeholders."Users"(
     "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
-VALUES (-21, 'turista1@gmail.com', 'J+IvNwTusQuashZZlFZFJl/OwpWAK4OutzmuZxNIfEJUPUiuSbCP9om6FpxBSTdZgartnAc2Wcd6SgoGNqHIEV0q/7ZKGBxV5fsaZVkkuGY=', 2, true, null, null, null);
+VALUES (-21, 'turista1@gmail.com', 'J+IvNwTusQuashZZlFZFJl/OwpWAK4OutzmuZxNIfEJUPUiuSbCP9om6FpxBSTdZgartnAc2Wcd6SgoGNqHIEV0q/7ZKGBxV5fsaZVkkuGY=', 2, true, null, null, 'turista1@gmail.com');
 INSERT INTO stakeholders."Users"(
     "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
 VALUES (-22, 'turista2@gmail.com', 'HtKuauWNOZwiGfmtxOzXIziMnbq9XcLipshWLX2Z8hKCey0ZJe1GBFHfazlsnBhyq9wnnlzXuYPler/p5wWzDkkheYwEiAunYnyFWst+G94=', 2, true, null, null, null);
