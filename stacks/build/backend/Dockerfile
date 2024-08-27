@@ -12,6 +12,7 @@ ARG SRC_URL=https://github.com/PSW-group5-2023/tourism-be/archive/refs/heads/mai
 ARG GITHUB_TOKEN
 WORKDIR /src
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ARG CACHEBUST=1 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends curl tar \
     && apt-get clean \
@@ -19,7 +20,7 @@ RUN apt-get update -y \
     && mkdir ../downloads && cd ../downloads \
     && curl -L -H "Authorization: token ${GITHUB_TOKEN}" ${SRC_URL} | tar -xz \
     && mv $(ls -d -- */|head -n 1) app && mv app/* /src \
-    && echo "Cache busting: $(date +%s)"
+    && echo "Cache busting: ${CACHEBUST}"
 WORKDIR /src/src
 RUN dotnet restore "${PROJECT}/${PROJECT}.csproj"
 RUN dotnet build "${PROJECT}/${PROJECT}.csproj" -c Release
