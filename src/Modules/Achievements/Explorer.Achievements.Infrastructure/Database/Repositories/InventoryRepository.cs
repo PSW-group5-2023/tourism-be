@@ -46,7 +46,7 @@ namespace Explorer.Achievements.Infrastructure.Database.Repositories
 
         public PagedResult<Inventory> GetPaged(int page, int pageSize)
         {
-            var task = _dbSet.Include(x=>x.AchievementsId).GetPagedById(page, pageSize);
+            var task = _dbSet.Include(x=>x.Achievements).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }

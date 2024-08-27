@@ -11,11 +11,15 @@ using System;
 using System.Data.SqlTypes;
 using AutoMapper;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
 public class AuthenticationService : BaseService<UserDto, User>, IAuthenticationService
 {
+    private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
+    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
+
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
     private readonly ICrudRepository<Person> _personRepository;
@@ -52,6 +56,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             {
                 try
                 {
+                    if (!string.IsNullOrWhiteSpace(account.Email) && !EmailRegex.IsMatch(account.Email))
+                        throw new ArgumentException("Invalid Email format.");
+
+                    if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
+                        throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
+
                     user.Password = PasswordEncoder.Encode(account.Password);
                     user.Role = UserRole.Tourist;
                     user.IsActive = false;
@@ -76,6 +86,11 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
             var emailVerificationToken = Guid.NewGuid().ToString();
             sendVerificationEmail(user, emailVerificationToken);
+            if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
+                throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
+
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true, null, null, account.Email));
+            //var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);
 

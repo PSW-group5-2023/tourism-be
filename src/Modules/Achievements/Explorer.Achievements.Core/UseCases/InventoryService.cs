@@ -24,18 +24,46 @@ namespace Explorer.Achievements.Core.UseCases
         }
         public Result<InventoryDto> AddAchievementToInventory(int userId, int achivementId)
         {
-            //if(!inventory.AchievementsId.Contains(achivementId))
             Inventory inventory= _inventoryRepository.GetByUserId(userId).Value;
-            inventory.AchievementsId.Add(achivementId);
+            inventory.AddAchievementToInventory(achivementId);
             _inventoryRepository.Update(inventory);
             return MapToDto(inventory).ToResult();
         }
 
         public Result<InventoryDto> AddComplexAchievementToInventory(int userId, List<int> requiredAchievemements)
         {
-            var complexAchievement = _achievementService.CreateComplexAchievement(requiredAchievemements);
+            try
+            {
+                var complexAchievement = _achievementService.CreateComplexAchievement(requiredAchievemements);
+                Inventory inventory = _inventoryRepository.GetByUserId(userId).Value;
+                bool required = HasRequiredAchievements(requiredAchievemements, inventory);
+                if (required)
+                {
+                    inventory.AddComplexAchievementToInventory(complexAchievement.Value.Id,requiredAchievemements);
+                    _inventoryRepository.Update(inventory);
+                    return MapToDto(inventory).ToResult();
+                }
+                else
+                    throw new ArgumentException("There are no required achievements for complex achievement");
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
 
-            return AddAchievementToInventory(userId, complexAchievement.Value.Id);
+        private bool HasRequiredAchievements(List<int> requiredAchievemements, Inventory inventory)
+        {
+            bool required = true;
+            foreach (var achievement in requiredAchievemements)
+            {
+                if (!inventory.Achievements.ContainsKey(achievement) || inventory.Achievements[achievement] < 1)
+                {
+                        required = false;
+                        break;
+                }
+            }
+            return required;
         }
 
         public Result<InventoryDto> GetByUserId(int userId)

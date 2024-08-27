@@ -10,15 +10,15 @@ namespace Explorer.Achievements.API.Dtos
     {
         public int Id { get; set; }
         public long UserId { get; set; }
-        public List<int> AchievementsId { get; set; }
+        public Dictionary<int,int> Achievements { get; set; }
         public InventoryDto()
         {
-            AchievementsId = new List<int>();
+            Achievements = new Dictionary<int, int>();
         }
-        public InventoryDto(long userId, List<int> achievements)
+        public InventoryDto(long userId, Dictionary<int, int> achievements)
         {
             UserId = userId;
-            AchievementsId = achievements;
+            Achievements = achievements;
         }
 
     }
