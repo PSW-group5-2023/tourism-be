@@ -17,8 +17,8 @@ namespace Explorer.Stakeholders.Core.UseCases;
 
 public class AuthenticationService : BaseService<UserDto, User>, IAuthenticationService
 {
-    private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", RegexOptions.Compiled);
-    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+    private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
+    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
 
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
