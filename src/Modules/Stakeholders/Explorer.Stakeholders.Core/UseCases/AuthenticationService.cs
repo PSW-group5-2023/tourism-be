@@ -89,8 +89,6 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
                 throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
 
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true, null, null, account.Email));
-            //var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);
 
