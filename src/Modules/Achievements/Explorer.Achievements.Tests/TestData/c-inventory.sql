@@ -1,11 +1,11 @@
 INSERT INTO achievements."Inventory"(
-	"Id", "UserId", "AchievementsId")
-VALUES (-1, -5, '{{-2}}');
+	"Id", "UserId", "Achievements")
+VALUES (-1, -5, '{{"-4":1}}');
 
 INSERT INTO achievements."Inventory"(
-	"Id", "UserId", "AchievementsId")
-VALUES (-2, -6, '{{-3,-9}}');
+	"Id", "UserId", "Achievements")
+VALUES (-2, -6, '{{"-4": 1, "-6": 3}}');
 
 INSERT INTO achievements."Inventory"(
-	"Id", "UserId", "AchievementsId")
+	"Id", "UserId", "Achievements")
 VALUES (-3, -7, '{{}}');

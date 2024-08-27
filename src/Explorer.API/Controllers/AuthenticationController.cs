@@ -38,7 +38,7 @@ public class AuthenticationController : BaseApiController
             _walletService.Create(wallet);
             _userExperienceService.Create(result.Value.Id);
 
-            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
             _inventoryService.Create(inventory);
 
             return CreateResponse(result);
@@ -55,7 +55,7 @@ public class AuthenticationController : BaseApiController
         {
             var result = _authenticationService.RegisterGuest(account);
 
-            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
             _inventoryService.Create(inventory);
 
             return CreateResponse(result);
@@ -85,7 +85,7 @@ public class AuthenticationController : BaseApiController
                 var errorResponse = new
                 {
                     ErrorMessage = "Request failed",
-                    Errors = result.Errors.Select(error => error.Message), // Include all error messages
+                    Errors = result.Errors.Select(error => error.Message),
                     Success = false
                 };
 
