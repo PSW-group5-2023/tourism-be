@@ -3,7 +3,6 @@ using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Explorer.Tours.Core.Domain.Sessions.DomainEvents;
-using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.Core.Domain.Problem;
 using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.Facilities;
@@ -13,7 +12,6 @@ namespace Explorer.Tours.Infrastructure.Database;
 public class ToursContext : DbContext
 {
     public DbSet<Tour> Tours { get; set; }
-    public DbSet<Equipment> Equipment { get; set; }
     public DbSet<Checkpoint> Checkpoints { get; set; }
     public DbSet<PublicCheckpoint> PublicCheckpoints { get; set; }
     public DbSet<Facility> Facilities { get; set; }
@@ -22,7 +20,6 @@ public class ToursContext : DbContext
     public DbSet<Preferences> Preferences { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
-    public DbSet<EquipmentTracking> EquipmentTrackings { get; set; }
     public DbSet<PublicFacility> PublicFacility { get; set; }
 
 

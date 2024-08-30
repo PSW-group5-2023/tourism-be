@@ -14,8 +14,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
-using Explorer.Tours.Core.Domain.Equipment;
-using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Internal;
 
 namespace Explorer.Tours.Tests.Integration.TourAuthoring.Tour

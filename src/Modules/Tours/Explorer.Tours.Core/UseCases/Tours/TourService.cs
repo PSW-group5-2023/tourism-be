@@ -8,8 +8,6 @@ using Explorer.Tours.Core.Domain.Tours;
 using FluentResults;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Public.Tour;
-using Explorer.Tours.Core.Domain.Equipment;
-using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Dtos.Tour.Tourist;
 using Explorer.Tours.API.Public.Rating;
 using Explorer.Encounters.API.Internal;
@@ -108,7 +106,6 @@ namespace Explorer.Tours.Core.UseCases.Tours
             List<string> tags = new List<string>();
             TourStatus status = TourStatus.Draft;
             double price = 0;
-            List<EquipmentDto> equipment = new List<EquipmentDto>();
             double distanceInKm = 0;
             DateTime? archivedDate = null;
             DateTime? publishedDate = null;
@@ -121,7 +118,6 @@ namespace Explorer.Tours.Core.UseCases.Tours
                 distanceInKm += tour.DistanceInKm;
                 difficulty += tour.Difficulty;
                 tags = CombineCampaignTags(tags, tour.Tags);
-                if (tour.Equipment != null) equipment = CombineCampaignEquipment(equipment, tour.Equipment);
                 counter++;
             }
 
@@ -204,20 +200,6 @@ namespace Explorer.Tours.Core.UseCases.Tours
             }
         }
 
-        public List<EquipmentDto> CombineCampaignEquipment(List<EquipmentDto> campaignEquipment, List<EquipmentDto> tourEquipment)
-        {
-            List<EquipmentDto> campaignEquipmentList = new List<EquipmentDto>(campaignEquipment);
-
-            foreach (var equipmentId in tourEquipment)
-            {
-                if (!campaignEquipmentList.Contains(equipmentId))
-                {
-                    campaignEquipmentList.Add(equipmentId);
-                }
-            }
-
-            return campaignEquipmentList;
-        }
 
         public Result<PagedResult<TourDto>> GetPagedForSearch(string name, string[] tags, int page, int pageSize)
         {

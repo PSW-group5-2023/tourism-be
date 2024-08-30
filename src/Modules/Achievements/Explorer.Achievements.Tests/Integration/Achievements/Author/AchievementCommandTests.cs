@@ -2,8 +2,6 @@
 using Explorer.Achievements.API.Public;
 using Explorer.Achievements.Infrastructure.Database;
 using Explorer.API.Controllers.Author;
-using Explorer.Tours.API.Dtos.Equipment;
-using Explorer.Tours.API.Public.Equipment;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;

@@ -3,13 +3,11 @@ using Explorer.Tours.API.Dtos;
 using Explorer.Tours.Core.Domain.Tours;
 using Explorer.Tours.Core.Domain.Sessions;
 using Explorer.Tours.API.Dtos.Statistics;
-using Explorer.Tours.API.Dtos.Equipment;
 using Explorer.Tours.API.Dtos.Facility;
 using Explorer.Tours.API.Dtos.Tour;
 using Explorer.Tours.API.Dtos.Rating;
 using Explorer.Tours.API.Dtos.Execution;
 using Explorer.Tours.API.Dtos.Problem;
-using Explorer.Tours.Core.Domain.Equipment;
 using Explorer.Tours.Core.Domain.Problem;
 using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.Facilities;
@@ -21,7 +19,6 @@ public class ToursProfile : Profile
 {
     public ToursProfile()
     {
-        CreateMap<EquipmentDto, Equipment>().ReverseMap();
         CreateMap<TourDto, Tour>().ReverseMap();
         CreateMap<CheckpointDto, Checkpoint>().ReverseMap();
         CreateMap<TourRatingDto, TourRating>().ReverseMap();
@@ -43,7 +40,6 @@ public class ToursProfile : Profile
         CreateMap<SessionDto, Session>().IncludeAllDerived()
             .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
 
-        CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
         CreateMap<PublicCheckpointDto, PublicCheckpoint>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<TourStatisticsDto, TourStatisticsDto>().ReverseMap();

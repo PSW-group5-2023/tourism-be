@@ -10,7 +10,6 @@
         public int Status { get; set; }
         public double Price { get; set; }
         public int AuthorId { get; set; }
-        public List<Equipment.EquipmentDto> Equipment { get; set; }
         public double DistanceInKm { get; set; }
         public DateTime? ArchivedDate { get; set; }
         public DateTime? PublishedDate { get; set; }

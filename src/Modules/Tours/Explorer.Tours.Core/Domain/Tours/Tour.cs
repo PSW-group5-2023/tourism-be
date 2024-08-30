@@ -1,6 +1,5 @@
 ﻿using Explorer.BuildingBlocks.Core.Domain;
 using Explorer.Tours.Core.Domain;
-using Explorer.Tours.Core.Domain.Equipment;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Explorer.Tours.Core.Domain.Tours
@@ -14,7 +13,6 @@ namespace Explorer.Tours.Core.Domain.Tours
         public TourStatus Status { get; private set; }
         public double Price { get; init; }
         public int AuthorId { get; init; }
-        public List<Equipment.Equipment> Equipment { get; init; }
         public double DistanceInKm { get; init; }
         public DateTime? ArchivedDate { get; private set; }
         public DateTime? PublishedDate { get; private set; }
@@ -35,7 +33,6 @@ namespace Explorer.Tours.Core.Domain.Tours
             ArchivedDate = archivedDate;
             PublishedDate = publishedDate;
             Durations = durations;
-            Equipment = new List<Equipment.Equipment>();
             Checkpoints = new List<Checkpoint>();
             if (Status == TourStatus.TouristMade)
             {
