@@ -14,6 +14,6 @@ public interface IUserRepository
 
     string GetUsername(long userId);
     List<User> GetAll();
-
+    void SetRefreshToken(string username, string refreshToken);
     User Update(User user);
 }

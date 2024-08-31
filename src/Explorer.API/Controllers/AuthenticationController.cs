@@ -145,4 +145,13 @@ public class AuthenticationController : BaseApiController
         }
 
     }
+    [HttpPost]
+    [Route("refresh-token")]
+    public ActionResult<AuthenticationTokensDto> Refresh(AuthenticationTokensDto token)
+    {
+        var result= _authenticationService.Refresh(token);
+        if(result==null)
+            return Unauthorized("Invalid attempt!");
+        return Ok(result);
+    }
 }

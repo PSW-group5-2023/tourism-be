@@ -1,4 +1,5 @@
-﻿using Explorer.Stakeholders.Core.Domain;
+﻿using Explorer.Stakeholders.API.Internal;
+using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 
 namespace Explorer.Stakeholders.Infrastructure.Database.Repositories;
@@ -81,5 +82,11 @@ public class UserDatabaseRepository : IUserRepository
         user = newUser;
         _dbContext.SaveChanges();
         return user;
+    }
+    public void SetRefreshToken(string username,string refreshToken)
+    {
+        var user= GetByUsername(username);
+        user.RefreshToken = refreshToken;
+        _dbContext.SaveChanges();
     }
 }

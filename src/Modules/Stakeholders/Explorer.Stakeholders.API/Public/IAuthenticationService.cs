@@ -10,7 +10,7 @@ public interface IAuthenticationService
     Result<string> ChangePasswordRequest(string password);
 
     Result<string> ChangePassword(ChangePasswordDto changePassword);
-
+    Result<AuthenticationTokensDto> Refresh(AuthenticationTokensDto tokens);
     Result<string> GetUsername(long id);
     Result<string> ActivateUser(string token);
     public Result<AuthenticationTokensDto> RegisterGuest(AccountMobileDto account);
