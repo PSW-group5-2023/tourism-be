@@ -105,7 +105,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
+            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true, "", null, null, DateTime.UtcNow));
 
             return _tokenGenerator.GenerateAccessToken(user);
         }

@@ -14,6 +14,9 @@ public interface IUserRepository
 
     string GetUsername(long userId);
     List<User> GetAll();
+    Task<IQueryable<User>> GetAllGuestAsync();
 
     User Update(User user);
+
+    Task DeleteGuestsAsync(List<User> users, CancellationToken cancellationToken);
 }

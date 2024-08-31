@@ -15,9 +15,10 @@ public class User : Entity
     public string? ResetPasswordToken {  get; set; }
     public string? EmailVerificationToken { get; set; }
     public string? Email {  get; set; }
+    public DateTime? GuestDateTimeCreated { get; set; }
 
 
-    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null, DateTime? guestDateTimeCreated = null)
     {
         Username = username;
         Password = password ;
@@ -26,10 +27,11 @@ public class User : Entity
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
         Email = email;
+        GuestDateTimeCreated = guestDateTimeCreated;
         Validate();
     }
 
-    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null)
+    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null, DateTime? guestDateTimeCreated = null)
     {
         Id = id;
         Username = username;
@@ -39,6 +41,7 @@ public class User : Entity
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
         Email = email;
+        GuestDateTimeCreated = guestDateTimeCreated;
         Validate();
     }
 
