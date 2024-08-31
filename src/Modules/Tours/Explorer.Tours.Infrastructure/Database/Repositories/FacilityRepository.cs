@@ -25,11 +25,5 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
             _dbContext.SaveChanges();
             return facility;
         }
-
-        public List<PublicFacility> GetByStatus(PublicFacility.PublicFacilityStatus status)
-        {
-            var facilities = _dbContext.PublicFacility.Where(x => x.Status == status).ToList();
-            return facilities;
-        }
     }
 }

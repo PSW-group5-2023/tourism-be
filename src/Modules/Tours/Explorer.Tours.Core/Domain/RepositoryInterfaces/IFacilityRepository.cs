@@ -8,7 +8,5 @@ namespace Explorer.Tours.Core.Domain.RepositoryInterfaces
 
         Facility GetById(int id);
         Facility Update(Facility facility);
-
-        List<PublicFacility> GetByStatus(PublicFacility.PublicFacilityStatus status);
     }
 }

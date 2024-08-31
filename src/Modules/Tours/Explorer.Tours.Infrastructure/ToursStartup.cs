@@ -55,7 +55,6 @@ public static class ToursStartup
         services.AddScoped<IPreferencesService, PreferencesService>();
         services.AddScoped<ISessionService, SessionService>();
         services.AddScoped<IPositionSimulatorService, PositionSimulatorService>();
-        services.AddScoped<IPublicFacilityService, PublicFacilityService>();
         services.AddScoped<IInternalTourService, TourService>();
         services.AddScoped<IRecommenderService, RecommenderService>();
         services.AddScoped<IEmailSendingTourCommunityRecommendationService, EmailSendingTourCommunityRecommendationService>();
@@ -80,7 +79,6 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<TourProblem>), typeof(CrudDatabaseRepository<TourProblem, ToursContext>));    
         services.AddScoped<ISessionRepository, SessionRepository>();
         services.AddScoped(typeof(IPositionSimulatorRepository), typeof(PositionSimulatorDatabaseRepository));
-        services.AddScoped(typeof(ICrudRepository<PublicFacility>), typeof(CrudDatabaseRepository<PublicFacility, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<Preferences>), typeof(CrudDatabaseRepository<Preferences, ToursContext>));
         
 

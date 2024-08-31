@@ -20,7 +20,6 @@ public class ToursContext : DbContext
     public DbSet<Preferences> Preferences { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<PositionSimulator> PositionSimulators { get; set; }
-    public DbSet<PublicFacility> PublicFacility { get; set; }
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) {}

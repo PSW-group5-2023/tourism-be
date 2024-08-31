@@ -41,7 +41,6 @@ public class ToursProfile : Profile
             .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
 
         CreateMap<PublicCheckpointDto, PublicCheckpoint>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
-        CreateMap<PublicFacilityDto, PublicFacility>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         CreateMap<TourStatisticsDto, TourStatisticsDto>().ReverseMap();
         CreateMap<TourDuration, TourDurationDto>().ReverseMap();
         CreateMap<TourRating, TourRatingMobileDto>().ReverseMap();
