@@ -54,13 +54,6 @@ namespace Explorer.API.Controllers.Tourist
             return CreateResponse(_shoppingCartService.DeleteItem(tourId, userId));
         }
 
-        [HttpPost("{userId:long}/{tourId:long}")]
-        public ActionResult<JoinRequestDto> CheckStatus(long userId, long tourId)
-        {
-            var result = _shoppingCartService.UpdateItem(userId, tourId);
-            return CreateResponse(result);
-        }
-
         [HttpGet("coupon")]
         public ActionResult<CouponDto> GetCouponByCode(string code)
         {

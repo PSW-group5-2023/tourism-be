@@ -41,8 +41,6 @@ public static class StakeholdersStartup
         services.AddScoped<ITokenGenerator, JwtGenerator>();
         services.AddScoped<IApplicationRatingService, ApplicationRatingService>();
         services.AddScoped<IPersonService, PersonService>();
-        services.AddScoped<IClubService, ClubService>();
-        services.AddScoped<IJoinRequestService, JoinRequestService>();
         services.AddScoped<IUserInformationService, UserInformationService>();
         services.AddScoped<IPersonInformationService, PersonInformationService>();
         services.AddScoped<IUserActivityService, UserActivityService>();
@@ -66,9 +64,6 @@ public static class StakeholdersStartup
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
         services.AddScoped(typeof(ICrudRepository<ApplicationRating>), typeof(CrudDatabaseRepository<ApplicationRating, StakeholdersContext>));
         services.AddScoped<IPersonRepository, PersonRepository>();
-        services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
-        services.AddScoped(typeof(ICrudRepository<Club>), typeof(CrudDatabaseRepository<Club, StakeholdersContext>));
-        services.AddScoped(typeof(ICrudRepository<JoinRequest>), typeof(CrudDatabaseRepository<JoinRequest, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
             typeof(CrudDatabaseRepository<User, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), 
