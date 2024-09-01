@@ -18,13 +18,11 @@ namespace Explorer.API.Controllers.Tourist
     {
 
         private IBoughtItemService _shoppingCartService;
-        private ICouponService _couponService;
         private readonly IWalletService _walletService;
 
-        public BoughtItemController(IBoughtItemService shoppingCartService, ICouponService couponService, IWalletService walletService)
+        public BoughtItemController(IBoughtItemService shoppingCartService, IWalletService walletService)
         {
             _shoppingCartService = shoppingCartService;
-            _couponService = couponService;
             _walletService = walletService;
         }
 
@@ -52,20 +50,6 @@ namespace Explorer.API.Controllers.Tourist
         public ActionResult DeleteCartItem(long tourId, long userId)
         {
             return CreateResponse(_shoppingCartService.DeleteItem(tourId, userId));
-        }
-
-        [HttpGet("coupon")]
-        public ActionResult<CouponDto> GetCouponByCode(string code)
-        {
-            var result = _couponService.GetByCode(code);
-            return CreateResponse(result);
-        }
-
-        [HttpPut("couponStatus/{id:int}")]
-        public ActionResult<CouponDto> Update([FromBody] CouponDto equipment)
-        {
-            var result = _couponService.Update(equipment);
-            return CreateResponse(result);
         }
 
         [HttpGet("getWallet")]

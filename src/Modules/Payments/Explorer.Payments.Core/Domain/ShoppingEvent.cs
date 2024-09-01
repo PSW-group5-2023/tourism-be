@@ -33,11 +33,6 @@ namespace Explorer.Payments.Core.Domain
             TourId = tour.Id;
         }
 
-        private void When(CouponUsed coupon)
-        {
-            CouponId = coupon.Id;
-        }
-
         private void Causes(DomainEvent @event)
         {
             Changes.Add(@event);

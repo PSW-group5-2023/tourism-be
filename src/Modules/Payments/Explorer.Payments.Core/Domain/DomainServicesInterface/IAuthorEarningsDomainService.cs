@@ -11,7 +11,7 @@ namespace Explorer.Payments.Core.Domain.DomainServicesInterface
 {
     public interface IAuthorEarningsDomainService
     {
-        public Result<double> CalculateTotalEarnings(long authorId, List<Coupon> coupons);
-        public Result<List<AuthorEarningsDomainDto>> CalculateEarningsByTours(long authorId, List<Coupon> coupons);
+        public Result<double> CalculateTotalEarnings(long authorId);
+        public Result<List<AuthorEarningsDomainDto>> CalculateEarningsByTours(long authorId);
     }
 }

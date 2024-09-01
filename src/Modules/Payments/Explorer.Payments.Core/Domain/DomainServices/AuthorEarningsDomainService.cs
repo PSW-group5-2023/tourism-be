@@ -21,7 +21,7 @@ namespace Explorer.Payments.Core.UseCases
             _boughtItemDomainService = boughtItemDomainService;
             _internalTourService = internalTourService;
         }
-        public Result<List<AuthorEarningsDomainDto>> CalculateEarningsByTours(long authorId, List<Coupon> coupons)
+        public Result<List<AuthorEarningsDomainDto>> CalculateEarningsByTours(long authorId)
         {
             List<AuthorEarningsDomainDto> dtos = new List<AuthorEarningsDomainDto>();
             List<BoughtItem> boughtItems = _boughtItemDomainService.GetAll().Value;
@@ -35,28 +35,10 @@ namespace Explorer.Payments.Core.UseCases
                     double withDiscount = tour.Value.Price;
                     if (dtos.Contains(alreadyExists))
                     {
-                        foreach (var c in coupons)
-                        {
-                            if (c.TourId == alreadyExists.TourId && c.IsUsed)
-                            {
-                                withDiscount *= 1 - c.Discount;
-                                coupons.Remove(c);
-                                break;
-                            }
-                        }
                         alreadyExists.Earning += withDiscount;
                     }
                     else
                     {
-                        foreach (var c in coupons)
-                        {
-                            if (c.TourId == tour.Value.Id && c.IsUsed)
-                            {
-                                withDiscount *= 1 - c.Discount;
-                                coupons.Remove(c);
-                                break;
-                            }
-                        }
                         authorEarningsDto.Earning += withDiscount;
                         authorEarningsDto.TourId = tour.Value.Id;
                         authorEarningsDto.AuthorId = authorId;
@@ -80,9 +62,9 @@ namespace Explorer.Payments.Core.UseCases
             }
             return dtos.ToResult();
         }
-        public Result<double> CalculateTotalEarnings(long authorId, List<Coupon> coupons)
+        public Result<double> CalculateTotalEarnings(long authorId)
         {
-            var list = CalculateEarningsByTours(authorId, coupons);
+            var list = CalculateEarningsByTours(authorId);
             double totalEarnings = 0;
             foreach (var item in list.Value)
             {
