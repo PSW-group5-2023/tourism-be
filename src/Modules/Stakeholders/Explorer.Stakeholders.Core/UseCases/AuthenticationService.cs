@@ -41,8 +41,9 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         var user = _userRepository.GetActiveByName(credentials.Username);
         if (user == null || !PasswordEncoder.Matches(credentials.Password,user.Password) ) return Result.Fail(FailureCode.NotFound);
         if (user.Role == UserRole.Guest) return Result.Fail(FailureCode.InvalidArgument);
-
-        return _tokenGenerator.GenerateAccessToken(user);
+        var tokens = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+        _userRepository.SetRefreshToken(user.Username, tokens.Value.RefreshToken);
+        return tokens;
     }
 
     public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
@@ -66,7 +67,13 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                     user.Role = UserRole.Tourist;
                     user.IsActive = false;
                     user.Email = account.Email;
+                    var emailVerificationToken = Guid.NewGuid().ToString();
+                    user.EmailVerificationToken = emailVerificationToken;
+                    sendVerificationEmail(user, emailVerificationToken);
+                    var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+                    user.RefreshToken=refreshToken.Value.RefreshToken;
                     var updatedUser = _userRepository.Update(user);
+                    sendVerificationEmail(user, Guid.NewGuid().ToString());
                     return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
                 }
                 catch(ArgumentException e)
@@ -78,13 +85,16 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email));
+            var emailVerificationToken = Guid.NewGuid().ToString();
+            sendVerificationEmail(user, emailVerificationToken);
             if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
                 throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
 
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, true, null, null, account.Email));
-            /*var emailVerificationToken = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
             user.EmailVerificationToken = emailVerificationToken;
-            user = _userRepository.Update(user);*/
+            var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+            user.RefreshToken = refreshToken.Value.RefreshToken;
+            user = _userRepository.Update(user);
 
             return new RegisteredUserDto(user.Id, user.Username, user.Role.ToString()) ;
         }
@@ -101,13 +111,59 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         {
             var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
 
-            return _tokenGenerator.GenerateAccessToken(user);
+            return _tokenGenerator.GenerateAccessAndRefreshToken(user);
         }
         catch (ArgumentException e)
         {
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
         }
     }
+
+    private Result<string> sendVerificationEmail(User user, string token)
+    {
+        try
+        {
+            string to = user.Email;
+            string subject = "Email Verification";
+            string body = $@"
+            <html>
+            <body>
+                <p>Hello {to},<br><br>
+                Thank you for registering with our service. To verify your email address, please click on the link below:<br><br>
+                <a href='https://via-ventura.com/verify-email?token={token}'>Verify Your Email Address</a><br><br>
+                For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.<br><br>
+                Thank you for choosing our service.
+                Best regards,<br>Via Ventura team
+            </body>
+            </html>";
+
+            _emailSendingService.SendEmailAsync(to, subject, body, true);
+            return "Email successfully sent for verification.";
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
+    public Result<string> ActivateUser(string token)
+    {
+        try
+        {
+            var user = _userRepository.GetByEmailToken(token);
+            if (user == null) throw new ArgumentException("User with given email token doesn't exist");
+            user.IsActive = true;
+            _userRepository.Update(user);
+
+            return Result.Ok("User activated successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
+
     public Result<string> GetUsername(long id)
     {
         return _userRepository.GetUsername(id);
@@ -117,13 +173,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         try
         {
-            Person person = _personeRep.GetByEmail(email);
-            if (person == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid mail");
-            User user = _userRepository.Get(person.UserId);
-            string token = _tokenGenerator.GenerateResetPasswordToken(user, person.Id);
-            user.ResetPasswordToken = token;
-            user = _userRepository.Update(user);
-            return sendChangePasswordEmail(person, user.ResetPasswordToken);
+            User user = _userRepository.GetByEmail(email);
+            if (user == null) return Result.Fail(FailureCode.InvalidArgument).WithError("Invalid email");
+            var resetPasswordToken = Guid.NewGuid().ToString();
+            user.ResetPasswordToken = resetPasswordToken;
+            _userRepository.Update(user);
+            return sendChangePasswordEmail(user, resetPasswordToken);
         }
         catch (Exception ex)
         {
@@ -132,27 +187,25 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
     }
 
-    private Result<string> sendChangePasswordEmail(Person person, string token)
+    private Result<string> sendChangePasswordEmail(User user, string token)
     {
         try
         {
-            string to = person.Email;
-            string personName = person.Name;
+            string to = user.Email;
             string subject = "Change password request";
             string body = $@"
-                Hello {personName},
-
-                We recently received a request to change the password associated with your account. If you initiated this request, please follow the link below to reset your password. If you did not make this request, please disregard this email.
-
-                http://localhost:4200/reset-password?token={token}
-
-                For security reasons, this link will expire in 24h. If you're unable to use the link, copy and paste it into your browser's address bar.
-
-                Thank you for using our service.
-
-                 Best regards,
-                Travelo";
-            _emailSendingService.SendEmailAsync(to, subject, body);
+                <html>
+                <body>
+                    <p>Hello {to},</p>
+                    <p>We recently received a request to change the password associated with your account. If you initiated this request, please follow the link below to reset your password. If you did not make this request, please disregard this email.</p>
+                    <p><a href='https://via-ventura.com/reset-password?token={token}'>Reset Your Password</a></p>
+                    <p>For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.</p>
+                    <p>Thank you for using our service.</p>
+                    <p>Best regards</p>
+                    <p>Via Ventura team</p>
+                </body>
+                </html>";
+            _emailSendingService.SendEmailAsync(to, subject, body, true);
             return "Mail successfuly sent";
         }
         catch(Exception ex)
@@ -170,33 +223,15 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError("Passwords don't match");
             }
-            long userId = getUserIdFromToken(changePassword.token);
-            if (userId == 0)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token"); 
-            }
-            User user = _userRepository.Get(userId);
+            var user = _userRepository.GetByResetPasswordToken(changePassword.token);
             if (user == null)
             {
                 return Result.Fail(FailureCode.NotFound).WithError("User not found");
             }
-            if(user.ResetPasswordToken == null || user.ResetPasswordToken != changePassword.token)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            if(isTokenExpired(changePassword.token))
-            {
-                return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
-            }
 
             updatePassword(user, changePassword.newPassword);
 
-
-
             return "Password successfuly changed";
-
-
-
         }
         catch(Exception ex)
         {
@@ -213,7 +248,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         return _tokenGenerator.GetUserIdFromToken(token);
     }
-    private bool isTokenExpired(string token)
+    public Result<bool> IsTokenExpired(string token)
     {
         DateTime tokenExpirationDate = _tokenGenerator.GetTokenExpirationTime(token);
         return tokenExpirationDate <= DateTime.UtcNow;
@@ -231,77 +266,19 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         user = _userRepository.Update(user);
     }
 
-
-
-    private Result<string> sendVerificationEmail(Person person, string token)
+    public Result<AuthenticationTokensDto> Refresh(AuthenticationTokensDto tokens)
     {
-        try
+        User user=_userRepository.Get(getUserIdFromToken(tokens.AccessToken));
+        if (user.RefreshToken != tokens.RefreshToken)
         {
-            string to = person.Email;
-            string personName = person.Name;
-            string subject = "Email Verification";
-            string body = $@"
-            Hello {personName},
-
-            Thank you for registering with our service. To verify your email address, please click on the link below:
-
-            http://localhost:4200/verify-email?token={token}
-
-            For security reasons, this link will expire in 24 hours. If you're unable to use the link, copy and paste it into your browser's address bar.
-
-            Thank you for choosing our service.
-
-            Best regards,
-            Travelo";
-
-            _emailSendingService.SendEmailAsync(to, subject, body);
-            return "Email successfully sent for verification.";
+            return null;
         }
-        catch (Exception ex)
+        AuthenticationTokensDto newJwtTokens = _tokenGenerator.GenerateAccessAndRefreshToken(user).Value;
+        if (newJwtTokens==null) 
         {
-            return Result.Fail(ex.Message);
+            return null;
         }
+        _userRepository.SetRefreshToken(user.Username, newJwtTokens.RefreshToken);
+        return newJwtTokens;
     }
-
-
-    public Result<AuthenticationTokensDto> ActivateUser(string token)
-    {
-        try
-        {
-
-            long userId = getUserIdFromToken(token);
-            if (userId == 0)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            User user = _userRepository.Get(userId);
-            if (user == null)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("User not found");
-            }
-            if (user.EmailVerificationToken == null || user.EmailVerificationToken != token)
-            {
-                return Result.Fail(FailureCode.NotFound).WithError("Invalid token");
-            }
-            if (isTokenExpired(token))
-            {
-                return Result.Fail(FailureCode.InvalidArgument).WithError("Expired token");
-            }
-            Person person = _personeRep.GetByUserId(userId);
-            activateUser(user);
-
-
-
-            return _tokenGenerator.GenerateAccessToken(user); ;
-
-        }
-        catch (Exception ex)
-        {
-            return Result.Fail(ex.Message);
-        }
-
-
-    }
-
-
 }

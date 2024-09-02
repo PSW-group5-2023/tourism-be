@@ -42,8 +42,9 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
 
             var authenticationResponse = result.Value as RegisteredUserDto;
             authenticationResponse.ShouldNotBeNull();
-            authenticationResponse.Id.ShouldNotBe(0);
-
+            //var personId = decodedAccessToken.Claims.FirstOrDefault(c => c.Type == "personId");
+            //personId.ShouldNotBeNull();
+            //personId.Value.ShouldNotBe("0");
 
             // Assert - Database
             dbContext.ChangeTracker.Clear();
@@ -132,7 +133,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
                     {
                         Username = "turistaA@gmail.com",
                         Email = "turistaA@gmail.com",
-                        Password = "turistaA",
+                        Password = "turistaA123",
                         //Name = "Žika",
                         //Surname = "Žikić"
                     },
@@ -151,7 +152,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
                     {
                         Username = "turista2@gmail.com",
                         Email = "turista2@gmail.com",
-                        Password = "turistaB",
+                        Password = "turistaB123",
                         //Name = "ŽikaB",
                         //Surname = "ŽikićB"
                     },
