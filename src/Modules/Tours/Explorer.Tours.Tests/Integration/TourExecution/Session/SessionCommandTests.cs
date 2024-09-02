@@ -1,5 +1,6 @@
 ﻿using Explorer.API.Controllers.Execution;
 using Explorer.Tours.API.Dtos.Execution;
+using Explorer.Tours.API.Dtos.Execution.Tourist;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,26 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         }
 
         [Theory]
+        [MemberData(nameof(SessionMobileDto))]
+        public void Update_session_mobile(SessionMobileDto session, int expectedResponseCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.UpdateMobile(session).Result;
+
+            result.ShouldNotBeNull();
+
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            storedEntity.ShouldNotBeNull();
+        }
+
+        [Theory]
         [MemberData(nameof(SessionDto1))]
         public void Create_session(SessionDto session, int expectedResponseCode)
         {
@@ -51,6 +72,24 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
             var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
             storedEntity.ShouldNotBeNull();
         }
+
+        [Theory]
+        [MemberData(nameof(SessionMobileDto1))]
+        public void Create_session_mobile(SessionMobileDto session, int expectedResponseCode)
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+            var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
+
+            var result = (ObjectResult)controller.CreateMobile(session).Result;
+
+            result.StatusCode.ShouldBe(expectedResponseCode);
+
+            // Assert - Database
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            storedEntity.ShouldNotBeNull();
+        }
+
         public static IEnumerable<object[]> SessionDto()
         {
             return new List<object[]>
@@ -73,6 +112,26 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
                 }
             };
         }
+
+        public static IEnumerable<object[]> SessionMobileDto()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new SessionMobileDto
+                    {
+                        Id = -1,
+                        TourId = -1,
+                        TouristId = -23,                        
+                        SessionStatus = 1,                                                               
+                        CompletedKeyPoints = new List<CompletedKeyPointDto>()
+                    },
+                    200
+                }
+            };
+        }
+
         public static IEnumerable<object[]> SessionDto1()
         {
             return new List<object[]>
@@ -89,6 +148,25 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
                         Transportation = 0,
                         DistanceCrossedPercent = 10,
                         LastActivity = DateTime.UtcNow,
+                        CompletedKeyPoints = new List<CompletedKeyPointDto>()
+                    },
+                    200
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> SessionMobileDto1()
+        {
+            return new List<object[]>
+            {
+                new object[]
+                {
+                    new SessionMobileDto
+                    {
+                        Id = -12,
+                        TourId = -2,
+                        TouristId = -22,
+                        SessionStatus = 1,
                         CompletedKeyPoints = new List<CompletedKeyPointDto>()
                     },
                     200

@@ -6,7 +6,7 @@ namespace Explorer.Stakeholders.Core.UseCases;
 
 public interface ITokenGenerator
 {
-    Result<AuthenticationTokensDto> GenerateAccessToken(User user);
+    Result<AuthenticationTokensDto> GenerateAccessAndRefreshToken(User user);
     string GenerateResetPasswordToken(User user, long personId);
     string GenerateEmailVerificationToken(string email, string username);
     long GetUserIdFromToken(string jwtToken);
