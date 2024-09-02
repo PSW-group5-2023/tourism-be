@@ -29,6 +29,7 @@ jobs:
           file: ./stacks/build/backend/Dockerfile
           build-args: |
             GITHUB_TOKEN=${{ secrets.PAT }}
+            CACHEBUST=${{steps.get-tag.outputs.tag}}
           target: final
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/explorer:${{steps.get-tag.outputs.tag}}

@@ -1,12 +1,13 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Execution;
+using Explorer.Tours.API.Dtos.Execution.Tourist;
 using Explorer.Tours.API.Public.Execution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Explorer.API.Controllers.Execution
 {
-    [Authorize(Policy = "touristPolicy")]
+    [Authorize(Policy = "guestOrTouristPolicy")]
     [Route("api/tourist/session")]
     public class SessionController : BaseApiController
     {
@@ -51,10 +52,24 @@ namespace Explorer.API.Controllers.Execution
             return CreateResponse(result);
         }
 
+        [HttpPost("mobile")]
+        public ActionResult<SessionMobileDto> CreateMobile([FromBody] SessionMobileDto session)
+        {
+            var result = _sessionService.CreateMobile(session);
+            return CreateResponse(result);
+        }
+
         [HttpPut]
         public ActionResult<SessionDto> Update([FromBody] SessionDto session)
         {
             var result = _sessionService.Update(session);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("update/mobile")]
+        public ActionResult<SessionMobileDto> UpdateMobile([FromBody] SessionMobileDto session)
+        {
+            var result = _sessionService.UpdateMobile(session);
             return CreateResponse(result);
         }
 

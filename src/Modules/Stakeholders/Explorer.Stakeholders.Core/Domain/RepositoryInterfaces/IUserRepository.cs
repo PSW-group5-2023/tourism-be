@@ -6,11 +6,14 @@ public interface IUserRepository
     User? Get(long userId);
     User? GetActiveByName(string username);
     User? GetByUsername(string username);
+    User? GetByEmail(string email);
+    User? GetByEmailToken(string token);
+    User? GetByResetPasswordToken(string token);
     User Create(User user);
     long GetPersonId(long userId);
 
     string GetUsername(long userId);
     List<User> GetAll();
-
+    void SetRefreshToken(string username, string refreshToken);
     User Update(User user);
 }

@@ -32,7 +32,9 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
             {
                 Id = -2,
                 UserId = -6,
-                AchievementsId = new List<int>() { -3,-9}
+                Achievements = new Dictionary<int, int>{
+            { -4, 1 }
+        }
             };
             // Act
             var result = ((ObjectResult)controller.AddAchievementToInventory(-5).Result)?.Value as InventoryDto;
@@ -43,7 +45,7 @@ namespace Explorer.Achievements.Tests.Integration.Inventory
             // Assert - Database
             var storedEntity = dbContext.Inventory.FirstOrDefault(i => i.UserId == updatedEntity.UserId);
             storedEntity.ShouldNotBeNull();
-            storedEntity.AchievementsId.Count.ShouldBe(3);
+            storedEntity.Achievements.Count.ShouldBe(3);
         }
 
 /*

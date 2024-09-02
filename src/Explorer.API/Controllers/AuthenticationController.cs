@@ -38,7 +38,7 @@ public class AuthenticationController : BaseApiController
             _walletService.Create(wallet);
             _userExperienceService.Create(result.Value.Id);
 
-            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
             _inventoryService.Create(inventory);
 
             return CreateResponse(result);
@@ -55,7 +55,7 @@ public class AuthenticationController : BaseApiController
         {
             var result = _authenticationService.RegisterGuest(account);
 
-            InventoryDto inventory = new InventoryDto(result.Value.Id, new List<int>());
+            InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
             _inventoryService.Create(inventory);
 
             return CreateResponse(result);
@@ -85,7 +85,7 @@ public class AuthenticationController : BaseApiController
                 var errorResponse = new
                 {
                     ErrorMessage = "Request failed",
-                    Errors = result.Errors.Select(error => error.Message), // Include all error messages
+                    Errors = result.Errors.Select(error => error.Message),
                     Success = false
                 };
 
@@ -144,5 +144,21 @@ public class AuthenticationController : BaseApiController
             return BadRequest(errorResponse);
         }
 
+    }
+    [HttpPost]
+    [Route("refreshToken")]
+    public ActionResult<AuthenticationTokensDto> Refresh(AuthenticationTokensDto token)
+    {
+        var result= _authenticationService.Refresh(token);
+        if(result==null)
+            return Unauthorized("Invalid attempt!");
+        return Ok(result.Value);
+    }
+    [HttpGet]
+    [Route("isTokenExpired")]
+    public ActionResult<bool> IsTokenExpired(string token)
+    {
+        var result=_authenticationService.IsTokenExpired(token);
+        return CreateResponse<bool>(result);
     }
 }

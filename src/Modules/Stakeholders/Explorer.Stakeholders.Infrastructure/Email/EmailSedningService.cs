@@ -15,10 +15,10 @@ namespace Explorer.Stakeholders.Infrastructure.Email
         public Task SendEmailAsync(string to, string subject, string body, bool isBodyHtml = false)
 
         {
-            string mail = "travelo-adventure@outlook.com";
-            string password = "traveloadventure123";
+            string mail = "viaventura.office@gmail.com";
+            string password = "ilhdapupjkztntyp";
 
-            var client = new SmtpClient("smtp-mail.outlook.com", 587)
+            var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 EnableSsl = true,
                 Credentials = new NetworkCredential(mail, password)
