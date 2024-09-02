@@ -12,6 +12,7 @@ using System.Data.SqlTypes;
 using AutoMapper;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
@@ -111,7 +112,10 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         {
             var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
 
-            return _tokenGenerator.GenerateAccessAndRefreshToken(user);
+            var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+            user.RefreshToken = refreshToken.Value.RefreshToken;
+            user = _userRepository.Update(user);
+            return refreshToken;
         }
         catch (ArgumentException e)
         {

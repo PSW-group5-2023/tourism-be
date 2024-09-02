@@ -1,18 +1,18 @@
 INSERT INTO stakeholders."Users"(
-	"Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
+	"Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","RefreshToken","Email")
 	VALUES 
-    (-5, 'stefanstojanovic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, 'daniel.taylor@example.com'),
-    (-4, 'ivanapopovic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, 'olivia.wilson@example.com'),
-    (-3, 'nikoladjordjevic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, 'author@example.com'),
-    (-2, 'jovananikolic', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, NULL, NULL, NULL),
-    (-1, 'markopetrovic', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, NULL, NULL, NULL),
-    (-6, 'anaivanovic', 'dvhRNsTWf+OgU/Kbdt/MRvVWBZ+s/BNqsmSH9AurBMTj9m4cml9kG/2XGCMrP4UarMOtmecjiF+q7fDjvitcOs0sBUt4oPSwLUQTZBkV3x8=', 2, true, NULL, NULL, NULL),
-    (-7, 'lukastankovic', 'MvhubNOwmmqs4dE1e9VAR64KAUk2To3031RLyWwWNmvW6lnPOt36AlIIXw0qpqJlVLNdf0WU0dDY5LWunMK27UM08/Q7XGJbbY18ql8PQHk=', 2, true, NULL, NULL, NULL),
-    (-8, 'katarinastojkovic', '7IOHpM31bKnANVn4rRWAwcUK1Mx0+6h6RsZBgTrbWkwyLUAu2h+K5XcvWNAmpBQlJyaHF3ujEXeYFD/at62aPvuD/DY4ahTeXkRc6/JUrRo=', 2, true, NULL, NULL, NULL),
-    (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL, NULL),
-    (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL),
-    (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL),
-    (-12, 'tourist', 'j0upkqxvw7n9DkwJ5jT74GeOGxWanEM6swM4HllKAc9i4SpbosDXlvUohocOtakvP11iEoGeE+et6AlnnbnQ02txk+EfY+RZAtxwujFzQCw=', 2, true, NULL, NULL, 'tourist@tourist.com');
+    (-5, 'stefanstojanovic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, NULL,'daniel.taylor@example.com'),
+    (-4, 'ivanapopovic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, NULL,'olivia.wilson@example.com'),
+    (-3, 'nikoladjordjevic', 'dvX14dynIiSenCwcPYbHo4mEdZGxE+00q0nLvW9hho2fDKKh7lFQum0PyFraSBSDQtDFXn6GTxM7NjeQ3iz+/ppY6oC9qbkr1XgLEMSGWhc=', 1, true, NULL, NULL, NULL,'author@example.com'),
+    (-2, 'jovananikolic', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, NULL, NULL, NULL,NULL),
+    (-1, 'markopetrovic', '8QpgZuFOHE/OKm20yXXM9vkUimZBoJgl7wjfetZxom1u2+xvFsLhQft2lPXSd/A9FvqheUXTFvGYaO3dfBQ8o4D8juFAyXnUb75VpUBHN4U=', 0, true, NULL, NULL, NULL,NULL),
+    (-6, 'anaivanovic', 'dvhRNsTWf+OgU/Kbdt/MRvVWBZ+s/BNqsmSH9AurBMTj9m4cml9kG/2XGCMrP4UarMOtmecjiF+q7fDjvitcOs0sBUt4oPSwLUQTZBkV3x8=', 2, true, NULL, NULL, NULL,NULL),
+    (-7, 'lukastankovic', 'MvhubNOwmmqs4dE1e9VAR64KAUk2To3031RLyWwWNmvW6lnPOt36AlIIXw0qpqJlVLNdf0WU0dDY5LWunMK27UM08/Q7XGJbbY18ql8PQHk=', 2, true, NULL, NULL, NULL,NULL),
+    (-8, 'katarinastojkovic', '7IOHpM31bKnANVn4rRWAwcUK1Mx0+6h6RsZBgTrbWkwyLUAu2h+K5XcvWNAmpBQlJyaHF3ujEXeYFD/at62aPvuD/DY4ahTeXkRc6/JUrRo=', 2, true, NULL, NULL, NULL,NULL),
+    (-9, 'stefanstevanovic', 'YxjTD1azpTiMHdDSz0BmOQgGq24nB6hga25xl+7ry/zhc7PwQMJmyuP/jnbmv4tfMoiHu6AvtAguyyLu+KDV10cmls0817zlw9Z7itaZXec=', 2, true, NULL, NULL,NULL, NULL),
+    (-10, 'momcilojovanovic', 'kehmRK2p6VOc6R1VfPEZQv5nYGbvsEiojFniQvtWyV+eqO/i9cQX/B8AP4m5/qE2Yvfa9nUGWpCmblvPCU1pS7z8XeK8yumoAAflxpEcp6g=', 2, true, NULL, NULL, NULL,NULL),
+    (-11, 'markomarkovic', 'j4/fmfCae8UAHNCMvd5x78dvklFpqy4DtCRxNRHRD0ERuO5WDuEycHMJIvrvg3t9QpnKZcHcxWIcUhaQ5eXyrGcPS6XXyZA6boJ/dlbPjzA=', 3, true, NULL, NULL, NULL,NULL),
+    (-12, 'tourist', 'j0upkqxvw7n9DkwJ5jT74GeOGxWanEM6swM4HllKAc9i4SpbosDXlvUohocOtakvP11iEoGeE+et6AlnnbnQ02txk+EfY+RZAtxwujFzQCw=', 2, true, NULL, NULL, NULL,'tourist@tourist.com');
 
 
 INSERT INTO stakeholders."People"(
@@ -721,14 +721,29 @@ VALUES (-1, -3, 'Enjoy the Challenge by calling as many people as possible to jo
 	    (-7, -1, 'To complete this challenge, do a backflip.', 'Challenge for acrobat', 1, 2, 45.25190843660657, 19.83714580535889, 100, NULL, false, -7, NULL, NULL, NULL, null, NULL),
       (-8, -1, 'To complete this challenge, you need to find the designated picture and be at that location for 30 seconds.',  'Find a new means of transportation.', 1, 1, 45.256048215418566, 19.833498001098633, 50, NULL, false, -7, 'https://novisad.travel/wp-content/uploads/2022/03/Brzi-voz-Novi-Sad_ACA_0103-scaled.jpg', 45.26538136482243, 19.829292297363285, null, NULL),
       (-9, -2, 'Ubedi publiku da ti da lep aplauz ', 'Demo izazov', 1, 2, 45.247477347792135, 19.853885173788512, 50, null, false, -7, null, null, null, null, null),
-      (-10, -3, 'Explore the ancient ruins', 'Ruins Exploration', 1, 3, 45.184834, 19.804383, 150, -30, false, -7, null, null, null, null, null);
+      (-10, -3, 'Explore the ancient ruins', 'Ruins Exploration', 1, 3, 45.184834, 19.804383, 150, -30, false, -7, null, null, null, null, null),
+      (-11, -3, 'Kviz o Hrastu Lužnjaku', 'Hrast lužnjak', 1, 3, 44.814785, 20.473021, 150, -49, false, -9, null, null, null, null, null),
+      (-12, -3, 'Kviz o Lili Ramondi', 'Lila Ramonda', 1, 3, 44.815989, 20.473241, 150, -53, false, -4, null, null, null, null, null),
+      (-13, -3, 'Kviz o Japanskom vrtu', 'Japanski vrt', 1, 3, 44.81608395, 20.47398087, 150, -57, false, -11, null, null, null, null, null),
+      (-14, -3, 'Kviz o Raw Reverberation', 'Raw Reverberation', 1, 3, 44.816517, 20.473338, 150, -64, false, -1, null, null, null, null, null),
+      (-15, -3, 'Kviz o Drveću koji pleše', 'Drveće koje plaše', 1, 3, 44.815362, 20.472579, 150, -61, false, -12, null, null, null, null, null);
+
+
+
 INSERT INTO encounters."Questions" (
     "Id", "OrderInQuiz", "Content", "Answers", "EncounterId") 
 VALUES
     (1, 1, 'What is the capital of ancient Rome?', '[{"Content": "Rome", "Correct": true}, {"Content": "Athens", "Correct": false}, {"Content": "Cairo", "Correct": false}]', -10),
     (2, 2, 'Who built the Colosseum?', '[{"Content": "Emperor Vespasian", "Correct": true}, {"Content": "Julius Caesar", "Correct": false}, {"Content": "Nero", "Correct": false}]', -10),
     (3, 3, 'What year did the Roman Empire fall?', '[{"Content": "476 AD", "Correct": true}, {"Content": "410 AD", "Correct": false}, {"Content": "330 AD", "Correct": false}]', -10),
-    (4, 4, 'What is the tallest structure in ancient Rome?', '[{"Content": "The Colosseum", "Correct": false}, {"Content": "Trajan", "Correct": true}, {"Content": "Pantheon", "Correct": false}, {"Content": "Di Trevi", "Correct": false}]', -10);
+    (4, 4, 'What is the tallest structure in ancient Rome?', '[{"Content": "The Colosseum", "Correct": false}, {"Content": "Trajan", "Correct": true}, {"Content": "Pantheon", "Correct": false}, {"Content": "Di Trevi", "Correct": false}]', -10),
+    (-1, 1, 'Koje je naučno ime hrasta lužnjaka?', '[{"Content": "Quercus petraea", "Correct": false}, {"Content": "Quercus cerris", "Correct": false}, {"Content": "Quercus robur", "Correct": true}, {"Content": "Quercus ilex", "Correct": false}]', -11),
+    (-2, 1, 'Gde raste lila ramonda?', '[{"Content": "Na Antarktiku", "Correct": false}, {"Content": "U planinskim delovima Balkana", "Correct": true}, {"Content": "U pustinjama Afrike", "Correct": false}, {"Content": "U tropskim šumama Amazonije", "Correct": false}]', -12),
+    (-3, 1, 'Koji je nacionalni cvet Japana?', '[{"Content": "Trešnjin cvet (Sakura)", "Correct": true}, {"Content": "Orhideja", "Correct": false}, {"Content": "Ruža", "Correct": false}, {"Content": "Lotus", "Correct": false}]', -13),
+    (-4, 1, 'Koje tehnologije "Raw Reverberation" koristi za dekodiranje komunikacije biljaka?', '[{"Content": "Razne senzore", "Correct": false}, {"Content": "WiFi ruter", "Correct": false}, {"Content": "Biosenzore i AI tehnologiju", "Correct": true}]', -14),
+    (-5, 1, 'Kada će se održati plesna predstava "Drveće pleše"?', '[{"Content": "6. oktobar", "Correct": true}, {"Content": "1. mart", "Correct": false}, {"Content": "28. februar", "Correct": false}]', -15);
+
+
 INSERT INTO payments."BoughtItems"(
 	"Id", "UserId", "TourId", "DateOfBuying", "IsUsed")
 	VALUES 
@@ -1027,3 +1042,51 @@ INSERT INTO achievements."Inventory"(
         (-10, -10, '{}'),
         (-11, -11, '{"-1": 1, "-3": 1}'),
         (-12,-12,'{"-2": 2,"-4": 1,"-7": 2,"-3": 2,"-1": 2,"-6": 1}');
+
+INSERT INTO tours."Tours"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Images")
+	VALUES (-15, 'Botanička bašta "Jevremovac" ','Vodič kroz Botaničku baštu "Jevremovac" Biološkog fakulteta Univerziteta u Beogradu', 0, '{"culture", "walking"}', 1, 0, -4, 2, null, '2024-8-28 12:01:31.721677+00', 
+'[
+  {
+    "TimeInSeconds": 4800,
+    "Transportation": 1
+  }
+]', '{"https://www.011info.com/uploads/Magazin/2018/08/09/306/900x600_Botanicka%20basta%20Foto%20Milena%20Arsic%207.jpg"}');
+
+INSERT INTO tours."Checkpoints"(
+  "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "AchievementId")
+	VALUES 
+  (-48, 'Josif Pančić - bista', 'Na ulazu u Botaničku baštu dočekuje vas Josif Pančić, osnivač bašte i naučnik vanserijskih brkova! Bašta je 1874. zaplovila sa Dunava, ali je zbog poplava "isplivala" na Jevremovac 1889, uz pomoć kralja Milana Obrenovića. Tako da, dok šetate, setite se – brkovi su bitni!', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.814447919, 20.473216999, -15, '', 1, -1),
+  (-49, 'Hrast lužnjak (Quercus robur)', 'Pred vama stoji vremešni starac hrast lužnjak, stariji i mudriji od same bašte, sa svojih 180 godina! Ali, ne dajte se zavarati – ovaj hrast može poživeti i do 1000 godina. Visok do 40 metara, šapuće priče sa obala reka i prkosi vremenu. Ko zna, možda vam otkrije neku tajnu! 🌳', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8147973, 20.4729746, -15, '', 2, -9),
+  (-50, 'Konopljika (Vitex agnus castus)', 'Upoznajte Konopljiku, poznatu i kao “monaški biber”! Ova mirisna biljka sa ljubičastim cvetovima nekada je pomagala monasima da ostanu „mirni“, ali nauka je skeptična. Danas se zna da biberovac ublažava menstrualne i menopauzalne tegobe, zahvaljujući svom moćnom agnuzidu. Ko bi rekao, zar ne? 🌳', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81523267, 20.4730539, -15, '', 3, -1),
+  (-51, 'Pančićeva omorika (Picea omorika)', 'Pančićeva omorika, zvanični "živi fosil" Botaničke bašte, otkrivena je 1875. na Tari. Ovaj četinar je pravi endem Balkana, preživeo ledeno doba i sada kraljuje oko Drine i Mileševke. Odlično podnosi gradski smog, pa je omiljena dekoracija u parkovima – pravo drvo za gradske avanture! 🌲', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8153803, 20.47299503, -15, '', 4, -1),
+  (-52, 'Staklenik Botaničke bašte "Jevremovac"', 'Staklenik botaničke bašte “Jevremovac”, poklon kralja Milana iz 1892. godine, prava je biljna avantura! Na 560 m² stanuje više od 1200 biljnih vrsta – od tropskih džungli do pustinja. Levo krilo šapuće priče kišnih šuma, desno vas bodu kaktusi i agave, a ispod kupole rastu prave zvezde poput palmi i orhideja. 🌿', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.815989, 20.473241, -15, '', 5, -4),
+  (-53, 'Mečja leska (Corylus colurna L.)', 'Sa atraktivnom sivom korom koja se ljušti i stablom do 30 metara, mečja leska nije samo lepota klisura i kanjona. Njen jestivi lešnik dolazi u grupicama, dok se od jezgra dobija ukusno ulje. Ako vam treba drvo za nameštaj, ova dugovečna lepotica može trajati i do 200 godina! 🌰', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.816310, 20.4732815, -15, '', 6, -1),
+  (-54, 'Barski čempres (Taxodium distichum (L.) Rich)', 'Pred vama je listopadni četinar sa stilom – barski čempres! Njegove četine u zimu poprimaju bakarnu nijansu pre nego što opadnu, a u proleće opet zablistaju. Ovaj močvarni veteran može živeti preko 1600 godina, sa bazom širokom poput avantura koje skriva. Otporno drvo čempresa može dugo ostati u vodi, baš kao pravi šampion močvara! 🌳', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81633254, 20.47398385, -15, '', 7, -1),
+  (-55, 'Japanski vrt', 'Japanski vrt već 20 godina vodi posetioce na put do dalekog istoka, uz sklad kamena, vode i drveta. Tu su japanske trešnje koje u proleće obasipaju baštu cvetovima, dok koi šarani mirno plivaju jezerom. Čajni paviljon čuva tajne čajnih ceremonija, a kamene trijade šapuću o jedinstvu neba, zemlje i čoveka. 🌸', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81616434, 20.47386488, -15, '', 8, -11),
+  (-56, 'Obalska sekvoja (Sequoia sempervirens (D.Don) Endl.)', 'Upoznajte džina među drvećem – obalsku sekvoju! Visoka preko 115 metara (kao soliter od 30 spratova!) i stara više od 2000 godina, ova crvenkasto-smeđa lepotica sa korom debljine do 30 cm odoleva vatri, insektima i mikroorganizmima. Pravi čuvar obalskog pojasa od Oregona do Kalifornije, čvrsta i moćna – sekvoja je jedinstvena! 🌲', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.815024, 20.473795, -15, '', 9, -1),
+  (-57, 'Tisa (Taxus baccata L.)', 'Pred vama je „živi fosil“ – tisa, relikt iz doba tercijera! Rasprostranjena širom Evrope, severozapadne Afrike i delova Azije, tisa je omiljena za formiranje živih ograda i dekorativnih oblika. Dok su svi delovi biljke otrovni, crveni arilusi privlače ptice kao što su drozdovi. U srednjem veku, tisa je služila za pravljenje lukova i muzičkih instrumenata, a njeno kvalitetno drvo koristilo se i za čamce. U Srbiji je strogo zaštićena. 🌲', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8146996, 20.4735965, -15, '', 10, -1),
+  (-58, 'Ginko (Ginkgo biloba L.)', 'Ginko, stablo dugog veka koje može preživeti i preko 1000 godina, nudi fascinantan spektakl. Njegovi lepezasti listovi tokom jeseni prelaze u zlatnu boju, praveći „zlatnu kišu“ dok brzo opadaju. Sa visinom do 30 metara i prečnikom od 2,5 metra, ginko je i ekološki i estetski dragocen. Dok sočan omotač njegovog semena miriše na užegli puter, „koštica“ iznutra je jestiva nakon kuvanja i koristi se u posebnim jelima. Korišćen u kineskoj medicini i popularan zbog potencijalnih koristi za cirkulaciju i memoriju, ginko je pravi zmaj među drvećem! 🍂', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81460559, 20.47313737, -15, '', 11, -1);
+
+INSERT INTO tours."Tours"(
+	"Id", "Name", "Description", "Difficulty", "Tags", "Status", "Price", "AuthorId", "DistanceInKm", "ArchivedDate", "PublishedDate", "Durations", "Images")
+	VALUES (-16, 'Art+Science','Pregled art+science programa u sklopu Botaničke bašte Jevremovac', 0, '{"culture", "walking"}', 1, 0, -4, 2, null, '2024-8-28 12:01:31.721677+00', 
+'[
+  {
+    "TimeInSeconds": 4800,
+    "Transportation": 1
+  }
+]', '{"https://www.jamiefosterscience.com/wp-content/uploads/2023/11/01differences.webp"}');
+
+INSERT INTO tours."Checkpoints"(
+  "Id", "Name", "Description", "Image", "Latitude", "Longitude", "TourId", "Secret", "PositionInTour", "AchievementId")
+	VALUES 
+  (-59, 'Fungi, Marco Barotti', 'Rad istražuje spoj umetnosti, nauke i tehnologije, kreirajući "digitalni blizanac" podzemnog sveta gljiva. Zamislite „Šumu Interneta“ gde 3D štampani gljivasti skulpturi i muzika iz podzemlja.', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81483454, 20.47369814, -16, '', 1, -1),
+  (-60, 'Letnja učionica', 'Ovde se održava edukativni program! Pogledaj okolo i pronađi tablu sa rasporedom održavanja i pridruži se nekom od panela ili edukativnih radionica. ', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81511527, 20.47359367, -16, '', 2, -1),
+  (-61, 'Drveće pleše', 'Ovde se 6. oktobra održava plesna predstava "Drveće pleše" Dah teatra. Karte za besplatno izvođenje možeš preuzeti na blagajni. Ukoliko je izvođenje prošlo - pogledaj video.', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8153559, 20.4724752, -16, '', 3, -12),
+  (-62, 'Look up! I am no canopy - I am a messenger, Sanja Anđelković', 'Zamislite krošnju drveta – vi ste u njoj, daleko iznad tla. Oko vas škripi lišće na vetru. Vruće je i upravo ste izašli iznad tla. Nakon 17 godina provedenih upijajući utiske i hranivši se korenjem drveća, odmoreni ste i spremni za pevanje. I pevate... dolazite iz utrobe zemlje donoseći znanje. Zagonetna, nepoznata frekvencija. Čuli ste Zemlju kako se pomera. Istražili ste je. Donosite zagonetke i spekulativne proročke reči. Da ste bili prisutni. Ah, toliko čekano da bude čujno.', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8157152, 20.4733093, -16, '', 4, -1),
+  (-63, 'BLIND PASSENGERS - STOWAWAYS, Adrienn Újházi ', 'Instalacija "Putnici" je poput biološkog muzeja u stakleniku Botaničke bašte "Jevremovac". Svaka biljka je poput turista sa pasošem, a njen put od domovine do staklenika je dokumentovan. Uživajte u ovoj botaničkoj avanturi dok otkrivate gde su sve biljke putovale pre nego što su stigle u Belgrade! 🌱✈️', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81602246, 20.473215871, -16, '', 5, -1),
+  (-64, 'Raw Reverberation, Sanja Šikoparija', '"Raw Reverberation" istražuje dekodiranje biljne komunikacije koristeći biosenzore i AI tehnologiju. Fokusira se na zvuk, elektromagnetne signale i pokret kao sredstva komunikacije koja treba dešifrovati i prikazati kroz immersive instalaciju. Uživajte u umetničkom putovanju kroz tajne biljnog jezika! 🌿🔊', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.81652165, 20.47323725, -16, '', 6, -1),
+  (-65, 'Mamin sin, Nikola Radosavljević', 'Potrebno obezbediti opis.', 'https://via-ventura.com/images/0a24ae2d-0ce1-400b-bfd8-ca58923ebd82.png' , 44.8158196, 20.4739246, -16, '', 7, -1);
+
+
