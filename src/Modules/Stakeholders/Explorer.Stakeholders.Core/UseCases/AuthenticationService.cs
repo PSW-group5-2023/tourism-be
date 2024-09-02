@@ -41,8 +41,9 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         var user = _userRepository.GetActiveByName(credentials.Username);
         if (user == null || !PasswordEncoder.Matches(credentials.Password,user.Password) ) return Result.Fail(FailureCode.NotFound);
         if (user.Role == UserRole.Guest) return Result.Fail(FailureCode.InvalidArgument);
-
-        return _tokenGenerator.GenerateAccessAndRefreshToken(user);
+        var tokens = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+        _userRepository.SetRefreshToken(user.Username, tokens.Value.RefreshToken);
+        return tokens;
     }
 
     public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
@@ -247,7 +248,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         return _tokenGenerator.GetUserIdFromToken(token);
     }
-    private bool isTokenExpired(string token)
+    public Result<bool> IsTokenExpired(string token)
     {
         DateTime tokenExpirationDate = _tokenGenerator.GetTokenExpirationTime(token);
         return tokenExpirationDate <= DateTime.UtcNow;

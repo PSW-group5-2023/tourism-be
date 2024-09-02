@@ -29,7 +29,7 @@ public class JwtGenerator : ITokenGenerator
         };
 
         var jwt = CreateToken(claims, 60);
-        var refresh= GenerateRefreshToken();
+        var refresh = GenerateRefreshToken();
         authenticationResponse.Id = user.Id;
         authenticationResponse.AccessToken = jwt;
         authenticationResponse.RefreshToken = refresh;
@@ -70,7 +70,7 @@ public class JwtGenerator : ITokenGenerator
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("id", user.Id.ToString()),
             new("username", user.Username),
-            new("personId", personId.ToString()),
+            //new("personId", personId.ToString()),
             new(ClaimTypes.Role, user.GetPrimaryRoleName())
         };
 
@@ -141,7 +141,6 @@ public class JwtGenerator : ITokenGenerator
                 return UnixTimeStampToDateTime(expirationTimeUnix);
             }
         }
-
         return DateTime.UtcNow;
     }
 
@@ -150,4 +149,5 @@ public class JwtGenerator : ITokenGenerator
         var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp);
         return dateTimeOffset.UtcDateTime;
     }
+    
 }

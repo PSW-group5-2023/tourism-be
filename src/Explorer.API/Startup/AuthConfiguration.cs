@@ -30,7 +30,8 @@ public static class AuthConfiguration
                     ValidateLifetime = true,
                     ValidIssuer = issuer,
                     ValidAudience = audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    ClockSkew=TimeSpan.Zero
                 };
 
                 options.Events = new JwtBearerEvents

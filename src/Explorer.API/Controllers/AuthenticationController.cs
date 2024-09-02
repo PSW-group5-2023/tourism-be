@@ -146,12 +146,19 @@ public class AuthenticationController : BaseApiController
 
     }
     [HttpPost]
-    [Route("refresh-token")]
+    [Route("refreshToken")]
     public ActionResult<AuthenticationTokensDto> Refresh(AuthenticationTokensDto token)
     {
         var result= _authenticationService.Refresh(token);
         if(result==null)
             return Unauthorized("Invalid attempt!");
-        return Ok(result);
+        return Ok(result.Value);
+    }
+    [HttpGet]
+    [Route("isTokenExpired")]
+    public ActionResult<bool> IsTokenExpired(string token)
+    {
+        var result=_authenticationService.IsTokenExpired(token);
+        return CreateResponse<bool>(result);
     }
 }
