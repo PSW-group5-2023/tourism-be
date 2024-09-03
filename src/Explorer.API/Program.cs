@@ -13,10 +13,12 @@ builder.Services.ConfigureCors(corsPolicy);
 builder.Services.ConfigureAuth();
 
 builder.Services.RegisterModules();
-/*builder.Services.AddSingleton<PeriodicHostedService>();
+builder.Services.AddSingleton<PeriodicHostedService>();
 builder.Services.AddHostedService(
-    provider => provider.GetRequiredService<PeriodicHostedService>());*/
+    provider => provider.GetRequiredService<PeriodicHostedService>());
 builder.Services.AddHostedService<UserBackgroundService>();
+/*builder.Services.AddHostedService(
+    provider => provider.GetRequiredService<UserBackgroundService>());*/
 
 
 builder.Services.AddSignalR(o =>
