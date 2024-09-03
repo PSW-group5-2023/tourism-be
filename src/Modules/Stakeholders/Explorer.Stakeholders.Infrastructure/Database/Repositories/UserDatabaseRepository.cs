@@ -1,4 +1,5 @@
-﻿using Explorer.Stakeholders.Core.Domain;
+﻿using Explorer.Stakeholders.API.Internal;
+using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -94,5 +95,11 @@ public class UserDatabaseRepository : IUserRepository
     {
         _dbContext.Users.RemoveRange(users);
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+    public void SetRefreshToken(string username,string refreshToken)
+    {
+        var user= GetByUsername(username);
+        user.RefreshToken = refreshToken;
+        _dbContext.SaveChanges();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Execution;
+using Explorer.Tours.API.Dtos.Execution.Tourist;
 using Explorer.Tours.API.Dtos.Statistics;
 using Explorer.Tours.API.Public.Execution;
 using Explorer.Tours.API.Public.Tour;
@@ -16,11 +17,13 @@ namespace Explorer.Tours.Core.UseCases.Execution
         private readonly ISessionRepository _sessionRepository;
         private readonly ITourStatisticsDomainService _tourStatisticsDomainService;
         private readonly ITourService _tourService;
+        private readonly IMapper _mapper;
         public SessionService( IMapper mapper, ISessionRepository sessionRepository, ITourStatisticsDomainService tourStatisticsDomainService, ITourService tourService) : base(mapper)
         {
             _sessionRepository = sessionRepository;
             _tourStatisticsDomainService = tourStatisticsDomainService;
             _tourService = tourService;
+            _mapper = mapper;
         }
 
         public Result<SessionDto> Create(SessionDto session)
@@ -30,6 +33,16 @@ namespace Explorer.Tours.Core.UseCases.Execution
             _sessionRepository.SaveChanges();
 
             return MapToDto(result);
+        }
+
+        public Result<SessionMobileDto> CreateMobile(SessionMobileDto session)
+        {
+            var sessionDomain = _mapper.Map<Session>(session);
+            var result = _sessionRepository.Create(sessionDomain);
+            result.Create();
+            _sessionRepository.SaveChanges();
+
+            return Result.Ok(_mapper.Map<SessionMobileDto>(result));
         }
 
         public Result<SessionDto> Get(long id)
@@ -79,6 +92,25 @@ namespace Explorer.Tours.Core.UseCases.Execution
             }
         }
 
+        public Result<SessionMobileDto> UpdateMobile(SessionMobileDto session)
+        {
+            try
+            {
+                var sessionDomain = _mapper.Map<Session>(session);
+                var result = _sessionRepository.Update(sessionDomain);
+
+                return Result.Ok(_mapper.Map<SessionMobileDto>(result));
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
         public Result<bool> ValidForTouristComment(long id)
         {           
             var result = _sessionRepository.Get(id);
@@ -100,7 +132,6 @@ namespace Explorer.Tours.Core.UseCases.Execution
             var result = _sessionRepository.GetByTourAndTouristId(tourId,touristId);
             return MapToDto(result);
         }
-
 
         public Result<List<TourStatisticsDto>> GetAttendanceStatistics()
         {

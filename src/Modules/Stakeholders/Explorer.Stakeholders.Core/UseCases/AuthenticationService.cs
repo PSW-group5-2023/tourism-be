@@ -12,6 +12,7 @@ using System.Data.SqlTypes;
 using AutoMapper;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
@@ -41,8 +42,9 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         var user = _userRepository.GetActiveByName(credentials.Username);
         if (user == null || !PasswordEncoder.Matches(credentials.Password,user.Password) ) return Result.Fail(FailureCode.NotFound);
         if (user.Role == UserRole.Guest) return Result.Fail(FailureCode.InvalidArgument);
-
-        return _tokenGenerator.GenerateAccessToken(user);
+        var tokens = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+        _userRepository.SetRefreshToken(user.Username, tokens.Value.RefreshToken);
+        return tokens;
     }
 
     public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
@@ -69,7 +71,8 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                     var emailVerificationToken = Guid.NewGuid().ToString();
                     user.EmailVerificationToken = emailVerificationToken;
                     sendVerificationEmail(user, emailVerificationToken);
-
+                    var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+                    user.RefreshToken=refreshToken.Value.RefreshToken;
                     var updatedUser = _userRepository.Update(user);
                     sendVerificationEmail(user, Guid.NewGuid().ToString());
                     return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
@@ -83,13 +86,15 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null, null, account.Email));
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email));
             var emailVerificationToken = Guid.NewGuid().ToString();
             sendVerificationEmail(user, emailVerificationToken);
             if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
                 throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
 
             user.EmailVerificationToken = emailVerificationToken;
+            var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+            user.RefreshToken = refreshToken.Value.RefreshToken;
             user = _userRepository.Update(user);
 
             return new RegisteredUserDto(user.Id, user.Username, user.Role.ToString()) ;
@@ -107,7 +112,10 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         {
             var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true, "", null, null, DateTime.UtcNow));
 
-            return _tokenGenerator.GenerateAccessToken(user);
+            var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
+            user.RefreshToken = refreshToken.Value.RefreshToken;
+            user = _userRepository.Update(user);
+            return refreshToken;
         }
         catch (ArgumentException e)
         {
@@ -244,7 +252,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         return _tokenGenerator.GetUserIdFromToken(token);
     }
-    private bool isTokenExpired(string token)
+    public Result<bool> IsTokenExpired(string token)
     {
         DateTime tokenExpirationDate = _tokenGenerator.GetTokenExpirationTime(token);
         return tokenExpirationDate <= DateTime.UtcNow;
@@ -260,5 +268,21 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         user.ActivateUser();
         user.RemoveEmailVerificationToken();
         user = _userRepository.Update(user);
+    }
+
+    public Result<AuthenticationTokensDto> Refresh(AuthenticationTokensDto tokens)
+    {
+        User user=_userRepository.Get(getUserIdFromToken(tokens.AccessToken));
+        if (user.RefreshToken != tokens.RefreshToken)
+        {
+            return null;
+        }
+        AuthenticationTokensDto newJwtTokens = _tokenGenerator.GenerateAccessAndRefreshToken(user).Value;
+        if (newJwtTokens==null) 
+        {
+            return null;
+        }
+        _userRepository.SetRefreshToken(user.Username, newJwtTokens.RefreshToken);
+        return newJwtTokens;
     }
 }

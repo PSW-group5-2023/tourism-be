@@ -1,5 +1,6 @@
 ﻿using Explorer.BuildingBlocks.Core.UseCases;
 using Explorer.Tours.API.Dtos.Execution;
+using Explorer.Tours.API.Dtos.Execution.Tourist;
 using Explorer.Tours.API.Dtos.Statistics;
 using FluentResults;
 using System;
@@ -14,6 +15,8 @@ namespace Explorer.Tours.API.Public.Execution
     {
         Result<SessionDto> Create(SessionDto session);
         Result<SessionDto> Update(SessionDto session);
+        Result<SessionMobileDto> CreateMobile(SessionMobileDto session);
+        Result<SessionMobileDto> UpdateMobile(SessionMobileDto session);
         Result<SessionDto> Get(long id);
         Result<SessionDto> GetActiveByTouristId(long id);
         Result<List<SessionDto>> GetAllByTouristId(long id);

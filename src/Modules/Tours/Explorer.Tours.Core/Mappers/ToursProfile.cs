@@ -14,6 +14,7 @@ using Explorer.Tours.Core.Domain.Problem;
 using Explorer.Tours.Core.Domain.Rating;
 using Explorer.Tours.Core.Domain.Facilities;
 using Explorer.Tours.API.Dtos.Tour.Tourist;
+using Explorer.Tours.API.Dtos.Execution.Tourist;
 
 namespace Explorer.Tours.Core.Mappers;
 
@@ -42,6 +43,8 @@ public class ToursProfile : Profile
         CreateMap<SessionDto, Session>().ReverseMap();
         CreateMap<SessionDto, Session>().IncludeAllDerived()
             .ForMember(dest => dest.CompletedKeyPoints, opt => opt.MapFrom(src => src.CompletedKeyPoints.Select((completedKeyPoint) => new CompletedKeyPoint(completedKeyPoint.KeyPointId, completedKeyPoint.CompletionTime))));
+        CreateMap<SessionMobileDto, Session>().ReverseMap();
+
 
         CreateMap<EquipmentTrackingDto, EquipmentTracking>().ReverseMap();
         CreateMap<PublicCheckpointDto, PublicCheckpoint>().ReverseMap().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));

@@ -14,11 +14,12 @@ public class User : Entity
     public bool IsActive { get; set; }
     public string? ResetPasswordToken {  get; set; }
     public string? EmailVerificationToken { get; set; }
+    public string? RefreshToken { get; set; }
     public string? Email {  get; set; }
     public DateTime? GuestDateTimeCreated { get; set; }
 
 
-    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null, DateTime? guestDateTimeCreated = null)
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? refershToken = "", string? email = null, DateTime? guestDateTimeCreated = null)
     {
         Username = username;
         Password = password ;
@@ -26,6 +27,7 @@ public class User : Entity
         IsActive = isActive;    
         ResetPasswordToken = resetPasswordToken;
         EmailVerificationToken = emailVerificationToken;
+        RefreshToken = refershToken;
         Email = email;
         GuestDateTimeCreated = guestDateTimeCreated;
         Validate();

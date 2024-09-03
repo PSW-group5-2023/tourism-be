@@ -21,6 +21,8 @@ namespace Explorer.Tours.Core.Domain.Sessions
         public DateTime LastActivity { get; private set; }
         public List<CompletedKeyPoint> CompletedKeyPoints { get; private set; }
 
+        public Session() { }
+
         public Session(long tourId, long touristId, long locationId, SessionStatus sessionStatus, int transportation, int distanceCrossedPercent, DateTime lastActivity, List<CompletedKeyPoint> completedKeyPoints)
         {
             TourId = tourId;
