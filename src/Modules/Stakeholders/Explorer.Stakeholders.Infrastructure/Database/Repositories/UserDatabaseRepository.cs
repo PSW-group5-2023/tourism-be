@@ -1,6 +1,7 @@
 ﻿using Explorer.Stakeholders.API.Internal;
 using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Stakeholders.Infrastructure.Database.Repositories;
 
@@ -76,12 +77,24 @@ public class UserDatabaseRepository : IUserRepository
         return _dbContext.Users.ToList();
     }
 
+    public Task<IQueryable<User>> GetAllGuestAsync()
+    {
+        IQueryable<User> query = _dbContext.Users.Where(u => u.Role == UserRole.Guest).AsQueryable();
+        return Task.FromResult(query);
+    }
+
     public User Update(User newUser)
     {
         var user = _dbContext.Users.FirstOrDefault(x => x.Id == newUser.Id);
         user = newUser;
         _dbContext.SaveChanges();
         return user;
+    }
+
+    public async Task DeleteGuestsAsync(List<User> users, CancellationToken cancellationToken)
+    {
+        _dbContext.Users.RemoveRange(users);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
     public void SetRefreshToken(string username,string refreshToken)
     {
