@@ -55,6 +55,9 @@ namespace Explorer.API.Controllers.Execution
         [HttpPost("mobile")]
         public ActionResult<SessionMobileDto> CreateMobile([FromBody] SessionMobileDto session)
         {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            session.Id = null;
+            session.TouristId=Convert.ToInt32(userId.Value);
             var result = _sessionService.CreateMobile(session);
             return CreateResponse(result);
         }
@@ -69,6 +72,8 @@ namespace Explorer.API.Controllers.Execution
         [HttpPut("update/mobile")]
         public ActionResult<SessionMobileDto> UpdateMobile([FromBody] SessionMobileDto session)
         {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            session.TouristId = Convert.ToInt32(userId.Value);
             var result = _sessionService.UpdateMobile(session);
             return CreateResponse(result);
         }
