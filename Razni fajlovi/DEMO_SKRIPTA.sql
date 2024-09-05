@@ -1019,19 +1019,31 @@ VALUES (
 INSERT INTO achievements."Achievements"(
     "Id", "Name", "Description", "Icon", "Rarity", "CraftingRecipe")
 VALUES
-    (-7, 'Alchemist', 'Craft 20 potions', 'https://icons.veryicon.com/png/o/food--drinks/fruit-icon-2/cherry-60.png', 0, '{}'),
-    (-1, 'Ramonda', 'Complete the tutorial', 'https://via-ventura.com/images/067126a3-4dff-4934-a586-45a1556dcef9.png', 0, '{}'),
-    (-2, 'Oakleaf', 'Discover 10 locations', 'https://via-ventura.com/images/40f210d9-5804-445a-9513-33d8129f773f.png', 3, '{}'),
-    (-3, 'Maple Leaf', 'Find 5 hidden treasures', 'https://via-ventura.com/images/c3e2e15d-9aa0-41ac-861a-fd963bc4c5dc.png', 1, '{}'),
-    (-4, 'Honey Jar', 'Construct 50 buildings', 'https://via-ventura.com/images/1794be3c-74bd-47f1-84ad-2dbba01aa9e7.png', 0, '{}'),
-    (-5, 'Garden Cart', 'Defeat 100 enemies', 'https://via-ventura.com/images/a7a7ffa9-f1c3-4998-9a68-950175f94667.png', 2, '{}'),
-    (-6, 'Fertilizer', 'Win 10 arena battles', 'https://via-ventura.com/images/7d9f92a4-aa16-44c9-bd32-0f35fddc710f.png', 1, '{}'),
-    (-11, 'Jigglypuff', 'Crafts', 'https://www.pngkey.com/png/full/545-5457914_jigglypuff-pokemon-pixel-art-pokmon.png', 3, '{-8,-7,-1}'),
-    (-9, 'Senshru', 'Discover all locations', 'https://pngpix.com/images/hd/pixel-art-pokemon-jolteon-u28qva7l85x7ayfp.jpg', 2, '{-1,-2}'),
-    (-10, 'Squirtle', 'Craft all potions', 'https://art.pixilart.com/thumb/c13d41c55906657.png', 1, '{-4,-7}'),
-    (-8, 'Ljubicica', 'Run a total of 42km', 'https://i.redd.it/some-flowers-v0-0yh6cbhr6ptb1.png?width=1984&format=png&auto=webp&s=6b60ab6d979e66cae373befc9b567db4001d1837', 0, '{}');
-
-
+    (-1, 'Acorn', 'Description', 'https://via-ventura.com/images/c4619369-f1e1-4ae5-b61d-08702abca0e1.svg', 0, '{}'),
+    (-2, 'Bee', 'Description', 'https://via-ventura.com/images/c9217a49-0182-48cb-9779-e07f4a2da31f.svg', 0, '{}'),
+    (-3, 'Chamomile', 'Description', 'https://via-ventura.com/images/0d174a6a-773c-4e38-a56a-b2000af9ea05.svg', 0, '{}'),
+    (-4, 'Fertilizer', 'Description', 'https://via-ventura.com/images/d781f52f-8104-4edf-bab2-2d160fdda94b.svg', 0, '{}'),
+    (-5, 'Lemon', 'Description', 'https://via-ventura.com/images/1f28ccf1-27e5-418e-bc5e-308bbd2941ef.svg', 0, '{}'),
+    (-6, 'Menta', 'Description', 'https://via-ventura.com/images/42029efc-1c52-4658-a015-e08045b5f1c2.svg', 0, '{}'),
+    (-7, 'Oakleaf', 'Description', 'https://via-ventura.com/images/65e5f6e2-8157-4b47-842f-9491f6cd27b4.svg', 0, '{}'),
+    (-8, 'Rose', 'Description', 'https://via-ventura.com/images/dc46d6d9-4297-422d-82cb-6791792bc03c.svg', 0, '{}'),
+    (-9, 'Watering Can', 'Description', 'https://via-ventura.com/images/3bf8d143-971f-4e77-ba66-1a2bedf8601c.svg', 0, '{}'),
+    (-10, 'Black Locust', 'Description', 'https://via-ventura.com/images/be373689-b160-469b-88c2-96974a49e27b.svg', 1, '{}'),
+	(-11, 'Garden Cart', 'Description', 'https://via-ventura.com/images/85ca4654-704c-4167-89ad-339969bac6b7.svg', 1, '{}'),
+	(-12, 'Hazelnut', 'Description', 'https://via-ventura.com/images/851a69be-14b2-4e97-83da-e0845a618bbb.svg', 1, '{}'),
+	(-13, 'Hibiscus', 'Description', 'https://via-ventura.com/images/8bd1ad42-98d4-4b7e-913d-9831c8b51515.svg', 1, '{}'),
+	(-14, 'Narcissus', 'Description', 'https://via-ventura.com/images/b5c99ed1-e1f0-4421-bdf3-95290f415b1a.svg', 1, '{}'),
+	(-15, 'Oaktree', 'Description', 'https://via-ventura.com/images/ca50399f-2d59-43ba-880f-f051cae25be3.svg', 1, '{-11,-9,-4}'),
+	(-16, 'Orange', 'Description', 'https://via-ventura.com/images/e081ece7-26fd-4a6d-9ae4-b61e5dbb4f23.svg', 1, '{}'),
+	(-17, 'Tulip', 'Description', 'https://via-ventura.com/images/27b7c3ef-5065-445d-9708-98fc90ec4511.svg', 1, '{}'),
+	(-18, 'Ginger', 'Description', 'https://via-ventura.com/images/044fba27-8fab-4d83-a4c9-90ab0f82d366.svg', 2, '{}'),
+	(-19, 'Bouquet', 'Description', 'https://via-ventura.com/images/380cc51c-f242-459b-a8bd-cf3e5a15c78d.svg', 2, '{-14,-8,-17}'),
+	(-20, 'Honey jar', 'Description', 'https://via-ventura.com/images/882dee14-8fec-4652-b600-b7c2dbb98023.svg', 2, '{-2,-10}'),
+	(-21, 'Maple Leaf', 'Description', 'https://via-ventura.com/images/d0b89fd5-0258-4f05-ad6b-2bfb8812104c.svg', 2, '{}'),
+	(-22, 'Tea', 'Description', 'https://via-ventura.com/images/d2ad3c91-4c98-4fa9-95b8-c1bedc3af232.svg', 2, '{-3,-13,-6}'),
+	(-23, 'Elixir', 'Description', 'https://via-ventura.com/images/f26c77db-e0fd-4440-a831-d2c49a6added.svg', 3, '{-18,-16,-5}'),
+	(-24, 'Ramonda', 'Description', 'https://via-ventura.com/images/24ed4a36-5b66-4154-9e80-9d1769846dcc.svg', 3, '{}'),
+	(-25, 'Squirrel', 'Description', 'https://via-ventura.com/images/23c7bd19-21ce-432e-b732-3363a9227dc3.svg', 3, '{-1,-12}');
 INSERT INTO achievements."Inventory"(
     "Id", "UserId", "Achievements")
 	VALUES
