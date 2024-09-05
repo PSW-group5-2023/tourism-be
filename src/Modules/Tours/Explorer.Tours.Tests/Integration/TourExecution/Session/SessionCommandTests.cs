@@ -22,7 +22,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         {
             using var scope = Factory.Services.CreateScope();
 
-            var controller = CreateController(scope);
+            var controller = CreateController(scope,"-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             var result = (ObjectResult)controller.Update(session).Result;
@@ -42,7 +42,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         {
             using var scope = Factory.Services.CreateScope();
 
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             var result = (ObjectResult)controller.UpdateMobile(session).Result;
@@ -61,7 +61,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         public void Create_session(SessionDto session, int expectedResponseCode)
         {
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             var result = (ObjectResult)controller.Create(session).Result;
@@ -78,7 +78,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         public void Create_session_mobile(SessionMobileDto session, int expectedResponseCode)
         {
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             var result = (ObjectResult)controller.CreateMobile(session).Result;
@@ -86,7 +86,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
             result.StatusCode.ShouldBe(expectedResponseCode);
 
             // Assert - Database
-            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.Id == session.Id);
+            var storedEntity = dbContext.Sessions.FirstOrDefault(t => t.TouristId == session.TouristId && t.TourId==session.TourId);
             storedEntity.ShouldNotBeNull();
         }
 
@@ -180,7 +180,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             var result = (ObjectResult)controller.CompleteKeyPoint(sessionId, keyPointId).Result;
@@ -203,7 +203,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             // Act
@@ -219,7 +219,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
 
             // Act
@@ -229,11 +229,11 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Session
             result.StatusCode.ShouldBe(expectedResponseCode);
         }
 
-        private static SessionController CreateController(IServiceScope scope)
+        private static SessionController CreateController(IServiceScope scope, string userId)
         {
             return new SessionController(scope.ServiceProvider.GetRequiredService<ISessionService>())
             {
-                ControllerContext = BuildContext("-1")
+                ControllerContext = BuildContext(userId)
             };
         }
     }

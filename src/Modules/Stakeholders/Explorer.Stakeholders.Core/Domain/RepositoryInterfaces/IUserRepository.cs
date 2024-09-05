@@ -14,6 +14,10 @@ public interface IUserRepository
 
     string GetUsername(long userId);
     List<User> GetAll();
+    Task<IQueryable<User>> GetAllGuestAsync();
+
     void SetRefreshToken(string username, string refreshToken);
     User Update(User user);
+
+    Task DeleteGuestsAsync(List<User> users, CancellationToken cancellationToken);
 }

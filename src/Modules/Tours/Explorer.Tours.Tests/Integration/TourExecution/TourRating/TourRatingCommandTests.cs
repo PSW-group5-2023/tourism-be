@@ -18,7 +18,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "1");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourRatingDto
             {
@@ -61,7 +61,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
 
             // Act
             var result = (ObjectResult)controller.Create(newEntity).Result;
@@ -76,7 +76,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var newEntity = new TourRatingMobileDto
             {
@@ -113,7 +113,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
 
             // Act
             var result = (ObjectResult)controller.CreateMobile(newEntity).Result;
@@ -127,7 +127,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             // Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
             var dbContext = scope.ServiceProvider.GetRequiredService<ToursContext>();
             var updatedEntity = new TourRatingDto
             {
@@ -173,7 +173,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
         {
             //Arrange
             using var scope = Factory.Services.CreateScope();
-            var controller = CreateController(scope);
+            var controller = CreateController(scope, "-21");
 
             // Act
             var result = (ObjectResult)controller.Update(updatedEntity).Result;
@@ -300,11 +300,11 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.TourRating
             };
         }
 
-        private static TourRatingController CreateController(IServiceScope scope)
+        private static TourRatingController CreateController(IServiceScope scope, string userId)
         {
             return new TourRatingController(scope.ServiceProvider.GetRequiredService<ITourRatingService>(), scope.ServiceProvider.GetRequiredService<ITourRatingMobileService>())
             {
-                ControllerContext = BuildContext("-1")
+                ControllerContext = BuildContext(userId)
             };
         }
     }

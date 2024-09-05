@@ -18,8 +18,8 @@ namespace Explorer.Stakeholders.Core.UseCases;
 
 public class AuthenticationService : BaseService<UserDto, User>, IAuthenticationService
 {
-    private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
     private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
+    private static readonly Regex PasswordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\W_]{8,}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(2000));
 
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -86,12 +86,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email));
-            var emailVerificationToken = Guid.NewGuid().ToString();
-            sendVerificationEmail(user, emailVerificationToken);
             if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
                 throw new ArgumentException("Invalid Password format. Password must be at least 8 characters long and include at least one uppercase letter and one number.");
 
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email,null));
+            var emailVerificationToken = Guid.NewGuid().ToString();
+            sendVerificationEmail(user, emailVerificationToken);          
             user.EmailVerificationToken = emailVerificationToken;
             var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
             user.RefreshToken = refreshToken.Value.RefreshToken;
@@ -110,7 +110,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
+            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true, "", null, null, null, DateTime.UtcNow));
 
             var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
             user.RefreshToken = refreshToken.Value.RefreshToken;

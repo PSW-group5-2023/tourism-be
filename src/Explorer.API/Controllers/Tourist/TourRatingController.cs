@@ -64,6 +64,8 @@ namespace Explorer.API.Controllers.Tourist
         [HttpPost("mobile")]
         public ActionResult<TourRatingMobileDto> CreateMobile([FromBody] TourRatingMobileDto rating)
         {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            rating.UserId=Convert.ToInt32(userId.Value);
             var result = _ratingMobileService.Create(rating);
             return CreateResponse(result);
         }
