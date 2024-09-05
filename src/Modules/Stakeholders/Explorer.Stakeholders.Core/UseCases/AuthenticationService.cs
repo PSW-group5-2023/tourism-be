@@ -86,7 +86,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email));
+            var user = _userRepository.Create(new User(account.Username, PasswordEncoder.Encode(account.Password), UserRole.Tourist, false, null,null, null, account.Email, null));
             var emailVerificationToken = Guid.NewGuid().ToString();
             sendVerificationEmail(user, emailVerificationToken);
             if (!string.IsNullOrWhiteSpace(account.Password) && !PasswordRegex.IsMatch(account.Password))
@@ -110,7 +110,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true));
+            var user = _userRepository.Create(new User(account.Username, null, UserRole.Guest, true, "", null, null, null, DateTime.UtcNow));
 
             var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
             user.RefreshToken = refreshToken.Value.RefreshToken;
