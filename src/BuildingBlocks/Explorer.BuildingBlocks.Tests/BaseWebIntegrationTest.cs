@@ -23,7 +23,7 @@ public class BaseWebIntegrationTest<TTestFactory> : IClassFixture<TTestFactory> 
             {
                 User = new ClaimsPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim("personId", id)
+                    new Claim("id", id)
                 }))
             }
         };
