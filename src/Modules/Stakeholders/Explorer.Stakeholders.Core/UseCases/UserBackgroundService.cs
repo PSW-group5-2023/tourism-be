@@ -1,4 +1,5 @@
-﻿using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+﻿using Explorer.Achievements.API.Internal;
+using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +34,8 @@ namespace Explorer.Stakeholders.Core.UseCases
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+                var inventoryMobileInternalService = scope.ServiceProvider.GetRequiredService<IInventoryMobileInternalService>();
+
                 var usersQuery = await userRepository.GetAllGuestAsync();
                 var usersToDelete = await usersQuery
                     .Where(u => (DateTime.UtcNow - u.GuestDateTimeCreated) >= TimeSpan.FromDays(14))
@@ -42,6 +45,12 @@ namespace Explorer.Stakeholders.Core.UseCases
                 {
                     await userRepository.DeleteGuestsAsync(usersToDelete, stoppingToken);
                 }
+
+                foreach (var user in usersToDelete)
+                {
+                    await Task.Run(() => inventoryMobileInternalService.DeleteByUserId(Convert.ToInt32(user.Id)), stoppingToken);
+                }
+
             }
         }
     }
