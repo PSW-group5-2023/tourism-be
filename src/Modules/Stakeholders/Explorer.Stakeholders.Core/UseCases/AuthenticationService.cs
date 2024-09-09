@@ -13,6 +13,7 @@ using AutoMapper;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Principal;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
@@ -49,6 +50,8 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
 
     public Result<RegisteredUserDto> RegisterTourist(AccountRegistrationDto account)
     {
+        if(IsEmailAlreadyExists(account.Email))
+            return Result.Fail(FailureCode.NonUniqueEmail);
         if (_userRepository.Exists(account.Username))
         {
             var user = _userRepository.GetByUsername(account.Username);
@@ -74,7 +77,6 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
                     var refreshToken = _tokenGenerator.GenerateAccessAndRefreshToken(user);
                     user.RefreshToken=refreshToken.Value.RefreshToken;
                     var updatedUser = _userRepository.Update(user);
-                    sendVerificationEmail(user, Guid.NewGuid().ToString());
                     return new RegisteredUserDto(updatedUser.Id, updatedUser.Username, updatedUser.Role.ToString());
                 }
                 catch(ArgumentException e)
@@ -103,6 +105,12 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         {
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
         }
+    }
+    private bool IsEmailAlreadyExists(string email)
+    {
+        if (_userRepository.GetByEmail(email)==null) 
+            return false;
+        return true;
     }
     public Result<AuthenticationTokensDto> RegisterGuest(AccountMobileDto account)
     {

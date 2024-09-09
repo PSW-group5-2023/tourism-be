@@ -19,5 +19,6 @@ namespace Explorer.Achievements.API.Public
         Result<InventoryDto> AddAchievementToInventory(int userId, int achivementId);
         Result<InventoryDto> AddComplexAchievementToInventory(int userId, List<int> requiredAchievemements);
         Result<InventoryDto> GetByUserId(int userId);
+        Result<bool> IsUniqueUserId(int userId);
     }
 }
