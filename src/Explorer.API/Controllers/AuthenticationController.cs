@@ -37,9 +37,11 @@ public class AuthenticationController : BaseApiController
             WalletDto wallet = new WalletDto(result.Value.Id, 0);
             _walletService.Create(wallet);
             _userExperienceService.Create(result.Value.Id);
-
-            InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
-            _inventoryService.Create(inventory);
+            if(_inventoryService.IsUniqueUserId(Convert.ToInt32(result.Value.Id)).Value)
+            { 
+                InventoryDto inventory = new InventoryDto(result.Value.Id, new Dictionary<int, int>());
+                _inventoryService.Create(inventory);
+            }
 
             return CreateResponse(result);
         }

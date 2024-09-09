@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Explorer.Achievements.Core.UseCases
 {
-    public class InventoryService:CrudService<InventoryDto,Inventory>,IInventoryService
+    public class InventoryService : CrudService<InventoryDto, Inventory>, IInventoryService
     {
         private IAchievementService _achievementService;
         private IInventoryRepository _inventoryRepository;
@@ -70,6 +70,13 @@ namespace Explorer.Achievements.Core.UseCases
         { 
             return MapToDto(_inventoryRepository.GetByUserId(userId).Value);
         }
-       
+
+        public Result<bool> IsUniqueUserId(int userId)
+        {
+            var result= GetByUserId(userId);
+            if (result.Value==null)
+                return true;
+            return false;
+        }
     }
 }
