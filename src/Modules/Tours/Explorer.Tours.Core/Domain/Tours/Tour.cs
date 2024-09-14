@@ -3,6 +3,7 @@ using Explorer.Tours.Core.Domain;
 using Explorer.Tours.Core.Domain.Equipment;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace Explorer.Tours.Core.Domain.Tours
 {
     public class Tour : Entity
