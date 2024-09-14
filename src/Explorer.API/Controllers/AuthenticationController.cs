@@ -6,6 +6,7 @@ using Explorer.Encounters.API.Public;
 using Explorer.Payments.API.Dtos;
 using Explorer.Payments.API.Public;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 using Explorer.Stakeholders.API.Public;
 using Microsoft.AspNetCore.Mvc;
 
@@ -130,6 +131,34 @@ public class AuthenticationController : BaseApiController
             return BadRequest(errorResponse);
         }
 
+    }
+
+    [HttpPost("changePassword/mobile")]
+    public ActionResult<string> ChangePasswordMobile([FromBody] ChangePasswordMobileDto changePassword)
+    {
+        try
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _authenticationService.ChangePasswordMobile(changePassword, Convert.ToInt32(userId.Value));
+            if (result.IsFailed)
+            {
+                var errorResponse = new
+                {
+                    ErrorMessage = "Request failed",
+                    Errors = result.Errors.Select(error => error.Message),
+                    Success = false
+                };
+
+                return BadRequest(errorResponse);
+            }
+            var response = new { Message = result, Success = true };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            var errorResponse = new { ErrorMessage = ex.Message, Success = false };
+            return BadRequest(errorResponse);
+        }
     }
 
     [HttpPost("activateUser")]

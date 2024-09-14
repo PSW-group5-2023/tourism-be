@@ -26,6 +26,8 @@ namespace Explorer.Tours.API.Public.Tour
         Result<TourDto> CreateCampaign(List<TourDto> tours, string name, string description, int touristId);
         Result<PagedResult<TourMobileDto>> GetPagedMobileByLocation(int page, int pageSize, LocationMobileDto location);
         List<TourDto> GetAllByAuthorId(int authorId);
-        Result<PagedResult<TourMobileDto>> GetPagedMobileByRating(int page, int pageSize, int rating);
+        Result<PagedResult<TourMobileDto>> GetPagedMobileByRating(int page, int pageSize, int rating);      
+        Result<PagedResult<TourMobileDto>> GetPagedMobileByLocationAndRating(int page, int pageSize, LocationMobileDto location, int rating);
+
     }
 }
