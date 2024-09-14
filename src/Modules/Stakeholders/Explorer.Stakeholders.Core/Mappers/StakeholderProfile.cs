@@ -29,6 +29,6 @@ public class StakeholderProfile : Profile
         CreateMap<Follower, FollowerDto>().IncludeAllDerived()
             .ForMember(dest => dest.Notification, opt => opt.MapFrom(src => src.Notification));
         CreateMap<UserNewsDto, UserNews>().ReverseMap();
-        CreateMap<UserInformationMobileDto,User>().ReverseMap();
+        CreateMap<UserInformationMobileDto,User>().ReverseMap().ForMember(dest => dest.AvatarImage, opt => opt.MapFrom(src => src.AvatarImage.ToString()));
     }
 }

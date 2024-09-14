@@ -17,9 +17,10 @@ public class User : Entity
     public string? RefreshToken { get; set; }
     public string? Email {  get; set; }
     public DateTime? GuestDateTimeCreated { get; set; }
+    public Uri? AvatarImage { get; set; }
 
 
-    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? refershToken = "", string? email = null, DateTime? guestDateTimeCreated = null)
+    public User(string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? refershToken = "", string? email = null, DateTime? guestDateTimeCreated = null, Uri? avatarImage=null)
     {
         Username = username;
         Password = password ;
@@ -30,10 +31,11 @@ public class User : Entity
         RefreshToken = refershToken;
         Email = email;
         GuestDateTimeCreated = guestDateTimeCreated;
+        AvatarImage = avatarImage;
         Validate();
     }
 
-    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null, DateTime? guestDateTimeCreated = null)
+    public User(long id, string username, string password, UserRole role, bool isActive, string? resetPasswordToken = "", string? emailVerificationToken = null, string? email = null, DateTime? guestDateTimeCreated = null, Uri? avatarImage = null)
     {
         Id = id;
         Username = username;
@@ -44,6 +46,7 @@ public class User : Entity
         EmailVerificationToken = emailVerificationToken;
         Email = email;
         GuestDateTimeCreated = guestDateTimeCreated;
+        AvatarImage = avatarImage;
         Validate();
     }
 
@@ -77,6 +80,10 @@ public class User : Entity
     public void ActivateUser()
     {
         IsActive = true;
+    }
+    public void ChangeAvatarImage(string image)
+    {
+        AvatarImage = new System.Uri(image);
     }
 }
 

@@ -17,14 +17,14 @@ INSERT INTO stakeholders."Users"(
 VALUES (-4, 'admi2n@gmail.com', 'B21fiSrUcBRIOfhgS1vbwx04+AGyNdGG4zd8lhL+8aF3lFQtgVQlgnhANLiDeP97IKDfBvYzw/EvGYv6FKaqSW5OO700Q554IeRPlg6pJV8=', 0, true, null, null, null);
 
 INSERT INTO stakeholders."Users"(
-    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
-VALUES (-21, 'turista1@gmail.com', 'J+IvNwTusQuashZZlFZFJl/OwpWAK4OutzmuZxNIfEJUPUiuSbCP9om6FpxBSTdZgartnAc2Wcd6SgoGNqHIEV0q/7ZKGBxV5fsaZVkkuGY=', 2, true, null, null, 'turista1@gmail.com');
+    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email", "AvatarImage")
+VALUES (-21, 'turista1@gmail.com', 'J+IvNwTusQuashZZlFZFJl/OwpWAK4OutzmuZxNIfEJUPUiuSbCP9om6FpxBSTdZgartnAc2Wcd6SgoGNqHIEV0q/7ZKGBxV5fsaZVkkuGY=', 2, true, null, null, 'turista1@gmail.com','https://via-ventura.com/images/c33b8f42-d121-4562-b50e-674c42076c4b.png');
 INSERT INTO stakeholders."Users"(
-    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
-VALUES (-22, 'turista2@gmail.com', 'HtKuauWNOZwiGfmtxOzXIziMnbq9XcLipshWLX2Z8hKCey0ZJe1GBFHfazlsnBhyq9wnnlzXuYPler/p5wWzDkkheYwEiAunYnyFWst+G94=', 2, true, null, null, null);
+    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email", "AvatarImage")
+VALUES (-22, 'turista2@gmail.com', 'HtKuauWNOZwiGfmtxOzXIziMnbq9XcLipshWLX2Z8hKCey0ZJe1GBFHfazlsnBhyq9wnnlzXuYPler/p5wWzDkkheYwEiAunYnyFWst+G94=', 2, true, null, null, null,'https://via-ventura.com/images/c33b8f42-d121-4562-b50e-674c42076c4b.png');
 INSERT INTO stakeholders."Users"(
-    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
-VALUES (-23, 'turista3@gmail.com', 'Sj5ha8gaRyRY/r+OHitHUMkKHvBH9kssbEFyoy06IP4FzRp0tlw9EyXaTgyfWWaWo+hYfxa7tTJweR4g5dduJp/TzAtQySNLWZhUUNMGiDk=', 2, true, null, null, null);
+    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email", "AvatarImage")
+VALUES (-23, 'turista3@gmail.com', 'Sj5ha8gaRyRY/r+OHitHUMkKHvBH9kssbEFyoy06IP4FzRp0tlw9EyXaTgyfWWaWo+hYfxa7tTJweR4g5dduJp/TzAtQySNLWZhUUNMGiDk=', 2, true, null, null, null,'https://via-ventura.com/images/c33b8f42-d121-4562-b50e-674c42076c4b.png');
 INSERT INTO stakeholders."Users"(
-    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email")
-VALUES (-24, 'turista4@gmail.com', 'G0AmI8kLLnaYbZi4fn3Nyg6lFhYyIFEllz6Oes5lOzfpJPuQU0yFnV+FfSXS35nTWxsJkpb/oiqHoMzlxFLq02HGs9+aegv/1a+A61h+xS0=', 2, true, null, null, null);
+    "Id", "Username", "Password", "Role", "IsActive", "ResetPasswordToken", "EmailVerificationToken","Email", "AvatarImage")
+VALUES (-24, 'turista4@gmail.com', 'G0AmI8kLLnaYbZi4fn3Nyg6lFhYyIFEllz6Oes5lOzfpJPuQU0yFnV+FfSXS35nTWxsJkpb/oiqHoMzlxFLq02HGs9+aegv/1a+A61h+xS0=', 2, true, null, null, null,'https://via-ventura.com/images/c33b8f42-d121-4562-b50e-674c42076c4b.png');

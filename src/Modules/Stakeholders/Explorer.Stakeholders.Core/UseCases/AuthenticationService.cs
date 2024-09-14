@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Principal;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
@@ -250,8 +251,39 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             return Result.Fail(ex.Message);
         }
 
-        
     }
+
+    public Result<string> ChangePasswordMobile(ChangePasswordMobileDto changePassword, int userId)
+    {
+        try
+        {
+                  
+            if (!doPasswordsMatch(changePassword.newPassword, changePassword.newPasswordConfirm))
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError("Passwords don't match");
+            }
+            
+            if (!PasswordRegex.IsMatch(changePassword.newPassword))
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError("Password must be at least 8 characters long, contain one uppercase letter, and one number.");
+            }
+          
+            var user = _userRepository.Get(userId);
+            if (user == null)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError("User not found");
+            }
+         
+            updatePassword(user, changePassword.newPassword);
+
+            return Result.Ok("Password successfully changed");
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(ex.Message);
+        }
+    }
+
     private bool doPasswordsMatch(string password, string passwordConfirm)
     {
         return password == passwordConfirm;
