@@ -58,6 +58,8 @@ public class ToursProfile : Profile
         CreateMap<TourMobileDto, Tour>().ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(img => new Uri(img)).ToList()));
         CreateMap<TourMobileDto, TourRating>().ReverseMap().ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Mark));
         CreateMap<CheckpointMobileDto, Checkpoint>().ReverseMap();
-   
+        CreateMap<CheckpointMobileDto, Checkpoint>().ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.Select(uri => uri.ToString()))); //mozda su ovakve stvari nepotrebne
+
+
     }
 }

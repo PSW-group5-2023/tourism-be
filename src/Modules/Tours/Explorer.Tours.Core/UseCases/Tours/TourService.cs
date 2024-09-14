@@ -341,6 +341,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         Id = checkpoint.Id,
                         Name = checkpoint.Name,
                         Description = checkpoint.Description,
+                        Image = checkpoint.Image.ToString(),
                         Latitude = checkpoint.Latitude,
                         Longitude = checkpoint.Longitude,
                         Questions = new List<TourModuleQuizMobileDto>(),
@@ -416,6 +417,20 @@ namespace Explorer.Tours.Core.UseCases.Tours
             return Result.Ok(pagedResult);
         }
 
+        public Result<PagedResult<TourMobileDto>> GetPagedMobileByLocationAndRating(int page, int pageSize, LocationMobileDto location, int rating)
+        {         
+            var locationResult = GetPagedMobileByLocation(page, pageSize, location);
+
+            if (!locationResult.IsSuccess)
+                return Result.Fail<PagedResult<TourMobileDto>>(locationResult.Errors);
+       
+            var filteredByRating = locationResult.Value.Results.Where(x => x.Rating >= rating).ToList();
+
+            var pagedResult = new PagedResult<TourMobileDto>(filteredByRating, filteredByRating.Count);
+
+            return Result.Ok(pagedResult);
+        }
+
         private int GetCompletedSessionCount(int tourId)
         {
             return _sessionRepository.GetCountByTourIdAndStatus(tourId, SessionStatus.COMPLETED);
@@ -454,6 +469,7 @@ namespace Explorer.Tours.Core.UseCases.Tours
                         Id = checkpoint.Id,
                         Name = checkpoint.Name,
                         Description = checkpoint.Description,
+                        Image = checkpoint.Image.ToString(),
                         Latitude = checkpoint.Latitude,
                         Longitude = checkpoint.Longitude,
                         Questions = new List<TourModuleQuizMobileDto>(),
@@ -505,5 +521,6 @@ namespace Explorer.Tours.Core.UseCases.Tours
            
         }
 
+        
     }
 }
