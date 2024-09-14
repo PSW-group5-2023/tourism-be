@@ -2,6 +2,7 @@
 using Explorer.Achievements.API.Public;
 using Explorer.Achievements.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 using Explorer.Stakeholders.API.Public;
 using FluentResults;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace Explorer.API.Controllers.Tourist
             _userInformaionService = userInformaionService;
         }
         [HttpGet]
-        public ActionResult<UserInformationDto> GetMobile()
+        public ActionResult<UserInformationMobileDto> GetMobile()
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
             var result = _userInformaionService.GetMobile(Convert.ToInt32(userId.Value));
@@ -33,6 +34,13 @@ namespace Explorer.API.Controllers.Tourist
             var result= _userInformaionService.Delete(Convert.ToInt32(userId.Value));
             return CreateResponse(result);
 
+        }
+        [HttpPut("changeAvatarImage")]
+        public ActionResult<string> ChangeAvatarImage([FromBody]string image)
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
+            var result = _userInformaionService.ChangeAvatarImage(image, Convert.ToInt32(userId.Value));
+            return CreateResponse(result);
         }
     }
 }

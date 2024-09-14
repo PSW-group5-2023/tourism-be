@@ -83,6 +83,7 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
             result.TotalCount.ShouldBe(1);
         }
         [Fact]
+
         public void Retrieves_all_mobile_filtered_by_rating()
         {
             // Arrange
@@ -91,6 +92,22 @@ namespace Explorer.Tours.Tests.Integration.TourExecution.Tour
 
             // Act
             var result = ((ObjectResult)controller.GetAllFilterByRatingMobile(0, 0, 4).Result)?.Value as PagedResult<TourMobileDto>;
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Results.Count.ShouldBe(1);
+            result.TotalCount.ShouldBe(1);
+        }
+
+        [Fact]
+        public void Retrieves_all_mobile_filtered_by_rating_and_location()
+        {
+            // Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = CreateController(scope);
+
+            // Act
+            var result = ((ObjectResult)controller.GetAllFilterByLocationAndRatingMobile(0, 0, 10, 24.209304098892062, 12.332725774649834, 1).Result)?.Value as PagedResult<TourMobileDto>;
 
             // Assert
             result.ShouldNotBeNull();

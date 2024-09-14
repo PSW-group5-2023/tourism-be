@@ -25,7 +25,9 @@ namespace Explorer.Stakeholders.Core.UseCases
         public Result<UserInformationMobileDto> GetMobile(int userId)
         {
             var user = CrudRepository.Get(userId);
-            return new UserInformationMobileDto(user.Username,user.Role.ToString(), user.Email);
+            if(user.AvatarImage==null) 
+                return new UserInformationMobileDto(user.Username, user.Role.ToString(), user.Email);
+            return new UserInformationMobileDto(user.Username,user.Role.ToString(), user.Email,user.AvatarImage.ToString());
         }
 
         public Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons)
@@ -52,6 +54,21 @@ namespace Explorer.Stakeholders.Core.UseCases
                 return Result.Ok();
             }
             catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<string> ChangeAvatarImage(string image, int userId)
+        {
+            try 
+            {
+                var user = CrudRepository.Get(userId);
+                user.ChangeAvatarImage(image);
+                CrudRepository.Update(user);
+                return Result.Ok();
+            }
+            catch(Exception e)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }

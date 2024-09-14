@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Principal;
+using Explorer.Stakeholders.API.Dtos.Tourist;
 
 namespace Explorer.Stakeholders.Core.UseCases;
 
@@ -250,7 +251,6 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             return Result.Fail(ex.Message);
         }
 
-        
     }
 
     public Result<string> ChangePasswordMobile(ChangePasswordMobileDto changePassword, int userId)
@@ -258,6 +258,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
         try
         {
             
+                  
             if (!doPasswordsMatch(changePassword.newPassword, changePassword.newPasswordConfirm))
             {
                 return Result.Fail(FailureCode.InvalidArgument).WithError("Passwords don't match");

@@ -119,12 +119,14 @@ namespace Explorer.API.Controllers.Tourist
             var result = _recommenderService.FilterRecommendedTours(tourId, userId,rating);
             return CreateResponse(result);
         }
+
         [HttpGet("filterByRating/mobile/{rating:int}")]
         public ActionResult<PagedResult<TourMobileDto>> GetAllFilterByRatingMobile([FromQuery] int page, [FromQuery] int pageSize, int rating)
         {
             var result =_tourService.GetPagedMobileByRating(page, pageSize, rating);
             return CreateResponse(result);
         }
+
         [HttpGet("filterByLocation/mobile/{radius:double}/{latitude:double}/{longitude:double}")]
         public ActionResult<PagedResult<TourMobileDto>> GetAllFilterByLocationMobile([FromQuery] int page, [FromQuery] int pageSize,double radius, double latitude, double longitude )
         {
@@ -132,5 +134,15 @@ namespace Explorer.API.Controllers.Tourist
             var result = _tourService.GetPagedMobileByLocation(page, pageSize, location);
             return CreateResponse(result);
         }
+
+        [HttpGet("filterByLocationAndRating/mobile/{rating:int}/{radius:double}/{latitude:double}/{longitude:double}")]
+        public ActionResult<PagedResult<TourMobileDto>> GetAllFilterByLocationAndRatingMobile(
+        [FromQuery] int page, [FromQuery] int pageSize, double radius, double latitude, double longitude, int rating)
+        {
+            LocationMobileDto location = new LocationMobileDto(radius, latitude, longitude);
+            var result = _tourService.GetPagedMobileByLocationAndRating(page, pageSize, location, rating);
+            return CreateResponse(result);
+        }
+
     }
 }
