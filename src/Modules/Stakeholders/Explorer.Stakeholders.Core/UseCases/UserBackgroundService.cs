@@ -1,4 +1,6 @@
-﻿using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+using Explorer.Achievements.API.Internal;
+using Explorer.Achievements.Core.UseCases;
+using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,15 +16,13 @@ namespace Explorer.Stakeholders.Core.UseCases
     public class UserBackgroundService : BackgroundService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly InventoryMobileInternalService inventoryMobileInternalService;
         private readonly ILogger<UserBackgroundService> _logger;
-
-
         public UserBackgroundService(IServiceScopeFactory serviceScopeFactory, ILogger<UserBackgroundService> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
         }
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
@@ -38,7 +38,6 @@ namespace Explorer.Stakeholders.Core.UseCases
                 _logger.LogError(ex, "An error occurred during background execution.");
             }
         }
-
         private async Task CleanUpAccounts(CancellationToken stoppingToken)
         {
             try
@@ -55,6 +54,10 @@ namespace Explorer.Stakeholders.Core.UseCases
                     {
                         await userRepository.DeleteGuestsAsync(usersToDelete, stoppingToken);
                         _logger.LogInformation($"{usersToDelete.Count} guest accounts were deleted.");
+                    }
+                    foreach (var user in usersToDelete)
+                    {
+                        await Task.Run(() => inventoryMobileInternalService.DeleteByUserId(Convert.ToInt32(user.Id)), stoppingToken);
                     }
                 }
             }

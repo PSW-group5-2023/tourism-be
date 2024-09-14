@@ -257,6 +257,7 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
     {
         try
         {
+            
                   
             if (!doPasswordsMatch(changePassword.newPassword, changePassword.newPasswordConfirm))
             {
@@ -269,6 +270,10 @@ public class AuthenticationService : BaseService<UserDto, User>, IAuthentication
             }
           
             var user = _userRepository.Get(userId);
+            if (!PasswordEncoder.Matches(changePassword.oldPassword, user.Password))
+            { 
+                return Result.Fail(FailureCode.InvalidArgument).WithError("Old password don't match"); 
+            }
             if (user == null)
             {
                 return Result.Fail(FailureCode.NotFound).WithError("User not found");
