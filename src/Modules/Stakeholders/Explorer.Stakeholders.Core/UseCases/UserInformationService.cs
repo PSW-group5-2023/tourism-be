@@ -59,14 +59,14 @@ namespace Explorer.Stakeholders.Core.UseCases
             }
         }
 
-        public Result<string> ChangeAvatarImage(string image, int userId)
+        public Result<UserInformationMobileDto> ChangeAvatarImage(string image, int userId)
         {
             try 
             {
                 var user = CrudRepository.Get(userId);
                 user.ChangeAvatarImage(image);
                 CrudRepository.Update(user);
-                return Result.Ok();
+                return new UserInformationMobileDto(user.Username, user.Role.ToString(), user.Email,user.AvatarImage.ToString()).ToResult();
             }
             catch(Exception e)
             {

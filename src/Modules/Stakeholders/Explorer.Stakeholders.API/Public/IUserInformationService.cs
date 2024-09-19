@@ -16,6 +16,6 @@ namespace Explorer.Stakeholders.API.Public
         Result<PagedResult<UserInformationDto>> Join(Result<PagedResult<UserInformationDto>> users, Result<PagedResult<UserInformationDto>> persons);
         Result<UserInformationMobileDto> GetMobile(int userId);
         Result Delete(int userId);
-        Result<string> ChangeAvatarImage(string image, int userId);
+        Result<UserInformationMobileDto> ChangeAvatarImage(string image, int userId);
     }
 }

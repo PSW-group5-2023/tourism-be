@@ -4,6 +4,7 @@ using Explorer.Achievements.Core.UseCases;
 using Explorer.Stakeholders.API.Dtos;
 using Explorer.Stakeholders.API.Dtos.Tourist;
 using Explorer.Stakeholders.API.Public;
+using Explorer.Stakeholders.Core.Domain;
 using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace Explorer.API.Controllers.Tourist
 
         }
         [HttpPut("changeAvatarImage")]
-        public ActionResult<string> ChangeAvatarImage([FromBody]string image)
+        public ActionResult<UserInformationMobileDto> ChangeAvatarImage([FromBody]string image)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("id"));
             var result = _userInformaionService.ChangeAvatarImage(image, Convert.ToInt32(userId.Value));
